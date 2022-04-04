@@ -44,8 +44,8 @@ model User {
   image         String?
   accounts      Account[]
   sessions      Session[]
-  Product       Product[]
-  Outfit        Outfit[]
+  products      Product[]
+  outfits       Outfit[]
 }
 
 model VerificationToken {
