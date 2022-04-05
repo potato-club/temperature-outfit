@@ -2,6 +2,8 @@ import React from 'react';
 import styled from '@emotion/styled';
 import { color } from 'constants/index';
 import { TypoGraphy } from './index';
+import { FaRegCalendarAlt } from 'react-icons/fa';
+import { IoFileTrayStackedSharp } from 'react-icons/io5';
 
 export const Header: React.FC = () => {
   return (
@@ -11,8 +13,12 @@ export const Header: React.FC = () => {
           Write down today&apos;s outfit.
         </TypoGraphy>
         <ButtonBox>
-          <Logo>달력</Logo>
-          <Logo>옷걸이</Logo>
+          <Logo>
+            <FaRegCalendarAlt size="20px" />
+          </Logo>
+          <Logo>
+            <IoFileTrayStackedSharp size="20px" />
+          </Logo>
         </ButtonBox>
       </Div>
     </Wrapper>
@@ -40,8 +46,9 @@ const Div = styled.div`
 
 const ButtonBox = styled.div`
   display: flex;
-  gap: 10px;
+  gap: 16px;
 `;
-const Logo = styled.button`
+const Logo = styled.div`
   cursor: pointer;
+  color: ${color.white};
 `;
