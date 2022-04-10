@@ -1,13 +1,11 @@
-import { LayoutContainer, DivBox } from 'components/common';
+import { LayoutContainer, DivBox, ClothesMain } from 'components/common';
 import type { NextPage } from 'next';
 
 const Home: NextPage = () => {
   return (
-    <LayoutContainer>
-      <DivBox width={500} height={100}>
-        이렇게 사용하면 됨
-      </DivBox>
-    </LayoutContainer>
+    <DivBox width={600} height={300}>
+      <ClothesMain />
+    </DivBox>
   );
 };
 
