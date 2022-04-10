@@ -1,12 +1,8 @@
-import { LayoutContainer, DivBox, ClothesMain } from 'components/common';
+import { ClothesMain } from 'components/common';
 import type { NextPage } from 'next';
 
 const Home: NextPage = () => {
-  return (
-    <DivBox width={600} height={300}>
-      <ClothesMain />
-    </DivBox>
-  );
+  return <ClothesMain />;
 };
 
 export default Home;

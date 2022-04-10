@@ -4,7 +4,7 @@ export const color = {
   brandColor3: '#234D65',
   brandColor4: '#285773',
   brandColor5: '#1B3A4D',
-  brandColor5: '#1B3A4D',
+
   gray: 'gray',
   white: 'white',
   black: 'black',
