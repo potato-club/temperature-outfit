@@ -30,5 +30,5 @@ const Div = styled.div<StyledDivProps>`
   width: ${(props) => props.width}px;
   height: ${(props) => props.height}px;
   background-color: ${color.white};
-  opacity: 0.7;
+  /* opacity: 0.7; */
 `;
