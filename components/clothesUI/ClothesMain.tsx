@@ -4,8 +4,7 @@ import { LayoutContainer, DivBox, TypoGraphy } from 'components/common';
 import { color } from 'constants/color';
 import { AiOutlineRight, AiOutlineLeft } from 'react-icons/Ai';
 import { AiFillStar } from 'react-icons/Ai';
-import { ClothesItem } from 'components/ClothesItem';
-import { EnrollButton } from 'components/EnrollButton';
+import { ClothesItem, EnrollButton } from 'components/clothesUI';
 
 export const ClothesMain: React.FC = () => {
   return (

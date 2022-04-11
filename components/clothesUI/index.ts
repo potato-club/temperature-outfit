@@ -1,3 +1,3 @@
-import ClothesMain from './ClothesMain';
-import ClothesItem from './ClothesItem';
-import EnrollButton from './EnrollButton';
+export { ClothesMain } from './ClothesMain';
+export { ClothesItem } from './ClothesItem';
+export { EnrollButton } from './EnrollButton';

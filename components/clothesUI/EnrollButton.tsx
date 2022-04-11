@@ -1,27 +1,21 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import { color } from 'constants/index';
-import { TypoGraphy } from './common/TypoGraphy';
+import { TypoGraphy } from 'components/common';
 
 export const EnrollButton: React.FC = () => {
   return (
-    <Container>
-      <Button>
-        <TypoGraphy
-          type="h1"
-          color={color.brandColor5}
-          fontWeight="bold"
-          textAlign="center">
-          오늘 옷 등록하기
-        </TypoGraphy>
-      </Button>
-    </Container>
+    <Button>
+      <TypoGraphy
+        type="h1"
+        color={color.brandColor5}
+        fontWeight="bold"
+        textAlign="center">
+        오늘 옷 등록하기
+      </TypoGraphy>
+    </Button>
   );
 };
-
-export default EnrollButton;
-
-const Container = styled.form``;
 
 const Button = styled.button`
   width: 260px;
