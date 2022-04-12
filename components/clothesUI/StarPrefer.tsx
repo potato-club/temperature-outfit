@@ -23,5 +23,5 @@ const StarContainer = styled.div`
   justify-content: space-around;
   align-items: center;
   border-radius: 8px;
-  margin: 12px;
+  margin: 16px;
 `;

@@ -20,7 +20,9 @@ export const ClothesMain: React.FC = () => {
           fontWeight={'bold'}>
           Today My Outfit
         </TypoGraphy>
+
         <StarPrefer />
+
         <ClothesContainer>
           <AiOutlineLeft size={44} />
           <ClothesItem />
@@ -29,11 +31,11 @@ export const ClothesMain: React.FC = () => {
           <ClothesItem />
           <AiOutlineRight size={44} />
         </ClothesContainer>
-        {/* CSS설정 의문, 컨테이너 이름설정 질문 */}
 
-        <Comment />
-
-        <EnrollButton />
+        <Footer>
+          <Comment />
+          <EnrollButton />
+        </Footer>
       </DivBox>
     </LayoutContainer>
   );
@@ -42,19 +44,15 @@ export const ClothesMain: React.FC = () => {
 export default ClothesMain;
 
 const ClothesContainer = styled.div`
-  width: 1000px;
+  width: 1200px;
   display: flex;
   justify-content: space-between;
   align-items: center;
 `;
 
-const CommentEnroll = styled.div`
-  width: 1000px;
+const Footer = styled.div`
+  width: 1320px;
   display: flex;
-  justify-content: space-between;
   align-items: center;
-`;
-
-const CommentContainer = styled.div`
-  padding: 10px;
+  margin-top: 20px;
 `;
