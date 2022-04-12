@@ -1,3 +1,4 @@
 export { ClothesMain } from './ClothesMain';
-export { ClothesItem } from './ClothesItem';
 export { EnrollButton } from './EnrollButton';
+export { StarPrefer } from './StarPrefer';
+export { Comment } from './Comment';

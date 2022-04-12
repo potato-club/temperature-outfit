@@ -18,6 +18,7 @@ export const EnrollButton: React.FC = () => {
 };
 
 const Button = styled.button`
+  flex-wrap: nowrap;
   width: 260px;
   height: 60px;
   border-radius: 28px;
