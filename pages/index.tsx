@@ -1,11 +1,20 @@
 import { LayoutContainer } from 'components/common';
+import {
+  FirstWidget,
+  SecondWidget,
+  ThirdWidget,
+  WidgetsContainer,
+} from 'components/mainPage';
 import type { NextPage } from 'next';
-import { TopWidgets } from 'components/TopWidgets';
 
 const Home: NextPage = () => {
   return (
     <LayoutContainer>
-      <TopWidgets />
+      <WidgetsContainer>
+        <FirstWidget />
+        <SecondWidget />
+        <ThirdWidget />
+      </WidgetsContainer>
     </LayoutContainer>
   );
 };
