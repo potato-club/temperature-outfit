@@ -57,7 +57,7 @@ export const SecondWidget = () => {
 };
 
 const Hr = styled.hr`
-  background-color: white;
+  background-color: black;
 `;
 
 const WidgetContainer = styled.div`
