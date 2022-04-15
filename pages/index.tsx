@@ -1,13 +1,8 @@
-import { LayoutContainer } from 'components/common';
 import type { NextPage } from 'next';
-import { TopWidgets } from 'components/TopWidgets';
+import { LoginUi } from 'components/loginPage';
 
 const Home: NextPage = () => {
-  return (
-    <LayoutContainer>
-      <TopWidgets />
-    </LayoutContainer>
-  );
+  return <LoginUi />;
 };
 
 export default Home;
