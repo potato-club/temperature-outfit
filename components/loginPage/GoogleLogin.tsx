@@ -16,6 +16,7 @@ export const GoogleLogin: React.FC = () => {
   );
 };
 
+// img가 버튼인 척하고 있음 button이 아닌데
 const Button = styled.img`
   cursor: pointer;
 `;
