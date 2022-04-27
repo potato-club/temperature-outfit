@@ -1,5 +1,7 @@
 import React from 'react';
 import styled from '@emotion/styled';
+import Image from 'next/image';
+import googleLogo from 'assets/img/googleNormal.png';
 
 export const GoogleLogin: React.FC = () => {
   const onClick = () => {
@@ -7,16 +9,20 @@ export const GoogleLogin: React.FC = () => {
   };
 
   return (
-    <>
-      <Button
-        src="btn_google_signin_light_normal_web@2x.png"
-        onClick={onClick}
-      />
-    </>
+    <Button>
+      <Img onClick={onClick}>
+        <Image src={googleLogo} alt="구글 로고" />
+      </Img>
+    </Button>
   );
 };
 
-// img가 버튼인 척하고 있음 button이 아닌데
-const Button = styled.img`
+const Img = styled.div`
   cursor: pointer;
+`;
+
+const Button = styled.button`
+  cursor: pointer;
+  border: none;
+  outline: none;
 `;

@@ -60,7 +60,6 @@ const Hr = styled.div`
   margin: 8px;
   border: 0.1px solid;
   color: black;
-  width: ;
 `;
 
 const WidgetContainer = styled.div`

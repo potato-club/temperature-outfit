@@ -1,6 +1,8 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import { GoogleLogin } from './GoogleLogin';
+import Image from 'next/image';
+import fountainPen from 'assets/img/fountainPen.png';
 
 // 1. size 지정했기때문에 현재 데스크탑의 크기에 따라서 화면이 잘 안보임
 export const LoginUi: React.FC = () => {
@@ -10,7 +12,9 @@ export const LoginUi: React.FC = () => {
         <InWrap>
           <Title>
             &quot;Would you like to join us?&quot;
-            <MainIcon src="fountainPen.png" />
+            <MainIcon>
+              <Image src={fountainPen} alt="구글 로고" />
+            </MainIcon>
           </Title>
 
           <SubTitle>날씨의 따른 당신의 코디를 기록하세요</SubTitle>
@@ -58,7 +62,7 @@ const Title = styled.div`
   font-family: serif;
 `;
 
-const MainIcon = styled.img`
+const MainIcon = styled.div`
   width: 224px;
 `;
 
