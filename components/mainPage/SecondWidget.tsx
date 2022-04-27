@@ -56,8 +56,11 @@ export const SecondWidget = () => {
   );
 };
 
-const Hr = styled.hr`
-  background-color: black;
+const Hr = styled.div`
+  margin: 8px;
+  border: 0.1px solid;
+  color: black;
+  width: ;
 `;
 
 const WidgetContainer = styled.div`
@@ -85,9 +88,10 @@ const Ranking3 = styled.div`
   display: flex;
 `;
 
-const BoldHr = styled.hr`
+const BoldHr = styled.div`
+  margin: 8px;
   border: 1px solid;
-  background-color: black;
+  color: black;
 `;
 
 const VerticalHr = styled.hr`
