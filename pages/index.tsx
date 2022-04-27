@@ -1,20 +1,13 @@
-import { LayoutContainer } from 'components/common';
-import {
-  FirstWidget,
-  SecondWidget,
-  ThirdWidget,
-  WidgetsContainer,
-} from 'components/mainPage';
+import { LayoutContainer, DivBox, Header } from 'components/common';
 import type { NextPage } from 'next';
 
 const Home: NextPage = () => {
   return (
     <LayoutContainer>
-      <WidgetsContainer>
-        <FirstWidget />
-        <SecondWidget />
-        <ThirdWidget />
-      </WidgetsContainer>
+      <Header />
+      <DivBox width={500} height={100}>
+        이렇게 사용하면 됨
+      </DivBox>
     </LayoutContainer>
   );
 };
