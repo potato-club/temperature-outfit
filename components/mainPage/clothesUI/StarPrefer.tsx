@@ -1,6 +1,8 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import { AiFillStar } from 'react-icons/Ai';
+import { MdStar, MdStarHalf } from 'react-icons/Md';
+
 import { color } from 'constants/color';
 
 export const StarPrefer: React.FC = () => {
@@ -9,10 +11,10 @@ export const StarPrefer: React.FC = () => {
   return (
     <StarContainer>
       <AiFillStar color="#FAF234" size={36} />
-      <AiFillStar color="yellow" size={36} />
-      <AiFillStar color="yellow" size={36} />
-      <AiFillStar color="yellow" size={36} />
-      <AiFillStar color="yellow" size={36} />
+      <AiFillStar color="#FAF234" size={36} />
+      <MdStarHalf color="#FAF234" size={36} />
+      <MdStar color="#FAF234" size={36} />
+      <MdStar color="#FAF234" size={36} />
     </StarContainer>
   );
 };
