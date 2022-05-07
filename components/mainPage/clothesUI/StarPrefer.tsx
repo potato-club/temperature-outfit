@@ -8,7 +8,7 @@ export const StarPrefer: React.FC = () => {
   //
   return (
     <StarContainer>
-      <AiFillStar color="yellow" size={36} />
+      <AiFillStar color="#FAF234" size={36} />
       <AiFillStar color="yellow" size={36} />
       <AiFillStar color="yellow" size={36} />
       <AiFillStar color="yellow" size={36} />

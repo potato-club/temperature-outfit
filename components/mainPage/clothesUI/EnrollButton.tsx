@@ -17,10 +17,12 @@ export const EnrollButton: React.FC = () => {
   );
 };
 
-// 밑으로 내리기
+// 밑으로 내리기(성공~!)
 const Button = styled.button`
   width: 260px;
   height: 60px;
+  margin-top: 28px; //(마진으로 내룠옹 헤헿)
   border-radius: 28px;
   border: 3px solid ${color.brandColor5};
+  cursor: pointer;
 `;

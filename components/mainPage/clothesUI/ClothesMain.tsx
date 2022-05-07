@@ -1,7 +1,11 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import { LayoutContainer, DivBox, TypoGraphy } from 'components/common';
-import { EnrollButton, StarPrefer, Comment } from 'components/mainPage/clothesUI';
+import {
+  EnrollButton,
+  StarPrefer,
+  Comment,
+} from 'components/mainPage/clothesUI';
 import { color } from 'constants/color';
 import { AiOutlineRight, AiOutlineLeft } from 'react-icons/Ai';
 import { ClothesItem } from 'components/mainPage';
@@ -20,12 +24,12 @@ export const ClothesMain: React.FC = () => {
         <StarPrefer />
 
         <ClothesContainer>
-          <AiOutlineLeft size={44} />
+          <AiOutlineLeft className="aiOutlineLeft" size={44} />
           <ClothesItem />
           <ClothesItem />
           <ClothesItem />
           <ClothesItem />
-          <AiOutlineRight size={44} />
+          <AiOutlineRight className="aiOutlineLeft" size={44} />
         </ClothesContainer>
 
         <Footer>
@@ -42,6 +46,13 @@ const ClothesContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+
+  .aiOutlineLeft {
+    cursor: pointer;
+  }
+  .aiOutlineRight {
+    cursor: pointer;
+  }
 `;
 
 const Footer = styled.div`
