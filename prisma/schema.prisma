@@ -1,12 +1,12 @@
 generator client {
   provider        = "prisma-client-js"
-  previewFeatures = ["referentialIntegrity"]
+  previewFeatures = ["referentialActions"]
 }
 
 datasource db {
-  provider             = "mysql"
-  url                  = env("DATABASE_URL")
-  referentialIntegrity = "prisma"
+  provider          = "postgresql"
+  url               = env("DATABASE_URL")
+  shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
 }
 
 model Account {
@@ -70,8 +70,9 @@ model Product {
   name      String
   ownerId   String
   owner     User     @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  color     String
+  imageUrl  String?
   outfits   Outfit[]
-  //image     String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
@@ -80,8 +81,8 @@ model Outfit {
   id        String    @id @default(cuid())
   ownerId   String
   owner     User      @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  imageUrl  String?
   products  Product[]
-  //image     String
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
 }
