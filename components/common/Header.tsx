@@ -4,6 +4,7 @@ import { color } from 'constants/index';
 import { TypoGraphy } from './index';
 import { FaRegCalendarAlt } from 'react-icons/fa';
 import { IoFileTrayStackedSharp } from 'react-icons/io5';
+import { CgProfile } from 'react-icons/cg';
 
 export const Header: React.FC = () => {
   return (
@@ -19,6 +20,9 @@ export const Header: React.FC = () => {
           <Logo>
             <IoFileTrayStackedSharp size="20px" />
           </Logo>
+          <Logo>
+            <CgProfile size="20px" />
+          </Logo>
         </ButtonBox>
       </Div>
     </Wrapper>
@@ -32,6 +36,7 @@ const Wrapper = styled.div`
   background-color: ${color.brandColor5};
   display: flex;
   justify-content: center;
+  position: absolute;
   top: 0px;
 `;
 

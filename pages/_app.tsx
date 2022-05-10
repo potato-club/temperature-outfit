@@ -1,10 +1,11 @@
 import '../styles/globals.css';
 import type { AppProps } from 'next/app';
-import { LayoutContainer } from 'components/common';
+import { LayoutContainer, Header } from 'components/common';
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <LayoutContainer>
+      <Header />
       <Component {...pageProps} />
     </LayoutContainer>
   );
