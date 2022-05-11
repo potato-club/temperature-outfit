@@ -2,6 +2,7 @@ import React from 'react';
 import styled from '@emotion/styled';
 import { color } from 'constants/index';
 import { TypoGraphy } from './index';
+import { MyPage } from 'components/mypage';
 import { FaRegCalendarAlt } from 'react-icons/fa';
 import { IoFileTrayStackedSharp } from 'react-icons/io5';
 import { CgProfile } from 'react-icons/cg';
