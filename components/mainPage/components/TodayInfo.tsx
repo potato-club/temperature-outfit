@@ -42,10 +42,10 @@ export function TodayInfo() {
           </TypoGraphy>
           <RankingWrapper>
             <TypoGraphy type="h4" fontWeight="bold" color={color.brandColor5}>
-              상위 1위 : <div>스웨터</div>
+              상위 1위 : <span style={{display:'inline-block', fontWeight:'normal'}}>스웨터</span>
             </TypoGraphy>
             <TypoGraphy type="h4" fontWeight="bold" color={color.brandColor5}>
-              하위 1위 : <div>청바지</div>
+              하위 1위 : <span style={{display:'inline-block', fontWeight:'normal'}}>청바지</span>
             </TypoGraphy>
           </RankingWrapper>
         </TodayBestBox>
@@ -113,10 +113,6 @@ const TodayBestBox = styled.div`
 const RankingWrapper = styled.div`
   display: flex;
   gap: 0px 8px;
-  div div:nth-last-child(1) {
-    display: inline-block;
-    font-weight: normal;
-  }
 `;
 
 const TextWrapper = styled.div`
