@@ -36,8 +36,6 @@ const Wrapper = styled.div`
   background-color: ${color.brandColor5};
   display: flex;
   justify-content: center;
-  position: absolute;
-  top: 0px;
 `;
 
 const Div = styled.div`
