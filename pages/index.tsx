@@ -1,7 +1,12 @@
 import type { NextPage } from 'next';
+import { StarRate } from 'components/common';
 
 const Home: NextPage = () => {
-  return <>mainPage임</>;
+  return (
+    <>
+      <StarRate></StarRate>
+    </>
+  );
 };
 
 export default Home;
