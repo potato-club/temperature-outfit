@@ -16,6 +16,6 @@
     "incremental": true,
     "baseUrl": "."
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "constants/color.js"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "constants/customColor.ts"],
   "exclude": ["node_modules"]
 }

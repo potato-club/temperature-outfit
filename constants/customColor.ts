@@ -1,4 +1,4 @@
-export const color = {
+export const customColor = {
   brandColor1: '#55B9F2',
   brandColor2: '#3E88B3',
   brandColor3: '#234D65',
