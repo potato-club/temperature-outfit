@@ -1,2 +1,2 @@
-export { color } from './color';
+export { customColor } from './customColor';
 export { city } from './city';

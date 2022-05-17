@@ -1,4 +1,4 @@
-import styled from '@emotion/styled'
+import styled from '@emotion/styled';
 import React from 'react';
 import { MainCody, RegisterBtn, TodayInfo } from './components';
 export function MainPage() {
@@ -19,4 +19,3 @@ const Container = styled.div`
   flex-direction: column;
   gap: 80px;
 `;
-
