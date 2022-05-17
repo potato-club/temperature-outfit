@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import { color } from 'constants/index';
+import { customColor } from 'constants/index';
 import Image from 'next/image';
 
 const dummyImageUrl = [
@@ -36,6 +36,6 @@ const Container = styled.div`
 `;
 
 const ImageWrapper = styled.div`
-  border: 2px solid ${color.gray};
+  border: 2px solid ${customColor.gray};
   border-radius: 4px;
 `;
