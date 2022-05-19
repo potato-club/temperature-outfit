@@ -2,9 +2,11 @@ import React from 'react';
 import styled from '@emotion/styled';
 import { color } from 'constants/index';
 import { MdStar, MdStarHalf } from 'react-icons/Md';
-
-export const StarRate: React.FC = () => {
-  const satisfaction = 3;
+type Test = {
+  num: number;
+};
+export const StarRate: React.FC<Test> = ({ num }) => {
+  const satisfaction = 12;
 
   const calStar = () => {
     const starArr = [];

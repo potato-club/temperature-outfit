@@ -1,24 +1,23 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import { TypoGraphy } from 'components/common';
+import { SelectLocation, SelectLocation_MuiVesion } from 'components/mypage';
 import { color } from 'constants/color';
 import { GrLocation } from 'react-icons/Gr';
 
 export const MyPage: React.FC = () => {
   return (
     <Container>
-      <TypoGraphy type="h1" color={color.brandColor3} fontWeight="bold">
+      <TypoGraphy type="h2" color={color.brandColor3} fontWeight="bold">
         아이유님
       </TypoGraphy>
 
       <LocationWrapper>
         <GrLocation size={32} />
-        <TypoGraphy type="h3" fontWeight="bold">
-          서울
-        </TypoGraphy>
+        <SelectLocation_MuiVesion></SelectLocation_MuiVesion>
       </LocationWrapper>
 
-      <TypoGraphy type="sm1">사는 지역을 입력해주세요</TypoGraphy>
+      <TypoGraphy type="sm1">사는 지역을 선택해주세요</TypoGraphy>
 
       <Footer>
         <TypoGraphy type="body1" color={color.brandColor5} fontWeight="bold">
@@ -35,7 +34,7 @@ export const MyPage: React.FC = () => {
 const Container = styled.div`
   width: 176px;
   height: 154px;
-  border: 2px solid;
+  border: 2px solid ${color.gray};
   border-radius: 0 0 28px 28px;
   display: flex;
   flex-direction: column;

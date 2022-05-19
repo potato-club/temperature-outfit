@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from '@emotion/styled';
 import { color } from 'constants/index';
 import { TypoGraphy } from './index';
@@ -8,6 +8,11 @@ import { IoFileTrayStackedSharp } from 'react-icons/io5';
 import { CgProfile } from 'react-icons/cg';
 
 export const Header: React.FC = () => {
+  const [myPage, setMyPage] = useState(true);
+
+  const onClick = () => {
+    setMyPage((current) => !current);
+  };
   return (
     <Wrapper>
       <Div>
@@ -22,10 +27,11 @@ export const Header: React.FC = () => {
             <IoFileTrayStackedSharp size="20px" />
           </Logo>
           <Logo>
-            <CgProfile size="20px" />
+            <CgProfile size="20px" onClick={onClick} />
           </Logo>
         </ButtonBox>
       </Div>
+      {myPage ? <MyPage /> : null}
     </Wrapper>
   );
 };
