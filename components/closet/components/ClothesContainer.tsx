@@ -10,6 +10,13 @@ export const ClothesContainer: React.FC = () => {
       <ClothesDummy />
       <ClothesDummy />
       <ClothesDummy />
+      <ClothesDummy />
+      <ClothesDummy />
+      <ClothesDummy />
+      <ClothesDummy />
+      <ClothesDummy />
+      <ClothesDummy />
+      <ClothesDummy />
     </ItemContainer>
   );
 };
@@ -17,8 +24,9 @@ export const ClothesContainer: React.FC = () => {
 const ItemContainer = styled.div`
   width: 100%;
   height: 600px;
-  border: 3px solid;
-  div {
-    display: inline-block;
-  }
+
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 2fr));
+  grid-auto-rows: 140px;
+  justify-items: center;
 `;

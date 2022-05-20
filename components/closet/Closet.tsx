@@ -58,6 +58,7 @@ const CategoryWrapper = styled.div`
   margin-top: 40px;
   width: 100%;
   display: flex;
+  flex-wrap: wrap;
   gap: 10px;
 `;
 const Horizen = styled.hr`
