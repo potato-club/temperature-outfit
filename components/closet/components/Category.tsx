@@ -13,8 +13,8 @@ export const Category: React.FC = () => {
   };
 
   return (
-    <Box sx={{ minWidth: 120 }}>
-      <FormControl fullWidth>
+    <Box sx={{ minWidth: 68 }}>
+      <FormControl fullWidth size="small">
         <InputLabel id="demo-simple-select-label">Age</InputLabel>
         <Select
           labelId="demo-simple-select-label"
