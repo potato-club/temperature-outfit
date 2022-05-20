@@ -35,6 +35,9 @@ export const RadioButton: React.FC = () => {
           '&.Mui-checked': {
             color: red[800],
           },
+          '& .MuiSvgIcon-root': {
+            fontSize: 28,
+          },
         }}
       />
     </Wrapper>
