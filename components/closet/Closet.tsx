@@ -1,8 +1,8 @@
 import styled from '@emotion/styled';
 import { CustomButton, TypoGraphy } from 'components/common';
 import {
-  Category,
-  ClotheCategory,
+  SubCategory,
+  MainCategory,
   ClothesContainer,
   RadioButtons,
   SearchBox,
@@ -11,15 +11,13 @@ import {
 export const Closet: React.FC = () => {
   return (
     <Wrapper>
-      <Title>
-        <TypoGraphy type="Title" fontWeight="bold">
-          옷장
-        </TypoGraphy>
-      </Title>
+      <TypoGraphy type="Title" fontWeight="bold">
+        옷장
+      </TypoGraphy>
 
       <CategoryWrapper>
-        <ClotheCategory />
-        <Category />
+        <MainCategory />
+        <SubCategory />
         <RadioButtons />
         <SearchBox />
       </CategoryWrapper>
@@ -41,24 +39,24 @@ export const Closet: React.FC = () => {
 };
 
 const Wrapper = styled.div`
+  width: 70%;
+  max-width: 1178px;
+  height: 90%;
+  max-height: 956px;
   margin-top: 20px;
-  padding: 64px;
-  width: 1178px;
-  height: 956px;
+  padding: 60px 64px;
   background-color: white;
   border-radius: 10px;
   box-shadow: 0 4px 8px 4px gray;
+
   display: flex;
   flex-direction: column;
   justify-content: space-around;
 `;
 
-const Title = styled.div`
-  width: 100%;
-`;
-
 const CategoryWrapper = styled.div`
-  width: 85%;
+  margin-top: 40px;
+  width: 100%;
   display: flex;
   gap: 10px;
 `;
@@ -69,6 +67,7 @@ const Horizen = styled.hr`
 `;
 
 const Footer = styled.div`
+  margin-top: 12px;
   display: flex;
   justify-content: end;
 `;

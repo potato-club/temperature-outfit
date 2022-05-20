@@ -5,7 +5,7 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 
-export const ClotheCategory: React.FC = () => {
+export const MainCategory: React.FC = () => {
   const [clothes, setClothes] = React.useState('');
 
   const handleChange = (event: SelectChangeEvent) => {
@@ -13,7 +13,7 @@ export const ClotheCategory: React.FC = () => {
   };
 
   return (
-    <Box sx={{ minWidth: 60 }}>
+    <Box sx={{ minWidth: 100 }}>
       <FormControl fullWidth size="small">
         <InputLabel id="demo-simple-select-label">Clothes</InputLabel>
         <Select

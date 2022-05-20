@@ -28,7 +28,7 @@ const Wrapper = styled.div`
 const SearchInput = styled.input`
   border: 1px solid gray;
   border-radius: 8px;
-  height: 32px;
+  height: 36px;
   text-align: center;
 
   :focus {

@@ -29,83 +29,110 @@ export const RadioButtons: React.FC = () => {
   return (
     <Wrapper>
       <Radio
-        {...controlProps('a')}
+        {...controlProps('red')}
         sx={{
           color: red[500],
           '&.Mui-checked': {
             color: red[500],
           },
+          '& .MuiSvgIcon-root': {
+            fontSize: 28,
+          },
         }}
       />
       <Radio
-        {...controlProps('a')}
+        {...controlProps('orange')}
         sx={{
           color: orange[500],
           '&.Mui-checked': {
             color: orange[500],
           },
+          '& .MuiSvgIcon-root': {
+            fontSize: 28,
+          },
         }}
       />
       <Radio
-        {...controlProps('a')}
+        {...controlProps('yellow')}
         sx={{
           color: yellow[500],
           '&.Mui-checked': {
             color: yellow[500],
           },
+          '& .MuiSvgIcon-root': {
+            fontSize: 28,
+          },
         }}
       />
       <Radio
-        {...controlProps('a')}
+        {...controlProps('green')}
         sx={{
           color: green[500],
           '&.Mui-checked': {
             color: green[500],
           },
+          '& .MuiSvgIcon-root': {
+            fontSize: 28,
+          },
         }}
       />
       <Radio
-        {...controlProps('a')}
+        {...controlProps('cyan')}
         sx={{
           color: cyan[500],
           '&.Mui-checked': {
             color: cyan[500],
           },
+          '& .MuiSvgIcon-root': {
+            fontSize: 28,
+          },
         }}
       />
       <Radio
-        {...controlProps('a')}
+        {...controlProps('blue')}
         sx={{
           color: blue[500],
           '&.Mui-checked': {
             color: blue[500],
           },
+          '& .MuiSvgIcon-root': {
+            fontSize: 28,
+          },
         }}
       />
       <Radio
-        {...controlProps('a')}
+        {...controlProps('purple')}
         sx={{
           color: purple[500],
           '&.Mui-checked': {
             color: purple[500],
           },
+          '& .MuiSvgIcon-root': {
+            fontSize: 28,
+          },
         }}
       />
       <Radio
-        {...controlProps('a')}
+        {...controlProps('gray')}
         sx={{
           color: grey[500],
           '&.Mui-checked': {
             color: grey[500],
           },
+          '& .MuiSvgIcon-root': {
+            fontSize: 28,
+          },
         }}
       />
       <Radio
-        {...controlProps('a')}
+        {...controlProps('black')}
         sx={{
           color: grey[900],
           '&.Mui-checked': {
             color: grey[900],
+          },
+          '& .MuiSvgIcon-root': {
+            fontSize: 28,
           },
         }}
       />
