@@ -1,5 +1,7 @@
 import styled from '@emotion/styled';
 import { CustomButton, TypoGraphy } from 'components/common';
+import { AddModal, ChooseModal } from 'components/modal';
+import { useState } from 'react';
 import {
   SubCategory,
   MainCategory,
@@ -9,6 +11,25 @@ import {
 } from './components';
 
 export const Closet: React.FC = () => {
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [modalIsOpen2, setModalIsOpen2] = useState(false);
+  const openModal = () => {
+    setModalIsOpen(true);
+  };
+
+  const closeModal = () => {
+    setModalIsOpen(false);
+  };
+
+  // 밑에 것들 지울것들임
+  const openModal2 = () => {
+    setModalIsOpen2(true);
+  };
+
+  const closeModal2 = () => {
+    setModalIsOpen2(false);
+  };
+
   return (
     <Wrapper>
       <TypoGraphy type="Title" fontWeight="bold">
@@ -32,8 +53,21 @@ export const Closet: React.FC = () => {
           text="추가"
           sidePadding="20"
           height={40}
+          onClick={openModal}
+        />
+        {/* 이건 잠시 있는 것 */}
+        <CustomButton
+          customType="colorful"
+          text="옷 선택하기 (임시)"
+          sidePadding="20"
+          height={40}
+          onClick={openModal2}
         />
       </Footer>
+      <AddModal modalIsOpen={modalIsOpen} closeModal={closeModal} />
+
+      {/* 이건 잠시 있는 것 */}
+      <ChooseModal modalIsOpen={modalIsOpen2} closeModal={closeModal2} />
     </Wrapper>
   );
 };
