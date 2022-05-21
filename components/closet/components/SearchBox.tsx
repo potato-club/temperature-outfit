@@ -9,9 +9,6 @@ export const SearchBox: React.FC = () => {
   );
 };
 
-{
-  /* <AiOutlineSearch /> */
-}
 const Wrapper = styled.div`
   display: flex;
   justify-content: center;
@@ -20,7 +17,7 @@ const Wrapper = styled.div`
 
   .ImgSearch {
     position: absolute;
-    top: 12px;
+    top: 15px;
     left: 4px;
   }
 `;

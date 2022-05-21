@@ -44,7 +44,7 @@ const Wrapper = styled.div`
   height: 90%;
   max-height: 956px;
   margin-top: 20px;
-  padding: 60px 64px;
+  padding: 60px 64px 40px;
   background-color: white;
   border-radius: 10px;
   box-shadow: 0 4px 8px 4px gray;
@@ -62,8 +62,9 @@ const CategoryWrapper = styled.div`
   gap: 10px;
 `;
 const Horizen = styled.hr`
-  border: thin solid;
+  border: 1px solid;
   border-bottom: 0px;
+  margin: 24px 0 24px 0;
   width: 100%;
 `;
 
