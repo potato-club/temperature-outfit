@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled from '@emotion/styled';
-import { color } from 'constants/index';
+import { customColor } from 'constants/index';
 import { TypoGraphy } from './index';
 import { MyPage } from 'components/mypage';
 import { FaRegCalendarAlt } from 'react-icons/fa';
@@ -16,7 +16,7 @@ export const Header: React.FC = () => {
   return (
     <Wrapper>
       <Div>
-        <TypoGraphy color={color.white}>
+        <TypoGraphy color={customColor.white}>
           Write down today&apos;s outfit.
         </TypoGraphy>
         <ButtonBox>
@@ -40,11 +40,9 @@ export default Header;
 
 const Wrapper = styled.div`
   width: 100%;
-  background-color: ${color.brandColor5};
+  background-color: ${customColor.brandColor5};
   display: flex;
   justify-content: center;
-  position: absolute;
-  top: 0px;
 `;
 
 const Div = styled.div`
@@ -62,5 +60,5 @@ const ButtonBox = styled.div`
 `;
 const Logo = styled.div`
   cursor: pointer;
-  color: ${color.white};
+  color: ${customColor.white};
 `;
