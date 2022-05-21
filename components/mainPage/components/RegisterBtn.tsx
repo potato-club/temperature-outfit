@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import { TypoGraphy } from 'components/common';
-import { color } from 'constants/index';
+import { customColor } from 'constants/index';
 import React from 'react';
 
 export function RegisterBtn() {
@@ -32,6 +32,6 @@ const Wrapper = styled.div`
   height: 60px;
   border: 3px solid #7b61ff;
   border-radius: 10px;
-  background-color: ${color.white};
+  background-color: ${customColor.white};
   cursor: pointer;
 `;

@@ -16,6 +16,10 @@
     "incremental": true,
     "baseUrl": "."
   },
+<<<<<<< HEAD
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "constants/color.js", "components/calendarPage/components/Cal.jsx"],
+=======
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "constants/customColor.ts"],
+>>>>>>> 38af3b05db7c7e4a652d7fe8e6c337e9d6030891
   "exclude": ["node_modules"]
 }
