@@ -10,7 +10,7 @@ type Props = {
 }
 export function ClothesDummy({width, height, marginLR}: Props) {
   return (
-    <Container marginLR={marginLR} maxWidth={width} maxHeight={height}>
+    <Container marginLR={marginLR} width={width} height={height}>
         <Image
           width={width || 120}
           height={height || 80}
@@ -28,8 +28,8 @@ export function ClothesDummy({width, height, marginLR}: Props) {
 
 type StyleProps = {
   marginLR? : number;
-  maxWidth? : number;
-  maxHeight? : number;
+  width? : number;
+  height? : number;
 }
 
 const Container = styled.div<StyleProps>`
@@ -39,8 +39,10 @@ const Container = styled.div<StyleProps>`
   border: 4px solid ${customColor.brandColor1};
   border-radius: 24px;
   overflow: hidden;
-  max-width: ${({ maxWidth }) => (maxWidth ? maxWidth + 'px' : '120px')};
-  max-height: ${({ maxHeight }) => (maxHeight ? maxHeight + 'px' : '120px')};
+  max-width: ${({ width }) => (width ? width + 'px' : '120px')};
+  max-height: ${({ height }) => (height ? height + 'px' : '80px')};
+  min-width: ${({ width }) => (width ? width + 'px' : '120px')};
+  min-height: ${({ height }) => (height ? height + 'px' : '80px')};
   /* background: linear-gradient(180deg, #292929 0%, rgba(196, 196, 196, 0) 100%); */
 `;
 
