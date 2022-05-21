@@ -35,12 +35,12 @@ type StyleProps = {
 const Container = styled.div<StyleProps>`
   position: relative;
   display: flex;
-  margin: ${(props) => props && `0 ${props.marginLR}px`};
+  margin: ${(props) => props.marginLR && `0 ${props.marginLR}px`};
   border: 4px solid ${customColor.brandColor1};
   border-radius: 24px;
   overflow: hidden;
-  max-width: ${({ maxWidth }) => maxWidth ? maxWidth + 'px' : '120px'};
-  max-height: ${({ maxHeight }) => maxHeight ? maxHeight + 'px' : '120px'};
+  max-width: ${({ maxWidth }) => (maxWidth ? maxWidth + 'px' : '120px')};
+  max-height: ${({ maxHeight }) => (maxHeight ? maxHeight + 'px' : '120px')};
   /* background: linear-gradient(180deg, #292929 0%, rgba(196, 196, 196, 0) 100%); */
 `;
 
