@@ -63,11 +63,13 @@ export const Closet: React.FC = () => {
           height={40}
           onClick={openModal2}
         />
+        {/* 여기까지 */}
       </Footer>
       <AddModal modalIsOpen={modalIsOpen} closeModal={closeModal} />
 
       {/* 이건 잠시 있는 것 */}
       <ChooseModal modalIsOpen={modalIsOpen2} closeModal={closeModal2} />
+      {/* 여기까지 */}
     </Wrapper>
   );
 };
