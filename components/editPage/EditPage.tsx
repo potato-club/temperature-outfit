@@ -2,6 +2,7 @@ import React, { ChangeEvent, useState } from 'react';
 import styled from '@emotion/styled';
 import { TypoGraphy } from 'components/common';
 import { DressRoom, ReviewBox, Title } from './components';
+import { customColor } from './../../constants/customColor';
 
 const category = ['상의', '아우터', '하의', '신발', '기타'];
 export default function EditPage() {
@@ -56,4 +57,12 @@ const CodyBox = styled.div`
   border-radius: 10px;
   background-color: #c4c4c450;
   overflow-y: auto;
+  ::-webkit-scrollbar {
+    opacity: 0;
+    width: 12px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background-color: rgb(150, 137, 235, 0.6);
+    border-radius: 24px;
+  }
 `;

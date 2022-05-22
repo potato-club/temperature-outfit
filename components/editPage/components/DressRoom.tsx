@@ -54,6 +54,14 @@ const Container = styled.div`
   box-sizing: content-box;
   margin-bottom: 12px;
   box-shadow: 4px 4px 4px #00000025;
+  ::-webkit-scrollbar {
+    opacity: 0;
+    height: 12px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background-color: rgb(179, 226, 255, 0.8);
+    border-radius: 24px;
+  }
 `;
 const ButtonWrapper = styled.div``;
 const AddButton = styled.input`
