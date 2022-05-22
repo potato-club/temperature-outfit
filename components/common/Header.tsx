@@ -8,7 +8,7 @@ import { IoFileTrayStackedSharp } from 'react-icons/io5';
 import { CgProfile } from 'react-icons/cg';
 
 export const Header: React.FC = () => {
-  const [myPage, setMyPage] = useState(true);
+  const [myPage, setMyPage] = useState(false);
 
   const onClick = () => {
     setMyPage((current) => !current);
@@ -26,12 +26,12 @@ export const Header: React.FC = () => {
           <Logo>
             <IoFileTrayStackedSharp size="20px" />
           </Logo>
-          <Logo>
+          <Logo className="benchMark">
             <CgProfile size="20px" onClick={onClick} />
           </Logo>
+          <MyPageDiv> {myPage ? <MyPage /> : null}</MyPageDiv>
         </ButtonBox>
       </Div>
-      {myPage ? <MyPage /> : null}
     </Wrapper>
   );
 };
@@ -57,8 +57,15 @@ const Div = styled.div`
 const ButtonBox = styled.div`
   display: flex;
   gap: 16px;
+  position: relative;
 `;
 const Logo = styled.div`
   cursor: pointer;
   color: ${customColor.white};
+`;
+
+const MyPageDiv = styled.div`
+  position: absolute;
+  left: 75%;
+  top: 34px;
 `;

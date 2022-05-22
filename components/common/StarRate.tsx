@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import { color } from 'constants/index';
+import { customColor } from 'constants/index';
 import { MdStar, MdStarHalf } from 'react-icons/Md';
 type Test = {
   num: number;
@@ -24,7 +24,7 @@ export const StarRate: React.FC<Test> = ({ num }) => {
   return <Wrapper>{calStar()}</Wrapper>;
 };
 const Wrapper = styled.div`
-  background-color: ${color.brandColor4};
+  background-color: ${customColor.brandColor4};
   border-radius: 12px;
   width: 240px;
   height: 40px;

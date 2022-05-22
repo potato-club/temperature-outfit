@@ -12,8 +12,8 @@ export const SelectLocation_MuiVesion: React.FC = () => {
     setSelectLocation(event.target.value);
   };
   return (
-    <FormControl sx={{ minWidth: 50 }}>
-      <InputLabel id="demo-simple-select-autowidth-label">Age</InputLabel>
+    <FormControl sx={{ minWidth: 80 }} size="small">
+      <InputLabel id="demo-simple-select-autowidth-label">지역</InputLabel>
       <Select
         labelId="demo-simple-select-autowidth-label"
         id="demo-simple-select-autowidth"
