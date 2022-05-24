@@ -11,12 +11,12 @@ import {
 
 const customStyles = {
   content: {
-    top: '8%',
-    left: '36%',
-    width: '640px',
-    height: '800px',
+    width: '620px',
     borderRadius: '20px',
     boxShadow: '4px 4px 5px 4px rgba(0,0,0,0.43)',
+    inset: '12% 40px 40px 36%',
+    height: '800px',
+    // 어느정도 낮아지면 그냥 가로로 하든가 아니면 크기 줄이던가 해야됨
   },
 };
 
@@ -34,8 +34,8 @@ export const AddModal = ({ modalIsOpen, closeModal }: ModalProps) => {
       contentLabel="Add Modal">
       <Wrapper>
         <Title>
-          <TypoGraphy type="Title" fontWeight="bold">
-            내 옷 등록하기
+          <TypoGraphy type="h1" fontWeight="bold">
+            옷 등록하기
           </TypoGraphy>
         </Title>
         <Img />
@@ -75,7 +75,8 @@ const Img = styled.div`
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
-  height: 100%;
+  /* height: 100%; */
+  /* height: 760px; */
   gap: 10px;
   padding: 20px;
 `;
