@@ -8,10 +8,10 @@ import { IoFileTrayStackedSharp } from 'react-icons/io5';
 import { CgProfile } from 'react-icons/cg';
 
 export const Header: React.FC = () => {
-  const [myPage, setMyPage] = useState(false);
+  const [myPageToggle, setMyPageToggle] = useState(false);
 
   const onClick = () => {
-    setMyPage((current) => !current);
+    setMyPageToggle((current) => !current);
   };
   return (
     <Wrapper>
@@ -29,7 +29,7 @@ export const Header: React.FC = () => {
           <Logo className="benchMark">
             <CgProfile size="20px" onClick={onClick} />
           </Logo>
-          <MyPageDiv> {myPage ? <MyPage /> : null}</MyPageDiv>
+          <MyPageDiv> {myPageToggle ? <MyPage /> : null}</MyPageDiv>
         </ButtonBox>
       </Div>
     </Wrapper>
