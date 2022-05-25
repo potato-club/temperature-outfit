@@ -1,13 +1,6 @@
-// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import { PrismaClient } from '@prisma/client';
 import type { NextApiRequest, NextApiResponse } from 'next';
-
-export type ProductResponse = {
-  id: string;
-  name: string;
-  color: string;
-  imageUrl: string;
-};
+import { ProductResponse } from '../../../types';
 
 const prisma = new PrismaClient();
 
@@ -26,7 +19,8 @@ export default async function handler(
   res.status(200).json({
     id: product?.id ?? '',
     name: product?.name ?? '',
+    categoryId: product?.categoryId ?? '',
     color: product?.color ?? '',
-    imageUrl: product?.imageUrl ?? '',
+    imageUrl: product?.imageUrl ?? undefined,
   });
 }
