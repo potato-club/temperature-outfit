@@ -30,3 +30,22 @@ export type ProductResponse = {
   createdAt: string;
   updatedAt: string;
 };
+
+export type OutfitGetRequest = {
+  startDate?: string;
+  endDate?: string;
+  page?: number;
+  limit?: number;
+};
+
+export type OutfitPostRequest = {
+  productsId: string[];
+};
+
+export type OutfitResponse = {
+  id: string;
+  imageUrl?: string;
+  products: ProductResponse[];
+  createdAt: string;
+  updatedAt: string;
+};
