@@ -13,3 +13,16 @@ export const convertProductToResponse = (
   updatedAt: product.updatedAt.toISOString(),
 });
 
+export const convertOutfitToResponse = (
+  outfit: Outfit & {
+    products: Product[];
+  },
+): OutfitResponse => ({
+  id: outfit.id,
+  imageUrl: outfit.imageUrl ?? undefined,
+  products: outfit.products.map<ProductResponse>((product) =>
+    convertProductToResponse(product),
+  ),
+  createdAt: outfit.createdAt.toISOString(),
+  updatedAt: outfit.updatedAt.toISOString(),
+});
