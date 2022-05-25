@@ -4,12 +4,17 @@ import type { NextApiResponse } from 'next';
 import nextConnect from 'next-connect';
 import path from 'path';
 import { prisma } from '../../../db';
-import { ProductResponse, ProductRequest } from '../../../types';
+import {
+  ProductResponse,
+  ProductGetRequest,
+  ProductPostRequest,
+} from '../../../types';
 import {
   authenticateHandler,
   NextApiRequestWithSession,
 } from '../../../utilities/api/middlewares/auth';
 import { SupabaseStorageEngine } from '../../../utilities/api/multer/supabaseStorageEngine';
+import { convertProductToResponse } from './../../../utilities/api/converter';
 
 export const config = {
   api: {
@@ -25,14 +30,14 @@ const handler = nextConnect<
 handler.use(authenticateHandler);
 
 handler.get(async (req, res) => {
-  const query = req.query as ProductRequest;
+  const body = req.body as ProductGetRequest;
 
-  query.page = query.page ?? 1;
-  query.limit = Math.min(query.limit ?? 10, 100);
+  body.page = body.page ?? 1;
+  body.limit = Math.min(body.limit ?? 10, 100);
 
   const category = await prisma.category.findUnique({
-    select: { children: true },
-    where: { id: query.categoryId },
+    where: { id: body.categoryId },
+    include: { children: true },
   });
 
   const childrenCategoryId = category?.children?.map((c) => c.id);
@@ -40,23 +45,21 @@ handler.get(async (req, res) => {
   const products = await prisma.product.findMany({
     where: {
       owner: { email: req?.session?.user?.email },
-      name: { contains: query.query },
+      name: { contains: body.query },
       category: { id: { in: childrenCategoryId } },
-      color: { in: query.color },
+      color: { in: body.color },
     },
-    skip: (query.page - 1) * query.limit,
-    take: query.limit,
+    skip: (body.page - 1) * body.limit,
+    take: body.limit,
   });
 
-  res.status(200).json(
-    products.map<ProductResponse>((product) => ({
-      id: product.id,
-      name: product.name,
-      categoryId: product.categoryId,
-      color: product.color,
-      imageUrl: product.imageUrl ?? undefined,
-    })),
-  );
+  res
+    .status(200)
+    .json(
+      products.map<ProductResponse>((product) =>
+        convertProductToResponse(product),
+      ),
+    );
 });
 
 handler.post(
@@ -67,25 +70,19 @@ handler.post(
     }),
   }).single('file'),
   async (req, res) => {
+    const body = req.body as ProductPostRequest;
+
     const product = await prisma.product.create({
       data: {
-        name: req.body.name,
-        category: { connect: { id: req.body.categoryId } },
-        color: req.body.color,
+        name: body.name,
+        category: { connect: { id: body.categoryId } },
+        color: body.color,
         imageUrl: req.file?.path,
         owner: { connect: { email: req?.session?.user?.email ?? '' } },
       },
     });
 
-    res.status(201).json([
-      {
-        id: product.id,
-        name: product.name,
-        categoryId: product.categoryId,
-        color: product.color,
-        imageUrl: product.imageUrl ?? undefined,
-      },
-    ]);
+    res.status(201).json([convertProductToResponse(product)]);
   },
 );
 

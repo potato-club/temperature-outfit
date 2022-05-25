@@ -1,8 +1,7 @@
-import { PrismaClient } from '@prisma/client';
 import type { NextApiRequest, NextApiResponse } from 'next';
+import { prisma } from '../../../db';
 import { ProductResponse } from '../../../types';
-
-const prisma = new PrismaClient();
+import { convertProductToResponse } from './../../../utilities/api/converter';
 
 export default async function handler(
   req: NextApiRequest,
@@ -16,11 +15,9 @@ export default async function handler(
 
   const product = await prisma.product.findUnique({ where: { id } });
 
-  res.status(200).json({
-    id: product?.id ?? '',
-    name: product?.name ?? '',
-    categoryId: product?.categoryId ?? '',
-    color: product?.color ?? '',
-    imageUrl: product?.imageUrl ?? undefined,
-  });
+  if (!product) {
+    return res.status(404);
+  }
+
+  res.status(200).json(convertProductToResponse(product));
 }
