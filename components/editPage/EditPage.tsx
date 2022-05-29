@@ -46,6 +46,7 @@ const Category = styled.div`
   height: 100%;
   display: flex;
   flex-direction: column;
+  gap: 12px;
 `;
 
 const CodyBox = styled.div`

@@ -6,17 +6,16 @@ import { ClothesDummy } from 'components/common/ClothesDummy';
 import { AiOutlinePlus } from 'react-icons/ai';
 
 export function DressRoom() {
+  const onChange = (e: ChangeEvent<HTMLInputElement>) => {
+    // e.preventDefault();
+    if (!e.target.files) return;
 
-    const onChange = (e: ChangeEvent<HTMLInputElement>) => {
-      // e.preventDefault();
-      if (!e.target.files) return;
+    const uploadFile = e.target.files[0];
+    const formData = new FormData();
 
-      const uploadFile = e.target.files[0];
-      const formData = new FormData();
-
-      formData.append('files', uploadFile);
-      alert("사진 등록!");
-    };
+    formData.append('files', uploadFile);
+    alert('사진 등록!');
+  };
 
   return (
     <Container>
@@ -40,14 +39,11 @@ export function DressRoom() {
   );
 }
 
-
-
 const Container = styled.div`
   display: flex;
   background-color: ${customColor.white};
   padding: 12px;
   border-radius: 24px;
-  margin-left: 40px;
   overflow-x: auto;
   gap: 0 12px;
   min-height: 80px;

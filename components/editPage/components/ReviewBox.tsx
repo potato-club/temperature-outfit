@@ -15,40 +15,46 @@ export function ReviewBox() {
   };
   return (
     <Container>
-      <ImageWrapper>
-        <Image
-          src="/reviewDummy/review1.jpg"
-          alt="review"
-          width={360}
-          height={240}
-        />
-      </ImageWrapper>
-      <ButtonWrapper>
-        <CustomButton
-          customType="colorful"
-          text="기본 이미지로 설정"
-          sidePadding="20"
-          onClick={onClick}
-        />
-      </ButtonWrapper>
-      <TypoGraphy type="Title" fontWeight="bold">
-        한줄평
-      </TypoGraphy>
-      <TextArea />
-      <TypoGraphy type="Title" fontWeight="bold">
-        만족도
-      </TypoGraphy>
-      <StarWrapper>
-        <Rating
-          onClick={handleRating}
-          ratingValue={rating}
-          size={40}
-          allowHalfIcon
-          transition
-          fillColor="orange"
-          emptyColor="gray"
-        />
-      </StarWrapper>
+      <BoxWrapper>
+        <ImageWrapper>
+          <Image
+            src="/reviewDummy/review1.jpg"
+            alt="review"
+            width={360}
+            height={240}
+          />
+        </ImageWrapper>
+        <ButtonWrapper>
+          <CustomButton
+            customType="colorful"
+            text="기본 이미지로 설정"
+            sidePadding="20"
+            onClick={onClick}
+          />
+        </ButtonWrapper>
+      </BoxWrapper>
+      <BoxWrapper>
+        <TypoGraphy type="Title" fontWeight="bold">
+          후기
+        </TypoGraphy>
+        <TextArea />
+      </BoxWrapper>
+      <BoxWrapper>
+        <TypoGraphy type="Title" fontWeight="bold">
+          만족도
+        </TypoGraphy>
+        <StarWrapper>
+          <Rating
+            onClick={handleRating}
+            ratingValue={rating}
+            size={40}
+            allowHalfIcon
+            transition
+            fillColor="orange"
+            emptyColor="gray"
+          />
+        </StarWrapper>
+      </BoxWrapper>
       <ButtonContainer>
         <CustomButton
           customType="white"
@@ -71,9 +77,9 @@ const Container = styled.div`
   width: 40%;
   max-width: 350px;
   height: 100%;
-  gap: 8px 0;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
 `;
 
 const ImageWrapper = styled.div`
@@ -99,10 +105,17 @@ const StarWrapper = styled.div`
   align-items: center;
   border-radius: 10px;
   background-color: ${customColor.brandColor5};
+  margin-bottom: 40px;
 `;
 
 const ButtonContainer = styled.div`
   display: flex;
   justify-content: flex-end;
   gap: 0 12px;
+`;
+
+const BoxWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 12px 0;
 `;
