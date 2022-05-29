@@ -9,13 +9,9 @@
     "lint": "next lint"
   },
   "dependencies": {
-<<<<<<< HEAD
     "@devexpress/dx-react-core": "^3.0.3",
     "@devexpress/dx-react-scheduler": "^3.0.3",
     "@devexpress/dx-react-scheduler-material-ui": "^3.0.3",
-=======
-    "@emotion/react": "^11.9.0",
->>>>>>> 38af3b05db7c7e4a652d7fe8e6c337e9d6030891
     "@emotion/styled": "^11.8.1",
     "@mui/material": "^5.8.0",
     "next": "^12.1.5-canary.1",
