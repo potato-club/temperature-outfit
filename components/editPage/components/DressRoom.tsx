@@ -1,6 +1,5 @@
 import React, { ChangeEvent, useState } from 'react';
 import styled from '@emotion/styled';
-import { TypoGraphy } from 'components/common';
 import { customColor } from 'constants/index';
 import { ClothesDummy } from 'components/common/ClothesDummy';
 import { AiOutlinePlus } from 'react-icons/ai';
@@ -17,13 +16,16 @@ export function DressRoom() {
     alert('사진 등록!');
   };
 
+  // 임시코드
+  const TestArray = [1, 2, 3, 4, 5];
+
   return (
     <Container>
-      <ClothesDummy />
-      <ClothesDummy />
-      <ClothesDummy />
-      <ClothesDummy />
-      <ClothesDummy />
+      {TestArray.map((data, index) => (
+        <ClothesWrapper key={index}>
+          <ClothesDummy />
+        </ClothesWrapper>
+      ))}
       <ButtonWrapper>
         <AddButton
           id="imgUpload"
@@ -72,4 +74,8 @@ const Label = styled.label`
   width: 100px;
   height: 80px;
   border-radius: 24px;
+`;
+
+const ClothesWrapper = styled.div`
+  position: relative;
 `;
