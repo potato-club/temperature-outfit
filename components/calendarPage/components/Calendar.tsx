@@ -6,9 +6,10 @@ import FullCalendar, {
   EventContentArg,
 } from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
+import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import { INITIAL_EVENTS, createEventId } from './event-utils';
-// import styled from '@emotion/styled';
+import styled from '@emotion/styled';
 
 interface CalendarState {
   weekendsVisible: boolean;
@@ -23,35 +24,33 @@ export default class Calendar extends React.Component<{}, CalendarState> {
 
   render() {
     return (
-      <div className="demo-app">
-        <div className="demo-app-main">
-          <FullCalendar
-            plugins={[dayGridPlugin, interactionPlugin]}
-            locale="ko"
-            headerToolbar={{
-              left: 'prev,next today',
-              center: 'title',
-              right: '',
-            }}
-            initialView="dayGridMonth"
-            editable={true}
-            selectable={true}
-            selectMirror={true}
-            dayMaxEvents={true}
-            weekends={this.state.weekendsVisible}
-            initialEvents={INITIAL_EVENTS} // alternatively, use the `events` setting to fetch from a feed
-            select={this.handleDateSelect}
-            eventContent={renderEventContent} // custom render function
-            eventClick={this.handleEventClick}
-            eventsSet={this.handleEvents} // called after events are initialized/added/changed/removed
-            /* you can update a remote database when these fire:
+      <Wrapper>
+        <FullCalendar
+          plugins={[dayGridPlugin, interactionPlugin, timeGridPlugin]}
+          locale="ko"
+          headerToolbar={{
+            left: 'prev,next',
+            center: 'title',
+            right: 'today',
+          }}
+          initialView="dayGridMonth"
+          editable={true}
+          selectable={true}
+          selectMirror={true}
+          dayMaxEvents={true}
+          weekends={this.state.weekendsVisible}
+          initialEvents={INITIAL_EVENTS} // alternatively, use the `events` setting to fetch from a feed
+          select={this.handleDateSelect}
+          eventContent={renderEventContent} // custom render function
+          eventClick={this.handleEventClick}
+          eventsSet={this.handleEvents} // called after events are initialized/added/changed/removed
+          /* you can update a remote database when these fire:
             eventAdd={function(){}}
             eventChange={function(){}}
             eventRemove={function(){}}
             */
-          />
-        </div>
-      </div>
+        />
+      </Wrapper>
     );
   }
 
@@ -100,3 +99,10 @@ function renderEventContent(eventContent: EventContentArg) {
     </>
   );
 }
+
+const Wrapper = styled.div`
+  width: 1178px;
+  padding: 20px;
+  height: 100%;
+  background-color: white;
+`;
