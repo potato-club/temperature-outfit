@@ -10,15 +10,15 @@ type Props = {
   height?: number;
   marginLR?: number;
   data: string;
+  id: number;
+  deleteImage: (id:number) => void;
 };
+
 // 기존 ClothesDummy 에서 data 를 props 로 받아서 이미지를 출력하는 형식으로 바뀐거임
-export function ClothesBox({ width, height, marginLR, data }: Props) {
+export function ClothesBox({ width, height, marginLR, data, id, deleteImage }: Props) {
   const [showName, setShowName] = useState<boolean>(false);
   const [showRemove, setShowRemove] = useState<boolean>(false);
 
-  const onRemove = () => {
-    alert('삭제버튼 클릭');
-  };
   return (
     <Container
       marginLR={marginLR}
@@ -38,7 +38,7 @@ export function ClothesBox({ width, height, marginLR, data }: Props) {
         </TypoGraphy>
       </ClothesName>
       <RemoveWrapper
-        onClick={() => onRemove()}
+        onClick={() => deleteImage(id)}
         showRemove={showRemove}
         onMouseOver={() => setShowRemove(true)}
         onMouseOut={() => setShowRemove(false)}>

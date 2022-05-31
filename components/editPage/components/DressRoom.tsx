@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useState } from 'react';
+import React, { ChangeEvent, useEffect, useRef, useState } from 'react';
 import styled from '@emotion/styled';
 import { customColor } from 'constants/index';
 import { AiOutlinePlus } from 'react-icons/ai';
@@ -8,11 +8,14 @@ type Props = {
   category: string;
 };
 type imageStateType = {
+  id: number;
   image_file: File;
   preview_URL: string;
 };
 export function DressRoom({ category }: Props) {
   const [images, setImages] = useState<Array<imageStateType>>([]);
+  const imageId = useRef(0);
+
   const addImage = (e: ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
     if (e.target.value[0]) {
@@ -23,6 +26,7 @@ export function DressRoom({ category }: Props) {
         setImages([
           ...images,
           {
+            id: imageId.current++,
             image_file: e.target.files![0],
             preview_URL: String(fileReader.result!),
           },
@@ -32,12 +36,21 @@ export function DressRoom({ category }: Props) {
     }
   };
 
+  const deleteImage = (id: number) => {
+    setImages(images.filter((image) => image.id !== id));
+  };
+
+
   return (
     <Container>
       {images &&
-        images.map((data, index) => (
-          <ClothesWrapper key={index}>
-            <ClothesBox data={data.preview_URL} />
+        images.map((data) => (
+          <ClothesWrapper key={data.id}>
+            <ClothesBox
+              data={data.preview_URL}
+              id={data.id}
+              deleteImage={deleteImage}
+            />
           </ClothesWrapper>
         ))}
       <ButtonWrapper>
