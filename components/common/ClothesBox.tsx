@@ -9,7 +9,7 @@ type Props = {
   width?: number;
   height?: number;
   marginLR?: number;
-  data: any;
+  data: string;
 };
 // 기존 ClothesDummy 에서 data 를 props 로 받아서 이미지를 출력하는 형식으로 바뀐거임
 export function ClothesBox({ width, height, marginLR, data }: Props) {

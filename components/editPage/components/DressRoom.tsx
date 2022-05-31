@@ -7,30 +7,35 @@ import { ClothesDummy } from 'components/common/ClothesDummy';
 type Props = {
   category: string;
 };
+type imageStateType = {
+  image_file: File;
+  preview_URL: string;
+};
 export function DressRoom({ category }: Props) {
-  const [images, setImages] = useState<any>([]);
+  const [images, setImages] = useState<Array<imageStateType>>([]);
   const addImage = (e: ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
-    if (!e.target.files) return;
-    const fileReader = new FileReader();
-    fileReader.readAsDataURL(e.target.files[0]);
-    fileReader.onload = () => {
-      setImages([
-        ...images,
-        {
-          image_file: e.target.files![0],
-          preview_URL: fileReader.result,
-        },
-      ]);
-    };
+    if (e.target.value[0]) {
+      const fileReader = new FileReader();
+      fileReader.readAsDataURL(e.target.files![0]);
 
-    alert('사진 등록!');
+      fileReader.onload = () => {
+        setImages([
+          ...images,
+          {
+            image_file: e.target.files![0],
+            preview_URL: String(fileReader.result!),
+          },
+        ]);
+      };
+      alert('사진 등록!');
+    }
   };
 
   return (
     <Container>
       {images &&
-        images.map((data: any, index: any) => (
+        images.map((data, index) => (
           <ClothesWrapper key={index}>
             <ClothesBox data={data.preview_URL} />
           </ClothesWrapper>
