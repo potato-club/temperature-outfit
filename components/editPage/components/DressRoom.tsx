@@ -59,6 +59,12 @@ const Container = styled.div`
   ::-webkit-scrollbar-thumb {
     background-color: rgb(179, 226, 255, 0.8);
     border-radius: 24px;
+    background-clip: padding-box;
+    border-left: 20px solid transparent;
+    border-right: 20px solid transparent;
+  }
+  ::-webkit-scrollbar-track {
+    border-radius: 10px;
   }
 `;
 const ButtonWrapper = styled.div``;
