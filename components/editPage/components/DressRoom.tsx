@@ -33,6 +33,7 @@ export function DressRoom({ category }: Props) {
         ]);
       };
       alert('사진 등록!');
+      e.target.value = ''; 
     }
   };
 
