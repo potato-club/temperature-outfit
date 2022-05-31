@@ -1,39 +1,48 @@
 import React, { ChangeEvent, useState } from 'react';
 import styled from '@emotion/styled';
 import { customColor } from 'constants/index';
-import { ClothesDummy } from 'components/common/ClothesDummy';
 import { AiOutlinePlus } from 'react-icons/ai';
-
-export function DressRoom() {
-  const onChange = (e: ChangeEvent<HTMLInputElement>) => {
-    // e.preventDefault();
+import { ClothesBox } from './../../common/ClothesBox';
+import { ClothesDummy } from 'components/common/ClothesDummy';
+type Props = {
+  category: string;
+};
+export function DressRoom({ category }: Props) {
+  const [images, setImages] = useState<any>([]);
+  const addImage = (e: ChangeEvent<HTMLInputElement>) => {
+    e.preventDefault();
     if (!e.target.files) return;
+    const fileReader = new FileReader();
+    fileReader.readAsDataURL(e.target.files[0]);
+    fileReader.onload = () => {
+      setImages([
+        ...images,
+        {
+          image_file: e.target.files![0],
+          preview_URL: fileReader.result,
+        },
+      ]);
+    };
 
-    const uploadFile = e.target.files[0];
-    const formData = new FormData();
-
-    formData.append('files', uploadFile);
     alert('사진 등록!');
   };
 
-  // 임시코드
-  const TestArray = [1, 2, 3, 4, 5];
-
   return (
     <Container>
-      {TestArray.map((data, index) => (
-        <ClothesWrapper key={index}>
-          <ClothesDummy />
-        </ClothesWrapper>
-      ))}
+      {images &&
+        images.map((data: any, index: any) => (
+          <ClothesWrapper key={index}>
+            <ClothesBox data={data.preview_URL} />
+          </ClothesWrapper>
+        ))}
       <ButtonWrapper>
         <AddButton
-          id="imgUpload"
+          id={`imgUpload${category}`}
           type="file"
           accept="image/*"
-          onChange={onChange}
+          onChange={addImage}
         />
-        <Label htmlFor="imgUpload">
+        <Label htmlFor={`imgUpload${category}`}>
           <AiOutlinePlus size={40} />
         </Label>
       </ButtonWrapper>

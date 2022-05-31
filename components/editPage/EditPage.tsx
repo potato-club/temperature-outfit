@@ -2,7 +2,6 @@ import React, { ChangeEvent, useState } from 'react';
 import styled from '@emotion/styled';
 import { TypoGraphy } from 'components/common';
 import { DressRoom, ReviewBox, Title } from './components';
-import { customColor } from './../../constants/customColor';
 
 const category = ['상의', '아우터', '하의', '신발', '기타'];
 export default function EditPage() {
@@ -16,7 +15,7 @@ export default function EditPage() {
               <TypoGraphy type="Title" fontWeight="bold">
                 {data}
               </TypoGraphy>
-              <DressRoom />
+              <DressRoom category={data} />
             </Category>
           ))}
         </CodyBox>

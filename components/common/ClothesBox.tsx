@@ -9,10 +9,10 @@ type Props = {
   width?: number;
   height?: number;
   marginLR?: number;
+  data: any;
 };
-
-// Todo 더미데이터 만들면 props 에서 데이터들을 받아서 출력하는 형식으로 바꿔야함.
-export function ClothesDummy({ width, height, marginLR }: Props) {
+// 기존 ClothesDummy 에서 data 를 props 로 받아서 이미지를 출력하는 형식으로 바뀐거임
+export function ClothesBox({ width, height, marginLR, data }: Props) {
   const [showName, setShowName] = useState<boolean>(false);
   const [showRemove, setShowRemove] = useState<boolean>(false);
 
@@ -30,7 +30,7 @@ export function ClothesDummy({ width, height, marginLR }: Props) {
         width={width || 120}
         height={height || 80}
         alt="clothes"
-        src="/clothes/clothes1.jpg"
+        src={data}
       />
       <ClothesName showName={showName}>
         <TypoGraphy type="sm1" color={customColor.brandColor2}>
