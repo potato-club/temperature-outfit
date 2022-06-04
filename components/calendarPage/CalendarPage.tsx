@@ -1,9 +1,6 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import Calendar from './components/Calendar';
-import '@fullcalendar/common/main.css';
-import '@fullcalendar/daygrid/main.css';
-import '@fullcalendar/timegrid/main.css';
 
 export const CalendarPage = () => {
   return (

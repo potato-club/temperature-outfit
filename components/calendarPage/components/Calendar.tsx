@@ -6,7 +6,6 @@ import FullCalendar, {
   EventContentArg,
 } from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
-import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import { INITIAL_EVENTS, createEventId } from './event-utils';
 import styled from '@emotion/styled';
@@ -26,7 +25,7 @@ export default class Calendar extends React.Component<{}, CalendarState> {
     return (
       <Wrapper>
         <FullCalendar
-          plugins={[dayGridPlugin, interactionPlugin, timeGridPlugin]}
+          plugins={[dayGridPlugin, interactionPlugin]}
           locale="ko"
           headerToolbar={{
             left: 'prev,next',
@@ -54,7 +53,7 @@ export default class Calendar extends React.Component<{}, CalendarState> {
     );
   }
 
-  // 해당 날짜에 등록할 때
+  // 해당 날짜를 선택하여 코디 등록할 때
   handleDateSelect = (selectInfo: DateSelectArg) => {
     let title = prompt('Please enter a new title for your event');
     let calendarApi = selectInfo.view.calendar;
@@ -66,7 +65,7 @@ export default class Calendar extends React.Component<{}, CalendarState> {
         id: createEventId(),
         title,
         start: selectInfo.startStr,
-        end: selectInfo.endStr,
+        // end: selectInfo.endStr,
         allDay: selectInfo.allDay,
       });
     }
@@ -90,13 +89,13 @@ export default class Calendar extends React.Component<{}, CalendarState> {
   };
 }
 
-// 화면에 띄우기
+// 해당 코디 관련 정보 화면에 띄우기
 function renderEventContent(eventContent: EventContentArg) {
   return (
-    <>
+    <Date>
       <b>{eventContent.timeText}</b>
       <i>{eventContent.event.title}</i>
-    </>
+    </Date>
   );
 }
 
@@ -105,4 +104,9 @@ const Wrapper = styled.div`
   padding: 20px;
   height: 100%;
   background-color: white;
+`;
+
+const Date = styled.div`
+  background-color: wheat;
+  padding: 10px 0;
 `;
