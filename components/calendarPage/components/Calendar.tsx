@@ -54,6 +54,8 @@ export default class Calendar extends React.Component<{}, CalendarState> {
   }
 
   // 해당 날짜를 선택하여 코디 등록할 때
+  // 코디 등록page로 이동하기
+  // date정보 가지고 이동
   handleDateSelect = (selectInfo: DateSelectArg) => {
     let title = prompt('Please enter a new title for your event');
     let calendarApi = selectInfo.view.calendar;
@@ -72,6 +74,8 @@ export default class Calendar extends React.Component<{}, CalendarState> {
   };
 
   // 등록된 거 클릭했을 때
+  // 해당 등록한 코디로 이동할거임
+  // date 정보 필요함
   handleEventClick = (clickInfo: EventClickArg) => {
     if (
       confirm(
@@ -82,6 +86,7 @@ export default class Calendar extends React.Component<{}, CalendarState> {
     }
   };
 
+  // 뭔지 아직 모르겠음
   handleEvents = (events: EventApi[]) => {
     this.setState({
       currentEvents: events,
@@ -89,7 +94,8 @@ export default class Calendar extends React.Component<{}, CalendarState> {
   };
 }
 
-// 해당 코디 관련 정보 화면에 띄우기
+// 날짜별 정보 달력 안에 띄우기
+// 회의할 내용
 function renderEventContent(eventContent: EventContentArg) {
   return (
     <Date>
