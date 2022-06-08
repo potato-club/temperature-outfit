@@ -36,6 +36,8 @@ const Wrapper = styled.div`
   background-color: ${customColor.brandColor5};
   display: flex;
   justify-content: center;
+  position: absolute;
+  top: 0;
 `;
 
 const Div = styled.div`
