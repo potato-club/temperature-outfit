@@ -1,8 +1,7 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import { TypoGraphy } from 'components/common';
-import { SelectLocation, SelectLocation_MuiVesion } from 'components/mypage';
-import { customColor } from 'constants/customColor';
+import { TypoGraphy, SelectBox } from 'components/common';
+import { customColor, city, clothesCategory } from 'constants/index';
 import { GrLocation } from 'react-icons/Gr';
 
 export const MyPage: React.FC = () => {
@@ -19,7 +18,7 @@ export const MyPage: React.FC = () => {
 
       <LocationWrapper>
         <GrLocation size={28} />
-        <SelectLocation_MuiVesion></SelectLocation_MuiVesion>
+        <SelectBox width={80} propsArray={city} label="지역" />
       </LocationWrapper>
 
       <TypoGraphy type="sm1">사는 지역을 선택해주세요</TypoGraphy>
