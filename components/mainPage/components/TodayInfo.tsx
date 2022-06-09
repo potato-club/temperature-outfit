@@ -27,11 +27,11 @@ export function TodayInfo() {
         <Temperatures>
           <BsArrowUp color="F0771F" size={40} />
           <TypoGraphy type="body1" color={customColor.brandColor5}>
-            최고 15
+            최고 <span style={{ display: 'inline-block' }}>15</span>
           </TypoGraphy>
           <BsArrowDown color="499CCE" size={40} />
           <TypoGraphy type="body1" color={customColor.brandColor5}>
-            최저 5
+            최저 <span style={{ display: 'inline-block' }}>5</span>
           </TypoGraphy>
         </Temperatures>
         <TypoGraphy type="h3" color={customColor.brandColor5}>
