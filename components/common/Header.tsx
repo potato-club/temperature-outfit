@@ -31,7 +31,7 @@ export const Header: React.FC = () => {
 
 export default Header;
 
-const Wrapper = styled.div`
+const Wrapper = styled.header`
   width: 100%;
   background-color: ${customColor.brandColor5};
   display: flex;
