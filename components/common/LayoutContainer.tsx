@@ -5,7 +5,7 @@ export const LayoutContainer: React.FC = ({ children }) => {
   return <Container>{children}</Container>;
 };
 
-const Container = styled.div`
+const Container = styled.section`
   /* background-image: url('/winter/w3.jpg');
   background-repeat: no-repeat;
   background-size: 100% 100%; */
@@ -23,4 +23,5 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
 `;

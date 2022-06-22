@@ -11,7 +11,7 @@ export function MainPage() {
   );
 }
 
-const Container = styled.div`
+const Container = styled.section`
   width: 100%;
   display: flex;
   align-items: center;

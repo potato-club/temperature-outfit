@@ -27,11 +27,11 @@ export function TodayInfo() {
         <Temperatures>
           <BsArrowUp color="F0771F" size={40} />
           <TypoGraphy type="body1" color={customColor.brandColor5}>
-            최고 15
+            최고 <span style={{ display: 'inline-block' }}>15</span>
           </TypoGraphy>
           <BsArrowDown color="499CCE" size={40} />
           <TypoGraphy type="body1" color={customColor.brandColor5}>
-            최저 5
+            최저 <span style={{ display: 'inline-block' }}>5</span>
           </TypoGraphy>
         </Temperatures>
         <TypoGraphy type="h3" color={customColor.brandColor5}>
@@ -77,7 +77,7 @@ export function TodayInfo() {
   );
 }
 
-const Container = styled.div`
+const Container = styled.section`
   display: flex;
   align-items: center;
   margin-top: 20px;
@@ -87,36 +87,36 @@ const Container = styled.div`
   max-width: 820px;
   height: 240px;
 `;
-const IconWrapper = styled.div`
+const IconWrapper = styled.section`
   width: 20%;
   text-align: center;
 `;
 
-const LocationInfo = styled.div`
+const LocationInfo = styled.section`
   display: flex;
   flex-direction: column;
   gap: 16px 0;
   width: 30%;
 `;
 
-const Location = styled.div`
+const Location = styled.section`
   display: flex;
   align-items: center;
 `;
 
-const Temperatures = styled.div`
+const Temperatures = styled.section`
   display: flex;
   align-items: center;
 `;
 
-const TodayClothes = styled.div`
+const TodayClothes = styled.section`
   display: flex;
   flex-direction: column;
   width: 50%;
   gap: 24px 0;
 `;
 
-const TodayBestBox = styled.div`
+const TodayBestBox = styled.section`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -129,12 +129,12 @@ const TodayBestBox = styled.div`
   max-width: 320px;
   gap: 8px 0;
 `;
-const RankingWrapper = styled.div`
+const RankingWrapper = styled.section`
   display: flex;
   gap: 0px 8px;
 `;
 
-const TextWrapper = styled.div`
+const TextWrapper = styled.section`
   div {
     padding-right: 10%;
   }

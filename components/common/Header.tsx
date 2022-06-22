@@ -1,28 +1,44 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from '@emotion/styled';
 import { customColor } from 'constants/index';
 import { TypoGraphy } from './index';
+import { MyPage } from 'components/mypage';
 import { FaRegCalendarAlt } from 'react-icons/fa';
 import { IoFileTrayStackedSharp } from 'react-icons/io5';
 import { CgProfile } from 'react-icons/cg';
+import Link from 'next/link';
 
 export const Header: React.FC = () => {
+  const [myPageToggle, setMyPageToggle] = useState(false);
+
+  const onClick = () => {
+    setMyPageToggle((current) => !current);
+  };
   return (
     <Wrapper>
       <Div>
-        <TypoGraphy color={customColor.white}>
-          Write down today&apos;s outfit.
-        </TypoGraphy>
+        <Link href="/" passHref>
+          <Logo>
+            <TypoGraphy color={customColor.white}>
+              Write down today&apos;s outfit.
+            </TypoGraphy>
+          </Logo>
+        </Link>
         <ButtonBox>
-          <Logo>
-            <FaRegCalendarAlt size="20px" />
+          <Link href="/calendar" passHref>
+            <Logo>
+              <FaRegCalendarAlt size="20px" />
+            </Logo>
+          </Link>
+          <Link href="/closet" passHref>
+            <Logo>
+              <IoFileTrayStackedSharp size="20px" />
+            </Logo>
+          </Link>
+          <Logo className="benchMark">
+            <CgProfile size="20px" onClick={onClick} />
           </Logo>
-          <Logo>
-            <IoFileTrayStackedSharp size="20px" />
-          </Logo>
-          <Logo>
-            <CgProfile size="20px" />
-          </Logo>
+          <MyPageDiv> {myPageToggle ? <MyPage /> : null}</MyPageDiv>
         </ButtonBox>
       </Div>
     </Wrapper>
@@ -31,14 +47,16 @@ export const Header: React.FC = () => {
 
 export default Header;
 
-const Wrapper = styled.div`
+const Wrapper = styled.nav`
   width: 100%;
   background-color: ${customColor.brandColor5};
   display: flex;
   justify-content: center;
+  position: absolute;
+  top: 0;
 `;
 
-const Div = styled.div`
+const Div = styled.article`
   display: flex;
   justify-content: space-between;
   flex-direction: row;
@@ -47,11 +65,18 @@ const Div = styled.div`
   height: 46px;
 `;
 
-const ButtonBox = styled.div`
+const ButtonBox = styled.section`
   display: flex;
   gap: 16px;
+  position: relative;
 `;
-const Logo = styled.div`
+const Logo = styled.section`
   cursor: pointer;
   color: ${customColor.white};
+`;
+
+const MyPageDiv = styled.section`
+  position: absolute;
+  left: 75%;
+  top: 34px;
 `;
