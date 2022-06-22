@@ -1,12 +1,8 @@
 import styled from '@emotion/styled';
-import { CustomButton, TypoGraphy } from 'components/common';
-import {
-  SubCategory,
-  MainCategory,
-  ClothesContainer,
-  RadioButtons,
-  SearchBox,
-} from './components';
+import { CustomButton, TypoGraphy, SelectBox } from 'components/common';
+import { ClothesContainer, RadioButtons, SearchBox } from './components';
+
+import { clothesCategory, city } from 'constants/index';
 
 export const Closet: React.FC = () => {
   return (
@@ -16,8 +12,8 @@ export const Closet: React.FC = () => {
       </TypoGraphy>
 
       <CategoryWrapper>
-        <MainCategory />
-        <SubCategory />
+        <SelectBox width={80} label="전체" propsArray={clothesCategory} />
+
         <RadioButtons />
         <SearchBox />
       </CategoryWrapper>

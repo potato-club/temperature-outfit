@@ -4,7 +4,6 @@ import { GoogleLogin } from './GoogleLogin';
 import Image from 'next/image';
 import fountainPen from 'assets/img/fountainPen.png';
 
-// 1. size 지정했기때문에 현재 데스크탑의 크기에 따라서 화면이 잘 안보임
 export const LoginUi: React.FC = () => {
   return (
     <Wrap>
