@@ -26,7 +26,7 @@ export const LoginUi: React.FC = () => {
     </Wrap>
   );
 };
-const Wrap = styled.div`
+const Wrap = styled.section`
   width: 100%;
   height: 100vh;
   display: flex;
@@ -34,7 +34,7 @@ const Wrap = styled.div`
   align-items: center;
 `;
 
-const OutWrap = styled.div`
+const OutWrap = styled.section`
   border: 4px solid black;
   width: 1892px;
   height: 1052px;
@@ -45,7 +45,7 @@ const OutWrap = styled.div`
   align-items: center;
 `;
 
-const InWrap = styled.div`
+const InWrap = styled.section`
   width: 1836px;
   height: 996px;
   border: 2px solid;
@@ -56,22 +56,22 @@ const InWrap = styled.div`
   position: relative;
 `;
 
-const Title = styled.div`
+const Title = styled.section`
   font-size: 64px;
   font-family: serif;
 `;
 
-const MainIcon = styled.div`
+const MainIcon = styled.section`
   width: 224px;
 `;
 
-const SubTitle = styled.div`
+const SubTitle = styled.section`
   font-size: 40px;
   color: gray;
   margin: 72px;
 `;
 
-const Footer = styled.div`
+const Footer = styled.section`
   font-size: 20px;
   font-family: serif;
   align-self: flex-end;

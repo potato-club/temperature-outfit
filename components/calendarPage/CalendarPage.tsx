@@ -10,7 +10,7 @@ export const CalendarPage = () => {
   );
 };
 
-const Wrapper = styled.div`
+const Wrapper = styled.section`
   display: flex;
   flex-direction: column;
   align-items: center;

@@ -105,7 +105,7 @@ function renderEventContent(eventContent: EventContentArg) {
   );
 }
 
-const Wrapper = styled.div`
+const Wrapper = styled.section`
   width: 1178px;
   padding: 20px;
   height: 100%;
@@ -113,7 +113,7 @@ const Wrapper = styled.div`
   margin-top: 40px;
 `;
 
-const Date = styled.div`
+const Date = styled.article`
   background-color: wheat;
   padding: 10px 0;
 `;

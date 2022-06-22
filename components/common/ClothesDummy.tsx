@@ -54,7 +54,7 @@ type StyleProps = {
   height?: number;
 };
 
-const Container = styled.div<StyleProps>`
+const Container = styled.section<StyleProps>`
   display: flex;
   margin: ${(props) => props.marginLR && `0 ${props.marginLR}px`};
   border: 4px solid ${customColor.brandColor1};
@@ -69,7 +69,7 @@ const Container = styled.div<StyleProps>`
 type NameProps = {
   showName: boolean;
 };
-const ClothesName = styled.div<NameProps>`
+const ClothesName = styled.section<NameProps>`
   position: absolute;
   top: 4px;
   left: 8px;

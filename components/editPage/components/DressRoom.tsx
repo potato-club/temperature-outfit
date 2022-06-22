@@ -33,14 +33,13 @@ export function DressRoom({ category }: Props) {
         ]);
       };
       alert('사진 등록!');
-      e.target.value = ''; 
+      e.target.value = '';
     }
   };
 
   const deleteImage = (id: number) => {
     setImages(images.filter((image) => image.id !== id));
   };
-
 
   return (
     <Container>
@@ -69,7 +68,7 @@ export function DressRoom({ category }: Props) {
   );
 }
 
-const Container = styled.div`
+const Container = styled.section`
   display: flex;
   background-color: ${customColor.white};
   padding: 12px;
@@ -95,7 +94,7 @@ const Container = styled.div`
     border-radius: 10px;
   }
 `;
-const ButtonWrapper = styled.div``;
+const ButtonWrapper = styled.section``;
 const AddButton = styled.input`
   display: none;
 `;
@@ -110,6 +109,6 @@ const Label = styled.label`
   border-radius: 24px;
 `;
 
-const ClothesWrapper = styled.div`
+const ClothesWrapper = styled.section`
   position: relative;
 `;

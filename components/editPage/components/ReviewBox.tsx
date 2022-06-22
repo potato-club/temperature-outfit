@@ -73,7 +73,7 @@ export function ReviewBox() {
   );
 }
 
-const Container = styled.div`
+const Container = styled.section`
   width: 40%;
   max-width: 350px;
   height: 100%;
@@ -82,7 +82,7 @@ const Container = styled.div`
   justify-content: space-between;
 `;
 
-const ImageWrapper = styled.div`
+const ImageWrapper = styled.section`
   border-radius: 10px;
   overflow: hidden;
 `;
@@ -95,11 +95,11 @@ const TextArea = styled.textarea`
   padding: 8px;
   box-sizing: border-box;
 `;
-const ButtonWrapper = styled.div`
+const ButtonWrapper = styled.section`
   align-self: flex-end;
 `;
 
-const StarWrapper = styled.div`
+const StarWrapper = styled.section`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -108,13 +108,13 @@ const StarWrapper = styled.div`
   margin-bottom: 40px;
 `;
 
-const ButtonContainer = styled.div`
+const ButtonContainer = styled.section`
   display: flex;
   justify-content: flex-end;
   gap: 0 12px;
 `;
 
-const BoxWrapper = styled.div`
+const BoxWrapper = styled.section`
   display: flex;
   flex-direction: column;
   gap: 12px 0;

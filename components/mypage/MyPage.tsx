@@ -45,7 +45,7 @@ export const MyPage: React.FC = () => {
   );
 };
 
-const Container = styled.div`
+const Container = styled.section`
   width: 176px;
   height: 154px;
   border: 2px solid ${customColor.gray};
@@ -58,30 +58,30 @@ const Container = styled.div`
   align-items: center;
 `;
 
-const NameInfo = styled.div`
+const NameInfo = styled.section`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
   gap: 4px;
 `;
-const LocationWrapper = styled.div`
+const LocationWrapper = styled.section`
   display: flex;
   flex-direction: row;
   align-items: center;
   gap: 8px;
 `;
 
-const Footer = styled.div`
+const Footer = styled.section`
   display: flex;
   gap: 8px;
   justify-content: space-evenly;
 `;
 
-const LogOut = styled.div`
+const LogOut = styled.section`
   cursor: pointer;
 `;
 
-const AccountDeletion = styled.div`
+const AccountDeletion = styled.section`
   cursor: pointer;
 `;
