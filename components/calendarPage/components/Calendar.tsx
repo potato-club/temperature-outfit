@@ -110,6 +110,7 @@ const Wrapper = styled.div`
   padding: 20px;
   height: 100%;
   background-color: white;
+  margin-top: 40px;
 `;
 
 const Date = styled.div`
