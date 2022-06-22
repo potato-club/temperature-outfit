@@ -99,8 +99,11 @@ export default class Calendar extends React.Component<{}, CalendarState> {
 function renderEventContent(eventContent: EventContentArg) {
   return (
     <Date>
-      <b>{eventContent.timeText}</b>
-      <i>{eventContent.event.title}</i>
+      <b>평점 : 10</b>
+      <br />
+      <i>평균 온도 : 23.5°C</i>
+      <br />
+      <i>기후 : 해 모양</i>
     </Date>
   );
 }
@@ -114,6 +117,6 @@ const Wrapper = styled.section`
 `;
 
 const Date = styled.article`
-  background-color: wheat;
-  padding: 10px 0;
+  /* background-color: wheat; */
+  /* padding: 10px 0; */
 `;
