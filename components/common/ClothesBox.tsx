@@ -34,7 +34,7 @@ export function ClothesBox({ width, height, marginLR, data, id, name, deleteImag
         src={data}
       />
       <ClothesName showName={showName}>
-        <TypoGraphy type="sm1" color={customColor.brandColor2}>
+        <TypoGraphy type="sm1" color={customColor.white}>
           {name}
         </TypoGraphy>
       </ClothesName>
@@ -72,6 +72,8 @@ type NameProps = {
 };
 const ClothesName = styled.div<NameProps>`
   position: absolute;
+  background-color: #00000080;
+  padding: 4px;
   top: 4px;
   left: 8px;
   opacity: ${({ showName }) => (showName ? 1 : 0)};
