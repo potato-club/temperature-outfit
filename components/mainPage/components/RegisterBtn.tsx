@@ -6,7 +6,7 @@ import React from 'react';
 export function RegisterBtn() {
   const onClick = () => {
     alert('버튼클릭');
-  }
+  };
   return (
     <Container>
       <Wrapper onClick={() => onClick()}>
@@ -17,14 +17,14 @@ export function RegisterBtn() {
     </Container>
   );
 }
-const Container = styled.div`
+const Container = styled.section`
   display: flex;
   justify-content: flex-end;
   width: 100%;
   max-width: 1178px;
 `;
 
-const Wrapper = styled.div`
+const Wrapper = styled.section`
   display: flex;
   align-items: center;
   justify-content: center;

@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import styled from '@emotion/styled';
 import { TypoGraphy } from 'components/common';
 import { customColor } from 'constants/index';
@@ -28,7 +28,7 @@ export function Title() {
     </Container>
   );
 }
-const Container = styled.div`
+const Container = styled.section`
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -36,17 +36,17 @@ const Container = styled.div`
   justify-content: space-evenly;
   align-items: center;
 `;
-const SubTitle = styled.div`
+const SubTitle = styled.section`
   width: 100%;
   display: flex;
   gap: 0 28px;
 `;
 
-const Temperatures = styled.div`
+const Temperatures = styled.section`
   width: 60%;
   max-width: 800px;
 `;
-const ReviewTitle = styled.div`
+const ReviewTitle = styled.section`
   width: 40%;
   max-width: 350px;
   display: flex;

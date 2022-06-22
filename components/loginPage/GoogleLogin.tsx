@@ -17,7 +17,7 @@ export const GoogleLogin: React.FC = () => {
   );
 };
 
-const Img = styled.div`
+const Img = styled.section`
   cursor: pointer;
 `;
 

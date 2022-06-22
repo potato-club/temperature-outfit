@@ -25,7 +25,7 @@ export default function EditPage() {
   );
 }
 
-const Container = styled.div`
+const Container = styled.section`
   display: flex;
   width: 100%;
   max-width: 1178px;
@@ -34,21 +34,21 @@ const Container = styled.div`
   flex-direction: column;
 `;
 
-const Contents = styled.div`
+const Contents = styled.section`
   width: 100%;
   height: 70vh;
   display: flex;
   gap: 0 28px;
 `;
 
-const Category = styled.div`
+const Category = styled.section`
   height: 100%;
   display: flex;
   flex-direction: column;
   gap: 12px;
 `;
 
-const CodyBox = styled.div`
+const CodyBox = styled.section`
   width: 60%;
   max-width: 800px;
   display: flex;

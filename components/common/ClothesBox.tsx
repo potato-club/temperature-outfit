@@ -11,11 +11,18 @@ type Props = {
   marginLR?: number;
   data: string;
   id: number;
-  deleteImage: (id:number) => void;
+  deleteImage: (id: number) => void;
 };
 
 // 기존 ClothesDummy 에서 data 를 props 로 받아서 이미지를 출력하는 형식으로 바뀐거임
-export function ClothesBox({ width, height, marginLR, data, id, deleteImage }: Props) {
+export function ClothesBox({
+  width,
+  height,
+  marginLR,
+  data,
+  id,
+  deleteImage,
+}: Props) {
   const [showName, setShowName] = useState<boolean>(false);
   const [showRemove, setShowRemove] = useState<boolean>(false);
 
@@ -54,7 +61,7 @@ type StyleProps = {
   height?: number;
 };
 
-const Container = styled.div<StyleProps>`
+const Container = styled.section<StyleProps>`
   display: flex;
   margin: ${(props) => props.marginLR && `0 ${props.marginLR}px`};
   border: 4px solid ${customColor.brandColor1};
@@ -69,7 +76,7 @@ const Container = styled.div<StyleProps>`
 type NameProps = {
   showName: boolean;
 };
-const ClothesName = styled.div<NameProps>`
+const ClothesName = styled.section<NameProps>`
   position: absolute;
   top: 4px;
   left: 8px;

@@ -23,7 +23,7 @@ export const StarRate: React.FC<Test> = ({ num }) => {
   };
   return <Wrapper>{calStar()}</Wrapper>;
 };
-const Wrapper = styled.div`
+const Wrapper = styled.section`
   background-color: ${customColor.brandColor4};
   border-radius: 12px;
   width: 240px;

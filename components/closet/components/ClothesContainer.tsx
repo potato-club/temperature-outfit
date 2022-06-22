@@ -21,7 +21,7 @@ export const ClothesContainer: React.FC = () => {
   );
 };
 
-const ItemContainer = styled.div`
+const ItemContainer = styled.section`
   width: 100%;
   height: 600px;
 
