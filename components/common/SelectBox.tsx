@@ -9,6 +9,7 @@ interface Array {
   name: string;
   value: string | string[];
 }
+
 type Props = {
   width?: number;
   propsArray: Array[];

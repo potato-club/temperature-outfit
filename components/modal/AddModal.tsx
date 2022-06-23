@@ -1,13 +1,9 @@
 import React from 'react';
 import Modal from 'react-modal';
 import styled from '@emotion/styled';
-import { CustomButton, TypoGraphy } from 'components/common';
+import { CustomButton, SelectBox, TypoGraphy } from 'components/common';
 import { customColor } from 'constants/customColor';
-import {
-  // MainCategory,
-  RadioButtons,
-  // SubCategory,
-} from 'components/closet/components';
+import { RadioButtons } from 'components/closet/components';
 
 const customStyles = {
   content: {
@@ -48,10 +44,11 @@ export const AddModal = ({ modalIsOpen, closeModal }: ModalProps) => {
           </InputWrapper>
           <CategoryWrapper>
             <InputWrapper>
-              {/* <MainCategory /> */}
+            {/*  */}
+              <SelectBox propsArray={[]} label={'메인'} />
             </InputWrapper>
             <InputWrapper>
-              {/* <SubCategory /> */}
+              <SelectBox propsArray={[]} label={'서브'} />
             </InputWrapper>
           </CategoryWrapper>
           <RadioButtonsWrapper>
