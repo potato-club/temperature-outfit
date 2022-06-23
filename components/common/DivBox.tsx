@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import { color } from 'constants/index';
+import { customColor } from 'constants/index';
 
 type DivBoxProps = {
   width: number;
@@ -21,14 +21,14 @@ export const DivBox: React.FC<DivBoxProps> = ({ children, width, height }) => {
 
 export default DivBox;
 
-const Div = styled.div<StyledDivProps>`
+const Div = styled.section<StyledDivProps>`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  border: 2px solid ${color.brandColor5};
+  border: 2px solid ${customColor.brandColor5};
   width: ${(props) => props.width}px;
   height: ${(props) => props.height}px;
-  background-color: ${color.white};
-  opacity: 0.7;
+  background-color: ${customColor.white};
+  background-color: rgba(255, 255, 255, 0.5);
 `;
