@@ -25,7 +25,7 @@ interface ModalProps {
 
 export const ChooseModal = ({ modalIsOpen, closeModal }: ModalProps) => {
   const [cloth, setCloth] = useState('상의');
-
+  const {} = clothesCategory;
   return (
     <Modal
       isOpen={modalIsOpen}
@@ -38,9 +38,10 @@ export const ChooseModal = ({ modalIsOpen, closeModal }: ModalProps) => {
         </TypoGraphy>
         <ContentBox>
           <ButtonBox>
-            {/* {clothesCategory.top.map((item, index) => (
-              <CustomButton customType="white" text={item} key={index} />
-            ))} */}
+            {/* 서브 카테고리 띄우기 */}
+            {clothesCategory.map((item, index) => (
+              <CustomButton customType="white" text={'item'} key={index} />
+            ))}
           </ButtonBox>
           <ClothesImgBox>
             <ClothesDummy height={120} />
