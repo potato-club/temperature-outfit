@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 import { CustomButton, TypoGraphy, SelectBox } from 'components/common';
 import { AddModal, ChooseModal } from 'components/modal';
+import { realClothesCategory } from 'constants/realClothesCategory';
 import { useState } from 'react';
 import {
   // SubCategory,
@@ -37,7 +38,11 @@ export const Closet: React.FC = () => {
       </TypoGraphy>
 
       <CategoryWrapper>
-        <SelectBox width={80} label="전체" propsArray={[]} />
+        <SelectBox
+          width={80}
+          label="전체"
+          propsArray={Object.keys(realClothesCategory)}
+        />
 
         <RadioButtons />
         <SearchBox />

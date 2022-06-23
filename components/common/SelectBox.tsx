@@ -3,7 +3,11 @@ import Select, { SelectChangeEvent } from '@mui/material/Select';
 import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 import { useState } from 'react';
-import { clothesCategory, subClothesCategory } from 'constants/index';
+import {
+  clothesCategory,
+  subClothesCategory,
+  realClothesCategory,
+} from 'constants/index';
 
 interface Array {
   name: string;
@@ -24,6 +28,7 @@ export const SelectBox: React.FC<Props> = ({ width, propsArray, label }) => {
   const handleChange = (event: SelectChangeEvent) => {
     setSelected(event.target.value);
 
+    // 직접 값을 가져와서 state에 담아서 보여줬군...
     if (event.target.value == 'top') {
       setSubCategory(subClothesCategory.top);
     } else if (event.target.value == 'bottom') {
@@ -41,6 +46,7 @@ export const SelectBox: React.FC<Props> = ({ width, propsArray, label }) => {
 
   return (
     <>
+      {/* 하나일때 */}
       <FormControl sx={{ minWidth: width || 80 }} size="small">
         <InputLabel id="demo-simple-select-autowidth-label">{label}</InputLabel>
         <Select
@@ -57,7 +63,8 @@ export const SelectBox: React.FC<Props> = ({ width, propsArray, label }) => {
         </Select>
       </FormControl>
 
-      {propsArray === clothesCategory ? (
+      {/* 서브 카테고리 지정하기  */}
+      {propsArray === realClothesCategory ? (
         <FormControl sx={{ minWidth: 100 }} size="small">
           <InputLabel id="demo-simple-select-autowidth-label">
             {selected}
