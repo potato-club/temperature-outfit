@@ -1,10 +1,6 @@
 interface Clothes {
-  top: MainCategoryType;
-  bottom: MainCategoryType;
-  shoes: MainCategoryType;
-  others: MainCategoryType;
+  [key: string]: MainCategoryType;
 }
-
 interface MainCategoryType {
   name: string;
   value: string;

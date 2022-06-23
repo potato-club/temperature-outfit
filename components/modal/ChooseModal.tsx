@@ -4,7 +4,7 @@ import styled from '@emotion/styled';
 import { useState } from 'react';
 import { CustomButton, TypoGraphy } from 'components/common';
 import { customColor } from 'constants/customColor';
-import { clothesCategory } from 'constants/clothesCategory';
+import { realClothesCategory } from 'constants/index';
 import { ClothesDummy } from 'components/common/ClothesDummy';
 
 const customStyles = {
@@ -21,11 +21,17 @@ const customStyles = {
 interface ModalProps {
   modalIsOpen: boolean;
   closeModal: () => void;
+  mainCategory: string;
 }
+// 1. 옷 선택하기에서 data를 props로 받아오기
+//
 
-export const ChooseModal = ({ modalIsOpen, closeModal }: ModalProps) => {
+export const ChooseModal = ({
+  modalIsOpen,
+  closeModal,
+  mainCategory,
+}: ModalProps) => {
   const [cloth, setCloth] = useState('상의');
-  const {} = clothesCategory;
   return (
     <Modal
       isOpen={modalIsOpen}
@@ -39,9 +45,12 @@ export const ChooseModal = ({ modalIsOpen, closeModal }: ModalProps) => {
         <ContentBox>
           <ButtonBox>
             {/* 서브 카테고리 띄우기 */}
-            {clothesCategory.map((item, index) => (
-              <CustomButton customType="white" text={'item'} key={index} />
-            ))}
+            {/* top부분이  */}
+            {realClothesCategory[mainCategory].subCategory.map(
+              (item, index) => (
+                <CustomButton customType="white" text={item} key={index} />
+              ),
+            )}
           </ButtonBox>
           <ClothesImgBox>
             <ClothesDummy height={120} />

@@ -68,7 +68,11 @@ export const Closet: React.FC = () => {
       <AddModal modalIsOpen={modalIsOpen} closeModal={closeModal} />
 
       {/* 이건 잠시 있는 것 */}
-      <ChooseModal modalIsOpen={modalIsOpen2} closeModal={closeModal2} />
+      <ChooseModal
+        modalIsOpen={modalIsOpen2}
+        closeModal={closeModal2}
+        mainCategory={'bottom'}
+      />
       {/* 여기까지 */}
     </Wrapper>
   );
