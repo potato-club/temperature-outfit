@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { CustomButton, TypoGraphy } from 'components/common';
+import { CustomButton, TypoGraphy, SelectBox } from 'components/common';
 import { AddModal, ChooseModal } from 'components/modal';
 import { useState } from 'react';
 import {
@@ -37,7 +37,7 @@ export const Closet: React.FC = () => {
       </TypoGraphy>
 
       <CategoryWrapper>
-        {/* <SelectBox width={80} label="전체" propsArray={clothesCategory} /> */}
+        <SelectBox width={80} label="전체" propsArray={[]} />
 
         <RadioButtons />
         <SearchBox />
