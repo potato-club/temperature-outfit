@@ -4,9 +4,9 @@ import styled from '@emotion/styled';
 import { CustomButton, TypoGraphy } from 'components/common';
 import { customColor } from 'constants/customColor';
 import {
-  MainCategory,
+  // MainCategory,
   RadioButtons,
-  SubCategory,
+  // SubCategory,
 } from 'components/closet/components';
 
 const customStyles = {
@@ -48,10 +48,10 @@ export const AddModal = ({ modalIsOpen, closeModal }: ModalProps) => {
           </InputWrapper>
           <CategoryWrapper>
             <InputWrapper>
-              <MainCategory />
+              {/* <MainCategory /> */}
             </InputWrapper>
             <InputWrapper>
-              <SubCategory />
+              {/* <SubCategory /> */}
             </InputWrapper>
           </CategoryWrapper>
           <RadioButtonsWrapper>
@@ -65,14 +65,14 @@ export const AddModal = ({ modalIsOpen, closeModal }: ModalProps) => {
     </Modal>
   );
 };
-const Img = styled.div`
+const Img = styled.article`
   width: 100%;
   height: 400px;
   background-color: ${customColor.gray};
   border-radius: 40px;
 `;
 
-const Wrapper = styled.div`
+const Wrapper = styled.section`
   display: flex;
   flex-direction: column;
   /* height: 100%; */
@@ -81,17 +81,17 @@ const Wrapper = styled.div`
   padding: 20px;
 `;
 
-const InputWrapper = styled.div`
+const InputWrapper = styled.section`
   display: flex;
   flex-direction: column;
   flex: 1;
 `;
-const CategoryWrapper = styled.div`
+const CategoryWrapper = styled.section`
   display: flex;
   gap: 10px;
 `;
 
-const ButtonWrapper = styled.div`
+const ButtonWrapper = styled.section`
   display: flex;
   justify-content: flex-end;
   margin-top: 12px;
@@ -104,13 +104,13 @@ const Input = styled.input`
   padding-left: 10px;
 `;
 
-const ContentBox = styled.div`
+const ContentBox = styled.section`
   display: flex;
   flex-direction: column;
   gap: 20px;
   margin-top: 10px;
 `;
 
-const RadioButtonsWrapper = styled.div``;
+const RadioButtonsWrapper = styled.section``;
 
-const Title = styled.div``;
+const Title = styled.section``;

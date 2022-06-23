@@ -38,9 +38,9 @@ export const ChooseModal = ({ modalIsOpen, closeModal }: ModalProps) => {
         </TypoGraphy>
         <ContentBox>
           <ButtonBox>
-            {clothesCategory.top.map((item, index) => (
+            {/* {clothesCategory.top.map((item, index) => (
               <CustomButton customType="white" text={item} key={index} />
-            ))}
+            ))} */}
           </ButtonBox>
           <ClothesImgBox>
             <ClothesDummy height={120} />
@@ -53,7 +53,7 @@ export const ChooseModal = ({ modalIsOpen, closeModal }: ModalProps) => {
   );
 };
 
-const Wrapper = styled.div`
+const Wrapper = styled.section`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -61,7 +61,7 @@ const Wrapper = styled.div`
   gap: 10px;
 `;
 
-const ContentBox = styled.div`
+const ContentBox = styled.section`
   width: 100%;
   height: 200px;
   border: 1px solid ${customColor.gray};
@@ -69,18 +69,18 @@ const ContentBox = styled.div`
   padding: 10px;
 `;
 
-const ButtonBox = styled.div`
+const ButtonBox = styled.section`
   display: flex;
   gap: 10px;
   margin-bottom: 10px;
 `;
 
-const ClothesImgBox = styled.div`
+const ClothesImgBox = styled.section`
   display: flex;
   gap: 10px;
 `;
 
-const ButtonWrapper = styled.div`
+const ButtonWrapper = styled.section`
   display: flex;
   justify-content: flex-end;
   margin-top: 12px;
