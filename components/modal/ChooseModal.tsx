@@ -44,8 +44,6 @@ export const ChooseModal = ({
         </TypoGraphy>
         <ContentBox>
           <ButtonBox>
-            {/* 서브 카테고리 띄우기 */}
-            {/* top부분이  */}
             {realClothesCategory[mainCategory].subCategory.map(
               (item, index) => (
                 <CustomButton customType="white" text={item} key={index} />
