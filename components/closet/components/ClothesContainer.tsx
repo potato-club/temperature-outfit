@@ -1,22 +1,12 @@
 import { ClothesDummy } from 'components/common/ClothesDummy';
 import styled from '@emotion/styled';
-
+import { clothesData } from 'dummy/clothesData';
 export const ClothesContainer: React.FC = () => {
   return (
     <ItemContainer>
-      <ClothesDummy />
-      <ClothesDummy />
-      <ClothesDummy />
-      <ClothesDummy />
-      <ClothesDummy />
-      <ClothesDummy />
-      <ClothesDummy />
-      <ClothesDummy />
-      <ClothesDummy />
-      <ClothesDummy />
-      <ClothesDummy />
-      <ClothesDummy />
-      <ClothesDummy />
+      {clothesData.map((data, index) => (
+        <ClothesDummy name={data.name} url={data.url} key={index}/>
+      ))}
     </ItemContainer>
   );
 };

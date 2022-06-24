@@ -4,43 +4,37 @@ import Image from 'next/image';
 import React from 'react';
 import { TypoGraphy } from "components/common";
 type Props = {
-  width?: number;
-  height?: number;
-  marginLR?: number;
+  name : string;
+  url : string;
 }
-export function ClothesDummy({width, height, marginLR}: Props) {
+export function ClothesDummy({name, url}: Props) {
   return (
-    <Container marginLR={marginLR} maxWidth={width} maxHeight={height}>
+    <Container>
         <Image
-          width={width || 120}
-          height={height || 80}
+          width={120}
+          height={80}
           alt="clothes"
-          src="/clothes/clothes1.jpg"
+          src={url}
         />
         <ClothesName>
           <TypoGraphy type="sm1" color={customColor.brandColor2}>
-            LMC 고래반팔
+            {name}
           </TypoGraphy>
         </ClothesName>
     </Container>
   );
 }
 
-type StyleProps = {
-  marginLR? : number;
-  maxWidth? : number;
-  maxHeight? : number;
-}
 
-const Container = styled.div<StyleProps>`
+const Container = styled.div`
   position: relative;
   display: flex;
-  margin: ${(props) => props && `0 ${props.marginLR}px`};
+  margin: 0;
   border: 4px solid ${customColor.brandColor1};
   border-radius: 24px;
   overflow: hidden;
-  max-width: ${({ maxWidth }) => maxWidth ? maxWidth + 'px' : '120px'};
-  max-height: ${({ maxHeight }) => maxHeight ? maxHeight + 'px' : '120px'};
+  max-width: 120px;
+  max-height: 120px;
   /* background: linear-gradient(180deg, #292929 0%, rgba(196, 196, 196, 0) 100%); */
 `;
 
