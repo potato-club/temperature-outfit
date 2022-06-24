@@ -1,9 +1,6 @@
-interface City {
-  name: string;
-  value: string;
-}
+import { CategoryDetail } from 'constants/types';
 
-export const city: City[] = [
+export const city: CategoryDetail[] = [
   {
     name: '서울',
     value: 'seoul',

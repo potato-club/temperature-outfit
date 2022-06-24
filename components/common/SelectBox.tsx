@@ -3,86 +3,40 @@ import Select, { SelectChangeEvent } from '@mui/material/Select';
 import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 import { useState } from 'react';
-import {
-  clothesCategory,
-  subClothesCategory,
-  realClothesCategory,
-} from 'constants/index';
-
-interface Array {
-  name: string;
-  value: string | string[];
-}
+import { CategoryDetail } from 'constants/types';
 
 type Props = {
   width?: number;
-  propsArray: Array[];
+  dataArray: CategoryDetail[];
   label: string;
 };
 
-export const SelectBox: React.FC<Props> = ({ width, propsArray, label }) => {
+export const SelectBox: React.FC<Props> = ({
+  width = 80,
+  dataArray,
+  label,
+}) => {
   const [selected, setSelected] = useState('');
-  const [subSelected, setSubSelected] = useState('');
-  const [subCategory, setSubCategory] = useState(['']);
 
   const handleChange = (event: SelectChangeEvent) => {
     setSelected(event.target.value);
-
-    // 직접 값을 가져와서 state에 담아서 보여줬군...
-    if (event.target.value == 'top') {
-      setSubCategory(subClothesCategory.top);
-    } else if (event.target.value == 'bottom') {
-      setSubCategory(subClothesCategory.bottom);
-    } else if (event.target.value == 'shoes') {
-      setSubCategory(subClothesCategory.shoes);
-    } else if (event.target.value === 'others') {
-      setSubCategory(subClothesCategory.others);
-    }
-  };
-
-  const subHandleChange = (event: SelectChangeEvent) => {
-    setSubSelected(event.target.value);
   };
 
   return (
-    <>
-      {/* 하나일때 */}
-      <FormControl sx={{ minWidth: width || 80 }} size="small">
-        <InputLabel id="demo-simple-select-autowidth-label">{label}</InputLabel>
-        <Select
-          labelId="demo-simple-select-autowidth-label"
-          id="demo-simple-select-autowidth"
-          value={selected}
-          onChange={handleChange}
-          label={label}>
-          {propsArray.map((item, index) => (
-            <MenuItem value={item.value} key={index}>
-              {item.name}
-            </MenuItem>
-          ))}
-        </Select>
-      </FormControl>
-
-      {/* 서브 카테고리 지정하기  */}
-      {propsArray === realClothesCategory ? (
-        <FormControl sx={{ minWidth: 100 }} size="small">
-          <InputLabel id="demo-simple-select-autowidth-label">
-            {selected}
-          </InputLabel>
-          <Select
-            labelId="demo-simple-select-autowidth-label"
-            id="demo-simple-select-autowidth"
-            value={subSelected}
-            onChange={subHandleChange}
-            label={selected}>
-            {subCategory.map((item, index) => (
-              <MenuItem value={item} key={index}>
-                {item}
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
-      ) : null}
-    </>
+    <FormControl sx={{ minWidth: width }} size="small">
+      <InputLabel id="demo-simple-select-autowidth-label">{label}</InputLabel>
+      <Select
+        labelId="demo-simple-select-autowidth-label"
+        id="demo-simple-select-autowidth"
+        value={selected}
+        onChange={handleChange}
+        label={label}>
+        {dataArray.map((data, index) => (
+          <MenuItem value={data.value} key={index}>
+            {data.name}
+          </MenuItem>
+        ))}
+      </Select>
+    </FormControl>
   );
 };

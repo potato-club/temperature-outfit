@@ -3,8 +3,7 @@ import Modal from 'react-modal';
 import styled from '@emotion/styled';
 import { useState } from 'react';
 import { CustomButton, TypoGraphy } from 'components/common';
-import { customColor } from 'constants/customColor';
-import { realClothesCategory } from 'constants/index';
+import { customColor, clothesCategory } from 'constants/index';
 import { ClothesDummy } from 'components/common/ClothesDummy';
 
 const customStyles = {
@@ -44,11 +43,9 @@ export const ChooseModal = ({
         </TypoGraphy>
         <ContentBox>
           <ButtonBox>
-            {realClothesCategory[mainCategory].subCategory.map(
-              (item, index) => (
-                <CustomButton customType="white" text={item} key={index} />
-              ),
-            )}
+            {clothesCategory[mainCategory].subCategory.map((item, index) => (
+              <CustomButton customType="white" text={item.name} key={index} />
+            ))}
           </ButtonBox>
           <ClothesImgBox>
             <ClothesDummy height={120} />
