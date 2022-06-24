@@ -1,11 +1,14 @@
 import { ClothesDummy } from 'components/common/ClothesDummy';
 import styled from '@emotion/styled';
 import { clothesData } from 'dummy/clothesData';
-export const ClothesContainer: React.FC = () => {
+type Props = {
+  clothes : string;
+};
+export const ClothesContainer = ({clothes}:Props) => {
   return (
     <ItemContainer>
       {clothesData.map((data, index) => (
-        <ClothesDummy name={data.name} url={data.url} key={index}/>
+        data.category === clothes && <ClothesDummy name={data.name} url={data.url} key={index}/>
       ))}
     </ItemContainer>
   );

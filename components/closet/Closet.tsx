@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import { CustomButton, TypoGraphy } from 'components/common';
+import { useState } from 'react';
 import {
   SubCategory,
   MainCategory,
@@ -9,6 +10,7 @@ import {
 } from './components';
 
 export const Closet: React.FC = () => {
+  const [clothes, setClothes] = useState('outer');
   return (
     <Wrapper>
       <TypoGraphy type="Title" fontWeight="bold">
@@ -16,7 +18,7 @@ export const Closet: React.FC = () => {
       </TypoGraphy>
 
       <CategoryWrapper>
-        <MainCategory />
+        <MainCategory setClothes={setClothes} />
         <SubCategory />
         <RadioButtons />
         <SearchBox />
@@ -24,7 +26,7 @@ export const Closet: React.FC = () => {
 
       <Horizen />
 
-      <ClothesContainer />
+      <ClothesContainer clothes={clothes} />
 
       <Footer>
         <CustomButton
