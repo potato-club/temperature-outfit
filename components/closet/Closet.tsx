@@ -1,15 +1,9 @@
 import styled from '@emotion/styled';
 import { CustomButton, TypoGraphy, SelectBox } from 'components/common';
 import { AddModal, ChooseModal } from 'components/modal';
-import { clothesCategory } from 'constants/clothesCategory';
+import { clothesMainCategory, clothesSubCategory } from 'constants/index';
 import { useState } from 'react';
-import {
-  // SubCategory,
-  // MainCategory,
-  ClothesContainer,
-  RadioButtons,
-  SearchBox,
-} from './components';
+import { ClothesContainer, RadioButtons, SearchBox } from './components';
 
 export const Closet: React.FC = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -31,6 +25,16 @@ export const Closet: React.FC = () => {
     setModalIsOpen2(false);
   };
 
+  const [selectedMainCategory, setSelectedMainCategory] = useState({
+    name: '상의',
+    value: 'top',
+  });
+
+  const [selectedSubCategory, setSelectedSubCategory] = useState({
+    name: '반팔',
+    value: 'halfT',
+  });
+
   return (
     <Wrapper>
       <TypoGraphy type="Title" fontWeight="bold">
@@ -38,12 +42,10 @@ export const Closet: React.FC = () => {
       </TypoGraphy>
 
       <CategoryWrapper>
-        {/* 셀렉트박스 2개 */}
-        {/* <SelectBox
-          width={80}
-          label="전체"
-          dataArray={Object.keys(realClothesCategory)}
-        /> */}
+        <SelectBox label="전체" dataArray={clothesMainCategory} />
+
+        {/* 여기서 top가 아닌 state로 설정하기  */}
+        <SelectBox label="서브" dataArray={clothesSubCategory.top} />
 
         <RadioButtons />
         <SearchBox />

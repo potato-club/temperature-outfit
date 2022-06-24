@@ -1,4 +1,5 @@
 export { customColor } from './customColor';
 export { city } from './city';
-export { clothesCategory } from './clothesCategory';
+export { clothesMainCategory } from './clothesMainCategory';
+export { clothesSubCategory } from './clothesSubCategory';
 export { CategoryDetail } from './types';
