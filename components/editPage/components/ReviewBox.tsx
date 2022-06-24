@@ -94,6 +94,18 @@ const TextArea = styled.textarea`
   resize: none;
   padding: 8px;
   box-sizing: border-box;
+  outline : none;
+  ::-webkit-scrollbar {
+    opacity: 0;
+    height: 12px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background-color: rgb(179, 226, 255, 0.8);
+    border-radius: 24px;
+  }
+  ::-webkit-scrollbar-track {
+    border-radius: 10px;
+  }
 `;
 const ButtonWrapper = styled.div`
   align-self: flex-end;

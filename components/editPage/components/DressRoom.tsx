@@ -76,6 +76,7 @@ const Container = styled.div`
   display: flex;
   background-color: ${customColor.white};
   padding: 12px;
+  width: 50%;
   border-radius: 24px;
   overflow-x: auto;
   gap: 0 12px;
