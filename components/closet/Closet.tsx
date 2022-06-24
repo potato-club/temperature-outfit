@@ -18,7 +18,7 @@ export const Closet: React.FC = () => {
       </TypoGraphy>
 
       <CategoryWrapper>
-        <MainCategory setClothes={setClothes} />
+        <MainCategory clothes={clothes} setClothes={setClothes} />
         <SubCategory />
         <RadioButtons />
         <SearchBox />

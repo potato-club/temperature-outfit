@@ -6,9 +6,10 @@ import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import { SetStateAction } from 'react';
 type Props = {
+  clothes: string;
   setClothes: React.Dispatch<SetStateAction<string>>;
 };
-export const MainCategory = ({ setClothes }: Props) => {
+export const MainCategory = ({ clothes, setClothes }: Props) => {
   const handleChange = (event: SelectChangeEvent) => {
     setClothes(event.target.value);
   };
@@ -21,6 +22,7 @@ export const MainCategory = ({ setClothes }: Props) => {
           labelId="demo-simple-select-label"
           id="demo-simple-select"
           label="Clothes"
+          value={clothes || ''}
           onChange={handleChange}>
           <MenuItem value={'outer'}>아우터</MenuItem>
           <MenuItem value={'top'}>상의</MenuItem>
