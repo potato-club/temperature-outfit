@@ -1,47 +1,78 @@
+export type categoryType = 'top' | 'bottom' | 'outer' | 'shoes' | 'etc';
 type clothesDataType = {
   name: string;
   url: string;
-  category: string;
+  category: categoryType;
 };
 export const clothesData: clothesDataType[] = [
   {
     name: 'LMC 고래반팔',
-    url: '/clothes/clothes1.jpg',
+    url: '/clothes/dummy1.jpg',
     category: 'top',
   },
   {
     name: '반팔반팔',
-    url: '/clothes/clothes2.jpg',
+    url: '/clothes/dummy2.jpg',
     category: 'top',
   },
   {
-    name: '바지라고 치자',
-    url: '/clothes/clothes3.jpg',
-    category: 'bottom',
+    name: '반팔이다',
+    url: '/clothes/dummy3.jpg',
+    category: 'top',
   },
   {
-    name: '아우터로 치자',
-    url: '/clothes/clothes4.jpg',
+    name: '새벽코딩',
+    url: '/clothes/dummy4.jpg',
+    category: 'top',
+  },
+  {
+    name: '꿀잼꿀잼',
+    url: '/clothes/dummy5.jpg',
+    category: 'top',
+  },
+  {
+    name: '아이신나',
+    url: '/clothes/dummy6.jpg',
+    category: 'top',
+  },
+  {
+    name: '하하하하',
+    url: '/clothes/dummy7.jpg',
+    category: 'top',
+  },
+  {
+    name: '좋다좋아',
+    url: '/clothes/dummy8.jpg',
+    category: 'top',
+  },
+  {
+    name: '후드티',
+    url: '/clothes/dummy9.jpg',
     category: 'outer',
   },
   {
-    name: '신발임 사진은 나중에바꿈',
-    url: '/clothes/clothes5.jpg',
-    category: 'shoes',
+    name: '모자',
+    url: '/clothes/dummy10.jpg',
+    category: 'etc',
   },
   {
-    name: '반팔',
-    url: '/clothes/clothes6.jpg',
-    category: 'top',
+    name: '블레이저',
+    url: '/clothes/dummy11.jpg',
+    category: 'outer',
   },
   {
     name: '신발',
-    url: '/clothes/clothes7.jpg',
+    url: '/clothes/dummy12.jpg',
     category: 'shoes',
   },
   {
-    name: '악세사리라 치자',
-    url: '/clothes/clothes8.jpg',
+    name: '우산',
+    url: '/clothes/dummy13.jpg',
     category: 'etc',
+  },
+  {
+    name: '바지',
+    url: '/clothes/dummy14.jpg',
+    category: 'bottom',
   },
 ];
