@@ -25,15 +25,7 @@ export const Closet: React.FC = () => {
     setModalIsOpen2(false);
   };
 
-  const [selectedMainCategory, setSelectedMainCategory] = useState({
-    name: '상의',
-    value: 'top',
-  });
-
-  const [selectedSubCategory, setSelectedSubCategory] = useState({
-    name: '반팔',
-    value: 'halfT',
-  });
+  const [selectedMainCategory, setSelectedMainCategory] = useState('top');
 
   return (
     <Wrapper>
@@ -42,10 +34,15 @@ export const Closet: React.FC = () => {
       </TypoGraphy>
 
       <CategoryWrapper>
-        <SelectBox label="전체" dataArray={clothesMainCategory} />
-
-        {/* 여기서 top가 아닌 state로 설정하기  */}
-        <SelectBox label="서브" dataArray={clothesSubCategory.top} />
+        <SelectBox
+          label="전체"
+          dataArray={clothesMainCategory}
+          subCategoryChange={setSelectedMainCategory}
+        />
+        <SelectBox
+          label="서브"
+          dataArray={clothesSubCategory[selectedMainCategory]}
+        />
 
         <RadioButtons />
         <SearchBox />

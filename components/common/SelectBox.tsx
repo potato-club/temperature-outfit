@@ -9,17 +9,20 @@ type Props = {
   width?: number;
   dataArray: CategoryDetail[];
   label: string;
+  subCategoryChange?: Function;
 };
 
 export const SelectBox: React.FC<Props> = ({
   width = 80,
   dataArray,
   label,
+  subCategoryChange,
 }) => {
   const [selected, setSelected] = useState('');
 
   const handleChange = (event: SelectChangeEvent) => {
     setSelected(event.target.value);
+    subCategoryChange?.(event.target.value);
   };
 
   return (

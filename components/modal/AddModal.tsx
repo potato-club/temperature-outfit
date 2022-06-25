@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Modal from 'react-modal';
 import styled from '@emotion/styled';
 import { CustomButton, SelectBox, TypoGraphy } from 'components/common';
@@ -26,6 +26,8 @@ interface ModalProps {
 }
 
 export const AddModal = ({ modalIsOpen, closeModal }: ModalProps) => {
+  const [selectedMainCategory, setSelectedMainCategory] = useState('top');
+
   return (
     <Modal
       isOpen={modalIsOpen}
@@ -48,10 +50,17 @@ export const AddModal = ({ modalIsOpen, closeModal }: ModalProps) => {
           </InputWrapper>
           <CategoryWrapper>
             <InputWrapper>
-              <SelectBox dataArray={clothesMainCategory} label={'메인'} />
+              <SelectBox
+                label="전체"
+                dataArray={clothesMainCategory}
+                subCategoryChange={setSelectedMainCategory}
+              />
             </InputWrapper>
             <InputWrapper>
-              <SelectBox label="서브" dataArray={clothesSubCategory.top} />
+              <SelectBox
+                label="서브"
+                dataArray={clothesSubCategory[selectedMainCategory]}
+              />
             </InputWrapper>
           </CategoryWrapper>
           <RadioButtonsWrapper>
