@@ -1,15 +1,21 @@
 import styled from '@emotion/styled';
+import { Canvas } from '@react-three/fiber';
 import { TypoGraphy } from 'components/common';
 import { customColor } from 'constants/index';
 import React from 'react';
 import { BsFillSunFill, BsArrowUp, BsArrowDown } from 'react-icons/bs';
 import { IoLocationOutline } from 'react-icons/io5';
+import { Model, LightController } from './index';
 
 export function TodayInfo() {
   return (
     <Container>
       <IconWrapper>
-        <BsFillSunFill fill="#d6d667" size={80} />
+        <Canvas>
+          {/* <BsFillSunFill fill="#d6d667" size={80} /> */}
+          <Model />
+          <LightController />
+        </Canvas>
       </IconWrapper>
       <LocationInfo>
         <Location>
