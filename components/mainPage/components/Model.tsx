@@ -20,7 +20,7 @@ export const Model: NextPage = () => {
   useFrame(() => {
     modelRef.current!.rotation.y += 0.05;
   });
-  const gltf = typeGard(useLoader(GLTFLoader, "/weatherModel/sun.glb"));
+  const gltf = typeGard(useLoader(GLTFLoader, "/weatherModel/sunRetopology.glb"));
 
   return (
       <mesh position={[0, 0, 0]} ref={modelRef}>
