@@ -21,7 +21,7 @@ export const DivBox: React.FC<DivBoxProps> = ({ children, width, height }) => {
 
 export default DivBox;
 
-const Div = styled.div<StyledDivProps>`
+const Div = styled.section<StyledDivProps>`
   display: flex;
   flex-direction: column;
   justify-content: center;

@@ -44,4 +44,4 @@ export const RadioButton: React.FC = () => {
   );
 };
 
-const Wrapper = styled.div``;
+const Wrapper = styled.section``;

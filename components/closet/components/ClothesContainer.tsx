@@ -14,7 +14,7 @@ export const ClothesContainer = ({clothes}:Props) => {
   );
 };
 
-const ItemContainer = styled.div`
+const ItemContainer = styled.section`
   width: 100%;
   height: 600px;
 

@@ -140,7 +140,7 @@ export const RadioButtons: React.FC = () => {
   );
 };
 
-const Wrapper = styled.div`
+const Wrapper = styled.section`
   flex: 4;
   display: flex;
 `;

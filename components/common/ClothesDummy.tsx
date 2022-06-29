@@ -2,29 +2,23 @@ import styled from '@emotion/styled';
 import { customColor } from 'constants/index';
 import Image from 'next/image';
 import React from 'react';
-import { TypoGraphy } from "components/common";
+import { TypoGraphy } from 'components/common';
 type Props = {
-  name : string;
-  url : string;
-}
-export function ClothesDummy({name, url}: Props) {
+  name: string;
+  url: string;
+};
+export function ClothesDummy({ name, url }: Props) {
   return (
     <Container>
-        <Image
-          width={120}
-          height={80}
-          alt="clothes"
-          src={url}
-        />
-        <ClothesName>
-          <TypoGraphy type="sm1" color={customColor.brandColor2}>
-            {name}
-          </TypoGraphy>
-        </ClothesName>
+      <Image width={120} height={80} alt="clothes" src={url} />
+      <ClothesName>
+        <TypoGraphy type="sm1" color={customColor.brandColor2}>
+          {name}
+        </TypoGraphy>
+      </ClothesName>
     </Container>
   );
 }
-
 
 const Container = styled.div`
   position: relative;
