@@ -1,6 +1,7 @@
 import { CategoryDetail } from 'constants/types';
 
 export const clothesMainCategory: CategoryDetail[] = [
+  // Todo 아우터도 만들어야함
   {
     name: '상의',
     value: 'top',

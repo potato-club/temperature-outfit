@@ -2,6 +2,7 @@ import styled from '@emotion/styled';
 import { CustomButton, TypoGraphy, SelectBox } from 'components/common';
 import { AddModal, ChooseModal } from 'components/modal';
 import { clothesMainCategory, clothesSubCategory } from 'constants/index';
+import { clothesData } from 'dummy/clothesData';
 import { useState } from 'react';
 import { ClothesContainer, RadioButtons, SearchBox } from './components';
 
@@ -50,7 +51,7 @@ export const Closet: React.FC = () => {
 
       <Horizen />
 
-      <ClothesContainer />
+      <ClothesContainer category={selectedMainCategory} />
 
       <Footer>
         <CustomButton
@@ -93,7 +94,6 @@ const Wrapper = styled.section`
   background-color: white;
   border-radius: 10px;
   box-shadow: 0 4px 8px 4px gray;
-
   display: flex;
   flex-direction: column;
   justify-content: space-around;

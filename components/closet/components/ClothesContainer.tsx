@@ -1,22 +1,15 @@
 import { ClothesDummy } from 'components/common/ClothesDummy';
 import styled from '@emotion/styled';
-
-export const ClothesContainer: React.FC = () => {
+import { clothesData } from 'dummy/clothesData';
+type Props = {
+  category : string;
+};
+export const ClothesContainer = ({category}:Props) => {
   return (
     <ItemContainer>
-      <ClothesDummy />
-      <ClothesDummy />
-      <ClothesDummy />
-      <ClothesDummy />
-      <ClothesDummy />
-      <ClothesDummy />
-      <ClothesDummy />
-      <ClothesDummy />
-      <ClothesDummy />
-      <ClothesDummy />
-      <ClothesDummy />
-      <ClothesDummy />
-      <ClothesDummy />
+      {clothesData.map((data, index) => (
+        data.category === category && <ClothesDummy name={data.name} url={data.url} key={index}/>
+      ))}
     </ItemContainer>
   );
 };
@@ -30,3 +23,5 @@ const ItemContainer = styled.section`
   grid-auto-rows: 140px;
   justify-items: center;
 `;
+
+

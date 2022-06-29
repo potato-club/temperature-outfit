@@ -5,12 +5,14 @@ interface Clothes {
 }
 
 export const clothesSubCategory: Clothes = {
+  // Todo outer 도 만들어야함
+  // ? 의견 : value 에 대한 값들을 타입으로 지정해두면 좋을거같음 (type valueType = halfT | longT | menToMen | ... )
   top: [
     { name: '반팔', value: 'halfT' },
     { name: '긴팔', value: 'longT' },
     { name: '맨투맨', value: 'menToMen' },
     { name: '후드티', value: 'hoodT' },
-    { name: '후드짚업', value: 'hoodZipUp' },
+    { name: '후드집업', value: 'hoodZipUp' },
     { name: '가디건', value: 'cardigan' },
     { name: '조끼', value: 'vest' },
     { name: '스웨터', value: 'sweater' },
