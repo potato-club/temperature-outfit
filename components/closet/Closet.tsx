@@ -3,8 +3,10 @@ import { CustomButton, TypoGraphy, SelectBox } from 'components/common';
 import { ClothesContainer, RadioButtons, SearchBox } from './components';
 
 import { clothesCategory, city } from 'constants/index';
+import { useState } from 'react';
 
 export const Closet: React.FC = () => {
+  const [clothes, setClothes] = useState('outer');
   return (
     <Wrapper>
       <TypoGraphy type="Title" fontWeight="bold">
@@ -20,7 +22,7 @@ export const Closet: React.FC = () => {
 
       <Horizen />
 
-      <ClothesContainer />
+      <ClothesContainer clothes={clothes} />
 
       <Footer>
         <CustomButton

@@ -1,9 +1,10 @@
 import styled from '@emotion/styled';
+import { customColor } from 'constants/index';
 import { AiOutlineSearch } from 'react-icons/ai';
 export const SearchBox: React.FC = () => {
   return (
     <Wrapper>
-      <SearchInput placeholder="검색" />
+      <SearchInput type="text" placeholder="검색" maxLength={20} />
       <AiOutlineSearch className="ImgSearch" />
     </Wrapper>
   );
@@ -23,11 +24,13 @@ const Wrapper = styled.section`
 `;
 
 const SearchInput = styled.input`
-  border: 1px solid gray;
+  width: 80px;
+  border: 1px solid ${customColor.gray};
   border-radius: 8px;
   height: 36px;
-  text-align: center;
+  padding: 0 16px 0 20px;
 
+  text-align: center;
   :focus {
     outline: none;
     background-color: rgba(0, 0, 0, 0.05);
