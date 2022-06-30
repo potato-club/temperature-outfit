@@ -85,21 +85,6 @@ export const AddModal = ({ modalIsOpen, closeModal }: ModalProps) => {
         <Label htmlFor={`imgUpload`}>
           <IoMdImage size={200} color={customColor.black} opacity={0.5} />
         </Label>
-        {/* <Image
-          src={'C:\fakepath초록감자.png'}
-          alt="등록할 옷사진"
-          width={100}
-          height={100}
-        /> */}
-
-        {/* <Image src={images} alt="Landscape picture" /> */}
-
-        <Image
-          src={'src="https://example.com/test"'}
-          alt="등록할 옷사진"
-          width={100}
-          height={100}
-        />
         <ContentBox>
           <InputWrapper>
             <TypoGraphy type="h3" fontWeight="bold">
@@ -152,8 +137,6 @@ const Img = styled.article`
 const Wrapper = styled.section`
   display: flex;
   flex-direction: column;
-  /* height: 100%; */
-  /* height: 760px; */
   gap: 10px;
   padding: 20px;
 `;

@@ -1,4 +1,4 @@
-export type categoryType = 'top' | 'bottom' | 'outer' | 'shoes' | 'others';
+export type categoryType = 'top' | 'bottom' | 'outer' | 'shoes' | 'mainETC';
 type clothesDataType = {
   name: string;
   url: string;
@@ -53,7 +53,7 @@ export const clothesData: clothesDataType[] = [
   {
     name: '모자',
     url: '/clothes/dummy10.jpg',
-    category: 'others',
+    category: 'mainETC',
   },
   {
     name: '블레이저',
@@ -68,7 +68,7 @@ export const clothesData: clothesDataType[] = [
   {
     name: '우산',
     url: '/clothes/dummy13.jpg',
-    category: 'others',
+    category: 'mainETC',
   },
   {
     name: '바지',

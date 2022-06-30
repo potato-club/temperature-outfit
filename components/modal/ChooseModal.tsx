@@ -52,9 +52,7 @@ export const ChooseModal = ({
             ))}
           </ButtonBox>
           <ClothesImgBox>
-            <ClothesDummy height={120} />
-            <ClothesDummy height={120} />
-            <ClothesDummy height={120} />
+            {/* 등록된 옷들 컴포넌트로 map 할 예정*/}
           </ClothesImgBox>
         </ContentBox>
       </Wrapper>
