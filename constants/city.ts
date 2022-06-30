@@ -1,59 +1,56 @@
-interface City {
-  name: string;
-  value: string;
-}
+import { CategoryDetail } from 'constants/types';
 
-export const city: City[] = [
+export const city: CategoryDetail[] = [
   {
     name: '서울',
-    value: 'seoul',
+    id: 'seoul',
   },
   {
     name: '경기',
-    value: 'gyeonggi',
+    id: 'gyeonggi',
   },
   {
     name: '인천',
-    value: 'incheon',
+    id: 'incheon',
   },
   {
     name: '부산',
-    value: 'busan',
+    id: 'busan',
   },
   {
     name: '대전',
-    value: 'daejeon',
+    id: 'daejeon',
   },
   {
     name: '대구',
-    value: 'daegu',
+    id: 'daegu',
   },
   {
     name: '울산',
-    value: 'ulsan',
+    id: 'ulsan',
   },
   {
     name: '광주',
-    value: 'gwangju',
+    id: 'gwangju',
   },
   {
     name: '강원',
-    value: 'gangwon ',
+    id: 'gangwon ',
   },
   {
     name: '충청',
-    value: 'chungcheong',
+    id: 'chungcheong',
   },
   {
     name: '전라',
-    value: 'junla',
+    id: 'junla',
   },
   {
     name: '경상',
-    value: 'kyungsang',
+    id: 'kyungsang',
   },
   {
     name: '제주도',
-    value: 'jeju',
+    id: 'jeju',
   },
 ];

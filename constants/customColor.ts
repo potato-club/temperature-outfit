@@ -5,7 +5,7 @@ export const customColor = {
   brandColor4: '#285773',
   brandColor5: '#1B3A4D',
 
-  gray: 'gray',
+  gray: '#CCC',
   white: 'white',
   black: 'black',
 };

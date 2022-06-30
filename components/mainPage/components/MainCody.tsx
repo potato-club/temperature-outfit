@@ -28,14 +28,14 @@ export function MainCody() {
   );
 }
 
-const Container = styled.div`
+const Container = styled.section`
   display: flex;
   justify-content: space-between;
   width: 100%;
   max-width: 1178px;
 `;
 
-const ImageWrapper = styled.div`
+const ImageWrapper = styled.section`
   border: 2px solid ${customColor.gray};
   border-radius: 4px;
 `;
