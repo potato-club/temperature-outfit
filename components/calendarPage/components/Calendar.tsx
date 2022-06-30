@@ -99,20 +99,24 @@ export default class Calendar extends React.Component<{}, CalendarState> {
 function renderEventContent(eventContent: EventContentArg) {
   return (
     <Date>
-      <b>{eventContent.timeText}</b>
-      <i>{eventContent.event.title}</i>
+      <b>평점 : 10</b>
+      <br />
+      <i>평균 온도 : 23.5°C</i>
+      <br />
+      <i>기후 : 해 모양</i>
     </Date>
   );
 }
 
-const Wrapper = styled.div`
+const Wrapper = styled.section`
   width: 1178px;
   padding: 20px;
   height: 100%;
   background-color: white;
+  margin-top: 40px;
 `;
 
-const Date = styled.div`
-  background-color: wheat;
-  padding: 10px 0;
+const Date = styled.article`
+  /* background-color: wheat; */
+  /* padding: 10px 0; */
 `;

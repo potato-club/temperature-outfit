@@ -1,27 +1,20 @@
 import { ClothesDummy } from 'components/common/ClothesDummy';
 import styled from '@emotion/styled';
-
-export const ClothesContainer: React.FC = () => {
+import { clothesData } from 'dummy/clothesData';
+type Props = {
+  clothes : string;
+};
+export const ClothesContainer = ({clothes}:Props) => {
   return (
     <ItemContainer>
-      <ClothesDummy />
-      <ClothesDummy />
-      <ClothesDummy />
-      <ClothesDummy />
-      <ClothesDummy />
-      <ClothesDummy />
-      <ClothesDummy />
-      <ClothesDummy />
-      <ClothesDummy />
-      <ClothesDummy />
-      <ClothesDummy />
-      <ClothesDummy />
-      <ClothesDummy />
+      {clothesData.map((data, index) => (
+        data.category === clothes && <ClothesDummy name={data.name} url={data.url} key={index}/>
+      ))}
     </ItemContainer>
   );
 };
 
-const ItemContainer = styled.div`
+const ItemContainer = styled.section`
   width: 100%;
   height: 600px;
 

@@ -1,14 +1,12 @@
 import styled from '@emotion/styled';
-import { CustomButton, TypoGraphy } from 'components/common';
-import {
-  SubCategory,
-  MainCategory,
-  ClothesContainer,
-  RadioButtons,
-  SearchBox,
-} from './components';
+import { CustomButton, TypoGraphy, SelectBox } from 'components/common';
+import { ClothesContainer, RadioButtons, SearchBox } from './components';
+
+import { clothesCategory, city } from 'constants/index';
+import { useState } from 'react';
 
 export const Closet: React.FC = () => {
+  const [clothes, setClothes] = useState('outer');
   return (
     <Wrapper>
       <TypoGraphy type="Title" fontWeight="bold">
@@ -16,15 +14,15 @@ export const Closet: React.FC = () => {
       </TypoGraphy>
 
       <CategoryWrapper>
-        <MainCategory />
-        <SubCategory />
+        <SelectBox width={80} label="전체" propsArray={clothesCategory} />
+
         <RadioButtons />
         <SearchBox />
       </CategoryWrapper>
 
       <Horizen />
 
-      <ClothesContainer />
+      <ClothesContainer clothes={clothes} />
 
       <Footer>
         <CustomButton
@@ -38,7 +36,7 @@ export const Closet: React.FC = () => {
   );
 };
 
-const Wrapper = styled.div`
+const Wrapper = styled.section`
   width: 70%;
   max-width: 1178px;
   height: 90%;
@@ -54,7 +52,7 @@ const Wrapper = styled.div`
   justify-content: space-around;
 `;
 
-const CategoryWrapper = styled.div`
+const CategoryWrapper = styled.section`
   margin-top: 40px;
   width: 100%;
   display: flex;
@@ -68,7 +66,7 @@ const Horizen = styled.hr`
   width: 100%;
 `;
 
-const Footer = styled.div`
+const Footer = styled.section`
   margin-top: 12px;
   display: flex;
   justify-content: end;
