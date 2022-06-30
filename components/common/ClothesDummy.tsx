@@ -20,7 +20,7 @@ export function ClothesDummy({ name, url }: Props) {
   );
 }
 
-const Container = styled.div`
+const Container = styled.section`
   position: relative;
   display: flex;
   margin: 0;
@@ -32,7 +32,7 @@ const Container = styled.div`
   /* background: linear-gradient(180deg, #292929 0%, rgba(196, 196, 196, 0) 100%); */
 `;
 
-const ClothesName = styled.div`
+const ClothesName = styled.section`
   position: absolute;
   top: 4px;
   left: 4px;

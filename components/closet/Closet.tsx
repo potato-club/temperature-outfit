@@ -1,12 +1,33 @@
 import styled from '@emotion/styled';
 import { CustomButton, TypoGraphy, SelectBox } from 'components/common';
+import { AddModal, ChooseModal } from 'components/modal';
+import { clothesMainCategory, clothesSubCategory } from 'constants/index';
+import { clothesData } from 'dummy/clothesData';
+import { useState } from 'react';
 import { ClothesContainer, RadioButtons, SearchBox } from './components';
 
-import { clothesCategory, city } from 'constants/index';
-import { useState } from 'react';
-
 export const Closet: React.FC = () => {
-  const [clothes, setClothes] = useState('outer');
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [modalIsOpen2, setModalIsOpen2] = useState(false);
+  const openModal = () => {
+    setModalIsOpen(true);
+  };
+
+  const closeModal = () => {
+    setModalIsOpen(false);
+  };
+
+  // 밑에 것들 지울것들임
+  const openModal2 = () => {
+    setModalIsOpen2(true);
+  };
+
+  const closeModal2 = () => {
+    setModalIsOpen2(false);
+  };
+
+  const [selectedMainCategory, setSelectedMainCategory] = useState('top');
+
   return (
     <Wrapper>
       <TypoGraphy type="Title" fontWeight="bold">
@@ -14,7 +35,15 @@ export const Closet: React.FC = () => {
       </TypoGraphy>
 
       <CategoryWrapper>
-        <SelectBox width={80} label="전체" propsArray={clothesCategory} />
+        <SelectBox
+          label="전체"
+          dataArray={clothesMainCategory}
+          subCategoryChange={setSelectedMainCategory}
+        />
+        <SelectBox
+          label="서브"
+          dataArray={clothesSubCategory[selectedMainCategory]}
+        />
 
         <RadioButtons />
         <SearchBox />
@@ -22,7 +51,7 @@ export const Closet: React.FC = () => {
 
       <Horizen />
 
-      <ClothesContainer clothes={clothes} />
+      <ClothesContainer category={selectedMainCategory} />
 
       <Footer>
         <CustomButton
@@ -30,8 +59,27 @@ export const Closet: React.FC = () => {
           text="추가"
           sidePadding="20"
           height={40}
+          onClick={openModal}
         />
+        {/* 이건 잠시 있는 것 */}
+        <CustomButton
+          customType="colorful"
+          text="옷 선택하기 (임시)"
+          sidePadding="20"
+          height={40}
+          onClick={openModal2}
+        />
+        {/* 여기까지 */}
       </Footer>
+      <AddModal modalIsOpen={modalIsOpen} closeModal={closeModal} />
+
+      {/* 이건 잠시 있는 것 */}
+      <ChooseModal
+        modalIsOpen={modalIsOpen2}
+        closeModal={closeModal2}
+        mainCategory={'bottom'}
+      />
+      {/* 여기까지 */}
     </Wrapper>
   );
 };
@@ -46,7 +94,6 @@ const Wrapper = styled.section`
   background-color: white;
   border-radius: 10px;
   box-shadow: 0 4px 8px 4px gray;
-
   display: flex;
   flex-direction: column;
   justify-content: space-around;

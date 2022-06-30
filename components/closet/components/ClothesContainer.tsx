@@ -2,13 +2,13 @@ import { ClothesDummy } from 'components/common/ClothesDummy';
 import styled from '@emotion/styled';
 import { clothesData } from 'dummy/clothesData';
 type Props = {
-  clothes : string;
+  category : string;
 };
-export const ClothesContainer = ({clothes}:Props) => {
+export const ClothesContainer = ({category}:Props) => {
   return (
     <ItemContainer>
       {clothesData.map((data, index) => (
-        data.category === clothes && <ClothesDummy name={data.name} url={data.url} key={index}/>
+        data.category === category && <ClothesDummy name={data.name} url={data.url} key={index}/>
       ))}
     </ItemContainer>
   );
@@ -23,3 +23,5 @@ const ItemContainer = styled.section`
   grid-auto-rows: 140px;
   justify-items: center;
 `;
+
+

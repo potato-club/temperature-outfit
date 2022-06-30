@@ -13,7 +13,7 @@ import {
 import styled from '@emotion/styled';
 
 export const RadioButtons: React.FC = () => {
-  const [selectedValue, setSelectedValue] = React.useState('a');
+  const [selectedValue, setSelectedValue] = React.useState('red');
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSelectedValue(event.target.value);
