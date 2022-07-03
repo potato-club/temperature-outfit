@@ -2,20 +2,21 @@ import React, { ChangeEvent, useState } from 'react';
 import styled from '@emotion/styled';
 import { TypoGraphy } from 'components/common';
 import { DressRoom, ReviewBox, Title } from './components';
+import { topState, outerState, bottomState, shoesState, etcState } from 'state/editState';
+import { categories } from 'types/editPage/categories';
 
-const category = ['상의', '아우터', '하의', '신발', '기타'];
 export default function EditPage() {
   return (
     <Container>
       <Title />
       <Contents>
         <CodyBox>
-          {category.map((data, index) => (
+          {categories.map((data, index) => (
             <Category key={index}>
               <TypoGraphy type="Title" fontWeight="bold">
-                {data}
+                {data.title}
               </TypoGraphy>
-              <DressRoom category={data} />
+              <DressRoom category={data.title} recoil={data.recoil}/>
             </Category>
           ))}
         </CodyBox>
