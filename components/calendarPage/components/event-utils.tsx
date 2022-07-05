@@ -12,7 +12,7 @@ export const INITIAL_EVENTS: EventInput[] = [
     title: 'All-day event',
     // 달력에 표시될 text
     start: todayStr,
-    // 그냥 그날을 얘기한다.
+    // 그냥 그 날을 얘기한다.
   },
 ];
 
