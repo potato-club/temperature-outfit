@@ -3,8 +3,7 @@
 export type CategoryResponse = {
   id: string;
   name: string;
-  order: number;
-  children?: { id: string; name: string; order: number }[];
+  children?: { id: string; name: string }[];
 };
 
 export type ProductGetRequest = {
@@ -40,6 +39,8 @@ export type OutfitGetRequest = {
 
 export type OutfitPostRequest = {
   productsId: string[];
+  comment?: string;
+  rating?: number;
 };
 
 export type OutfitResponse = {

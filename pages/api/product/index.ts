@@ -35,10 +35,12 @@ handler.get(async (req, res) => {
   body.page = body.page ?? 1;
   body.limit = Math.min(body.limit ?? 10, 100);
 
-  const category = await prisma.category.findUnique({
-    where: { id: body.categoryId },
-    include: { children: true },
-  });
+  const category = body.categoryId
+    ? await prisma.category.findUnique({
+        where: { id: body.categoryId },
+        include: { children: true },
+      })
+    : undefined;
 
   const childrenCategoryId = category?.children?.map((c) => c.id);
 
@@ -72,18 +74,17 @@ handler.post(
   async (req, res) => {
     const body = req.body as ProductPostRequest;
 
-    const product = await prisma.product.create({
-      data: {
-        name: body.name,
-        category: { connect: { id: body.categoryId } },
-        color: body.color,
         imageUrl: req.file?.path,
-        owner: { connect: { email: req?.session?.user?.email ?? '' } },
-      },
-    });
+  const product = await prisma.product.create({
+    data: {
+      name: body.name,
+      category: { connect: { id: body.categoryId } },
+      color: body.color,
+      owner: { connect: { email: req?.session?.user?.email ?? '' } },
+    },
+  });
 
-    res.status(201).json([convertProductToResponse(product)]);
-  },
-);
+  res.status(201).json([convertProductToResponse(product)]);
+});
 
 export default handler;
