@@ -19,7 +19,7 @@ const Container = styled.section`
       rgba(97, 0, 255, 0.13) 64.06%
     ),
     #ffffff;
-  height: 100vh;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;

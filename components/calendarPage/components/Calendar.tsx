@@ -9,6 +9,7 @@ import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import { INITIAL_EVENTS, createEventId } from './event-utils';
 import styled from '@emotion/styled';
+import { customColor } from 'constants/index';
 
 interface CalendarState {
   weekendsVisible: boolean;
@@ -20,38 +21,6 @@ export default class Calendar extends React.Component<{}, CalendarState> {
     weekendsVisible: true,
     currentEvents: [],
   };
-
-  render() {
-    return (
-      <Wrapper>
-        <FullCalendar
-          plugins={[dayGridPlugin, interactionPlugin]}
-          locale="ko"
-          headerToolbar={{
-            left: 'prev,next',
-            center: 'title',
-            right: 'today',
-          }}
-          initialView="dayGridMonth"
-          editable={true}
-          selectable={true}
-          selectMirror={true}
-          dayMaxEvents={true}
-          weekends={this.state.weekendsVisible}
-          initialEvents={INITIAL_EVENTS} // alternatively, use the `events` setting to fetch from a feed
-          select={this.handleDateSelect}
-          eventContent={renderEventContent} // custom render function
-          eventClick={this.handleEventClick}
-          eventsSet={this.handleEvents} // called after events are initialized/added/changed/removed
-          /* you can update a remote database when these fire:
-            eventAdd={function(){}}
-            eventChange={function(){}}
-            eventRemove={function(){}}
-            */
-        />
-      </Wrapper>
-    );
-  }
 
   // 해당 날짜를 선택하여 코디 등록할 때
   // 코디 등록page로 이동하기
@@ -77,6 +46,8 @@ export default class Calendar extends React.Component<{}, CalendarState> {
   // 해당 등록한 코디로 이동할거임
   // date 정보 필요함
   handleEventClick = (clickInfo: EventClickArg) => {
+    console.log(clickInfo);
+    // clickInfo에 클릭한 날짜에 대한 정보들이 있음
     if (
       confirm(
         `Are you sure you want to delete the event '${clickInfo.event.title}'`,
@@ -92,6 +63,41 @@ export default class Calendar extends React.Component<{}, CalendarState> {
       currentEvents: events,
     });
   };
+
+  render() {
+    return (
+      <Wrapper>
+        <FullCalendar
+          plugins={[dayGridPlugin, interactionPlugin]}
+          locale="ko"
+          eventColor="transparent"
+          contentHeight={800} // 날짜 컨텐츠 박스 크기 지정
+          headerToolbar={{
+            left: 'prev,next',
+            center: 'title',
+            right: 'today',
+          }}
+          initialView="dayGridMonth"
+          editable={true}
+          selectable={true}
+          // selectMirror={false}
+          dayMaxEvents={true}
+          weekends={this.state.weekendsVisible}
+          initialEvents={INITIAL_EVENTS} // alternatively, use the `events` setting to fetch from a feed
+          select={this.handleDateSelect} // 날짜 클릭 이벤트
+          eventContent={renderEventContent} // custom render function
+          eventClick={this.handleEventClick}
+          eventStartEditable={false} // 드래그 안되게하기
+          eventsSet={this.handleEvents} // called after events are initialized/added/changed/removed
+          /* you can update a remote database when these fire:
+            eventAdd={function(){}}
+            eventChange={function(){}}
+            eventRemove={function(){}}
+            */
+        />
+      </Wrapper>
+    );
+  }
 }
 
 // 날짜별 정보 달력 안에 띄우기
@@ -111,12 +117,19 @@ function renderEventContent(eventContent: EventContentArg) {
 const Wrapper = styled.section`
   width: 1178px;
   padding: 20px;
-  height: 100%;
+  height: 100vh;
   background-color: white;
-  margin-top: 40px;
+  margin-top: 58px;
+  margin-bottom: 12px;
 `;
 
 const Date = styled.article`
-  /* background-color: wheat; */
-  /* padding: 10px 0; */
+  background-color: ${customColor.brandColor3};
+  padding: 12px 0;
+  display: flex;
+  flex-direction: column;
+  justify-items: center;
+  align-items: center;
+  cursor: pointer;
+  border-radius: 20px;
 `;

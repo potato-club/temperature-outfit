@@ -14,12 +14,6 @@ export const INITIAL_EVENTS: EventInput[] = [
     start: todayStr,
     // 그냥 그날을 얘기한다.
   },
-  {
-    id: createEventId(),
-    title: 'Timed event',
-    start: todayStr + 'T10:00:00',
-    // 오전 10시를 나타낸다.
-  },
 ];
 
 export function createEventId() {
