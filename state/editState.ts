@@ -25,3 +25,8 @@ export const etcState = atom<imageStateType[]>({
   key: 'etcImages',
   default: [],
 });
+
+export const codyState = atom({
+  key: 'codyImage',
+  default: '/reviewDummy/review1.jpg',
+});

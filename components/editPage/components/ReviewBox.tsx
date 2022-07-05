@@ -1,23 +1,27 @@
-import React, { useState } from 'react';
+import React, { useState, ChangeEvent, useRef, RefObject } from 'react';
 import styled from '@emotion/styled';
 import { CustomButton, TypoGraphy } from 'components/common';
 import { customColor } from 'constants/index';
 import Image from 'next/image';
 import { Rating } from 'react-simple-star-rating';
-import { useResetRecoilState } from 'recoil';
-import { bottomState, etcState, outerState, shoesState, topState } from 'state/imageState';
+import { useResetRecoilState, useRecoilState } from "recoil";
+import { bottomState, codyState, etcState, outerState, shoesState, topState } from 'state/editState';
 
 export function ReviewBox() {
   const [rating, setRating] = useState(0);
   const onClick = () => {
     alert('버튼 클릭!');
   };
-  
+  const codyRef = useRef<HTMLInputElement>(null);
+
   const resetTop = useResetRecoilState(topState);
   const resetOuter = useResetRecoilState(outerState);
   const resetBottom = useResetRecoilState(bottomState);
   const resetShoes = useResetRecoilState(shoesState);
   const resetEtc = useResetRecoilState(etcState);
+
+  const [reviewImage, setReviewImage] = useRecoilState(codyState);
+  const ResetReviewImage = useResetRecoilState(codyState);
 
   const ResetImages = () => {
     resetTop();
@@ -31,23 +35,34 @@ export function ReviewBox() {
     setRating(rate);
   };
 
+    const addImage = (e: ChangeEvent<HTMLInputElement>) => {
+      e.preventDefault();
+
+      if (e.target.value[0]) {
+        const fileReader = new FileReader();
+        // Todo : 필요하다면 나중에 replaceAll에 확장자명을 추가해야함.
+        fileReader.readAsDataURL(e.target.files![0]);
+        fileReader.onload = () => {
+          setReviewImage(String(fileReader.result!));
+        };
+        alert('코디 변경!');
+        e.target.value = '';
+      }
+    };
+
   return (
     <Container>
       <BoxWrapper>
         <ImageWrapper>
-          <Image
-            src="/reviewDummy/review1.jpg"
-            alt="review"
-            width={360}
-            height={240}
-          />
+          <AddButton id='codyImage' ref={codyRef} type="file" accept="image/*" onChange={addImage} />
+          <Image src={reviewImage} alt="review" width={360} height={240} onClick={() => codyRef.current && codyRef.current.click()}/>
         </ImageWrapper>
         <ButtonWrapper>
           <CustomButton
             customType="colorful"
             text="기본 이미지로 설정"
             sidePadding="20"
-            onClick={onClick}
+            onClick={() => ResetReviewImage()}
           />
         </ButtonWrapper>
       </BoxWrapper>
@@ -148,4 +163,8 @@ const BoxWrapper = styled.section`
   display: flex;
   flex-direction: column;
   gap: 12px 0;
+`;
+
+const AddButton = styled.input`
+  display: none;
 `;

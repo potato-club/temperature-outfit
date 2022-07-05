@@ -73,6 +73,7 @@ type NameProps = {
 const ClothesName = styled.section<NameProps>`
   position: absolute;
   background-color: #00000080;
+  border-radius: 4px;
   padding: 4px;
   top: 4px;
   left: 8px;

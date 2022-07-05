@@ -1,4 +1,4 @@
-import { topState, outerState, bottomState, shoesState, etcState } from "state/imageState";
+import { topState, outerState, bottomState, shoesState, etcState } from "state/editState";
 
 export const categories = [
   {
