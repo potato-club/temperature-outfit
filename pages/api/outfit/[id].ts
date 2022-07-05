@@ -1,13 +1,22 @@
-import type { NextApiRequest, NextApiResponse } from 'next';
+import type { NextApiResponse } from 'next';
+import nextConnect from 'next-connect';
 import { prisma } from '../../../db';
 import { OutfitResponse } from '../../../types';
+import {
+  authenticateHandler,
+  NextApiRequestWithSession,
+} from '../../../utilities/api/middlewares/auth';
 import { convertProductToResponse } from './../../../utilities/api/converter';
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse<OutfitResponse>,
-) {
-  const { id } = req.query;
+const handler = nextConnect<
+  NextApiRequestWithSession,
+  NextApiResponse<OutfitResponse>
+>();
+
+handler.use(authenticateHandler);
+
+handler.get(async (req, res) => {
+  const { id } = req.body;
 
   if (Array.isArray(id)) {
     return res.status(400);
@@ -31,4 +40,6 @@ export default async function handler(
     createdAt: outfit.createdAt.toISOString(),
     updatedAt: outfit.updatedAt.toISOString(),
   });
-}
+});
+
+export default handler;
