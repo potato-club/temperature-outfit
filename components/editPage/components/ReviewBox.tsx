@@ -4,15 +4,33 @@ import { CustomButton, TypoGraphy } from 'components/common';
 import { customColor } from 'constants/index';
 import Image from 'next/image';
 import { Rating } from 'react-simple-star-rating';
+import { useResetRecoilState } from 'recoil';
+import { bottomState, etcState, outerState, shoesState, topState } from 'state/imageState';
 
 export function ReviewBox() {
   const [rating, setRating] = useState(0);
   const onClick = () => {
     alert('버튼 클릭!');
   };
+  
+  const resetTop = useResetRecoilState(topState);
+  const resetOuter = useResetRecoilState(outerState);
+  const resetBottom = useResetRecoilState(bottomState);
+  const resetShoes = useResetRecoilState(shoesState);
+  const resetEtc = useResetRecoilState(etcState);
+
+  const ResetImages = () => {
+    resetTop();
+    resetOuter();
+    resetBottom();
+    resetShoes();
+    resetEtc();
+  }
+
   const handleRating = (rate: number) => {
     setRating(rate);
   };
+
   return (
     <Container>
       <BoxWrapper>
@@ -60,7 +78,7 @@ export function ReviewBox() {
           customType="white"
           text="취소"
           sidePadding="40"
-          onClick={onClick}
+          onClick={() => ResetImages()}
         />
         <CustomButton
           customType="colorful"

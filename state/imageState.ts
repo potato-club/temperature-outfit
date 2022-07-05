@@ -1,4 +1,4 @@
-import { atom } from 'recoil';
+import { atom, useResetRecoilState } from 'recoil';
 import { imageStateType } from 'types/editPage/imageStateType';
 
 export const topState = atom<imageStateType[]>({

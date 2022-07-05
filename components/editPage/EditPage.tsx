@@ -2,7 +2,7 @@ import React, { ChangeEvent, useState } from 'react';
 import styled from '@emotion/styled';
 import { TypoGraphy } from 'components/common';
 import { DressRoom, ReviewBox, Title } from './components';
-import { topState, outerState, bottomState, shoesState, etcState } from 'state/editState';
+import { topState, outerState, bottomState, shoesState, etcState } from 'state/imageState';
 import { categories } from 'types/editPage/categories';
 
 export default function EditPage() {
