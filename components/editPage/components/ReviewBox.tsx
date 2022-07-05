@@ -5,13 +5,13 @@ import { customColor } from 'constants/index';
 import Image from 'next/image';
 import { Rating } from 'react-simple-star-rating';
 import { useResetRecoilState, useRecoilState } from "recoil";
-import { bottomState, codyState, etcState, outerState, shoesState, topState } from 'state/editState';
+import { bottomState, reviewImageState, etcState, outerState, reviewTextState, shoesState, topState, ratingState } from 'state/editState';
 
 export function ReviewBox() {
-  const [rating, setRating] = useState(0);
   const onClick = () => {
     alert('버튼 클릭!');
   };
+  
   const codyRef = useRef<HTMLInputElement>(null);
 
   const resetTop = useResetRecoilState(topState);
@@ -19,9 +19,16 @@ export function ReviewBox() {
   const resetBottom = useResetRecoilState(bottomState);
   const resetShoes = useResetRecoilState(shoesState);
   const resetEtc = useResetRecoilState(etcState);
+  const resetReviewImage = useResetRecoilState(reviewImageState);
+  const resetReviewText = useResetRecoilState(reviewTextState);
+  const resetRating = useResetRecoilState(ratingState);
 
-  const [reviewImage, setReviewImage] = useRecoilState(codyState);
-  const ResetReviewImage = useResetRecoilState(codyState);
+
+
+  const [reviewImage, setReviewImage] = useRecoilState(reviewImageState);
+  const [reviewText, setReviewText] = useRecoilState(reviewTextState);
+  const [rating, setRating] = useRecoilState(ratingState);
+
 
   const ResetImages = () => {
     resetTop();
@@ -29,6 +36,9 @@ export function ReviewBox() {
     resetBottom();
     resetShoes();
     resetEtc();
+    resetReviewImage();
+    resetReviewText();
+    resetRating();
   }
 
   const handleRating = (rate: number) => {
@@ -62,7 +72,7 @@ export function ReviewBox() {
             customType="colorful"
             text="기본 이미지로 설정"
             sidePadding="20"
-            onClick={() => ResetReviewImage()}
+            onClick={() => resetReviewImage()}
           />
         </ButtonWrapper>
       </BoxWrapper>
@@ -70,7 +80,10 @@ export function ReviewBox() {
         <TypoGraphy type="Title" fontWeight="bold">
           후기
         </TypoGraphy>
-        <TextArea />
+        <TextArea 
+        value={reviewText}
+        onChange={(e) => {setReviewText(e.target.value)}}
+        />
       </BoxWrapper>
       <BoxWrapper>
         <TypoGraphy type="Title" fontWeight="bold">
