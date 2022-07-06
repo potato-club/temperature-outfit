@@ -1,29 +1,25 @@
 import styled from '@emotion/styled';
 import { CustomButton, TypoGraphy, SelectBox } from 'components/common';
 import { AddModal, ChooseModal } from 'components/modal';
-import { clothesMainCategory, clothesSubCategory } from 'constants/index';
-import { clothesData } from 'dummy/clothesData';
+import {
+  clothesMainCategory,
+  clothesSubCategory,
+  customColor,
+} from 'constants/index';
 import { useState } from 'react';
+import { useRecoilState } from 'recoil';
+import { addModal, chooseModal } from 'recoil/atom';
 import { ClothesContainer, RadioButtons, SearchBox } from './components';
 
 export const Closet: React.FC = () => {
-  const [modalIsOpen, setModalIsOpen] = useState(false);
-  const [modalIsOpen2, setModalIsOpen2] = useState(false);
-  const openModal = () => {
-    setModalIsOpen(true);
+  const [addModalState, setAddModalState] = useRecoilState(addModal);
+  const controlAddModal = () => {
+    setAddModalState((cur) => !cur);
   };
 
-  const closeModal = () => {
-    setModalIsOpen(false);
-  };
-
-  // 밑에 것들 지울것들임
-  const openModal2 = () => {
-    setModalIsOpen2(true);
-  };
-
-  const closeModal2 = () => {
-    setModalIsOpen2(false);
+  const [chooseModalState, setChooseModalState] = useRecoilState(chooseModal);
+  const controlChooseModal = () => {
+    setChooseModalState((cur) => !cur);
   };
 
   const [selectedMainCategory, setSelectedMainCategory] = useState('top');
@@ -49,7 +45,7 @@ export const Closet: React.FC = () => {
         <SearchBox />
       </CategoryWrapper>
 
-      <Horizen />
+      <Horizon />
 
       <ClothesContainer category={selectedMainCategory} />
 
@@ -59,27 +55,24 @@ export const Closet: React.FC = () => {
           text="추가"
           sidePadding="20"
           height={40}
-          onClick={openModal}
+          onClick={controlAddModal}
         />
-        {/* 이건 잠시 있는 것 */}
+        <AddModal modalIsOpen={addModalState} closeModal={controlAddModal} />
+        {/* 이건 잠시 있는 옷 선택 모달 */}
         <CustomButton
           customType="colorful"
           text="옷 선택하기 (임시)"
           sidePadding="20"
           height={40}
-          onClick={openModal2}
+          onClick={controlChooseModal}
+        />
+        <ChooseModal
+          modalIsOpen={chooseModalState}
+          closeModal={controlChooseModal}
+          mainCategory={'bottom'}
         />
         {/* 여기까지 */}
       </Footer>
-      <AddModal modalIsOpen={modalIsOpen} closeModal={closeModal} />
-
-      {/* 이건 잠시 있는 것 */}
-      <ChooseModal
-        modalIsOpen={modalIsOpen2}
-        closeModal={closeModal2}
-        mainCategory={'bottom'}
-      />
-      {/* 여기까지 */}
     </Wrapper>
   );
 };
@@ -106,8 +99,8 @@ const CategoryWrapper = styled.section`
   flex-wrap: wrap;
   gap: 10px;
 `;
-const Horizen = styled.hr`
-  border: 1px solid;
+const Horizon = styled.hr`
+  border: 1px solid ${customColor.gray};
   border-bottom: 0px;
   margin: 24px 0 24px 0;
   width: 100%;
