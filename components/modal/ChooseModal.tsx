@@ -8,7 +8,8 @@ import {
   clothesMainCategory,
   clothesSubCategory,
 } from 'constants/index';
-import { ClothesDummy } from 'components/common/ClothesDummy';
+import { useRecoilState } from 'recoil';
+import { chooseModal } from 'recoil/atom';
 
 const customStyles = {
   content: {
@@ -22,23 +23,19 @@ const customStyles = {
 };
 
 interface ModalProps {
-  modalIsOpen: boolean;
-  closeModal: () => void;
   mainCategory: string;
 }
 // 1. 옷 선택하기에서 data를 props로 받아오기
 //
 
-export const ChooseModal = ({
-  modalIsOpen,
-  closeModal,
-  mainCategory,
-}: ModalProps) => {
+export const ChooseModal = ({ mainCategory }: ModalProps) => {
+  const [chooseModalState, setChooseModalState] = useRecoilState(chooseModal);
+
   const [cloth, setCloth] = useState('상의');
   return (
     <Modal
-      isOpen={modalIsOpen}
-      onRequestClose={closeModal}
+      isOpen={chooseModalState}
+      onRequestClose={() => setChooseModalState((cur) => !cur)}
       style={customStyles}
       contentLabel="Add Modal">
       <Wrapper>

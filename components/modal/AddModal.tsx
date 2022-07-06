@@ -10,6 +10,8 @@ import {
   clothesMainCategory,
   clothesSubCategory,
 } from 'constants/index';
+import { useRecoilState } from 'recoil';
+import { addModal } from 'recoil/atom';
 
 const customStyles = {
   content: {
@@ -22,12 +24,8 @@ const customStyles = {
   },
 };
 
-interface ModalProps {
-  modalIsOpen: boolean;
-  closeModal: () => void;
-}
-
-export const AddModal = ({ modalIsOpen, closeModal }: ModalProps) => {
+export const AddModal = () => {
+  const [addModalState, setAddModalState] = useRecoilState(addModal);
   const [selectedMainCategory, setSelectedMainCategory] = useState('top');
   const [clothesName, setClothesName] = useState('');
   const [images, setImages] = useState('');
@@ -36,24 +34,7 @@ export const AddModal = ({ modalIsOpen, closeModal }: ModalProps) => {
     // e.preventDefault();
     console.log(e.target.value);
     console.log(e.target.files);
-    //   if (e.target.value) {
-    //     setImages(e.target.value);
-    //     const fileReader = new FileReader();
-    //     fileReader.readAsDataURL(e.target.files![0]);
-
-    //     // fileReader.onload = () => {
-    //     //   setImages({
-    //     //     id: imageId.current++,
-    //     //     image_file: e.target.files![0],
-    //     //     preview_URL: String(fileReader.result!),
-    //     //   });
-    //     // };
-    //     alert('사진 등록!');
-    //     e.target.value = '';
-    //   }
   };
-  // color 받기
-  // 해당 카테고리 state 받기
 
   const onChange = (e: React.FormEvent<HTMLInputElement>) => {
     setClothesName(e.currentTarget.value);
@@ -64,10 +45,11 @@ export const AddModal = ({ modalIsOpen, closeModal }: ModalProps) => {
     // 성공시 등록이 되었습니다! => 모달
     alert('서버에 옷 등록');
   };
+
   return (
     <Modal
-      isOpen={modalIsOpen}
-      onRequestClose={closeModal}
+      isOpen={addModalState}
+      onRequestClose={() => setAddModalState((cur) => !cur)}
       style={customStyles}
       contentLabel="Add Modal">
       <Wrapper>

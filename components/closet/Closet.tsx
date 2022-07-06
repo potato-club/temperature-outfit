@@ -7,20 +7,13 @@ import {
   customColor,
 } from 'constants/index';
 import { useState } from 'react';
-import { useRecoilState } from 'recoil';
+import { useSetRecoilState } from 'recoil';
 import { addModal, chooseModal } from 'recoil/atom';
 import { ClothesContainer, RadioButtons, SearchBox } from './components';
 
 export const Closet: React.FC = () => {
-  const [addModalState, setAddModalState] = useRecoilState(addModal);
-  const controlAddModal = () => {
-    setAddModalState((cur) => !cur);
-  };
-
-  const [chooseModalState, setChooseModalState] = useRecoilState(chooseModal);
-  const controlChooseModal = () => {
-    setChooseModalState((cur) => !cur);
-  };
+  const setAddModalState = useSetRecoilState(addModal);
+  const setChooseModalState = useSetRecoilState(chooseModal);
 
   const [selectedMainCategory, setSelectedMainCategory] = useState('top');
 
@@ -55,22 +48,18 @@ export const Closet: React.FC = () => {
           text="추가"
           sidePadding="20"
           height={40}
-          onClick={controlAddModal}
+          onClick={() => setAddModalState((cur) => !cur)}
         />
-        <AddModal modalIsOpen={addModalState} closeModal={controlAddModal} />
+        <AddModal />
         {/* 이건 잠시 있는 옷 선택 모달 */}
         <CustomButton
           customType="colorful"
           text="옷 선택하기 (임시)"
           sidePadding="20"
           height={40}
-          onClick={controlChooseModal}
+          onClick={() => setChooseModalState((cur) => !cur)}
         />
-        <ChooseModal
-          modalIsOpen={chooseModalState}
-          closeModal={controlChooseModal}
-          mainCategory={'bottom'}
-        />
+        <ChooseModal mainCategory={'bottom'} />
         {/* 여기까지 */}
       </Footer>
     </Wrapper>
