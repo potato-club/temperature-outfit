@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Modal from 'react-modal';
 import styled from '@emotion/styled';
 import { useState } from 'react';
@@ -31,7 +31,28 @@ interface ModalProps {
 export const ChooseModal = ({ mainCategory }: ModalProps) => {
   const [chooseModalState, setChooseModalState] = useRecoilState(chooseModal);
 
-  const [cloth, setCloth] = useState('상의');
+  const switchMainCategory = () => {
+    switch (mainCategory) {
+      case 'top':
+        return '상의';
+
+      case 'outer':
+        return '아우터';
+
+      case 'bottom':
+        return '하의';
+
+      case 'shoes':
+        return '신발';
+
+      case 'mainETC':
+        return '기타';
+
+      default:
+        return '없는 카테고리입니다.';
+    }
+  };
+
   return (
     <Modal
       isOpen={chooseModalState}
@@ -40,7 +61,8 @@ export const ChooseModal = ({ mainCategory }: ModalProps) => {
       contentLabel="Add Modal">
       <Wrapper>
         <TypoGraphy type="Title" fontWeight="bold">
-          {cloth}
+          {/* {cloth} */}
+          {switchMainCategory()}
         </TypoGraphy>
         <ContentBox>
           <ButtonBox>
