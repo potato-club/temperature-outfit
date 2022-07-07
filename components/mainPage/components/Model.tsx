@@ -1,14 +1,18 @@
-import type { NextPage } from "next";
-import Head from "next/head";
-import Image from "next/image";
-import styles from "../styles/Home.module.css";
-// import sunGlb from '../public/sun.glb';
-import { lazy, useRef } from "react";
-import { GLTF, GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
-import { Canvas, ObjectMap, useFrame, useLoader } from "@react-three/fiber";
-export const Model: NextPage = () => {
+import type { NextPage } from 'next';
+import { useRef, useState } from 'react';
+import { GLTF, GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
+import { ObjectMap, useFrame, useLoader } from '@react-three/fiber';
 
+export const Model: NextPage = () => {
   const modelRef = useRef<THREE.Mesh>(null);
+  // const animate = useRef(true);
+  // const setAnimate = (state: boolean) => {
+  //   animate.current = state;
+  // };
+  const [animate, setAnimate] = useState<boolean>(true);
+
+  const wait = (delay: number) =>
+    new Promise((resolve) => setTimeout(resolve, delay));
 
   const typeGard = (data: (GLTF & ObjectMap) | (GLTF & ObjectMap)[]) => {
     if (Array.isArray(data)) {
@@ -17,16 +21,25 @@ export const Model: NextPage = () => {
     return data;
   };
 
-  useFrame(() => {
-    modelRef.current!.rotation.y += 0.05;
+  const gltf = typeGard(
+    useLoader(GLTFLoader, '/weatherModel/sunRetopology.glb'),
+  );
+
+  useFrame(async () => {
+    if (animate) {
+      modelRef.current!.rotation.y += Math.PI / 60;
+      // 부동소수점오류 해결
+      if (+(modelRef.current!.rotation.y % Math.PI).toFixed(1) === 0) {
+        setAnimate(false);
+        await wait(1000);
+        setAnimate(true);
+      }
+    }
   });
-  const gltf = typeGard(useLoader(GLTFLoader, "/weatherModel/sunRetopology.glb"));
 
   return (
-      <mesh position={[0, 0, 0]} ref={modelRef}>
-        <primitive object={gltf!.scene} scale={1} />
-        {/* <primitive object={gltf.scene} scale={4} /> */}
-      </mesh>
+    <mesh position={[0, 0, 0]} ref={modelRef}>
+      <primitive object={gltf!.scene} scale={1} />
+    </mesh>
   );
 };
-
