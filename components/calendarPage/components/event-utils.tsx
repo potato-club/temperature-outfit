@@ -10,9 +10,7 @@ export const INITIAL_EVENTS: EventInput[] = [
   {
     id: createEventId(),
     title: '그날의 코디임',
-    // 달력에 표시될 text
-    start: todayStr,
-    // 그냥 그 날을 얘기한다.
+    start: todayStr, // 그냥 그 날을 얘기한다.
   },
 ];
 

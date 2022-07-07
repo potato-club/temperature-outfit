@@ -24,10 +24,9 @@ export default class Calendar extends React.Component<{}, CalendarState> {
   // 코디 등록page로 이동하기
   // date정보 가지고 이동
   handleDateSelect = (selectInfo: DateSelectArg) => {
-    // 만약 이벤트가 있다면 해당 이벤트로 이동
-
-    // 없다면 이벤트 추가 페이지로 이동
-
+    // 만약 이벤트가 있다면 아무것도 하지않기
+    //  return null;
+    // 이벤트 추가 페이지로
     let title = prompt('Please enter a new title for your event');
     let calendarApi = selectInfo.view.calendar;
 
@@ -43,16 +42,9 @@ export default class Calendar extends React.Component<{}, CalendarState> {
   };
 
   moveToCody = (clickInfo: EventClickArg) => {
-    // view에 많은 data가 있음
-    console.log(clickInfo);
-    console.log(clickInfo.view);
-
-    // 여기에 id가 담김
     console.log(clickInfo.event.id);
     console.log(clickInfo.event.start); // Sat Jul 23 2022 00:00:00 GMT+0900 (한국 표준시)
     console.log(clickInfo.event.title);
-
-    //clickInfo에 클릭한 날짜에 대한 정보들이 있음
   };
 
   //  DB에서 이벤트를 처음 가져올 때
@@ -87,11 +79,6 @@ export default class Calendar extends React.Component<{}, CalendarState> {
           contentHeight={800} // 날짜 컨텐츠 박스 크기 지정
           eventContent={renderEventContent}
           eventsSet={this.handleEvents} // called after events are initialized/added/changed/removed
-          /* you can update a remote database when these fire:
-            eventAdd={function(){}}
-            eventChange={function(){}}
-            eventRemove={function(){}}
-            */
         />
       </Wrapper>
     );
@@ -104,7 +91,7 @@ function renderEventContent(eventContent: EventContentArg) {
 
   console.log(eventContent.event.id);
 
-  // 아니면 그냥 스티커처럼 뭐가 있다라고 표시만해주기
+  // 아니면 그냥 스티커처럼 뭐가 있다라고 표시만해줄까?
   return (
     <Date>
       <b>평점 : {eventContent.event.title}</b>
