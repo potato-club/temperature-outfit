@@ -1,5 +1,5 @@
-import { ClothesDummy } from 'components/common/ClothesDummy';
 import styled from '@emotion/styled';
+import { ClothesBox } from 'components/common';
 import { clothesData } from 'dummy/clothesData';
 type Props = {
   category : string;
@@ -8,7 +8,7 @@ export const ClothesContainer = ({category}:Props) => {
   return (
     <ItemContainer>
       {clothesData.map((data, index) => (
-        data.category === category && <ClothesDummy name={data.name} url={data.url} key={index}/>
+        data.category === category && <ClothesBox name={data.name} url={data.url} key={index} type='closet'/>
       ))}
     </ItemContainer>
   );
