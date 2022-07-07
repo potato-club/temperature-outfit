@@ -16,7 +16,7 @@ const handler = nextConnect<
 handler.use(authenticateHandler);
 
 handler.get(async (req, res) => {
-  const { id } = req.body;
+  const { id } = req.query;
 
   if (Array.isArray(id)) {
     return res.status(400);

@@ -16,7 +16,7 @@ const handler = nextConnect<
 handler.use(authenticateHandler);
 
 handler.get(async (req, res) => {
-  const { id } = req.body;
+  const { id } = req.query;
 
   if (Array.isArray(id)) {
     return res.status(400);
@@ -27,7 +27,7 @@ handler.get(async (req, res) => {
     include: { owner: { select: { email: true } } },
   });
 
-  if (!product || req.session.user.email !== product.owner.email) {
+  if (!product || req.session?.user?.email !== product.owner.email) {
     return res.status(404);
   }
 
