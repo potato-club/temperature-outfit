@@ -1,5 +1,5 @@
 import cuid from 'cuid';
-import { Fields, Files, Formidable } from 'formidable';
+import { Fields, File, Files, Formidable } from 'formidable';
 import type { NextApiResponse } from 'next';
 import { Middleware } from 'next-connect';
 import { PassThrough } from 'stream';
@@ -40,8 +40,12 @@ export const filesParser: Middleware<ApiRequest, NextApiResponse> = async (
     });
   });
 
+  const file = data.files.file as File;
+  const fileUrl = storageClient.from('image').getPublicUrl(file.newFilename);
+  file.filepath = fileUrl.data?.publicURL ?? '';
+
   req.body = data.fields;
-  req.files = data.files;
+  req.file = file;
 
   next();
 };

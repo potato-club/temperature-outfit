@@ -1,20 +1,15 @@
-import cuid from 'cuid';
-import multer from 'multer';
 import type { NextApiResponse } from 'next';
 import nextConnect from 'next-connect';
-import path from 'path';
 import { prisma } from '../../../db';
 import {
   ProductResponse,
   ProductGetRequest,
+  ApiRequest,
   ProductPostRequest,
 } from '../../../types';
-import {
-  authenticateHandler,
-  NextApiRequestWithSession,
-} from '../../../utilities/api/middlewares/auth';
-import { SupabaseStorageEngine } from '../../../utilities/api/multer/supabaseStorageEngine';
+import { authenticateHandler } from '../../../utilities/api/middlewares/auth';
 import { convertProductToResponse } from './../../../utilities/api/converter';
+import { filesParser } from './../../../utilities/api/middlewares/fileParser';
 
 export const config = {
   api: {
@@ -22,10 +17,7 @@ export const config = {
   },
 };
 
-const handler = nextConnect<
-  NextApiRequestWithSession,
-  NextApiResponse<ProductResponse[]>
->();
+const handler = nextConnect<ApiRequest, NextApiResponse<ProductResponse[]>>();
 
 handler.use(authenticateHandler);
 
@@ -64,22 +56,15 @@ handler.get(async (req, res) => {
     );
 });
 
-handler.post(
-  multer({
-    storage: new SupabaseStorageEngine({
-      bucket: 'image',
-      filename: (_, file) => `${cuid()}${path.extname(file.originalname)}`,
-    }),
-  }).single('file'),
-  async (req, res) => {
-    const body = req.body as ProductPostRequest;
+handler.post(filesParser, async (req, res) => {
+  const body = req.body as ProductPostRequest;
 
-        imageUrl: req.file?.path,
   const product = await prisma.product.create({
     data: {
       name: body.name,
       category: { connect: { id: body.categoryId } },
       color: body.color,
+      imageUrl: req.file?.filepath,
       owner: { connect: { email: req?.session?.user?.email ?? '' } },
     },
   });

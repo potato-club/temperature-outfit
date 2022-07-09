@@ -1,4 +1,11 @@
-// export type CategoryGetRequest = {};
+import { File } from 'formidable';
+import type { NextApiRequest } from 'next';
+import { Session } from 'next-auth';
+
+export type ApiRequest = NextApiRequest & {
+  session?: Session;
+  file?: File;
+};
 
 export type CategoryResponse = {
   id: string;
@@ -38,7 +45,7 @@ export type OutfitGetRequest = {
 };
 
 export type OutfitPostRequest = {
-  productsId: string[];
+  productsId?: string[];
   comment?: string;
   rating?: number;
 };

@@ -5,16 +5,14 @@ import nextConnect from 'next-connect';
 import path from 'path';
 import { prisma } from '../../../db';
 import {
+  ApiRequest,
   OutfitGetRequest,
   OutfitPostRequest,
   OutfitResponse,
 } from '../../../types';
 import { convertOutfitToResponse } from '../../../utilities/api/converter';
-import {
-  authenticateHandler,
-  NextApiRequestWithSession,
-} from '../../../utilities/api/middlewares/auth';
-import { SupabaseStorageEngine } from '../../../utilities/api/multer/supabaseStorageEngine';
+import { authenticateHandler } from '../../../utilities/api/middlewares/auth';
+import { filesParser } from './../../../utilities/api/middlewares/fileParser';
 
 export const config = {
   api: {
@@ -22,10 +20,7 @@ export const config = {
   },
 };
 
-const handler = nextConnect<
-  NextApiRequestWithSession,
-  NextApiResponse<OutfitResponse[]>
->();
+const handler = nextConnect<ApiRequest, NextApiResponse<OutfitResponse[]>>();
 
 handler.use(authenticateHandler);
 
@@ -57,27 +52,19 @@ handler.get(async (req, res) => {
     );
 });
 
-handler.post(
-  multer({
-    storage: new SupabaseStorageEngine({
-      bucket: 'image',
-      filename: (_, file) => `${cuid()}${path.extname(file.originalname)}`,
-    }),
-  }).single('file'),
-  async (req, res) => {
-    const body = req.body as OutfitPostRequest;
+handler.post(filesParser, async (req, res) => {
+  const body = req.body as OutfitPostRequest;
 
-    const outfit = await prisma.outfit.create({
-      data: {
-        owner: { connect: { email: req?.session?.user?.email ?? '' } },
-        imageUrl: req.file?.path,
-        products: { connect: body.productsId.map((id) => ({ id })) },
-      },
-      include: { products: true },
-    });
+  const outfit = await prisma.outfit.create({
+    data: {
+      owner: { connect: { email: req?.session?.user?.email ?? '' } },
+      imageUrl: req.file?.filepath,
+      products: { connect: body.productsId?.map((id) => ({ id })) },
+    },
+    include: { products: true },
+  });
 
-    res.status(201).json([convertOutfitToResponse(outfit)]);
-  },
-);
+  res.status(201).json([convertOutfitToResponse(outfit)]);
+});
 
 export default handler;
