@@ -1,18 +1,12 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import { TypoGraphy } from 'components/common';
-import { customColor } from 'constants/index';
-type Props = {
-  average: number;
-  max: number;
-  min: number;
-  day: Date;
-};
-export function Title({ average , max, min, day}: Props) {
+import { editDummyType } from 'dummy/newEditDummy';
+export function Title({ average, max, min, day }: editDummyType) {
   return (
     <Container>
       <TypoGraphy type="Title" fontWeight="bold">
-        {`${day.getMonth()+1}월${day.getDate()}일`} 코디
+        {`${day.getMonth() + 1}월${day.getDate()}일`} 코디
       </TypoGraphy>
       <SubTitle>
         <Temperatures>
