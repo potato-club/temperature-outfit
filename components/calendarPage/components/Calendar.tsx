@@ -106,7 +106,6 @@ function renderEventContent(eventContent: EventContentArg) {
 const Wrapper = styled.section`
   width: 1178px;
   padding: 20px;
-  height: 100vh;
   background-color: white;
   margin-top: 58px;
   margin-bottom: 12px;
