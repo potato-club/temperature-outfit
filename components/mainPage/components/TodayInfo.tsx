@@ -2,17 +2,17 @@ import styled from '@emotion/styled';
 import { Canvas } from '@react-three/fiber';
 import { TypoGraphy } from 'components/common';
 import { customColor } from 'constants/index';
+import { mainDummyType } from 'dummy/MainDummy';
 import React from 'react';
-import { BsFillSunFill, BsArrowUp, BsArrowDown } from 'react-icons/bs';
+import { BsArrowUp, BsArrowDown } from 'react-icons/bs';
 import { IoLocationOutline } from 'react-icons/io5';
 import { Model, LightController } from './index';
 
-export function TodayInfo() {
+export function TodayInfo(props: mainDummyType) {
   return (
     <Container>
       <IconWrapper>
         <Canvas>
-          {/* <BsFillSunFill fill="#d6d667" size={80} /> */}
           <Model />
           <LightController />
         </Canvas>
@@ -24,25 +24,22 @@ export function TodayInfo() {
             type="h3"
             color={customColor.brandColor5}
             fontWeight="bold">
-            서울특별시
+            {props.location}
           </TypoGraphy>
         </Location>
         <TypoGraphy type="Title" color={customColor.brandColor5}>
-          12도
+          평균 {props.average}°C
         </TypoGraphy>
         <Temperatures>
           <BsArrowUp color="F0771F" size={40} />
           <TypoGraphy type="body1" color={customColor.brandColor5}>
-            최고 <span style={{ display: 'inline-block' }}>15</span>
+            최고 <span style={{ display: 'inline-block' }}>{props.max}°C</span>
           </TypoGraphy>
           <BsArrowDown color="499CCE" size={40} />
           <TypoGraphy type="body1" color={customColor.brandColor5}>
-            최저 <span style={{ display: 'inline-block' }}>5</span>
+            최저 <span style={{ display: 'inline-block' }}>{props.min}°C</span>
           </TypoGraphy>
         </Temperatures>
-        <TypoGraphy type="h3" color={customColor.brandColor5}>
-          체감온도 : 14
-        </TypoGraphy>
       </LocationInfo>
       <TodayClothes>
         <TodayBestBox>
@@ -59,7 +56,7 @@ export function TodayInfo() {
               color={customColor.brandColor5}>
               상위 1위 :{' '}
               <span style={{ display: 'inline-block', fontWeight: 'normal' }}>
-                스웨터
+                {props.TodayBest.top}
               </span>
             </TypoGraphy>
             <TypoGraphy
@@ -68,14 +65,15 @@ export function TodayInfo() {
               color={customColor.brandColor5}>
               하위 1위 :{' '}
               <span style={{ display: 'inline-block', fontWeight: 'normal' }}>
-                청바지
+                {props.TodayBest.bottom}
               </span>
             </TypoGraphy>
           </RankingWrapper>
         </TodayBestBox>
         <TextWrapper>
           <TypoGraphy type="h3" color={customColor.brandColor5}>
-            오늘 날씨에서 유저분들이 가장 많이 입으신 옷은 ‘스웨터’ 입니다.
+            오늘 날씨에서 유저분들이 가장 추천하신 옷은 ‘
+            {props.TodayBest.rankTop}’ 입니다.
           </TypoGraphy>
         </TextWrapper>
       </TodayClothes>
