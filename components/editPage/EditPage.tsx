@@ -3,11 +3,17 @@ import styled from '@emotion/styled';
 import { TypoGraphy } from 'components/common';
 import { DressRoom, ReviewBox, Title } from './components';
 import { categories } from 'types/editPage/categories';
+import { editDummy } from 'dummy/newEditDummy';
 
 export default function EditPage() {
   return (
     <Container>
-      <Title />
+      <Title
+        average={editDummy.average}
+        max={editDummy.max}
+        min={editDummy.min}
+        day={editDummy.day}
+      />
       <Contents>
         <CodyBox>
           {categories.map((data, index) => (
@@ -15,7 +21,7 @@ export default function EditPage() {
               <TypoGraphy type="Title" fontWeight="bold">
                 {data.title}
               </TypoGraphy>
-              <DressRoom category={data.title} recoil={data.recoil}/>
+              <DressRoom category={data.title} recoil={data.recoil} />
             </Category>
           ))}
         </CodyBox>

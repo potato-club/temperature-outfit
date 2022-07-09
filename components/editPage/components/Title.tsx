@@ -2,21 +2,26 @@ import React from 'react';
 import styled from '@emotion/styled';
 import { TypoGraphy } from 'components/common';
 import { customColor } from 'constants/index';
-
-export function Title() {
+type Props = {
+  average: number;
+  max: number;
+  min: number;
+  day: Date;
+};
+export function Title({ average , max, min, day}: Props) {
   return (
     <Container>
       <TypoGraphy type="Title" fontWeight="bold">
-        O월O일 코디
+        {`${day.getMonth()+1}월${day.getDate()}일`} 코디
       </TypoGraphy>
       <SubTitle>
         <Temperatures>
           <TypoGraphy type="body1" fontWeight="bold">
-            평균 온도 : 15°C
+            평균 온도 : {average}°C
             <br />
-            최고 온도 : 17°C
+            최고 온도 : {max}°C
             <br />
-            최저 온도 : 13°C
+            최저 온도 : {min}°C
           </TypoGraphy>
         </Temperatures>
         <ReviewTitle>
