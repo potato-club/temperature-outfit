@@ -2,15 +2,13 @@ import React from 'react';
 import styled from '@emotion/styled';
 import Image from 'next/image';
 import googleLogo from 'assets/img/googleNormal.png';
+import { signIn } from 'next-auth/react';
 
 export const GoogleLogin: React.FC = () => {
-  const onClick = () => {
-    console.log('1');
-  };
 
   return (
     <Button>
-      <Img onClick={onClick}>
+      <Img onClick={() => signIn('google')}>
         <Image src={googleLogo} alt="구글 로고" />
       </Img>
     </Button>
