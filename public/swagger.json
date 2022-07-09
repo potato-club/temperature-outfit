@@ -1,0 +1,353 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "",
+    "version": "1.0.0",
+    "title": "Swagger Petstore"
+  },
+  "host": "localhost:3000",
+  "tags": [
+    {
+      "name": "product",
+      "description": "옷 & 악세서리"
+    },
+    {
+      "name": "outfit",
+      "description": "옷차림"
+    }
+  ],
+  "paths": {
+    "/api/product": {
+      "get": {
+        "tags": [
+          "product"
+        ],
+        "description": "내 옷 조회",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "query": {
+                  "type": "string"
+                },
+                "categoryId": {
+                  "type": "string"
+                },
+                "color": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "page": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "default": 1
+                },
+                "limit": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 100,
+                  "default": 10
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "조회 성공",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/ProductResponse"
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "product"
+        ],
+        "description": "내 옷 등록",
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "parameters": [
+          {
+            "name": "image",
+            "in": "formData",
+            "type": "file"
+          },
+          {
+            "name": "name",
+            "in": "formData",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "categoryId",
+            "in": "formData",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "color",
+            "in": "formData",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "등록 성공",
+            "schema": {
+              "$ref": "#/definitions/ProductResponse"
+            }
+          }
+        }
+      }
+    },
+    "/api/product/{productId}": {
+      "get": {
+        "tags": [
+          "product"
+        ],
+        "description": "내 옷 조회",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "productId",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "cuid"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "조회 성공",
+            "schema": {
+              "$ref": "#/definitions/ProductResponse"
+            }
+          },
+          "404": {
+            "description": "일치하는 옷이 없음 or 내 옷이 아님"
+          }
+        }
+      }
+    },
+    "/api/outfit": {
+      "get": {
+        "tags": [
+          "outfit"
+        ],
+        "description": "내 옷차림 조회",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "startDate": {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                "endDate": {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                "page": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "default": 1
+                },
+                "limit": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 100,
+                  "default": 10
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "조회 성공",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/OutfitResponse"
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "outfit"
+        ],
+        "description": "내 옷차림 등록",
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "parameters": [
+          {
+            "name": "image",
+            "in": "formData",
+            "type": "file"
+          },
+          {
+            "name": "productsId",
+            "in": "formData",
+            "required": true,
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "comment",
+            "in": "formData",
+            "type": "string"
+          },
+          {
+            "name": "rating",
+            "in": "formData",
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 10,
+            "default": 0
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "등록 성공",
+            "schema": {
+              "$ref": "#/definitions/OutfitResponse"
+            }
+          }
+        }
+      }
+    },
+    "/api/outfit/{outfitId}": {
+      "get": {
+        "tags": [
+          "outfit"
+        ],
+        "description": "내 옷차림 조회",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "outfitId",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "cuid"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "조회 성공",
+            "schema": {
+              "$ref": "#/definitions/OutfitResponse"
+            }
+          },
+          "404": {
+            "description": "일치하는 옷차림이 없음"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "ProductResponse": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "cuid"
+        },
+        "name": {
+          "type": "string"
+        },
+        "categoryId": {
+          "type": "string"
+        },
+        "color": {
+          "type": "string"
+        },
+        "imageUrl": {
+          "type": "string"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "OutfitResponse": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "cuid"
+        },
+        "imageUrl": {
+          "type": "string"
+        },
+        "products": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ProductResponse"
+          }
+        },
+        "comment": {
+          "type": "string"
+        },
+        "rating": {
+          "type": "integer",
+          "format": "int32",
+          "minimum": 0,
+          "maximum": 10
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    }
+  }
+}
