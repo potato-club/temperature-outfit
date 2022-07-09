@@ -10,7 +10,7 @@ type Props = {
 export function ClothesDummy({ name, url }: Props) {
   return (
     <Container>
-      <Image width={120} height={80} alt="clothes" src={url} />
+      <Image width={120} height={120} alt="clothes" src={url} />
       <ClothesName>
         <TypoGraphy type="sm1" color={customColor.brandColor2}>
           {name}
@@ -23,6 +23,7 @@ export function ClothesDummy({ name, url }: Props) {
 const Container = styled.section`
   position: relative;
   display: flex;
+  position: relative;
   margin: 0;
   border: 4px solid ${customColor.brandColor1};
   border-radius: 24px;
