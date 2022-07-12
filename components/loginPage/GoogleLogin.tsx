@@ -13,7 +13,7 @@ export const GoogleLogin: React.FC = () => {
 
   useEffect(() => {
     if (session) {
-      let userName: string = session.user.name ?? '유저이름';
+      let userName: string = session.user!.name ?? '유저이름';
       // city도 이때 받아오기
       // 처음 값은 다 서울
       console.log(userName);
