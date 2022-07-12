@@ -1,11 +1,27 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from '@emotion/styled';
 import Image from 'next/image';
 import googleLogo from 'assets/img/googleNormal.png';
 import { signIn } from 'next-auth/react';
+import { useSession } from 'next-auth/react';
+import { userState } from 'recoil/atom/user';
+import { useSetRecoilState } from 'recoil';
 
 export const GoogleLogin: React.FC = () => {
+  const { data: session, status } = useSession();
+  const setUserInfo = useSetRecoilState(userState);
 
+  useEffect(() => {
+    if (session) {
+      let userName: string = session.user!.name ?? '유저이름';
+      // city도 이때 받아오기
+      // 처음 값은 다 서울
+      console.log(userName);
+      setUserInfo({ name: userName, city: '지역id' });
+    }
+  }, [session, setUserInfo]);
+
+  console.log(status); // status가 authenticated가 되면 recoil로 state 저장
   return (
     <Button>
       <Img onClick={() => signIn('google')}>
@@ -23,4 +39,5 @@ const Button = styled.button`
   cursor: pointer;
   border: none;
   outline: none;
+  background-color: transparent;
 `;
