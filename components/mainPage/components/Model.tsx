@@ -5,10 +5,8 @@ import { ObjectMap, useFrame, useLoader } from '@react-three/fiber';
 
 export const Model: NextPage = () => {
   const modelRef = useRef<THREE.Mesh>(null);
-  // const animate = useRef(true);
-  // const setAnimate = (state: boolean) => {
-  //   animate.current = state;
-  // };
+  const frameCount = useRef(0);
+  
   const [animate, setAnimate] = useState<boolean>(true);
 
   const wait = (delay: number) =>
@@ -28,8 +26,8 @@ export const Model: NextPage = () => {
   useFrame(async () => {
     if (animate) {
       modelRef.current!.rotation.y += Math.PI / 60;
-      // 부동소수점오류 해결
-      if (+(modelRef.current!.rotation.y % Math.PI).toFixed(1) === 0) {
+      frameCount.current += 1;
+      if (frameCount.current % 60 === 0) {
         setAnimate(false);
         await wait(1000);
         setAnimate(true);
