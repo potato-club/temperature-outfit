@@ -18,7 +18,6 @@ export const todayCodyApi = {
   addProduct: async (data: any) => api.post(`outfit`, data),
 
   // 해당하는 날의 옷차림 조회
-  //
   getOutfit: async (id: string, data: any) =>
     api.getWithBody(`outfit/${id}`, data),
 };
