@@ -2,27 +2,30 @@ import MenuItem from '@mui/material/MenuItem';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
-import { useState } from 'react';
+import { Dispatch, SetStateAction, useState } from 'react';
 import { CategoryDetail } from 'constants/types';
 
 type Props = {
   width?: number;
   dataArray: CategoryDetail[];
   label: string;
-  subCategoryChange?: Function;
+  categoryChange?: Dispatch<SetStateAction<string>>;
+  changeSubByMain?: Dispatch<SetStateAction<string>>;
 };
 
 export const SelectBox: React.FC<Props> = ({
   width = 80,
   dataArray,
   label,
-  subCategoryChange,
+  categoryChange,
+  changeSubByMain,
 }) => {
   const [selected, setSelected] = useState('');
 
   const handleChange = (event: SelectChangeEvent) => {
     setSelected(event.target.value);
-    subCategoryChange?.(event.target.value);
+    categoryChange && categoryChange(event.target.value);
+    changeSubByMain && changeSubByMain('');
   };
 
   return (
@@ -34,7 +37,7 @@ export const SelectBox: React.FC<Props> = ({
         value={selected}
         onChange={handleChange}
         label={label}>
-        {Array.isArray(dataArray) && dataArray.map((data, index) => (
+        {dataArray.map((data, index) => (
           <MenuItem value={data.id} key={index}>
             {data.name}
           </MenuItem>

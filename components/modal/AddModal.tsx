@@ -30,29 +30,13 @@ type imageType = {
 };
 
 export const AddModal = () => {
-  // Todo 메인카테고리를 정하고, 서브카테고리를 정한다음 다시 메인카테고리를 바꾸면, 서브카테고리는 그대로 안바뀌고 남아있게 됨.
-  // Todo 예시) 메인 : top , 서브 : 맨투맨 인 상태에서 메인을 bottom 으로 바꾸면, 메인 : 바텀, 서브 : 맨투맨 인 상태.
-  // 등록버튼을 눌렀을때 메인과 서브카테고리를 확인해서, 잘못된값이면 error 경고창을 보여주거나, 메인이 바뀔때 서브 카테고리를 초기화 시키는 방법 등에서 하나 해야할거같음
   const [addModalState, setAddModalState] = useRecoilState(addModal);
   const [images, setImages] = useState<imageType>();
   const [name, setName] = useState<string>('');
   const [color, setColor] = useState<string>('red');
-  const [mainCategory, setMainCategory] = useState<string>('');
-  const [subCategory, setSubCategory] = useState<string>();
+  const [mainCategory, setMainCategory] = useState<string>('top');
+  const [subCategory, setSubCategory] = useState<string>('');
   const codyRef = useRef<HTMLInputElement>(null);
-
-  // state 확인용 코드 : 위에 있는 Todo 해결하고 지울예정
-  useEffect(() => {
-    console.log(mainCategory);
-  }, [mainCategory]);
-
-  useEffect(() => {
-    console.log(subCategory);
-  }, [subCategory]);
-
-  useEffect(() => {
-    console.log(color);
-  }, [color]);
 
   const addImage = (e: ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
@@ -82,85 +66,86 @@ export const AddModal = () => {
   };
 
   return (
-      <Modal
-        isOpen={addModalState}
-        onRequestClose={() => setAddModalState((cur) => !cur)}
-        style={customStyles}
-        ariaHideApp={false}
-        contentLabel="Add Modal">
-        <Wrapper>
-          <Title>
-            <TypoGraphy type="h1" fontWeight="bold">
-              옷 등록하기
+    <Modal
+      isOpen={addModalState}
+      onRequestClose={() => setAddModalState((cur) => !cur)}
+      style={customStyles}
+      ariaHideApp={false}
+      contentLabel="Add Modal">
+      <Wrapper>
+        <Title>
+          <TypoGraphy type="h1" fontWeight="bold">
+            옷 등록하기
+          </TypoGraphy>
+        </Title>
+
+        <AddButton
+          id="codyImage"
+          ref={codyRef}
+          type="file"
+          accept="image/*"
+          onChange={addImage}
+        />
+        <ImageWrapper>
+          {images ? (
+            <Image
+              width={360}
+              height={360}
+              src={images.preview_URL}
+              alt="clothes"
+              onClick={() => codyRef.current && codyRef.current.click()}
+            />
+          ) : (
+            <InitialImage
+              size={360}
+              opacity={0.5}
+              onClick={() => codyRef.current && codyRef.current.click()}
+            />
+          )}
+        </ImageWrapper>
+
+        <ContentBox>
+          <InputWrapper>
+            <TypoGraphy type="h3" fontWeight="bold">
+              이름
             </TypoGraphy>
-          </Title>
-
-          <AddButton
-            id="codyImage"
-            ref={codyRef}
-            type="file"
-            accept="image/*"
-            onChange={addImage}
-          />
-          <ImageWrapper>
-            {images ? (
-              <Image
-                width={360}
-                height={360}
-                src={images.preview_URL}
-                alt="clothes"
-                onClick={() => codyRef.current && codyRef.current.click()}
-              />
-            ) : (
-              <InitialImage
-                size={360}
-                opacity={0.5}
-                onClick={() => codyRef.current && codyRef.current.click()}
-              />
-            )}
-          </ImageWrapper>
-
-          <ContentBox>
+            <Input
+              value={name}
+              placeholder="옷의 이름을 입력해주세요."
+              onChange={onChange}
+            />
+          </InputWrapper>
+          <CategoryWrapper>
             <InputWrapper>
-              <TypoGraphy type="h3" fontWeight="bold">
-                이름
-              </TypoGraphy>
-              <Input
-                value={name}
-                placeholder="옷의 이름을 입력해주세요."
-                onChange={onChange}
+              <SelectBox
+                label="전체"
+                dataArray={clothesMainCategory}
+                categoryChange={setMainCategory}
+                changeSubByMain={setSubCategory}
               />
             </InputWrapper>
-            <CategoryWrapper>
-              <InputWrapper>
-                <SelectBox
-                  label="전체"
-                  dataArray={clothesMainCategory}
-                  subCategoryChange={setMainCategory}
-                />
-              </InputWrapper>
-              <InputWrapper>
-                <SelectBox
-                  label="서브"
-                  dataArray={clothesSubCategory[mainCategory]}
-                  subCategoryChange={setSubCategory}
-                />
-              </InputWrapper>
-            </CategoryWrapper>
-            <RadioButtonsWrapper>
-              <RadioButtons setColor={setColor} />
-            </RadioButtonsWrapper>
-            <ButtonWrapper>
-              <CustomButton
-                customType="colorful"
-                text="등록"
-                sidePadding="20"
-                onClick={addClothesItem}
+            <InputWrapper>
+              <SelectBox
+                label="서브"
+                dataArray={clothesSubCategory[mainCategory]}
+                categoryChange={setSubCategory}
               />
-            </ButtonWrapper>
-          </ContentBox>
-        </Wrapper>
-      </Modal>
+            </InputWrapper>
+          </CategoryWrapper>
+          <RadioButtonsWrapper>
+            <RadioButtons setColor={setColor} />
+          </RadioButtonsWrapper>
+          <ButtonWrapper>
+            <CustomButton
+              customType="colorful"
+              text="등록"
+              sidePadding="20"
+              onClick={addClothesItem}
+            />
+          </ButtonWrapper>
+        </ContentBox>
+      </Wrapper>
+    </Modal>
   );
 };
 // const Img = styled.article`

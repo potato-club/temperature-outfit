@@ -27,7 +27,7 @@ export const Closet: React.FC = () => {
         <SelectBox
           label="전체"
           dataArray={clothesMainCategory}
-          subCategoryChange={setSelectedMainCategory}
+          categoryChange={setSelectedMainCategory}
         />
         <SelectBox
           label="서브"
