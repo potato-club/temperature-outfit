@@ -4,7 +4,6 @@ import React from 'react';
 import { MainCody, RegisterBtn, TodayInfo } from './components';
 
 export function MainPage() {
-
   return (
     <Container>
       <TodayInfo {...mainDummy} />
