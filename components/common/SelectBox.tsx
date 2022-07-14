@@ -34,7 +34,7 @@ export const SelectBox: React.FC<Props> = ({
         value={selected}
         onChange={handleChange}
         label={label}>
-        {dataArray.map((data, index) => (
+        {Array.isArray(dataArray) && dataArray.map((data, index) => (
           <MenuItem value={data.id} key={index}>
             {data.name}
           </MenuItem>

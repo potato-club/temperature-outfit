@@ -1,4 +1,4 @@
-import React, { useState, ChangeEvent } from 'react';
+import React, { useState, ChangeEvent, useRef, useEffect } from 'react';
 import Modal from 'react-modal';
 import styled from '@emotion/styled';
 import { CustomButton, SelectBox, TypoGraphy } from 'components/common';
@@ -24,20 +24,55 @@ const customStyles = {
   },
 };
 
+type imageType = {
+  image_file: File;
+  preview_URL: string;
+};
+
 export const AddModal = () => {
+  // Todo 메인카테고리를 정하고, 서브카테고리를 정한다음 다시 메인카테고리를 바꾸면, 서브카테고리는 그대로 안바뀌고 남아있게 됨.
+  // Todo 예시) 메인 : top , 서브 : 맨투맨 인 상태에서 메인을 bottom 으로 바꾸면, 메인 : 바텀, 서브 : 맨투맨 인 상태.
+  // 등록버튼을 눌렀을때 메인과 서브카테고리를 확인해서, 잘못된값이면 error 경고창을 보여주거나, 메인이 바뀔때 서브 카테고리를 초기화 시키는 방법 등에서 하나 해야할거같음
   const [addModalState, setAddModalState] = useRecoilState(addModal);
-  const [selectedMainCategory, setSelectedMainCategory] = useState('top');
-  const [clothesName, setClothesName] = useState('');
-  const [images, setImages] = useState('');
+  const [images, setImages] = useState<imageType>();
+  const [name, setName] = useState<string>('');
+  const [color, setColor] = useState<string>('red');
+  const [mainCategory, setMainCategory] = useState<string>('');
+  const [subCategory, setSubCategory] = useState<string>();
+  const codyRef = useRef<HTMLInputElement>(null);
+
+  // state 확인용 코드 : 위에 있는 Todo 해결하고 지울예정
+  useEffect(() => {
+    console.log(mainCategory);
+  }, [mainCategory]);
+
+  useEffect(() => {
+    console.log(subCategory);
+  }, [subCategory]);
+
+  useEffect(() => {
+    console.log(color);
+  }, [color]);
 
   const addImage = (e: ChangeEvent<HTMLInputElement>) => {
-    // e.preventDefault();
-    console.log(e.target.value);
-    console.log(e.target.files);
+    e.preventDefault();
+
+    if (e.target.value[0]) {
+      const fileReader = new FileReader();
+      fileReader.readAsDataURL(e.target.files![0]);
+      fileReader.onload = () => {
+        setImages({
+          image_file: e.target.files![0],
+          preview_URL: String(fileReader.result!),
+        });
+      };
+      alert('사진 등록!');
+      e.target.value = '';
+    }
   };
 
   const onChange = (e: React.FormEvent<HTMLInputElement>) => {
-    setClothesName(e.currentTarget.value);
+    setName(e.currentTarget.value);
   };
 
   const addClothesItem = () => {
@@ -47,74 +82,95 @@ export const AddModal = () => {
   };
 
   return (
-    <Modal
-      isOpen={addModalState}
-      onRequestClose={() => setAddModalState((cur) => !cur)}
-      style={customStyles}
-      contentLabel="Add Modal">
-      <Wrapper>
-        <Title>
-          <TypoGraphy type="h1" fontWeight="bold">
-            옷 등록하기
-          </TypoGraphy>
-        </Title>
-        <AddButton
-          id={`imgUpload`}
-          type="file"
-          accept="image/*"
-          onChange={addImage}
-        />
-        <Label htmlFor={`imgUpload`}>
-          <IoMdImage size={200} color={customColor.black} opacity={0.5} />
-        </Label>
-        <ContentBox>
-          <InputWrapper>
-            <TypoGraphy type="h3" fontWeight="bold">
-              이름
+      <Modal
+        isOpen={addModalState}
+        onRequestClose={() => setAddModalState((cur) => !cur)}
+        style={customStyles}
+        ariaHideApp={false}
+        contentLabel="Add Modal">
+        <Wrapper>
+          <Title>
+            <TypoGraphy type="h1" fontWeight="bold">
+              옷 등록하기
             </TypoGraphy>
-            <Input
-              value={clothesName}
-              placeholder="옷의 이름을 입력해주세요."
-              onChange={onChange}
-            />
-          </InputWrapper>
-          <CategoryWrapper>
+          </Title>
+
+          <AddButton
+            id="codyImage"
+            ref={codyRef}
+            type="file"
+            accept="image/*"
+            onChange={addImage}
+          />
+          <ImageWrapper>
+            {images ? (
+              <Image
+                width={360}
+                height={360}
+                src={images.preview_URL}
+                alt="clothes"
+                onClick={() => codyRef.current && codyRef.current.click()}
+              />
+            ) : (
+              <InitialImage
+                size={360}
+                opacity={0.5}
+                onClick={() => codyRef.current && codyRef.current.click()}
+              />
+            )}
+          </ImageWrapper>
+
+          <ContentBox>
             <InputWrapper>
-              <SelectBox
-                label="전체"
-                dataArray={clothesMainCategory}
-                subCategoryChange={setSelectedMainCategory}
+              <TypoGraphy type="h3" fontWeight="bold">
+                이름
+              </TypoGraphy>
+              <Input
+                value={name}
+                placeholder="옷의 이름을 입력해주세요."
+                onChange={onChange}
               />
             </InputWrapper>
-            <InputWrapper>
-              <SelectBox
-                label="서브"
-                dataArray={clothesSubCategory[selectedMainCategory]}
+            <CategoryWrapper>
+              <InputWrapper>
+                <SelectBox
+                  label="전체"
+                  dataArray={clothesMainCategory}
+                  subCategoryChange={setMainCategory}
+                />
+              </InputWrapper>
+              <InputWrapper>
+                <SelectBox
+                  label="서브"
+                  dataArray={clothesSubCategory[mainCategory]}
+                  subCategoryChange={setSubCategory}
+                />
+              </InputWrapper>
+            </CategoryWrapper>
+            <RadioButtonsWrapper>
+              <RadioButtons setColor={setColor} />
+            </RadioButtonsWrapper>
+            <ButtonWrapper>
+              <CustomButton
+                customType="colorful"
+                text="등록"
+                sidePadding="20"
+                onClick={addClothesItem}
               />
-            </InputWrapper>
-          </CategoryWrapper>
-          <RadioButtonsWrapper>
-            <RadioButtons />
-          </RadioButtonsWrapper>
-          <ButtonWrapper>
-            <CustomButton
-              customType="colorful"
-              text="등록"
-              sidePadding="20"
-              onClick={addClothesItem}
-            />
-          </ButtonWrapper>
-        </ContentBox>
-      </Wrapper>
-    </Modal>
+            </ButtonWrapper>
+          </ContentBox>
+        </Wrapper>
+      </Modal>
   );
 };
-const Img = styled.article`
-  width: 100%;
-  height: 400px;
-  background-color: ${customColor.gray};
-  border-radius: 40px;
-`;
+// const Img = styled.article`
+//   width: 100%;
+//   height: 400px;
+//   background-color: ${customColor.gray};
+//   border-radius: 40px;
+// `;
+
+
 
 const Wrapper = styled.section`
   display: flex;
@@ -162,11 +218,15 @@ const AddButton = styled.input`
   display: none;
 `;
 
-const Label = styled.label`
+const InitialImage = styled(IoMdImage)`
   width: 100%;
-  height: 400px;
   background-color: ${customColor.gray};
   border-radius: 40px;
+`;
+
+const ImageWrapper = styled.section`
+  width: 100%;
+  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;

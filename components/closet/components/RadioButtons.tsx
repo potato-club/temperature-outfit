@@ -11,12 +11,15 @@ import {
   grey,
 } from '@mui/material/colors';
 import styled from '@emotion/styled';
-
-export const RadioButtons: React.FC = () => {
+type Props = {
+  setColor?: React.Dispatch<React.SetStateAction<string>>
+}
+export const RadioButtons = ({ setColor }: Props) => {
   const [selectedValue, setSelectedValue] = React.useState('red');
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSelectedValue(event.target.value);
+    setColor && setColor(event.target.value);
   };
 
   const controlProps = (item: string) => ({
