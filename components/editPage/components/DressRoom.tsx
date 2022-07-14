@@ -2,19 +2,16 @@ import React, { ChangeEvent, useEffect, useRef, useState } from 'react';
 import styled from '@emotion/styled';
 import { customColor } from 'constants/index';
 import { AiOutlinePlus } from 'react-icons/ai';
-import { ClothesBox } from './../../common/ClothesBox';
-import { ClothesDummy } from 'components/common/ClothesDummy';
+import { RecoilState, useRecoilState } from 'recoil';
+import { imageStateType } from 'types/editPage/imageStateType';
+import { ClothesBox } from 'components/common';
 type Props = {
   category: string;
+  recoil : RecoilState<imageStateType[]>
 };
-type imageStateType = {
-  id: number;
-  name: string;
-  image_file: File;
-  preview_URL: string;
-};
-export function DressRoom({ category }: Props) {
-  const [images, setImages] = useState<Array<imageStateType>>([]);
+
+export function DressRoom({ category, recoil }: Props) {
+  const [images, setImages] = useRecoilState(recoil);
   const imageId = useRef(0);
   const addImage = (e: ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
@@ -50,8 +47,9 @@ export function DressRoom({ category }: Props) {
         images.map((data) => (
           <ClothesWrapper key={data.id}>
             <ClothesBox
-              data={data.preview_URL}
+              url={data.preview_URL}
               id={data.id}
+              type='edit'
               name={data.name}
               deleteImage={deleteImage}
             />
