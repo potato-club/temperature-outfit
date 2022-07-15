@@ -19,9 +19,7 @@ export const Model: NextPage = () => {
     return data;
   };
 
-  const gltf = typeGard(
-    useLoader(GLTFLoader, '/weatherModel/sunRetopology.glb'),
-  );
+  const gltf = typeGard(useLoader(GLTFLoader, '/weatherModel/cloud.glb'));
 
   useFrame(async () => {
     if (animate) {
