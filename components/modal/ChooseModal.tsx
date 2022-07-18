@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Modal from 'react-modal';
 import styled from '@emotion/styled';
 import { useState } from 'react';
@@ -8,7 +8,8 @@ import {
   clothesMainCategory,
   clothesSubCategory,
 } from 'constants/index';
-import { ClothesDummy } from 'components/common/ClothesDummy';
+import { useRecoilState } from 'recoil';
+import { chooseModal } from 'recoil/atom';
 
 const customStyles = {
   content: {
@@ -22,28 +23,46 @@ const customStyles = {
 };
 
 interface ModalProps {
-  modalIsOpen: boolean;
-  closeModal: () => void;
   mainCategory: string;
 }
 // 1. 옷 선택하기에서 data를 props로 받아오기
 //
 
-export const ChooseModal = ({
-  modalIsOpen,
-  closeModal,
-  mainCategory,
-}: ModalProps) => {
-  const [cloth, setCloth] = useState('상의');
+export const ChooseModal = ({ mainCategory }: ModalProps) => {
+  const [chooseModalState, setChooseModalState] = useRecoilState(chooseModal);
+
+  const switchMainCategory = () => {
+    switch (mainCategory) {
+      case 'top':
+        return '상의';
+
+      case 'outer':
+        return '아우터';
+
+      case 'bottom':
+        return '하의';
+
+      case 'shoes':
+        return '신발';
+
+      case 'mainETC':
+        return '기타';
+
+      default:
+        return '없는 카테고리입니다.';
+    }
+  };
+
   return (
     <Modal
-      isOpen={modalIsOpen}
-      onRequestClose={closeModal}
+      isOpen={chooseModalState}
+      onRequestClose={() => setChooseModalState((cur) => !cur)}
       style={customStyles}
       contentLabel="Add Modal">
       <Wrapper>
         <TypoGraphy type="Title" fontWeight="bold">
-          {cloth}
+          {/* {cloth} */}
+          {switchMainCategory()}
         </TypoGraphy>
         <ContentBox>
           <ButtonBox>
