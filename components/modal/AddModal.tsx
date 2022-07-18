@@ -1,4 +1,4 @@
-import React, { useState, ChangeEvent } from 'react';
+import React, { useState, ChangeEvent, useRef, useEffect } from 'react';
 import Modal from 'react-modal';
 import styled from '@emotion/styled';
 import { CustomButton, SelectBox, TypoGraphy } from 'components/common';
@@ -24,20 +24,39 @@ const customStyles = {
   },
 };
 
+type imageType = {
+  image_file: File;
+  preview_URL: string;
+};
+
 export const AddModal = () => {
   const [addModalState, setAddModalState] = useRecoilState(addModal);
-  const [selectedMainCategory, setSelectedMainCategory] = useState('top');
-  const [clothesName, setClothesName] = useState('');
-  const [images, setImages] = useState('');
+  const [images, setImages] = useState<imageType>();
+  const [name, setName] = useState<string>('');
+  const [color, setColor] = useState<string>('red');
+  const [mainCategory, setMainCategory] = useState<string>('top');
+  const [subCategory, setSubCategory] = useState<string>('');
+  const codyRef = useRef<HTMLInputElement>(null);
 
   const addImage = (e: ChangeEvent<HTMLInputElement>) => {
-    // e.preventDefault();
-    console.log(e.target.value);
-    console.log(e.target.files);
+    e.preventDefault();
+
+    if (e.target.value[0]) {
+      const fileReader = new FileReader();
+      fileReader.readAsDataURL(e.target.files![0]);
+      fileReader.onload = () => {
+        setImages({
+          image_file: e.target.files![0],
+          preview_URL: String(fileReader.result!),
+        });
+      };
+      alert('사진 등록!');
+      e.target.value = '';
+    }
   };
 
   const onChange = (e: React.FormEvent<HTMLInputElement>) => {
-    setClothesName(e.currentTarget.value);
+    setName(e.currentTarget.value);
   };
 
   const addClothesItem = () => {
@@ -51,6 +70,7 @@ export const AddModal = () => {
       isOpen={addModalState}
       onRequestClose={() => setAddModalState((cur) => !cur)}
       style={customStyles}
+      ariaHideApp={false}
       contentLabel="Add Modal">
       <Wrapper>
         <Title>
@@ -58,22 +78,39 @@ export const AddModal = () => {
             옷 등록하기
           </TypoGraphy>
         </Title>
+
         <AddButton
-          id={`imgUpload`}
+          id="codyImage"
+          ref={codyRef}
           type="file"
           accept="image/*"
           onChange={addImage}
         />
-        <Label htmlFor={`imgUpload`}>
-          <IoMdImage size={200} color={customColor.black} opacity={0.5} />
-        </Label>
+        <ImageWrapper>
+          {images ? (
+            <Image
+              width={360}
+              height={360}
+              src={images.preview_URL}
+              alt="clothes"
+              onClick={() => codyRef.current && codyRef.current.click()}
+            />
+          ) : (
+            <InitialImage
+              size={360}
+              opacity={0.5}
+              onClick={() => codyRef.current && codyRef.current.click()}
+            />
+          )}
+        </ImageWrapper>
+
         <ContentBox>
           <InputWrapper>
             <TypoGraphy type="h3" fontWeight="bold">
               이름
             </TypoGraphy>
             <Input
-              value={clothesName}
+              value={name}
               placeholder="옷의 이름을 입력해주세요."
               onChange={onChange}
             />
@@ -83,18 +120,20 @@ export const AddModal = () => {
               <SelectBox
                 label="전체"
                 dataArray={clothesMainCategory}
-                subCategoryChange={setSelectedMainCategory}
+                categoryChange={setMainCategory}
+                changeSubByMain={setSubCategory}
               />
             </InputWrapper>
             <InputWrapper>
               <SelectBox
                 label="서브"
-                dataArray={clothesSubCategory[selectedMainCategory]}
+                dataArray={clothesSubCategory[mainCategory]}
+                categoryChange={setSubCategory}
               />
             </InputWrapper>
           </CategoryWrapper>
           <RadioButtonsWrapper>
-            <RadioButtons />
+            <RadioButtons setColor={setColor} />
           </RadioButtonsWrapper>
           <ButtonWrapper>
             <CustomButton
@@ -109,12 +148,14 @@ export const AddModal = () => {
     </Modal>
   );
 };
-const Img = styled.article`
-  width: 100%;
-  height: 400px;
-  background-color: ${customColor.gray};
-  border-radius: 40px;
-`;
+// const Img = styled.article`
+//   width: 100%;
+//   height: 400px;
+//   background-color: ${customColor.gray};
+//   border-radius: 40px;
+// `;
+
+
 
 const Wrapper = styled.section`
   display: flex;
@@ -162,11 +203,15 @@ const AddButton = styled.input`
   display: none;
 `;
 
-const Label = styled.label`
+const InitialImage = styled(IoMdImage)`
   width: 100%;
-  height: 400px;
   background-color: ${customColor.gray};
   border-radius: 40px;
+`;
+
+const ImageWrapper = styled.section`
+  width: 100%;
+  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
