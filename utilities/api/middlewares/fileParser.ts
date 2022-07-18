@@ -27,7 +27,7 @@ export const filesParser: Middleware<ApiRequest, NextApiResponse> = async (
     files: Files;
   }>((resolve, reject) => {
     const formidable = new Formidable({
-      filename: (_, ext) => `${cuid()}.${ext}`,
+      filename: () => cuid(),
       fileWriteStreamHandler: uploadStream as any,
     });
 
