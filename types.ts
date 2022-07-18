@@ -40,11 +40,12 @@ export type ProductResponse = {
 export type OutfitGetRequest = {
   startDate?: string;
   endDate?: string;
-  page?: number;
-  limit?: number;
+  minRating?: number;
+  maxRating?: number;
 };
 
 export type OutfitPostRequest = {
+  date?: string;
   productsId?: string[];
   comment?: string;
   rating?: number;
@@ -52,8 +53,11 @@ export type OutfitPostRequest = {
 
 export type OutfitResponse = {
   id: string;
+  date: string;
   imageUrl?: string;
   products: ProductResponse[];
+  comment?: string;
+  rating: number;
   createdAt: string;
   updatedAt: string;
 };

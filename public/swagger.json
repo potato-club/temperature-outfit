@@ -22,7 +22,7 @@
         "tags": [
           "product"
         ],
-        "description": "내 옷 조회",
+        "description": "내 옷 & 악세서리 조회",
         "produces": [
           "application/json"
         ],
@@ -77,7 +77,7 @@
         "tags": [
           "product"
         ],
-        "description": "내 옷 등록",
+        "description": "내 옷 & 악세서리 등록",
         "produces": [
           "application/json"
         ],
@@ -124,7 +124,7 @@
         "tags": [
           "product"
         ],
-        "description": "내 옷 조회",
+        "description": "내 옷 & 악세서리 조회",
         "produces": [
           "application/json"
         ],
@@ -145,7 +145,7 @@
             }
           },
           "404": {
-            "description": "일치하는 옷이 없음 or 내 옷이 아님"
+            "description": "일치하는 옷 & 악세서리가 없음 or 내 옷 & 악세서리가 아님"
           }
         }
       }
@@ -175,15 +175,16 @@
                   "type": "string",
                   "format": "date-time"
                 },
-                "page": {
+                "minRating": {
                   "type": "integer",
-                  "minimum": 1,
-                  "default": 1
+                  "minimum": 0,
+                  "maximum": 10,
+                  "default": 0
                 },
-                "limit": {
+                "maxRating": {
                   "type": "integer",
-                  "minimum": 1,
-                  "maximum": 100,
+                  "minimum": 0,
+                  "maximum": 10,
                   "default": 10
                 }
               }
@@ -214,6 +215,14 @@
           "multipart/form-data"
         ],
         "parameters": [
+          {
+            "name": "date",
+            "in": "formData",
+            "required": true,
+            "type": "string",
+            "format": "date",
+            "default": "2022-01-01"
+          },
           {
             "name": "image",
             "in": "formData",
@@ -248,6 +257,9 @@
             "schema": {
               "$ref": "#/definitions/OutfitResponse"
             }
+          },
+          "400": {
+            "description": "date 누락"
           }
         }
       }
@@ -290,7 +302,8 @@
       "properties": {
         "id": {
           "type": "string",
-          "format": "cuid"
+          "format": "cuid",
+          "example": "cl5qjhkic000409mi4nmw7epr"
         },
         "name": {
           "type": "string"
@@ -319,7 +332,12 @@
       "properties": {
         "id": {
           "type": "string",
-          "format": "cuid"
+          "format": "cuid",
+          "example": "cl5qjhkic000409mi4nmw7epr"
+        },
+        "date": {
+          "type": "string",
+          "format": "date"
         },
         "imageUrl": {
           "type": "string"

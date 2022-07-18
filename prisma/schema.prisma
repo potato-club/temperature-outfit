@@ -84,6 +84,7 @@ model Outfit {
   id        String    @id @default(cuid())
   ownerId   String
   owner     User      @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  date      DateTime  @db.Date
   imageUrl  String?
   comment   String?
   rating    Int       @default(0)
