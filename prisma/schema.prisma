@@ -57,7 +57,7 @@ model VerificationToken {
 }
 
 model Category {
-  id       String     @id @default(cuid())
+  id       String     @id
   name     String
   order    Int
   parentId String?

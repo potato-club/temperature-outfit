@@ -12,9 +12,12 @@ export default async function handler(
     select: {
       id: true,
       name: true,
-      order: true,
-      children: { select: { id: true, name: true, order: true } },
+      children: { select: { id: true, name: true }, orderBy: { order: 'asc' } },
     },
+    where: {
+      parentId: null,
+    },
+    orderBy: { order: 'asc' },
   });
 
   res.status(200).json(categories);
