@@ -7,7 +7,7 @@ import { imageStateType } from 'types/editPage/imageStateType';
 import { ClothesBox } from 'components/common';
 type Props = {
   category: string;
-  recoil : RecoilState<imageStateType[]>
+  recoil: RecoilState<imageStateType[]>;
 };
 
 export function DressRoom({ category, recoil }: Props) {
@@ -19,15 +19,16 @@ export function DressRoom({ category, recoil }: Props) {
     if (e.target.value[0]) {
       const fileReader = new FileReader();
       // Todo : 필요하다면 나중에 replaceAll에 확장자명을 추가해야함.
-      const name = e.target.files![0].name.replaceAll(/.png|.jpg|.jpeg/gi,'');
+      const name = e.target.files![0].name.replaceAll(/.png|.jpg|.jpeg/gi, '');
       fileReader.readAsDataURL(e.target.files![0]);
+      const image_file = e.target.files![0];
       fileReader.onload = () => {
         setImages([
           ...images,
           {
             id: imageId.current++,
             name: name,
-            image_file: e.target.files![0],
+            image_file,
             preview_URL: String(fileReader.result!),
           },
         ]);
@@ -49,7 +50,7 @@ export function DressRoom({ category, recoil }: Props) {
             <ClothesBox
               url={data.preview_URL}
               id={data.id}
-              type='edit'
+              type="edit"
               name={data.name}
               deleteImage={deleteImage}
             />
