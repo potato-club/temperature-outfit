@@ -12,6 +12,7 @@ import {
 } from 'constants/index';
 import { useRecoilState } from 'recoil';
 import { addModal } from 'recoil/atom';
+import { productApi } from 'api';
 
 const customStyles = {
   content: {
@@ -24,14 +25,10 @@ const customStyles = {
   },
 };
 
-type imageType = {
-  image_file: File;
-  preview_URL: string;
-};
-
 export const AddModal = () => {
   const [addModalState, setAddModalState] = useRecoilState(addModal);
-  const [images, setImages] = useState<imageType>();
+  const [image, setImage] = useState<File>();
+  const [thumbnail, setThumbnail] = useState<string>('');
   const [name, setName] = useState<string>('');
   const [color, setColor] = useState<string>('red');
   const [mainCategory, setMainCategory] = useState<string>('top');
@@ -45,11 +42,9 @@ export const AddModal = () => {
       const fileReader = new FileReader();
       fileReader.readAsDataURL(e.target.files![0]);
       fileReader.onload = () => {
-        setImages({
-          image_file: e.target.files![0],
-          preview_URL: String(fileReader.result!),
-        });
+        setThumbnail(String(fileReader.result!));
       };
+      setImage(e.target.files![0]);
       alert('사진 등록!');
       e.target.value = '';
     }
@@ -59,11 +54,35 @@ export const AddModal = () => {
     setName(e.currentTarget.value);
   };
 
-  const addClothesItem = () => {
+  const addClothesItem = async () => {
     // 서버에 옷 등록 로직
+    if (!subCategory) {
+      alert('서브 카테고리를 선택 해주세요.');
+      return;
+    }
+    // await productApi.addProduct({
+    //   image,
+    //   name,
+    //   categoryId : subCategory,
+    //   color
+    // });
     // 성공시 등록이 되었습니다! => 모달
     alert('서버에 옷 등록');
   };
+
+  // 확인용 코드
+  useEffect(() => {
+    console.log(image);
+  }, [image]);
+  useEffect(() => {
+    console.log(name);
+  }, [name]);
+  useEffect(() => {
+    console.log(subCategory);
+  }, [subCategory]);
+  useEffect(() => {
+    console.log(color);
+  }, [color]);
 
   return (
     <Modal
@@ -87,11 +106,11 @@ export const AddModal = () => {
           onChange={addImage}
         />
         <ImageWrapper>
-          {images ? (
+          {thumbnail ? (
             <Image
               width={360}
               height={360}
-              src={images.preview_URL}
+              src={thumbnail}
               alt="clothes"
               onClick={() => codyRef.current && codyRef.current.click()}
             />
@@ -154,8 +173,6 @@ export const AddModal = () => {
 //   background-color: ${customColor.gray};
 //   border-radius: 40px;
 // `;
-
-
 
 const Wrapper = styled.section`
   display: flex;
