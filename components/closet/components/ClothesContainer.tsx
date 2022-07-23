@@ -1,33 +1,41 @@
 import styled from '@emotion/styled';
 import { productApi } from 'api';
 import { ClothesBox } from 'components/common';
-import { clothesData } from 'dummy/clothesData';
+import { useEffect, useState } from 'react';
+import { productType } from 'types/editPage/product.type';
 type Props = {
   category: string;
 };
 export const ClothesContainer = ({ category }: Props) => {
+  const [clothesData, setClothesData] = useState<Array<productType>>();
   const getClothes = async () => {
-    const data = await productApi.getAllProduct({
+    await productApi.getAllProduct({
         params : {
           categoryId: category,
       },
-    });
-    console.log(data);
-
+    }
+    ).then((res) => {
+      console.log(res.data);
+      setClothesData(res.data);
+    }).catch(err => console.log(err));
+    
     // 옷 한벌 조회
     // const data = await productApi.getProduct('cl5tir1fc00655gwkgxm6023k');
     // console.log(data);
   };
-  getClothes();
+  useEffect(() => {
+    getClothes();
+  }, []);
+
   return (
     <ItemContainer>
-      {clothesData.map(
-        (data, index) =>
-          data.category === category && (
+      {clothesData && clothesData.map(
+        (data:productType) =>
+          data.categoryId === "halfT" && (
             <ClothesBox
               name={data.name}
-              url={data.url}
-              key={index}
+              url={data.imageUrl}
+              key={data.id}
               type="closet"
             />
           ),
