@@ -28,11 +28,12 @@ const customStyles = {
 export const AddModal = () => {
   const [addModalState, setAddModalState] = useRecoilState(addModal);
   const [image, setImage] = useState<File>();
-  const [thumbnail, setThumbnail] = useState<string>('');
   const [name, setName] = useState<string>('');
   const [color, setColor] = useState<string>('red');
   const [mainCategory, setMainCategory] = useState<string>('top');
   const [subCategory, setSubCategory] = useState<string>('');
+  const [thumbnail, setThumbnail] = useState<string>('');
+
   const codyRef = useRef<HTMLInputElement>(null);
 
   const addImage = (e: ChangeEvent<HTMLInputElement>) => {
@@ -60,12 +61,13 @@ export const AddModal = () => {
       alert('서브 카테고리를 선택 해주세요.');
       return;
     }
-    // await productApi.addProduct({
-    //   image,
-    //   name,
-    //   categoryId : subCategory,
-    //   color
-    // });
+    const frm = new FormData();
+    frm.append('file', image!);
+    frm.append('name', name);
+    frm.append('categoryId', subCategory);
+    frm.append('color', color);
+    const data = await productApi.addProduct(frm);
+    console.log(data);
     // 성공시 등록이 되었습니다! => 모달
     alert('서버에 옷 등록');
   };
