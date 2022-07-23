@@ -5,7 +5,10 @@ import { setting } from 'constants/setting';
 export default {
   get: async (url: string) => await axios.get(setting.baseUrl + url),
 
-  getWithBody: async (url: string, params: any) =>
+  getAll: async (url: string) =>
+    await axios.get(setting.baseUrl + url),
+
+  getWithParams: async (url: string, params: any) =>
     await axios.get(setting.baseUrl + url, params),
 
   post: async (url: string, params: any) =>

@@ -10,5 +10,11 @@ export const productApi = {
   getProduct: async (id: string) => api.get(`product/${id}`),
 
   // 옷 전체 조회
-  getAllProduct: async (data: any) => api.getWithBody(`product`, data),
+  getAllProduct: async () => api.getAll(`product`),
+
+  // 옷 필터해서 조회
+  // { params : { 필터 : 값 } }
+  getFilter: async (data : any) => api.getWithParams(`product`, data),
+  
+
 };

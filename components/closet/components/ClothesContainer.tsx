@@ -8,24 +8,24 @@ type Props = {
 };
 export const ClothesContainer = ({ category }: Props) => {
   const [clothesData, setClothesData] = useState<Array<productType>>();
-  // const getClothes = async () => {
-  //   await productApi.getAllProduct({
-  //       params : {
-  //         categoryId: category,
-  //     },
-  //   }
-  //   ).then((res) => {
-  //     console.log(res.data);
-  //     setClothesData(res.data);
-  //   }).catch(err => console.log(err));
+  const getClothes = async () => {
+    await productApi.getFilter({
+        params : {
+          categoryId: category,
+      },
+    }
+      ).then((res) => {
+      console.log(res.data);
+      setClothesData(res.data);
+    }).catch(err => console.log(err));
     
-  //   // 옷 한벌 조회
-  //   // const data = await productApi.getProduct('cl5tir1fc00655gwkgxm6023k');
-  //   // console.log(data);
-  // };
-  // useEffect(() => {
-  //   getClothes();
-  // }, []);
+    // 옷 한벌 조회
+    // const data = await productApi.getProduct('cl5tir1fc00655gwkgxm6023k');
+    // console.log(data);
+  };
+  useEffect(() => {
+    getClothes();
+  }, []);
 
   return (
     <ItemContainer>

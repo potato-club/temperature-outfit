@@ -11,7 +11,7 @@ export const todayCodyApi = {
   //   "page": 1,
   //   "limit": 10
   // }
-  getManyOutfit: async (data: any) => api.getWithBody(`outfit`, data),
+  getManyOutfit: async (data: any) => api.getWithParams(`outfit`, data),
 
   // 그날의 옷차림 등록
   // 이미지 파일, id, 코맨트, 평점 함께 등록
@@ -19,5 +19,5 @@ export const todayCodyApi = {
 
   // 해당하는 날의 옷차림 조회
   getOutfit: async (id: string, data: any) =>
-    api.getWithBody(`outfit/${id}`, data),
+    api.getWithParams(`outfit/${id}`, data),
 };
