@@ -15,7 +15,8 @@ export const Closet: React.FC = () => {
   const setAddModalState = useSetRecoilState(addModal);
   const setChooseModalState = useSetRecoilState(chooseModal);
 
-  const [selectedMainCategory, setSelectedMainCategory] = useState('top');
+  const [mainCategory, setMainCategory] = useState('top');
+  const [subCategory, setSubCategory] = useState('halfT');
 
   return (
     <Wrapper>
@@ -25,13 +26,18 @@ export const Closet: React.FC = () => {
 
       <CategoryWrapper>
         <SelectBox
-          label="전체"
+          label="메인"
           dataArray={clothesMainCategory}
-          categoryChange={setSelectedMainCategory}
+          categoryChange={setMainCategory}
+          initData={mainCategory}
+          initLabel="상의"
         />
         <SelectBox
           label="서브"
-          dataArray={clothesSubCategory[selectedMainCategory]}
+          dataArray={clothesSubCategory[mainCategory]}
+          categoryChange={setSubCategory}
+          initData={subCategory}
+          initLabel="반팔"
         />
 
         <RadioButtons />
@@ -40,7 +46,7 @@ export const Closet: React.FC = () => {
 
       <Horizon />
 
-      <ClothesContainer category={selectedMainCategory} />
+      <ClothesContainer category={mainCategory} />
 
       <Footer>
         <CustomButton

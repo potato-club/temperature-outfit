@@ -22,7 +22,8 @@ const handler = nextConnect<ApiRequest, NextApiResponse<ProductResponse[]>>();
 handler.use(authenticateHandler);
 
 handler.get(async (req, res) => {
-  const body = req.body as ProductGetRequest;
+  // const body = req.body as ProductGetRequest;
+  const body = req.query as ProductGetRequest;
 
   body.page = body.page ?? 1;
   body.limit = Math.min(body.limit ?? 10, 100);

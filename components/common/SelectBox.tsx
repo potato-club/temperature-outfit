@@ -11,6 +11,8 @@ type Props = {
   label: string;
   categoryChange?: Dispatch<SetStateAction<string>>;
   changeSubByMain?: Dispatch<SetStateAction<string>>;
+  initData? : string;
+  initLabel? : string;
 };
 
 export const SelectBox: React.FC<Props> = ({
@@ -19,8 +21,10 @@ export const SelectBox: React.FC<Props> = ({
   label,
   categoryChange,
   changeSubByMain,
+  initData,
+  initLabel,
 }) => {
-  const [selected, setSelected] = useState('');
+  const [selected, setSelected] = useState(initData ? initData : '');
 
   const handleChange = (event: SelectChangeEvent) => {
     setSelected(event.target.value);
@@ -36,7 +40,9 @@ export const SelectBox: React.FC<Props> = ({
         id="demo-simple-select-autowidth"
         value={selected}
         onChange={handleChange}
-        label={label}>
+        label={label}
+        defaultValue={initLabel}
+        >
         {dataArray.map((data, index) => (
           <MenuItem value={data.id} key={index}>
             {data.name}
