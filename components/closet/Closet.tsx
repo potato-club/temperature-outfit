@@ -6,7 +6,7 @@ import {
   clothesSubCategory,
   customColor,
 } from 'constants/index';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useSetRecoilState } from 'recoil';
 import { addModal, chooseModal } from 'recoil/atom';
 import { ClothesContainer, RadioButtons, SearchBox } from './components';
@@ -17,6 +17,10 @@ export const Closet: React.FC = () => {
 
   const [mainCategory, setMainCategory] = useState('top');
   const [subCategory, setSubCategory] = useState('halfT');
+
+
+
+
 
   return (
     <Wrapper>
@@ -29,15 +33,14 @@ export const Closet: React.FC = () => {
           label="메인"
           dataArray={clothesMainCategory}
           categoryChange={setMainCategory}
-          initData={mainCategory}
-          initLabel="상의"
+          changeSubByMain={setSubCategory}
+          value={mainCategory}
         />
         <SelectBox
           label="서브"
           dataArray={clothesSubCategory[mainCategory]}
           categoryChange={setSubCategory}
-          initData={subCategory}
-          initLabel="반팔"
+          value={subCategory}
         />
 
         <RadioButtons />
