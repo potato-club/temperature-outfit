@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { productApi } from 'api';
 import { CustomButton, TypoGraphy, SelectBox } from 'components/common';
 import { AddModal, ChooseModal } from 'components/modal';
 import {
@@ -9,6 +10,7 @@ import {
 import { useEffect, useState } from 'react';
 import { useSetRecoilState } from 'recoil';
 import { addModal, chooseModal } from 'recoil/atom';
+import { productType } from 'types/editPage/product.type';
 import { ClothesContainer, RadioButtons, SearchBox } from './components';
 
 export const Closet: React.FC = () => {
@@ -18,9 +20,25 @@ export const Closet: React.FC = () => {
   const [mainCategory, setMainCategory] = useState('top');
   const [subCategory, setSubCategory] = useState('halfT');
 
+  const [clothesData, setClothesData] = useState<Array<productType>>();
 
+  const getClothes = async () => {
+    await productApi
+      .getAllProduct()
+      .then((res) => {
+        console.log(res.data);
+        setClothesData(res.data);
+      })
+      .catch((err) => console.log(err));
 
+    // 옷 한벌 조회
+    // const data = await productApi.getProduct('cl5tir1fc00655gwkgxm6023k');
+    // console.log(data);
+  };
 
+  useEffect(() => {
+    getClothes();
+  }, []);
 
   return (
     <Wrapper>
@@ -49,7 +67,7 @@ export const Closet: React.FC = () => {
 
       <Horizon />
 
-      <ClothesContainer category={mainCategory} />
+      <ClothesContainer clothesData={clothesData} />
 
       <Footer>
         <CustomButton
