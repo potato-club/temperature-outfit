@@ -24,7 +24,7 @@ export const SelectBox: React.FC<Props> = ({
   changeSubByMain,
 }) => {
   const handleChange = (event: SelectChangeEvent) => {
-    changeSubByMain && changeSubByMain(clothesSubCategory[event.target.value][0].id);
+    changeSubByMain && changeSubByMain('');
     categoryChange && categoryChange(event.target.value);
   };
 

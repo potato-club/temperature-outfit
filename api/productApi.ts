@@ -14,7 +14,5 @@ export const productApi = {
 
   // 옷 필터해서 조회
   // { params : { 필터 : 값 } }
-  getFilter: async (data : any) => api.getWithParams(`product`, data),
-  
-
+  getFilter: async (data: any) => api.getWithParams(`product`, data),
 };

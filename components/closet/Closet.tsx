@@ -18,27 +18,38 @@ export const Closet: React.FC = () => {
   const setChooseModalState = useSetRecoilState(chooseModal);
 
   const [mainCategory, setMainCategory] = useState('top');
-  const [subCategory, setSubCategory] = useState('halfT');
+  const [subCategory, setSubCategory] = useState('');
 
   const [clothesData, setClothesData] = useState<Array<productType>>();
 
-  const getClothes = async () => {
+  // 옷 전체 조회
+  // const getAllProduct = async () => {
+  //   await productApi
+  //     .getAllProduct()
+  //     .then((res) => {
+  //       console.log(res.data);
+  //       setClothesData(res.data);
+  //     })
+  //     .catch((err) => console.log(err));
+  // };
+
+  const getFilter = async (type: any, filter: any) => {
     await productApi
-      .getAllProduct()
+      .getFilter({
+        params: {
+          [type]: filter,
+        },
+      })
       .then((res) => {
         console.log(res.data);
         setClothesData(res.data);
       })
       .catch((err) => console.log(err));
-
-    // 옷 한벌 조회
-    // const data = await productApi.getProduct('cl5tir1fc00655gwkgxm6023k');
-    // console.log(data);
   };
 
   useEffect(() => {
-    getClothes();
-  }, []);
+    getFilter('categoryId', mainCategory);
+  }, [mainCategory]);
 
   return (
     <Wrapper>
@@ -67,7 +78,7 @@ export const Closet: React.FC = () => {
 
       <Horizon />
 
-      <ClothesContainer clothesData={clothesData} />
+      <ClothesContainer clothesData={clothesData} category={subCategory} />
 
       <Footer>
         <CustomButton
