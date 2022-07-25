@@ -40,4 +40,4 @@ export const reviewTextState = atom({
 export const ratingState = atom({
   key: 'rating',
   default: 0,
-})
+});

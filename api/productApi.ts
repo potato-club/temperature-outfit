@@ -17,6 +17,9 @@ export const productApi = {
   getFilter: async (data: any) => api.getWithParams(`product`, data),
 };
 
+
+// 편의상 우선 이렇게 사용
+
 export const frontApi = {
   getAllProduct: async (setClothesData: any) => {
     await productApi
