@@ -6,6 +6,7 @@ interface Clothes {
 
 export const clothesSubCategory: Clothes = {
   top: [
+    { name: '전체', id: 'top' },
     { name: '민소매', id: 'sleeveless' },
     { name: '반팔', id: 'halfT' },
     { name: '긴팔', id: 'longT' },
@@ -17,6 +18,7 @@ export const clothesSubCategory: Clothes = {
     { name: '기타', id: 'topETC' },
   ],
   outer: [
+    { name: '전체', id: 'outer' },
     { name: '후드집업', id: 'hoodZipUp' },
     { name: '가디건', id: 'cardigan' },
     { name: '후리스', id: 'fleece' },
@@ -26,6 +28,7 @@ export const clothesSubCategory: Clothes = {
     { name: '기타', id: 'topETC' },
   ],
   bottom: [
+    { name: '전체', id: 'bottom' },
     { name: '반바지', id: 'shorts' },
     { name: '청바지', id: 'jeans' },
     { name: '트레이닝', id: 'training' },
@@ -33,11 +36,15 @@ export const clothesSubCategory: Clothes = {
     { name: '기타', id: 'bottomETC' },
   ],
   shoes: [
+    { name: '전체', id: 'shoes' },
     { name: '샌들', id: 'sandals' },
     { name: '슬리퍼', id: 'slippers' },
     { name: '운동화', id: 'sneakers' },
     { name: '부츠', id: 'boots' },
     { name: '기타', id: 'shoesETC' },
   ],
-  mainETC: [{ name: '기타', id: 'subETC' }],
+  mainETC: [
+    { name: '전체', id: 'mainETC' },
+    { name: '기타', id: 'subETC' },
+  ],
 };

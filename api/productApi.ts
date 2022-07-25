@@ -16,3 +16,18 @@ export const productApi = {
   // { params : { 필터 : 값 } }
   getFilter: async (data: any) => api.getWithParams(`product`, data),
 };
+
+
+export const getFilter = async (type: any, filter: any, setClothesData: any) => {
+  await productApi
+    .getFilter({
+      params: {
+        [type]: filter,
+      },
+    })
+    .then((res) => {
+      console.log(res.data);
+      setClothesData(res.data);
+    })
+    .catch((err) => console.log(err));
+};

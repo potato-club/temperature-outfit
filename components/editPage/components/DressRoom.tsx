@@ -2,17 +2,27 @@ import React, { ChangeEvent, useEffect, useRef, useState } from 'react';
 import styled from '@emotion/styled';
 import { customColor } from 'constants/index';
 import { AiOutlinePlus } from 'react-icons/ai';
-import { RecoilState, useRecoilState } from 'recoil';
+import { RecoilState, useRecoilState, useSetRecoilState } from 'recoil';
 import { imageStateType } from 'types/editPage/imageStateType';
 import { ClothesBox } from 'components/common';
+import { chooseModal } from 'recoil/atom';
+import { ChooseModal } from 'components/modal';
 type Props = {
   category: string;
   recoil: RecoilState<imageStateType[]>;
+  setModalCategory: any;
 };
 
-export function DressRoom({ category, recoil }: Props) {
+export function DressRoom({ category, recoil, setModalCategory }: Props) {
   const [images, setImages] = useRecoilState(recoil);
   const imageId = useRef(0);
+  const setChooseModalState = useSetRecoilState(chooseModal);
+
+  const handleModal = () => {
+    setChooseModalState((cur) => !cur);
+    setModalCategory(category);
+  };
+
   const addImage = (e: ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
 
@@ -41,7 +51,6 @@ export function DressRoom({ category, recoil }: Props) {
   const deleteImage = (id: number) => {
     setImages(images.filter((image) => image.id !== id));
   };
-
   return (
     <Container>
       {images &&
@@ -56,17 +65,9 @@ export function DressRoom({ category, recoil }: Props) {
             />
           </ClothesWrapper>
         ))}
-      <ButtonWrapper>
-        <AddButton
-          id={`imgUpload${category}`}
-          type="file"
-          accept="image/*"
-          onChange={addImage}
-        />
-        <Label htmlFor={`imgUpload${category}`}>
-          <AiOutlinePlus size={40} />
-        </Label>
-      </ButtonWrapper>
+      <AddButton onClick={() => handleModal()}>
+        <AiOutlinePlus size={40} />
+      </AddButton>
     </Container>
   );
 }
@@ -98,11 +99,7 @@ const Container = styled.section`
     border-radius: 10px;
   }
 `;
-const ButtonWrapper = styled.section``;
-const AddButton = styled.input`
-  display: none;
-`;
-const Label = styled.label`
+const AddButton = styled.label`
   border: 1px solid ${customColor.gray};
   border-radius: 10px;
   display: flex;

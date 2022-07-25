@@ -10,6 +10,9 @@ import {
 } from 'constants/index';
 import { useRecoilState } from 'recoil';
 import { chooseModal } from 'recoil/atom';
+import { productType } from 'types/editPage/product.type';
+import { ClothesContainer } from 'components/closet/components';
+import { getFilter } from 'api/productApi';
 
 const customStyles = {
   content: {
@@ -23,55 +26,74 @@ const customStyles = {
 };
 
 interface ModalProps {
-  mainCategory: string;
+  categoryLabel: string;
 }
 // 1. 옷 선택하기에서 data를 props로 받아오기
 //
 
-export const ChooseModal = ({ mainCategory }: ModalProps) => {
+export const ChooseModal = ({ categoryLabel: mainCategory }: ModalProps) => {
   const [chooseModalState, setChooseModalState] = useRecoilState(chooseModal);
+  const [clothesData, setClothesData] = useState<Array<productType>>();
 
-  const switchMainCategory = () => {
-    switch (mainCategory) {
-      case 'top':
-        return '상의';
 
-      case 'outer':
-        return '아우터';
+    const switchMainCategory = () => {
+      switch (mainCategory) {
+        case '상의':
+          return 'top';
 
-      case 'bottom':
-        return '하의';
+        case '아우터':
+          return 'outer';
 
-      case 'shoes':
-        return '신발';
+        case '하의':
+          return 'bottom';
 
-      case 'mainETC':
-        return '기타';
+        case '신발':
+          return 'shoes';
 
-      default:
-        return '없는 카테고리입니다.';
-    }
-  };
+        case '기타':
+          return 'mainETC';
+
+        default:
+          return '없는 카테고리입니다.';
+      }
+    };
+
+  const category = switchMainCategory();
+  
+  useEffect(() => {
+    getFilter('categoryId', category, setClothesData);
+  }, [category]);
+
+  const handleClose = () => {
+    setChooseModalState((cur) => !cur);
+    setClothesData([]);
+  }
 
   return (
     <Modal
       isOpen={chooseModalState}
-      onRequestClose={() => setChooseModalState((cur) => !cur)}
+      onRequestClose={() => handleClose()}
       style={customStyles}
+      ariaHideApp={false}
       contentLabel="Add Modal">
       <Wrapper>
         <TypoGraphy type="Title" fontWeight="bold">
           {/* {cloth} */}
-          {switchMainCategory()}
+          {mainCategory}
         </TypoGraphy>
         <ContentBox>
           <ButtonBox>
-            {clothesSubCategory[mainCategory].map((item, index) => (
-              <CustomButton customType="white" text={item.name} key={index} />
+            {clothesSubCategory[category].map((item, index) => (
+              <CustomButton
+                onClick={() => getFilter('categoryId', item.id, setClothesData)}
+                customType="white"
+                text={item.name}
+                key={index}
+              />
             ))}
           </ButtonBox>
           <ClothesImgBox>
-            {/* 등록된 옷들 컴포넌트로 map 할 예정*/}
+            <ClothesContainer clothesData={clothesData} />
           </ClothesImgBox>
         </ContentBox>
       </Wrapper>
