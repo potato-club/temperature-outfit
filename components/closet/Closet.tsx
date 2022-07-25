@@ -19,6 +19,7 @@ export const Closet: React.FC = () => {
 
   const [mainCategory, setMainCategory] = useState('top');
   const [subCategory, setSubCategory] = useState('');
+  const [color, setColor] = useState<string>('red');
 
   const [clothesData, setClothesData] = useState<Array<productType>>();
 
@@ -47,34 +48,57 @@ export const Closet: React.FC = () => {
       .catch((err) => console.log(err));
   };
 
-  useEffect(() => {
-    getFilter('categoryId', mainCategory);
-  }, [mainCategory]);
+  // const getColorFilter = async (filter : any) => {
+  //       await productApi
+  //         .getFilter({
+  //           params: {
+  //             categoryId: mainCategory,
+  //             color : filter,
+  //           },
+  //         })
+  //         .then((res) => {
+  //           console.log(res.data);
+  //           setClothesData(res.data);
+  //         })
+  //         .catch((err) => console.log(err));
+  // }
+
+  // useEffect(() => {
+  //   getFilter('categoryId', mainCategory);
+  // }, [mainCategory]);
+
+  // useEffect(() => {
+  //   getColorFilter(color);
+  // }, [color]);
 
   return (
-    <Wrapper>
+    <Container>
       <TypoGraphy type="Title" fontWeight="bold">
         옷장
       </TypoGraphy>
+      <FilterWrapper>
+        <section style={{ display: 'flex', flexWrap: 'wrap', gap: '20px' }}>
+          <CategoryWrapper>
+            <SelectBox
+              label="메인"
+              dataArray={clothesMainCategory}
+              categoryChange={setMainCategory}
+              changeSubByMain={setSubCategory}
+              value={mainCategory}
+            />
+            <SelectBox
+              label="서브"
+              dataArray={clothesSubCategory[mainCategory]}
+              categoryChange={setSubCategory}
+              value={subCategory}
+            />
+          </CategoryWrapper>
 
-      <CategoryWrapper>
-        <SelectBox
-          label="메인"
-          dataArray={clothesMainCategory}
-          categoryChange={setMainCategory}
-          changeSubByMain={setSubCategory}
-          value={mainCategory}
-        />
-        <SelectBox
-          label="서브"
-          dataArray={clothesSubCategory[mainCategory]}
-          categoryChange={setSubCategory}
-          value={subCategory}
-        />
+          <RadioButtons setColor={setColor} />
+        </section>
 
-        <RadioButtons />
         <SearchBox />
-      </CategoryWrapper>
+      </FilterWrapper>
 
       <Horizon />
 
@@ -100,11 +124,11 @@ export const Closet: React.FC = () => {
         <ChooseModal mainCategory={'bottom'} />
         {/* 여기까지 */}
       </Footer>
-    </Wrapper>
+    </Container>
   );
 };
 
-const Wrapper = styled.section`
+const Container = styled.section`
   width: 70%;
   max-width: 1178px;
   height: 90%;
@@ -119,11 +143,17 @@ const Wrapper = styled.section`
   justify-content: space-around;
 `;
 
-const CategoryWrapper = styled.section`
-  margin-top: 40px;
-  width: 100%;
+const FilterWrapper = styled.section`
   display: flex;
   flex-wrap: wrap;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: 40px;
+  gap: 20px;
+`;
+
+const CategoryWrapper = styled.section`
+  display: flex;
   gap: 10px;
 `;
 const Horizon = styled.hr`

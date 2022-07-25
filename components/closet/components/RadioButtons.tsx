@@ -12,8 +12,8 @@ import {
 } from '@mui/material/colors';
 import styled from '@emotion/styled';
 type Props = {
-  setColor?: React.Dispatch<React.SetStateAction<string>>
-}
+  setColor?: React.Dispatch<React.SetStateAction<string>>;
+};
 export const RadioButtons = ({ setColor }: Props) => {
   const [selectedValue, setSelectedValue] = React.useState('red');
 
@@ -144,6 +144,6 @@ export const RadioButtons = ({ setColor }: Props) => {
 };
 
 const Wrapper = styled.section`
-  flex: 4;
   display: flex;
+  flex-wrap: wrap;
 `;
