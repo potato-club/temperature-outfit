@@ -42,7 +42,7 @@ export function ReviewBox() {
   }
 
   const handleRating = (rate: number) => {
-    setRating(rate);
+    setRating(rate / 10);
   };
 
     const addImage = (e: ChangeEvent<HTMLInputElement>) => {

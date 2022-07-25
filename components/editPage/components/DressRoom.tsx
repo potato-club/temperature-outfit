@@ -7,10 +7,11 @@ import { imageStateType } from 'types/editPage/imageStateType';
 import { ClothesBox } from 'components/common';
 import { chooseModal } from 'recoil/atom';
 import { ChooseModal } from 'components/modal';
+import { ProductResponse } from 'types';
 type Props = {
   category: string;
-  recoil: RecoilState<imageStateType[]>;
-  setModalCategory: any;
+  recoil: RecoilState<ProductResponse[]>;
+  setModalCategory: React.Dispatch<React.SetStateAction<string>>;
 };
 
 export function DressRoom({ category, recoil, setModalCategory }: Props) {
@@ -23,32 +24,32 @@ export function DressRoom({ category, recoil, setModalCategory }: Props) {
     setModalCategory(category);
   };
 
-  const addImage = (e: ChangeEvent<HTMLInputElement>) => {
-    e.preventDefault();
+  // const addImage = (e: ChangeEvent<HTMLInputElement>) => {
+  //   e.preventDefault();
 
-    if (e.target.value[0]) {
-      const fileReader = new FileReader();
-      // Todo : 필요하다면 나중에 replaceAll에 확장자명을 추가해야함.
-      const name = e.target.files![0].name.replaceAll(/.png|.jpg|.jpeg/gi, '');
-      fileReader.readAsDataURL(e.target.files![0]);
-      const image_file = e.target.files![0];
-      fileReader.onload = () => {
-        setImages([
-          ...images,
-          {
-            id: imageId.current++,
-            name: name,
-            image_file,
-            preview_URL: String(fileReader.result!),
-          },
-        ]);
-      };
-      alert('사진 등록!');
-      e.target.value = '';
-    }
-  };
+  //   if (e.target.value[0]) {
+  //     const fileReader = new FileReader();
+  //     // Todo : 필요하다면 나중에 replaceAll에 확장자명을 추가해야함.
+  //     const name = e.target.files![0].name.replaceAll(/.png|.jpg|.jpeg/gi, '');
+  //     fileReader.readAsDataURL(e.target.files![0]);
+  //     const image_file = e.target.files![0];
+  //     fileReader.onload = () => {
+  //       setImages([
+  //         ...images,
+  //         {
+  //           id: imageId.current++,
+  //           name: name,
+  //           image_file,
+  //           preview_URL: String(fileReader.result!),
+  //         },
+  //       ]);
+  //     };
+  //     alert('사진 등록!');
+  //     e.target.value = '';
+  //   }
+  // };
 
-  const deleteImage = (id: number) => {
+  const deleteImage = (id: string) => {
     setImages(images.filter((image) => image.id !== id));
   };
   return (
@@ -57,7 +58,7 @@ export function DressRoom({ category, recoil, setModalCategory }: Props) {
         images.map((data) => (
           <ClothesWrapper key={data.id}>
             <ClothesBox
-              url={data.preview_URL}
+              url={data.imageUrl!}
               id={data.id}
               type="edit"
               name={data.name}

@@ -4,14 +4,11 @@ import { TypoGraphy } from 'components/common';
 import { DressRoom, ReviewBox, Title } from './components';
 import { categories } from 'types/editPage/categories';
 import { editDummy } from 'dummy/newEditDummy';
-import { useSetRecoilState } from 'recoil';
 import { ChooseModal } from 'components/modal';
 import { chooseModal } from 'recoil/atom';
 
 export default function EditPage() {
-  const setChooseModalState = useSetRecoilState(chooseModal);
   const [modalCategory, setModalCategory] = useState('');
-  console.log(modalCategory);
 
   return (
     <Container>

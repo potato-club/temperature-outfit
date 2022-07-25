@@ -41,4 +41,22 @@ export const frontApi = {
       })
       .catch((err) => console.log(err));
   },
+
+  getClothesEdit: async ( type: any, filter: any, clothesData: any, setClothesData: any) => {
+    await productApi
+      .getFilter({
+        params: {
+          [type]: filter,
+        },
+      })
+      .then((res) => {
+        if(clothesData.findIndex((clothes:any) => clothes.id === res.data[0].id) !== -1) {
+          alert("이미 등록된 옷입니다.");
+          return;
+        }
+        setClothesData(clothesData.concat(res.data));
+        alert('등록 성공!');
+      })
+      .catch((err) => console.log(err));
+  },
 };
