@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import { productApi } from 'api';
-import { getFilter } from 'api/productApi';
+import { frontApi } from 'api/productApi';
 import { CustomButton, TypoGraphy, SelectBox } from 'components/common';
 import { AddModal, ChooseModal } from 'components/modal';
 import {
@@ -18,8 +18,8 @@ export const Closet: React.FC = () => {
   const setAddModalState = useSetRecoilState(addModal);
   const setChooseModalState = useSetRecoilState(chooseModal);
 
-  const [mainCategory, setMainCategory] = useState('top');
-  const [subCategory, setSubCategory] = useState('top');
+  const [mainCategory, setMainCategory] = useState('all');
+  const [subCategory, setSubCategory] = useState('all');
   const [color, setColor] = useState<string>('red');
 
   const [clothesData, setClothesData] = useState<Array<productType>>();
@@ -51,11 +51,11 @@ export const Closet: React.FC = () => {
   // }
 
   useEffect(() => {
-    getFilter('categoryId', mainCategory, setClothesData);
+    mainCategory === 'all' ? frontApi.getAllProduct(setClothesData) : frontApi.getFilter('categoryId', mainCategory, setClothesData);
   }, [mainCategory]);
 
     useEffect(() => {
-    getFilter('categoryId', subCategory, setClothesData);
+    frontApi.getFilter('categoryId', subCategory, setClothesData);
   }, [subCategory]);
 
   // useEffect(() => {

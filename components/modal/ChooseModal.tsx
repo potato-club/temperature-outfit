@@ -12,7 +12,7 @@ import { useRecoilState } from 'recoil';
 import { chooseModal } from 'recoil/atom';
 import { productType } from 'types/editPage/product.type';
 import { ClothesContainer } from 'components/closet/components';
-import { getFilter } from 'api/productApi';
+import { frontApi } from 'api/productApi';
 
 const customStyles = {
   content: {
@@ -61,7 +61,7 @@ export const ChooseModal = ({ categoryLabel: mainCategory }: ModalProps) => {
   const category = switchMainCategory();
   
   useEffect(() => {
-    getFilter('categoryId', category, setClothesData);
+    frontApi.getFilter('categoryId', category, setClothesData);
   }, [category]);
 
   const handleClose = () => {
@@ -85,7 +85,7 @@ export const ChooseModal = ({ categoryLabel: mainCategory }: ModalProps) => {
           <ButtonBox>
             {clothesSubCategory[category].map((item, index) => (
               <CustomButton
-                onClick={() => getFilter('categoryId', item.id, setClothesData)}
+                onClick={() => frontApi.getFilter('categoryId', item.id, setClothesData)}
                 customType="white"
                 text={item.name}
                 key={index}

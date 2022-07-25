@@ -17,17 +17,28 @@ export const productApi = {
   getFilter: async (data: any) => api.getWithParams(`product`, data),
 };
 
+export const frontApi = {
+  getAllProduct: async (setClothesData: any) => {
+    await productApi
+      .getAllProduct()
+      .then((res) => {
+        console.log(res.data);
+        setClothesData(res.data);
+      })
+      .catch((err) => console.log(err));
+  },
 
-export const getFilter = async (type: any, filter: any, setClothesData: any) => {
-  await productApi
-    .getFilter({
-      params: {
-        [type]: filter,
-      },
-    })
-    .then((res) => {
-      console.log(res.data);
-      setClothesData(res.data);
-    })
-    .catch((err) => console.log(err));
+  getFilter: async (type: any, filter: any, setClothesData: any) => {
+    await productApi
+      .getFilter({
+        params: {
+          [type]: filter,
+        },
+      })
+      .then((res) => {
+        console.log(res.data);
+        setClothesData(res.data);
+      })
+      .catch((err) => console.log(err));
+  },
 };

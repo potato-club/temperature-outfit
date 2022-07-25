@@ -31,7 +31,7 @@ export const AddModal = () => {
   const [name, setName] = useState<string>('');
   const [color, setColor] = useState<string>('red');
   const [mainCategory, setMainCategory] = useState<string>('top');
-  const [subCategory, setSubCategory] = useState<string>('');
+  const [subCategory, setSubCategory] = useState<string>('sleeveless');
   const [thumbnail, setThumbnail] = useState<string>('');
 
   const codyRef = useRef<HTMLInputElement>(null);
@@ -57,10 +57,10 @@ export const AddModal = () => {
 
   const addClothesItem = async () => {
     // 서버에 옷 등록 로직
-    if (!subCategory) {
-      alert('서브 카테고리를 선택 해주세요.');
-      return;
-    }
+    // if (!subCategory) {
+    //   alert('서브 카테고리를 선택 해주세요.');
+    //   return;
+    // }
     const frm = new FormData();
     frm.append('file', image!);
     frm.append('name', name);
@@ -139,17 +139,21 @@ export const AddModal = () => {
           <CategoryWrapper>
             <InputWrapper>
               <SelectBox
-                label="전체"
-                dataArray={clothesMainCategory}
+                label="메인"
+                dataArray={clothesMainCategory.slice(1)}
                 categoryChange={setMainCategory}
                 changeSubByMain={setSubCategory}
+                value={mainCategory}
+                modal
               />
             </InputWrapper>
             <InputWrapper>
               <SelectBox
                 label="서브"
-                dataArray={clothesSubCategory[mainCategory]}
+                dataArray={clothesSubCategory[mainCategory].slice(1)}
                 categoryChange={setSubCategory}
+                value={subCategory}
+                modal
               />
             </InputWrapper>
           </CategoryWrapper>

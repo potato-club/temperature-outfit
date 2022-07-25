@@ -13,6 +13,7 @@ type Props = {
   categoryChange?: Dispatch<SetStateAction<string>>;
   changeSubByMain?: Dispatch<SetStateAction<string>>;
   value: string;
+  modal?: boolean;
 };
 
 export const SelectBox: React.FC<Props> = ({
@@ -22,9 +23,11 @@ export const SelectBox: React.FC<Props> = ({
   value,
   categoryChange,
   changeSubByMain,
+  modal,
 }) => {
   const handleChange = (event: SelectChangeEvent) => {
-    changeSubByMain && changeSubByMain(clothesSubCategory[event.target.value][0].id);
+    changeSubByMain &&
+      changeSubByMain(clothesSubCategory[event.target.value][modal ? 1 : 0].id);
     categoryChange && categoryChange(event.target.value);
   };
 
