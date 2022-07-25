@@ -7,6 +7,12 @@ export type ApiRequest = NextApiRequest & {
   file?: File;
 };
 
+export type UserLocationPostRequest = {
+  locationId?: number;
+};
+
+export type LocationResponse = { id: number; name: string };
+
 export type CategoryResponse = {
   id: string;
   name: string;
