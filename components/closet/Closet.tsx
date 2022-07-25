@@ -63,9 +63,13 @@ export const Closet: React.FC = () => {
   //         .catch((err) => console.log(err));
   // }
 
-  // useEffect(() => {
-  //   getFilter('categoryId', mainCategory);
-  // }, [mainCategory]);
+  useEffect(() => {
+    getFilter('categoryId', mainCategory);
+  }, [mainCategory]);
+
+    useEffect(() => {
+    getFilter('categoryId', subCategory);
+  }, [subCategory]);
 
   // useEffect(() => {
   //   getColorFilter(color);
@@ -102,7 +106,7 @@ export const Closet: React.FC = () => {
 
       <Horizon />
 
-      <ClothesContainer clothesData={clothesData} category={subCategory} />
+      <ClothesContainer clothesData={clothesData} />
 
       <Footer>
         <CustomButton
@@ -121,7 +125,7 @@ export const Closet: React.FC = () => {
           height={40}
           onClick={() => setChooseModalState((cur) => !cur)}
         />
-        <ChooseModal mainCategory={'bottom'} />
+        {/* <ChooseModal categoryLabel={'bottom'} /> */}
         {/* 여기까지 */}
       </Footer>
     </Container>

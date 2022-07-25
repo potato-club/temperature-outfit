@@ -5,14 +5,12 @@ import { useEffect, useState } from 'react';
 import { productType } from 'types/editPage/product.type';
 type Props = {
   clothesData: productType[] | undefined;
-  category: string;
 };
-export const ClothesContainer = ({ clothesData, category }: Props) => {
+export const ClothesContainer = ({ clothesData }: Props) => {
   return (
     <ItemContainer>
       {clothesData &&
-        clothesData.map((data) => 
-        (data.categoryId === category || !category) && (
+        clothesData.map((data) => (
           <ClothesBox
             name={data.name}
             url={data.imageUrl}
