@@ -34,6 +34,8 @@ export const AddModal = () => {
   const [subCategory, setSubCategory] = useState<string>('');
   const [thumbnail, setThumbnail] = useState<string>('');
 
+  Modal.setAppElement('#__next')
+
   const codyRef = useRef<HTMLInputElement>(null);
 
   const addImage = (e: ChangeEvent<HTMLInputElement>) => {
@@ -77,7 +79,6 @@ export const AddModal = () => {
       isOpen={addModalState}
       onRequestClose={() => setAddModalState((cur) => !cur)}
       style={customStyles}
-      ariaHideApp={false}
       contentLabel="Add Modal">
       <Wrapper>
         <Title>

@@ -11,6 +11,8 @@ import {
 import { useRecoilState } from 'recoil';
 import { chooseModal } from 'recoil/atom';
 
+Modal.setAppElement('#__next');
+
 const customStyles = {
   content: {
     top: '30%',
@@ -52,7 +54,6 @@ export const ChooseModal = ({ mainCategory }: ModalProps) => {
         return '없는 카테고리입니다.';
     }
   };
-
   return (
     <Modal
       isOpen={chooseModalState}
