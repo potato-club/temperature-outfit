@@ -13,23 +13,22 @@ import {
 import styled from '@emotion/styled';
 import { HiOutlineX } from 'react-icons/hi';
 type Props = {
-  setColor?: React.Dispatch<React.SetStateAction<string>>;
+  setColor: React.Dispatch<React.SetStateAction<string>>;
+  filter? : boolean;
+  color: string;
 };
-export const RadioButtons = ({ setColor }: Props) => {
-  const [selectedValue, setSelectedValue] = React.useState('red');
+export const ColorRadio = ({ setColor, filter, color }: Props) => {
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSelectedValue(event.target.value);
     setColor && setColor(event.target.value);
   };
 
   const noFilter = () => {
-    setSelectedValue('');
     setColor && setColor('');
   };
 
   const controlProps = (item: string) => ({
-    checked: selectedValue === item,
+    checked: color === item,
     onChange: handleChange,
     value: item,
     name: 'color-radio-button-demo',
@@ -90,18 +89,21 @@ export const RadioButtons = ({ setColor }: Props) => {
           },
         }}
       />
-      <IconWrapper
-        onClick={() => {
-          noFilter();
-        }}>
-        <HiOutlineX size={30} />
-      </IconWrapper>
+      {filter && (
+        <IconWrapper
+          onClick={() => {
+            noFilter();
+          }}>
+          <HiOutlineX size={30} />
+        </IconWrapper>
+      )}
     </Wrapper>
   );
 };
 
 const Wrapper = styled.section`
   display: flex;
+  width: max-content;
   flex-wrap: wrap;
   background-color: #a9e4e4;
   border-radius: 10px;

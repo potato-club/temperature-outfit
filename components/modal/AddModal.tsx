@@ -2,7 +2,7 @@ import React, { useState, ChangeEvent, useRef, useEffect } from 'react';
 import Modal from 'react-modal';
 import styled from '@emotion/styled';
 import { CustomButton, SelectBox, TypoGraphy } from 'components/common';
-import { RadioButtons } from 'components/closet/components';
+import { ColorRadio } from 'components/closet/components';
 import Image from 'next/image';
 import { IoMdImage } from 'react-icons/io';
 import {
@@ -71,6 +71,10 @@ export const AddModal = () => {
     // 성공시 등록이 되었습니다! => 모달
     alert('서버에 옷 등록');
   };
+
+  useEffect(() => {
+    setColor('');
+  }, [mainCategory, subCategory]);
 
   // 확인용 코드
   useEffect(() => {
@@ -158,7 +162,7 @@ export const AddModal = () => {
             </InputWrapper>
           </CategoryWrapper>
           <RadioButtonsWrapper>
-            <RadioButtons setColor={setColor} />
+            <ColorRadio color={color} setColor={setColor} />
           </RadioButtonsWrapper>
           <ButtonWrapper>
             <CustomButton

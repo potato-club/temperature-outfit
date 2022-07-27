@@ -12,7 +12,7 @@ import { useEffect, useState } from 'react';
 import { useSetRecoilState } from 'recoil';
 import { addModal, chooseModal } from 'recoil/atom';
 import { productType } from 'types/editPage/product.type';
-import { ClothesContainer, RadioButtons, SearchBox } from './components';
+import { ClothesContainer, ColorRadio, SearchBox } from './components';
 
 export const Closet: React.FC = () => {
   const setAddModalState = useSetRecoilState(addModal);
@@ -20,7 +20,7 @@ export const Closet: React.FC = () => {
 
   const [mainCategory, setMainCategory] = useState('all');
   const [subCategory, setSubCategory] = useState('all');
-  const [color, setColor] = useState<string>('red');
+  const [color, setColor] = useState<string>('');
 
   const [clothesData, setClothesData] = useState<Array<productType>>();
 
@@ -51,10 +51,17 @@ export const Closet: React.FC = () => {
   // }
 
   useEffect(() => {
-    mainCategory === 'all' ? frontApi.getAllProduct(setClothesData) : frontApi.getFilter('categoryId', mainCategory, setClothesData);
+    mainCategory === ''
+      ? frontApi.getAllProduct(setClothesData)
+      : frontApi.getFilter('categoryId', mainCategory, setClothesData);
   }, [mainCategory]);
 
-    useEffect(() => {
+  useEffect(() => {
+    setColor('');
+  }, [mainCategory, subCategory]);
+
+  useEffect(() => {
+    const filter = {};
     frontApi.getFilter('categoryId', subCategory, setClothesData);
   }, [subCategory]);
 
@@ -85,7 +92,7 @@ export const Closet: React.FC = () => {
             />
           </CategoryWrapper>
 
-          <RadioButtons setColor={setColor} />
+          <ColorRadio setColor={setColor} color={color} filter />
         </section>
 
         <SearchBox />
