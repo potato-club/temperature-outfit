@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import { productApi } from 'api';
-import { frontApi } from 'api/productApi';
+import { filterType, frontApi } from 'api/productApi';
 import { CustomButton, TypoGraphy, SelectBox } from 'components/common';
 import { AddModal, ChooseModal } from 'components/modal';
 import {
@@ -51,20 +51,35 @@ export const Closet: React.FC = () => {
   //         .catch((err) => console.log(err));
   // }
 
-  useEffect(() => {
-    mainCategory === ''
-      ? frontApi.getAllProduct(setClothesData)
-      : frontApi.getFilter('categoryId', mainCategory, setClothesData);
-  }, [mainCategory]);
+  // useEffect(() => {
+  //   mainCategory === ''
+  //     ? frontApi.getAllProduct(setClothesData)
+  //     : frontApi.getFilter('categoryId', mainCategory, setClothesData);
+  // }, [mainCategory]);
 
   useEffect(() => {
     setColor('');
   }, [mainCategory, subCategory]);
 
   useEffect(() => {
-    const filter = {};
-    frontApi.getFilter('categoryId', subCategory, setClothesData);
-  }, [subCategory]);
+    let filter: filterType = {};
+    if (subCategory === 'all') {
+      if (mainCategory === 'all') {
+        filter.categoryId = '';
+      } else {
+        filter.categoryId = mainCategory;
+      }
+    } else {
+      // (subCategory !== 'all')
+      filter.categoryId = subCategory;
+    }
+
+    if (color) {
+      filter.color = color;
+    }
+
+    frontApi.getFilter(filter, setClothesData);
+  }, [mainCategory, subCategory, color]);
 
   // useEffect(() => {
   //   getColorFilter(color);

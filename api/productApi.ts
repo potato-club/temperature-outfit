@@ -17,8 +17,12 @@ export const productApi = {
   getFilter: async (data: any) => api.getWithParams(`product`, data),
 };
 
-
 // 편의상 우선 이렇게 사용
+
+export type filterType = {
+  categoryId?: string;
+  color?: string;
+};
 
 export const frontApi = {
   getAllProduct: async (setClothesData: any) => {
@@ -31,12 +35,10 @@ export const frontApi = {
       .catch((err) => console.log(err));
   },
 
-  getFilter: async (type: any, filter: any, setClothesData: any) => {
+  getFilter: async (filter: filterType, setClothesData: any) => {
     await productApi
       .getFilter({
-        params: {
-          [type]: filter,
-        },
+        params: filter,
       })
       .then((res) => {
         console.log(res.data);
@@ -45,7 +47,12 @@ export const frontApi = {
       .catch((err) => console.log(err));
   },
 
-  getClothesEdit: async ( type: any, filter: any, clothesData: any, setClothesData: any) => {
+  getClothesEdit: async (
+    type: any,
+    filter: any,
+    clothesData: any,
+    setClothesData: any,
+  ) => {
     await productApi
       .getFilter({
         params: {
@@ -53,8 +60,12 @@ export const frontApi = {
         },
       })
       .then((res) => {
-        if(clothesData.findIndex((clothes:any) => clothes.id === res.data[0].id) !== -1) {
-          alert("이미 등록된 옷입니다.");
+        if (
+          clothesData.findIndex(
+            (clothes: any) => clothes.id === res.data[0].id,
+          ) !== -1
+        ) {
+          alert('이미 등록된 옷입니다.');
           return;
         }
         setClothesData(clothesData.concat(res.data));
