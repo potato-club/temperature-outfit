@@ -13,6 +13,7 @@ import { useSetRecoilState } from 'recoil';
 import { addModal, chooseModal } from 'recoil/atom';
 import { productType } from 'types/editPage/product.type';
 import { ClothesContainer, ColorRadio, SearchBox } from './components';
+import CategoryFilterBox from './components/CategoryFilterBox';
 
 export const Closet: React.FC = () => {
   const setAddModalState = useSetRecoilState(addModal);
@@ -76,32 +77,20 @@ export const Closet: React.FC = () => {
       </TypoGraphy>
       <FilterWrapper>
         <section style={{ display: 'flex', flexWrap: 'wrap', gap: '20px' }}>
-          <CategoryWrapper>
-            <SelectBox
-              label="메인"
-              dataArray={clothesMainCategory}
-              categoryChange={setMainCategory}
-              changeSubByMain={setSubCategory}
-              value={mainCategory}
-            />
-            <SelectBox
-              label="서브"
-              dataArray={clothesSubCategory[mainCategory]}
-              categoryChange={setSubCategory}
-              value={subCategory}
-            />
-          </CategoryWrapper>
-
+          <CategoryFilterBox
+            mainCategory={mainCategory}
+            subCategory={subCategory}
+            setMainCategory={setMainCategory}
+            setSubCategory={setSubCategory}
+          />
           <ColorRadio setColor={setColor} color={color} filter />
         </section>
-
         <SearchBox />
       </FilterWrapper>
 
-      <Horizon />
+      <Line />
 
       <ClothesContainer clothesData={clothesData} />
-
       <Footer>
         <CustomButton
           customType="colorful"
@@ -111,16 +100,6 @@ export const Closet: React.FC = () => {
           onClick={() => setAddModalState((cur) => !cur)}
         />
         <AddModal />
-        {/* 이건 잠시 있는 옷 선택 모달 */}
-        <CustomButton
-          customType="colorful"
-          text="옷 선택하기 (임시)"
-          sidePadding="20"
-          height={40}
-          onClick={() => setChooseModalState((cur) => !cur)}
-        />
-        {/* <ChooseModal categoryLabel={'bottom'} /> */}
-        {/* 여기까지 */}
       </Footer>
     </Container>
   );
@@ -150,11 +129,7 @@ const FilterWrapper = styled.section`
   gap: 20px;
 `;
 
-const CategoryWrapper = styled.section`
-  display: flex;
-  gap: 10px;
-`;
-const Horizon = styled.hr`
+const Line = styled.hr`
   border: 1px solid ${customColor.gray};
   border-bottom: 0px;
   margin: 24px 0 24px 0;

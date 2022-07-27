@@ -29,7 +29,7 @@ export const AddModal = () => {
   const [addModalState, setAddModalState] = useRecoilState(addModal);
   const [image, setImage] = useState<File>();
   const [name, setName] = useState<string>('');
-  const [color, setColor] = useState<string>('red');
+  const [color, setColor] = useState<string>('');
   const [mainCategory, setMainCategory] = useState<string>('top');
   const [subCategory, setSubCategory] = useState<string>('sleeveless');
   const [thumbnail, setThumbnail] = useState<string>('');
@@ -56,11 +56,10 @@ export const AddModal = () => {
   };
 
   const addClothesItem = async () => {
-    // 서버에 옷 등록 로직
-    // if (!subCategory) {
-    //   alert('서브 카테고리를 선택 해주세요.');
-    //   return;
-    // }
+    if(!(image && name && subCategory && color)) {
+      alert('상품의 이미지, 이름, 카테고리, 색상을 지정해주세요!')
+      return;
+    }
     const frm = new FormData();
     frm.append('file', image!);
     frm.append('name', name);
