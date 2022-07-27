@@ -11,6 +11,7 @@ import {
   grey,
 } from '@mui/material/colors';
 import styled from '@emotion/styled';
+import { HiOutlineX } from 'react-icons/hi';
 type Props = {
   setColor?: React.Dispatch<React.SetStateAction<string>>;
 };
@@ -22,6 +23,11 @@ export const RadioButtons = ({ setColor }: Props) => {
     setColor && setColor(event.target.value);
   };
 
+  const noFilter = () => {
+    setSelectedValue('');
+    setColor && setColor('');
+  };
+
   const controlProps = (item: string) => ({
     checked: selectedValue === item,
     onChange: handleChange,
@@ -29,104 +35,37 @@ export const RadioButtons = ({ setColor }: Props) => {
     name: 'color-radio-button-demo',
     inputProps: { 'aria-label': item },
   });
+
+  const colorName = [
+    'red',
+    'orange',
+    'yellow',
+    'green',
+    'cyan',
+    'blue',
+    'purple',
+    'gray',
+    'black',
+  ];
+  const colors = [red, orange, yellow, green, cyan, blue, purple, grey];
+
   return (
     <Wrapper>
-      <Radio
-        {...controlProps('red')}
-        sx={{
-          color: red[500],
-          '&.Mui-checked': {
-            color: red[500],
-          },
-          '& .MuiSvgIcon-root': {
-            fontSize: 28,
-          },
-        }}
-      />
-      <Radio
-        {...controlProps('orange')}
-        sx={{
-          color: orange[500],
-          '&.Mui-checked': {
-            color: orange[500],
-          },
-          '& .MuiSvgIcon-root': {
-            fontSize: 28,
-          },
-        }}
-      />
-      <Radio
-        {...controlProps('yellow')}
-        sx={{
-          color: yellow[500],
-          '&.Mui-checked': {
-            color: yellow[500],
-          },
-          '& .MuiSvgIcon-root': {
-            fontSize: 28,
-          },
-        }}
-      />
-      <Radio
-        {...controlProps('green')}
-        sx={{
-          color: green[500],
-          '&.Mui-checked': {
-            color: green[500],
-          },
-          '& .MuiSvgIcon-root': {
-            fontSize: 28,
-          },
-        }}
-      />
-      <Radio
-        {...controlProps('cyan')}
-        sx={{
-          color: cyan[500],
-          '&.Mui-checked': {
-            color: cyan[500],
-          },
-          '& .MuiSvgIcon-root': {
-            fontSize: 28,
-          },
-        }}
-      />
-      <Radio
-        {...controlProps('blue')}
-        sx={{
-          color: blue[500],
-          '&.Mui-checked': {
-            color: blue[500],
-          },
-          '& .MuiSvgIcon-root': {
-            fontSize: 28,
-          },
-        }}
-      />
-      <Radio
-        {...controlProps('purple')}
-        sx={{
-          color: purple[500],
-          '&.Mui-checked': {
-            color: purple[500],
-          },
-          '& .MuiSvgIcon-root': {
-            fontSize: 28,
-          },
-        }}
-      />
-      <Radio
-        {...controlProps('gray')}
-        sx={{
-          color: grey[500],
-          '&.Mui-checked': {
-            color: grey[500],
-          },
-          '& .MuiSvgIcon-root': {
-            fontSize: 28,
-          },
-        }}
-      />
+      {colors.map((data, i) => (
+        <Radio
+          key={i}
+          {...controlProps(colorName[i])}
+          sx={{
+            color: data[500],
+            '&.Mui-checked': {
+              color: data[500],
+            },
+            '& .MuiSvgIcon-root': {
+              fontSize: 28,
+            },
+          }}
+        />
+      ))}
       <Radio
         {...controlProps('black')}
         sx={{
@@ -139,6 +78,24 @@ export const RadioButtons = ({ setColor }: Props) => {
           },
         }}
       />
+      <Radio
+        {...controlProps('white')}
+        sx={{
+          color: grey[100],
+          '&.Mui-checked': {
+            color: grey[100],
+          },
+          '& .MuiSvgIcon-root': {
+            fontSize: 28,
+          },
+        }}
+      />
+      <IconWrapper
+        onClick={() => {
+          noFilter();
+        }}>
+        <HiOutlineX size={30} />
+      </IconWrapper>
     </Wrapper>
   );
 };
@@ -146,4 +103,14 @@ export const RadioButtons = ({ setColor }: Props) => {
 const Wrapper = styled.section`
   display: flex;
   flex-wrap: wrap;
+  background-color: #a9e4e4;
+  border-radius: 10px;
+  padding: 0 8px;
+`;
+
+const IconWrapper = styled.section`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
 `;
