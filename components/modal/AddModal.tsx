@@ -72,20 +72,6 @@ export const AddModal = () => {
     alert('서버에 옷 등록');
   };
 
-  // 확인용 코드
-  useEffect(() => {
-    console.log(image);
-  }, [image]);
-  useEffect(() => {
-    console.log(name);
-  }, [name]);
-  useEffect(() => {
-    console.log(subCategory);
-  }, [subCategory]);
-  useEffect(() => {
-    console.log(color);
-  }, [color]);
-
   return (
     <Modal
       isOpen={addModalState}
