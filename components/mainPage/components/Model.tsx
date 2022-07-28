@@ -2,11 +2,13 @@ import type { NextPage } from 'next';
 import { useRef, useState } from 'react';
 import { GLTF, GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import { ObjectMap, useFrame, useLoader } from '@react-three/fiber';
-
-export const Model: NextPage = () => {
+type Props = {
+  weather: string;
+};
+export const Model = ({ weather } : Props) => {
   const modelRef = useRef<THREE.Mesh>(null);
   const frameCount = useRef(0);
-  
+
   const [animate, setAnimate] = useState<boolean>(true);
 
   const wait = (delay: number) =>
@@ -19,7 +21,7 @@ export const Model: NextPage = () => {
     return data;
   };
 
-  const gltf = typeGard(useLoader(GLTFLoader, '/weatherModel/cloud.glb'));
+  const gltf = typeGard(useLoader(GLTFLoader, `/weatherModel/${weather}.glb`));
 
   useFrame(async () => {
     if (animate) {
