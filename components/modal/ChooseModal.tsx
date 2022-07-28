@@ -1,7 +1,6 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import Modal from 'react-modal';
 import styled from '@emotion/styled';
-import { useState } from 'react';
 import { CustomButton, TypoGraphy } from 'components/common';
 import {
   customColor,
@@ -15,8 +14,8 @@ Modal.setAppElement('#__next');
 
 const customStyles = {
   content: {
-    top: '30%',
-    left: '30%',
+    left: 'calc(50% - 370px)',
+    top: 'calc(50% - 180px)',
     width: '740px',
     height: '360px',
     borderRadius: '20px',

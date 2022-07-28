@@ -16,12 +16,13 @@ import { productApi } from 'api';
 
 const customStyles = {
   content: {
+    left: 'calc(50% - 310px)',
+    top: 'calc(48% - 382px)',
     width: '620px',
+    height: '764px',
     borderRadius: '20px',
     boxShadow: '4px 4px 5px 4px rgba(0,0,0,0.43)',
     inset: '12% 40px 40px 36%',
-    height: '800px',
-    // 어느정도 낮아지면 그냥 가로로 하든가 아니면 크기 줄이던가 해야됨
   },
 };
 
@@ -34,7 +35,7 @@ export const AddModal = () => {
   const [subCategory, setSubCategory] = useState<string>('');
   const [thumbnail, setThumbnail] = useState<string>('');
 
-  Modal.setAppElement('#__next')
+  Modal.setAppElement('#__next');
 
   const codyRef = useRef<HTMLInputElement>(null);
 
@@ -156,12 +157,6 @@ export const AddModal = () => {
     </Modal>
   );
 };
-// const Img = styled.article`
-//   width: 100%;
-//   height: 400px;
-//   background-color: ${customColor.gray};
-//   border-radius: 40px;
-// `;
 
 const Wrapper = styled.section`
   display: flex;
@@ -221,4 +216,7 @@ const ImageWrapper = styled.section`
   display: flex;
   align-items: center;
   justify-content: center;
+  // 테두리 고민
+  /* border-radius: 40px;
+  border: 1px solid ${customColor.gray}; */
 `;

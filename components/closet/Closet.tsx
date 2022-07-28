@@ -6,7 +6,7 @@ import {
   clothesSubCategory,
   customColor,
 } from 'constants/index';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useSetRecoilState } from 'recoil';
 import { addModal, chooseModal } from 'recoil/atom';
 import { ClothesContainer, RadioButtons, SearchBox } from './components';
@@ -17,6 +17,12 @@ export const Closet: React.FC = () => {
 
   const [mainCategory, setMainCategory] = useState('top');
   const [subCategory, setSubCategory] = useState('halfT');
+  
+  useEffect(() => {
+    console.log('가로' + window.innerWidth);
+    console.log('------------');
+    console.log('높이' + window.innerHeight);
+  });
 
   return (
     <Wrapper>
