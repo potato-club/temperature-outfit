@@ -22,6 +22,7 @@ export const Closet: React.FC = () => {
   const [mainCategory, setMainCategory] = useState('all');
   const [subCategory, setSubCategory] = useState('all');
   const [color, setColor] = useState<string>('');
+  const [name, setName] = useState<string>('');
 
   const [clothesData, setClothesData] = useState<Array<productType>>();
 
@@ -78,8 +79,12 @@ export const Closet: React.FC = () => {
       filter.color = color;
     }
 
+    if(name) {
+      filter.query = name;
+    }
+
     frontApi.getFilter(filter, setClothesData);
-  }, [mainCategory, subCategory, color]);
+  }, [mainCategory, subCategory, color, name]);
 
   // useEffect(() => {
   //   getColorFilter(color);
@@ -100,7 +105,7 @@ export const Closet: React.FC = () => {
           />
           <ColorRadio setColor={setColor} color={color} filter />
         </section>
-        <SearchBox />
+        <SearchBox name={name} setName={setName} />
       </FilterWrapper>
 
       <Line />

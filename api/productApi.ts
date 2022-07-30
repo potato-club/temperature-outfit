@@ -20,6 +20,7 @@ export const productApi = {
 // 편의상 우선 이렇게 사용
 
 export type filterType = {
+  query? : string;
   categoryId?: string;
   color?: string;
 };
