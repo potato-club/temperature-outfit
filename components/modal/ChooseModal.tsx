@@ -59,7 +59,7 @@ export const ChooseModal = ({ categoryLabel }: Props) => {
   const category = switchMainCategory();
 
   useEffect(() => {
-    frontApi.getFilter('categoryId', category, setClothesData);
+    frontApi.getFilter({categoryId: category}, setClothesData);
   }, [category]);
 
   const handleClose = () => {
@@ -85,7 +85,7 @@ export const ChooseModal = ({ categoryLabel }: Props) => {
             {clothesSubCategory[category].map((item, index) => (
               <CustomButton
                 onClick={() =>
-                  frontApi.getFilter('categoryId', item.id, setClothesData)
+                  frontApi.getFilter({categoryId: item.id}, setClothesData)
                 }
                 customType="white"
                 text={item.name}

@@ -52,12 +52,6 @@ export const Closet: React.FC = () => {
   //         .catch((err) => console.log(err));
   // }
 
-  // useEffect(() => {
-  //   mainCategory === ''
-  //     ? frontApi.getAllProduct(setClothesData)
-  //     : frontApi.getFilter('categoryId', mainCategory, setClothesData);
-  // }, [mainCategory]);
-
   useEffect(() => {
     setColor('');
   }, [mainCategory, subCategory]);

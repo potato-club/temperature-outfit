@@ -24,10 +24,11 @@ export function ReviewBox() {
 
     frm.append('image', reviewImage!);
 
-    frm.append('productsId[0]', 'cl60vagf60130gcwkydcysdi8');
+    frm.append('productsId', 'cl60vagf60130gcwkydcysdi8');
+    frm.append('productsId', 'cl60vagf60130gcwkydcysdi8');
 
     frm.append('comment', 'aa');
-    frm.append('rating', 1);
+    console.log(frm.getAll('productsId'));
 
     const data = await todayCodyApi.addProduct(frm);
     // console.log(data);
