@@ -54,7 +54,7 @@ export type OutfitPostRequest = {
   date?: string;
   productsId?: string;
   comment?: string;
-  rating?: number;
+  rating?: string;
 };
 
 export type OutfitResponse = {
