@@ -60,9 +60,11 @@ handler.post(filesParser, async (req, res) => {
       owner: { connect: { email: req?.session?.user?.email ?? '' } },
       date: new Date(body.date),
       imageUrl: req.file?.filepath,
-      products: { connect: body.productsId?.split(',').map((id) => ({ id })) },
+      products: {
+        connect: body.productsId?.split(',').map((id) => ({ id })),
+      },
       comment: body.comment,
-      rating: body.rating,
+      rating: +(body.rating ?? '0'),
     },
     include: { products: true },
   });
