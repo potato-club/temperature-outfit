@@ -61,7 +61,7 @@ export const AddModal = () => {
       return;
     }
     const frm = new FormData();
-    frm.append('file', image!);
+    frm.append('image', image!);
     frm.append('name', name);
     frm.append('categoryId', subCategory);
     frm.append('color', color);
