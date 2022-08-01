@@ -5,11 +5,13 @@ import { useState } from 'react';
 import { CustomButton, TypoGraphy } from 'components/common';
 import {
   customColor,
-  clothesMainCategory,
   clothesSubCategory,
 } from 'constants/index';
 import { useRecoilState } from 'recoil';
 import { chooseModal } from 'recoil/atom';
+import { productType } from 'types/editPage/product.type';
+import { frontApi } from 'api/productApi';
+import { ModalClothesContainer } from './ModalClothesContainer';
 
 const customStyles = {
   content: {
@@ -22,57 +24,79 @@ const customStyles = {
   },
 };
 
-interface ModalProps {
-  mainCategory: string;
+type Props = {
+  categoryLabel: string;
 }
 // 1. 옷 선택하기에서 data를 props로 받아오기
 //
 
-export const ChooseModal = ({ mainCategory }: ModalProps) => {
+export const ChooseModal = ({ categoryLabel }: Props) => {
   const [chooseModalState, setChooseModalState] = useRecoilState(chooseModal);
+  const [clothesData, setClothesData] = useState<Array<productType>>([]);
 
   const switchMainCategory = () => {
-    switch (mainCategory) {
-      case 'top':
-        return '상의';
+    switch (categoryLabel) {
+      case '상의':
+        return 'top';
 
-      case 'outer':
-        return '아우터';
+      case '아우터':
+        return 'outer';
 
-      case 'bottom':
-        return '하의';
+      case '하의':
+        return 'bottom';
 
-      case 'shoes':
-        return '신발';
+      case '신발':
+        return 'shoes';
 
-      case 'mainETC':
-        return '기타';
+      case '기타':
+        return 'mainETC';
 
       default:
         return '없는 카테고리입니다.';
     }
   };
 
+  const category = switchMainCategory();
+
+  useEffect(() => {
+    frontApi.getFilter({categoryId: category}, setClothesData);
+  }, [category]);
+
+  const handleClose = () => {
+    setChooseModalState((cur) => !cur);
+    // setClothesData([]); // Todo : 이 코드가 없으면, 메인카테고리 넘길때 아주 잠깐 이전 카테고리 아이템들이 보임.
+                           // Todo : 이 코드가 있으면, 같은 카테고리를 두번눌렀을때 옷이 없어짐. (모달을 천천히 띄우거나 등등 어떻게할지 회의해봐야할듯)
+  };
+
   return (
     <Modal
       isOpen={chooseModalState}
-      onRequestClose={() => setChooseModalState((cur) => !cur)}
+      onRequestClose={() => handleClose()}
       style={customStyles}
+      ariaHideApp={false}
       contentLabel="Add Modal">
       <Wrapper>
         <TypoGraphy type="Title" fontWeight="bold">
           {/* {cloth} */}
-          {switchMainCategory()}
+          {categoryLabel}
         </TypoGraphy>
         <ContentBox>
           <ButtonBox>
-            {clothesSubCategory[mainCategory].map((item, index) => (
-              <CustomButton customType="white" text={item.name} key={index} />
+            {clothesSubCategory[category].map((item, index) => (
+              <CustomButton
+                onClick={() =>
+                  frontApi.getFilter({categoryId: item.id}, setClothesData)
+                }
+                customType="white"
+                text={item.name}
+                key={index}
+              />
             ))}
           </ButtonBox>
-          <ClothesImgBox>
-            {/* 등록된 옷들 컴포넌트로 map 할 예정*/}
-          </ClothesImgBox>
+          <ModalClothesContainer
+            clothesData={clothesData}
+            categoryLabel={categoryLabel}
+          />
         </ContentBox>
       </Wrapper>
     </Modal>
@@ -89,7 +113,6 @@ const Wrapper = styled.section`
 
 const ContentBox = styled.section`
   width: 100%;
-  height: 200px;
   border: 1px solid ${customColor.gray};
   border-radius: 20px;
   padding: 10px;
