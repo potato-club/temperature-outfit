@@ -1,8 +1,5 @@
-import cuid from 'cuid';
-import multer from 'multer';
 import type { NextApiResponse } from 'next';
 import nextConnect from 'next-connect';
-import path from 'path';
 import { prisma } from '../../../db';
 import {
   ApiRequest,
@@ -25,24 +22,23 @@ const handler = nextConnect<ApiRequest, NextApiResponse<OutfitResponse[]>>();
 handler.use(authenticateHandler);
 
 handler.get(async (req, res) => {
-  const body = req.body as OutfitGetRequest;
-
-  body.page = body.page ?? 1;
-  body.limit = Math.min(body.limit ?? 10, 100);
+  const query = req.query as OutfitGetRequest;
 
   const outfits = await prisma.outfit.findMany({
     where: {
       owner: { email: req?.session?.user?.email },
-      createdAt: {
-        gte: body.startDate ? new Date(body.startDate) : undefined,
-        lte: body.endDate ? new Date(body.endDate) : undefined,
+      date: {
+        gte: query.startDate ? new Date(query.startDate) : undefined,
+        lte: query.endDate ? new Date(query.endDate) : undefined,
+      },
+      rating: {
+        gte: query.minRating,
+        lte: query.maxRating,
       },
     },
     include: {
       products: true,
     },
-    skip: (body.page - 1) * body.limit,
-    take: body.limit,
   });
 
   res
@@ -55,11 +51,18 @@ handler.get(async (req, res) => {
 handler.post(filesParser, async (req, res) => {
   const body = req.body as OutfitPostRequest;
 
+  if (!body.date) {
+    return res.status(400);
+  }
+
   const outfit = await prisma.outfit.create({
     data: {
       owner: { connect: { email: req?.session?.user?.email ?? '' } },
+      date: new Date(body.date),
       imageUrl: req.file?.filepath,
-      products: { connect: body.productsId?.map((id) => ({ id })) },
+      products: { connect: body.productsId?.split(',').map((id) => ({ id })) },
+      comment: body.comment,
+      rating: body.rating,
     },
     include: { products: true },
   });
