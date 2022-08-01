@@ -34,7 +34,9 @@ handler.get(async (req, res) => {
       })
     : undefined;
 
-  const childrenCategoryId = category?.children?.map((c) => c.id);
+  const childrenCategoryId = category?.children
+    ?.map((c) => c.id)
+    .concat(category.id);
 
   const products = await prisma.product.findMany({
     where: {
