@@ -16,7 +16,7 @@ export type CategoryResponse = {
 export type ProductGetRequest = {
   query?: string;
   categoryId?: string;
-  color?: string[];
+  color?: string;
   page?: number;
   limit?: number;
 };
@@ -46,7 +46,7 @@ export type OutfitGetRequest = {
 
 export type OutfitPostRequest = {
   date?: string;
-  productsId?: string[];
+  productsId?: string;
   comment?: string;
   rating?: number;
 };

@@ -22,18 +22,18 @@ const handler = nextConnect<ApiRequest, NextApiResponse<OutfitResponse[]>>();
 handler.use(authenticateHandler);
 
 handler.get(async (req, res) => {
-  const body = req.body as OutfitGetRequest;
+  const query = req.query as OutfitGetRequest;
 
   const outfits = await prisma.outfit.findMany({
     where: {
       owner: { email: req?.session?.user?.email },
       date: {
-        gte: body.startDate ? new Date(body.startDate) : undefined,
-        lte: body.endDate ? new Date(body.endDate) : undefined,
+        gte: query.startDate ? new Date(query.startDate) : undefined,
+        lte: query.endDate ? new Date(query.endDate) : undefined,
       },
       rating: {
-        gte: body.minRating,
-        lte: body.maxRating,
+        gte: query.minRating,
+        lte: query.maxRating,
       },
     },
     include: {
@@ -60,7 +60,7 @@ handler.post(filesParser, async (req, res) => {
       owner: { connect: { email: req?.session?.user?.email ?? '' } },
       date: new Date(body.date),
       imageUrl: req.file?.filepath,
-      products: { connect: body.productsId?.map((id) => ({ id })) },
+      products: { connect: body.productsId?.split(',').map((id) => ({ id })) },
       comment: body.comment,
       rating: body.rating,
     },

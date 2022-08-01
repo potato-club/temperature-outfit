@@ -23,7 +23,9 @@
   "paths": {
     "/api/category": {
       "get": {
-        "tags": ["category"],
+        "tags": [
+          "category"
+        ],
         "description": "카테고리 전체 조회",
         "responses": {
           "200": {
@@ -62,10 +64,7 @@
                   "type": "string"
                 },
                 "color": {
-                  "type": "array",
-                  "items": {
-                    "type": "string"
-                  }
+                  "type": "string"
                 },
                 "page": {
                   "type": "integer",
@@ -253,10 +252,8 @@
             "name": "productsId",
             "in": "formData",
             "required": true,
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
+            "type": "string",
+            "description": "여러개를 ','로 구별한다. ex) id1,id2,id3"
           },
           {
             "name": "comment",

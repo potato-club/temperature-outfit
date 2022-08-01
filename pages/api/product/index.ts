@@ -22,14 +22,14 @@ const handler = nextConnect<ApiRequest, NextApiResponse<ProductResponse[]>>();
 handler.use(authenticateHandler);
 
 handler.get(async (req, res) => {
-  const body = req.body as ProductGetRequest;
+  const query = req.query as ProductGetRequest;
 
-  body.page = body.page ?? 1;
-  body.limit = Math.min(body.limit ?? 10, 100);
+  query.page = query.page ?? 1;
+  query.limit = Math.min(query.limit ?? 10, 100);
 
-  const category = body.categoryId
+  const category = query.categoryId
     ? await prisma.category.findUnique({
-        where: { id: body.categoryId },
+        where: { id: query.categoryId },
         include: { children: true },
       })
     : undefined;
@@ -41,12 +41,12 @@ handler.get(async (req, res) => {
   const products = await prisma.product.findMany({
     where: {
       owner: { email: req?.session?.user?.email },
-      name: { contains: body.query },
+      name: { contains: query.query },
       category: { id: { in: childrenCategoryId } },
-      color: { in: body.color },
+      color: { equals: query.color },
     },
-    skip: (body.page - 1) * body.limit,
-    take: body.limit,
+    skip: (query.page - 1) * query.limit,
+    take: query.limit,
   });
 
   res
