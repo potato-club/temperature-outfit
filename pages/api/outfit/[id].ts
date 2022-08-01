@@ -6,7 +6,7 @@ import {
   authenticateHandler,
   NextApiRequestWithSession,
 } from '../../../utilities/api/middlewares/auth';
-import { convertProductToResponse } from './../../../utilities/api/converter';
+import { convertOutfitToResponse } from './../../../utilities/api/converter';
 
 const handler = nextConnect<
   NextApiRequestWithSession,
@@ -31,15 +31,7 @@ handler.get(async (req, res) => {
     return res.status(404);
   }
 
-  res.status(200).json({
-    id: outfit.id,
-    imageUrl: outfit.imageUrl ?? undefined,
-    products: outfit.products.map((product) =>
-      convertProductToResponse(product),
-    ),
-    createdAt: outfit.createdAt.toISOString(),
-    updatedAt: outfit.updatedAt.toISOString(),
-  });
+  res.status(200).json(convertOutfitToResponse(outfit));
 });
 
 export default handler;

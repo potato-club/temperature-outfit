@@ -7,6 +7,12 @@ export type ApiRequest = NextApiRequest & {
   file?: File;
 };
 
+export type UserLocationPostRequest = {
+  locationId?: number;
+};
+
+export type LocationResponse = { id: number; name: string };
+
 export type CategoryResponse = {
   id: string;
   name: string;
@@ -16,7 +22,7 @@ export type CategoryResponse = {
 export type ProductGetRequest = {
   query?: string;
   categoryId?: string;
-  color?: string[];
+  color?: string;
   page?: number;
   limit?: number;
 };
@@ -40,20 +46,24 @@ export type ProductResponse = {
 export type OutfitGetRequest = {
   startDate?: string;
   endDate?: string;
-  page?: number;
-  limit?: number;
+  minRating?: number;
+  maxRating?: number;
 };
 
 export type OutfitPostRequest = {
-  productsId?: string[];
+  date?: string;
+  productsId?: string;
   comment?: string;
   rating?: number;
 };
 
 export type OutfitResponse = {
   id: string;
+  date: string;
   imageUrl?: string;
   products: ProductResponse[];
+  comment?: string;
+  rating: number;
   createdAt: string;
   updatedAt: string;
 };
