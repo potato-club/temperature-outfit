@@ -44,6 +44,8 @@ model User {
   image         String?
   accounts      Account[]
   sessions      Session[]
+  locationId    Int       @default(1)
+  location      Location  @relation(fields: [locationId], references: [id])
   init          Boolean   @default(false)
   products      Product[]
   outfits       Outfit[]
@@ -55,6 +57,14 @@ model VerificationToken {
   expires    DateTime
 
   @@unique([identifier, token])
+}
+
+model Location {
+  id        Int    @id @default(autoincrement())
+  name      String
+  latitude  Float
+  longitude Float
+  User      User[]
 }
 
 model Category {
