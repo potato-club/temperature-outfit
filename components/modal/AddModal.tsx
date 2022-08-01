@@ -16,8 +16,9 @@ import { productApi } from 'api';
 
 const customStyles = {
   content: {
-    left: 'calc(50% - 310px)',
-    top: 'calc(48% - 382px)',
+    left: '50%',
+    top: '50%',
+    transform: 'transition(-50%,-50%)',
     width: '620px',
     height: '764px',
     borderRadius: '20px',
