@@ -94,16 +94,10 @@
         }
       },
       "post": {
-        "tags": [
-          "product"
-        ],
+        "tags": ["product"],
         "description": "내 옷 & 악세서리 등록",
-        "produces": [
-          "application/json"
-        ],
-        "consumes": [
-          "multipart/form-data"
-        ],
+        "produces": ["application/json"],
+        "consumes": ["multipart/form-data"],
         "parameters": [
           {
             "name": "image",
@@ -141,13 +135,9 @@
     },
     "/api/product/{productId}": {
       "get": {
-        "tags": [
-          "product"
-        ],
+        "tags": ["product"],
         "description": "내 옷 & 악세서리 조회",
-        "produces": [
-          "application/json"
-        ],
+        "produces": ["application/json"],
         "parameters": [
           {
             "name": "productId",
@@ -224,16 +214,10 @@
         }
       },
       "post": {
-        "tags": [
-          "outfit"
-        ],
+        "tags": ["outfit"],
         "description": "내 옷차림 등록",
-        "produces": [
-          "application/json"
-        ],
-        "consumes": [
-          "multipart/form-data"
-        ],
+        "produces": ["application/json"],
+        "consumes": ["multipart/form-data"],
         "parameters": [
           {
             "name": "date",
@@ -284,13 +268,9 @@
     },
     "/api/outfit/{outfitId}": {
       "get": {
-        "tags": [
-          "outfit"
-        ],
+        "tags": ["outfit"],
         "description": "내 옷차림 조회",
-        "produces": [
-          "application/json"
-        ],
+        "produces": ["application/json"],
         "parameters": [
           {
             "name": "outfitId",
