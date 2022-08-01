@@ -22,16 +22,23 @@ export function ReviewBox() {
   const onSave = async () => {
     const frm = new FormData();
 
-    frm.append('image', reviewImage!);
+    try {
+      frm.append('date', '2022-08-01');
+      frm.append('image', reviewImage!);
 
-    frm.append('productsId', 'cl60vagf60130gcwkydcysdi8');
-    frm.append('productsId', 'cl60vagf60130gcwkydcysdi8');
+      frm.append(
+        'productsId',
+        'cl60rf06f0176c0wk768aao4o,cl6angtws26741kwka26orvvf',
+      );
 
-    frm.append('comment', 'aa');
-    console.log(frm.getAll('productsId'));
+      frm.append('comment', 'Test');
+      frm.append('rating', '0');
 
-    const data = await todayCodyApi.addProduct(frm);
-    // console.log(data);
+      const data = await todayCodyApi.addProduct(frm);
+    } catch (e) {
+      console.log(e);
+    }
+    // console.log(data)
 
     // frm.append('productsId' , outer);
     // frm.append('productsId' , bottom);
@@ -43,30 +50,11 @@ export function ReviewBox() {
     // frm.append('productsId',top);
     // console.log(top)
 
-    // for (const a of topImage) {
-    //   console.log(a.id);
-    //   frm.append('productsId[0]', a.id);
+    // for (let key of frm.keys()) {
+    //   console.log(key, ':', frm.get(key));
     // }
-    // for (const a of outerImage) {
-    //   frm.append('productsId[]', a.id);
-    // }
-    // for (const a of bottomImage) {
-    //   frm.append('productsId[]', a.id);
-    // }
-    // for (const a of shoesImage) {
-    //   frm.append('productsId[]', a.id);
-    // }
-    // for (const a of etcImage) {
-    //   frm.append('productsId[]', a.id);
-    // }
-    // frm.append('comment', reviewText);
-    // frm.append('rating', (rating/10));
-
-    // frm.append('image', reviewImage!);
-    // frm.append('productsId[0]',topImage.map((data) => data.id))
 
     //  // 성공시 등록이 되었습니다! => 모달
-    alert('서버에 코디 등록!');
 
     // todayCodyApi.addProduct({
     //   image: '',
