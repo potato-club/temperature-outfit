@@ -3,6 +3,7 @@ import styled from '@emotion/styled';
 import { TypoGraphy, SelectBox } from 'components/common';
 import { customColor, city } from 'constants/index';
 import { GrLocation } from 'react-icons/Gr';
+import { signOut } from 'next-auth/react';
 
 export const MyPage: React.FC = () => {
   return (
@@ -24,7 +25,7 @@ export const MyPage: React.FC = () => {
       <TypoGraphy type="sm1">사는 지역을 선택해주세요</TypoGraphy>
 
       <Footer>
-        <LogOut>
+        <LogOut onClick={() => signOut()}>
           <TypoGraphy
             type="body1"
             color={customColor.brandColor5}
@@ -78,10 +79,16 @@ const Footer = styled.section`
   justify-content: space-evenly;
 `;
 
-const LogOut = styled.section`
+const LogOut = styled.button`
   cursor: pointer;
+  border: none;
+  background-color: transparent;
+  padding: 0;
 `;
 
-const AccountDeletion = styled.section`
+const AccountDeletion = styled.button`
   cursor: pointer;
+  border: none;
+  background-color: transparent;
+  padding: 0;
 `;
