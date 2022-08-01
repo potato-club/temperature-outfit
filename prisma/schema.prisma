@@ -46,6 +46,7 @@ model User {
   sessions      Session[]
   locationId    Int       @default(1)
   location      Location  @relation(fields: [locationId], references: [id])
+  init          Boolean   @default(false)
   products      Product[]
   outfits       Outfit[]
 }
@@ -67,13 +68,23 @@ model Location {
 }
 
 model Category {
-  id       String     @id
-  name     String
-  order    Int
-  parentId String?
-  parent   Category?  @relation("ParentChildren", fields: [parentId], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  children Category[] @relation("ParentChildren")
-  Product  Product[]
+  id             String           @id
+  name           String
+  order          Int
+  parentId       String?
+  parent         Category?        @relation("ParentChildren", fields: [parentId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  children       Category[]       @relation("ParentChildren")
+  Product        Product[]
+  DefaultProduct DefaultProduct[]
+}
+
+model DefaultProduct {
+  id         String   @id @default(cuid())
+  name       String
+  categoryId String
+  category   Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  color      String
+  imageUrl   String?
 }
 
 model Product {
