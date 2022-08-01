@@ -40,12 +40,8 @@
     },
     "/api/product": {
       "get": {
-        "tags": [
-          "product"
-        ],
-        "produces": [
-          "application/json"
-        ],
+        "tags": ["product"],
+        "produces": ["application/json"],
         "description": "내 옷 & 악세서리 목록 조회",
         "parameters": [
           {
@@ -62,10 +58,7 @@
                   "type": "string"
                 },
                 "color": {
-                  "type": "array",
-                  "items": {
-                    "type": "string"
-                  }
+                  "type": "string"
                 },
                 "page": {
                   "type": "integer",
@@ -95,16 +88,10 @@
         }
       },
       "post": {
-        "tags": [
-          "product"
-        ],
+        "tags": ["product"],
         "description": "내 옷 & 악세서리 등록",
-        "produces": [
-          "application/json"
-        ],
-        "consumes": [
-          "multipart/form-data"
-        ],
+        "produces": ["application/json"],
+        "consumes": ["multipart/form-data"],
         "parameters": [
           {
             "name": "image",
@@ -142,13 +129,9 @@
     },
     "/api/product/{productId}": {
       "get": {
-        "tags": [
-          "product"
-        ],
+        "tags": ["product"],
         "description": "내 옷 & 악세서리 조회",
-        "produces": [
-          "application/json"
-        ],
+        "produces": ["application/json"],
         "parameters": [
           {
             "name": "productId",
@@ -173,12 +156,8 @@
     },
     "/api/outfit": {
       "get": {
-        "tags": [
-          "outfit"
-        ],
-        "produces": [
-          "application/json"
-        ],
+        "tags": ["outfit"],
+        "produces": ["application/json"],
         "description": "내 옷차림 목록 조회",
         "parameters": [
           {
@@ -225,16 +204,10 @@
         }
       },
       "post": {
-        "tags": [
-          "outfit"
-        ],
+        "tags": ["outfit"],
         "description": "내 옷차림 등록",
-        "produces": [
-          "application/json"
-        ],
-        "consumes": [
-          "multipart/form-data"
-        ],
+        "produces": ["application/json"],
+        "consumes": ["multipart/form-data"],
         "parameters": [
           {
             "name": "date",
@@ -253,10 +226,8 @@
             "name": "productsId",
             "in": "formData",
             "required": true,
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
+            "type": "string",
+            "description": "여러개를 ','로 구별한다. ex) id1,id2,id3"
           },
           {
             "name": "comment",
@@ -287,13 +258,9 @@
     },
     "/api/outfit/{outfitId}": {
       "get": {
-        "tags": [
-          "outfit"
-        ],
+        "tags": ["outfit"],
         "description": "내 옷차림 조회",
-        "produces": [
-          "application/json"
-        ],
+        "produces": ["application/json"],
         "parameters": [
           {
             "name": "outfitId",
