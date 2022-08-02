@@ -34,7 +34,8 @@ export function ReviewBox() {
       frm.append('comment', 'Test');
       frm.append('rating', '0');
 
-      const data = await todayCodyApi.addProduct(frm);
+      const res = await todayCodyApi.addProduct(frm);
+      console.log(res);
     } catch (e) {
       console.log(e);
     }
