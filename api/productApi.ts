@@ -27,25 +27,23 @@ export type filterType = {
 
 export const frontApi = {
   getAllProduct: async (setClothesData: any) => {
-    await productApi
-      .getAllProduct()
-      .then((res) => {
-        console.log(res.data);
-        setClothesData(res.data);
-      })
-      .catch((err) => console.log(err));
+    try {
+      const {data} = await productApi.getAllProduct();
+      console.log(data);
+      setClothesData(data);
+    } catch(err) {
+      console.log(err);
+    }
   },
 
   getFilter: async (filter: filterType, setClothesData: any) => {
-    await productApi
-      .getFilter({
-        params: filter,
-      })
-      .then((res) => {
-        console.log(res.data);
-        setClothesData(res.data);
-      })
-      .catch((err) => console.log(err));
+    try {
+      const {data} = await productApi.getFilter({params: filter})
+      console.log(data);
+      setClothesData(data);
+    } catch(err) {
+      console.log(err)
+    }
   },
 
   getClothesEdit: async (
@@ -54,24 +52,24 @@ export const frontApi = {
     clothesData: any,
     setClothesData: any,
   ) => {
-    await productApi
-      .getFilter({
-        params: {
-          [type]: filter,
-        },
-      })
-      .then((res) => {
-        if (
-          clothesData.findIndex(
-            (clothes: any) => clothes.id === res.data[0].id,
-          ) !== -1
-        ) {
-          alert('이미 등록된 옷입니다.');
-          return;
-        }
-        setClothesData(clothesData.concat(res.data));
-        alert('등록 성공!');
-      })
-      .catch((err) => console.log(err));
+      try {
+        const { data } = await productApi.getFilter({
+          params: {
+            [type]: filter,
+          },
+        });
+
+        if(clothesData.findIndex(
+            (clothes: any) => clothes.id === data[0].id,
+          ) !== -1) {
+            alert("이미 등록된 옷입니다.")
+            return;
+          }
+          setClothesData(clothesData.concat(data));
+          alert('등록 성공!');
+
+      } catch(err) {
+        console.log(err);
+      }
   },
 };

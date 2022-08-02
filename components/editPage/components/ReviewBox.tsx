@@ -10,58 +10,42 @@ import {
   reviewImageState,
   etcState,
   outerState,
-  reviewTextState,
   shoesState,
   topState,
-  ratingState,
 } from 'state/editState';
 import { todayCodyApi } from 'api';
 
 export function ReviewBox() {
-  // Todo : api 연동
   const onSave = async () => {
     const frm = new FormData();
+    let productsIdString = '';
+    topImage.forEach((data) => (productsIdString += data.id + ','));
+    outerImage.forEach((data) => (productsIdString += data.id + ','));
+    bottomImage.forEach((data) => (productsIdString += data.id + ','));
+    shoesImage.forEach((data) => (productsIdString += data.id + ','));
+    etcImage.forEach((data) => (productsIdString += data.id + ','));
+    console.log(productsIdString);
+
+    const date = new Date();
+    const year = date.getFullYear();
+    const month = date.getMonth() + 1;
+    const day = date.getDay();
+
+    console.log(productsIdString);
 
     try {
-      frm.append('date', '2022-08-01');
+      frm.append('date', `${year}-${month}-${day}`);
       frm.append('image', reviewImage!);
+      frm.append('productsId', productsIdString.slice(0,-1));
 
-      frm.append(
-        'productsId',
-        'cl60rf06f0176c0wk768aao4o,cl6angtws26741kwka26orvvf',
-      );
-
-      frm.append('comment', 'Test');
-      frm.append('rating', '0');
+      frm.append('comment', reviewText);
+      frm.append('rating', rating);
 
       const data = await todayCodyApi.addProduct(frm);
+      console.log(data);
     } catch (e) {
       console.log(e);
     }
-    // console.log(data)
-
-    // frm.append('productsId' , outer);
-    // frm.append('productsId' , bottom);
-    // frm.append('productsId' , shoes);
-    // frm.append('productsId', mainETC);
-
-    // frm.append('image', reviewImage!);
-    // const top = topImage.map((data) => data.id);
-    // frm.append('productsId',top);
-    // console.log(top)
-
-    // for (let key of frm.keys()) {
-    //   console.log(key, ':', frm.get(key));
-    // }
-
-    //  // 성공시 등록이 되었습니다! => 모달
-
-    // todayCodyApi.addProduct({
-    //   image: '',
-    //   productsId: '',
-    //   comment: '',
-    //   rating: '',
-    // })
   };
 
   const codyRef = useRef<HTMLInputElement>(null);
@@ -72,14 +56,15 @@ export function ReviewBox() {
   const resetShoes = useResetRecoilState(shoesState);
   const resetEtc = useResetRecoilState(etcState);
   const resetReviewImage = useResetRecoilState(reviewImageState);
-  const resetReviewText = useResetRecoilState(reviewTextState);
-  const resetRating = useResetRecoilState(ratingState);
+  // const resetReviewText = useResetRecoilState(reviewTextState);
+  // const resetRating = useResetRecoilState(ratingState);
+
   const [reviewThumbnail, setReviewThumbnail] =
     useRecoilState(reviewImageState);
 
   const [reviewImage, setReviewImage] = useState<File>();
-  const [reviewText, setReviewText] = useRecoilState(reviewTextState);
-  const [rating, setRating] = useRecoilState(ratingState);
+  const [reviewText, setReviewText] = useState<string>('');
+  const [rating, setRating] = useState<string>('0');
   const topImage = useRecoilValue(topState);
   const outerImage = useRecoilValue(outerState);
   const bottomImage = useRecoilValue(bottomState);
@@ -93,15 +78,12 @@ export function ReviewBox() {
     resetShoes();
     resetEtc();
     resetReviewImage();
-    resetReviewText();
-    resetRating();
+    setReviewText('');
+    setRating('0');
   };
 
   const handleRating = (rate: number) => {
-    setRating(rate);
-    // Todo : 보낼때 rate / 10 으로 보내야함
-    // Todo : 받고나서는 rate * 10 해서 출력해줘야함
-    // Todo : 아니면 백엔드한테 1~10점 말고, 1~100점으로 (10단위) 로 저장해달라고 얘기해보기.
+    setRating(rate + '');
   };
 
   const addImage = (e: ChangeEvent<HTMLInputElement>) => {
@@ -166,7 +148,7 @@ export function ReviewBox() {
         <StarWrapper>
           <Rating
             onClick={handleRating}
-            ratingValue={rating}
+            ratingValue={Number.isNaN(parseInt(rating)) ? 0 : parseInt(rating)}
             size={40}
             allowHalfIcon
             transition

@@ -31,13 +31,3 @@ export const reviewImageState = atom({
   key: 'codyImage',
   default: '/reviewDummy/review1.jpg',
 });
-
-export const reviewTextState = atom({
-  key: 'review',
-  default: '',
-});
-
-export const ratingState = atom({
-  key: 'rating',
-  default: 0,
-});

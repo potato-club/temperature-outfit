@@ -26,32 +26,6 @@ export const Closet: React.FC = () => {
 
   const [clothesData, setClothesData] = useState<Array<productType>>();
 
-  // 옷 전체 조회
-  // const getAllProduct = async () => {
-  //   await productApi
-  //     .getAllProduct()
-  //     .then((res) => {
-  //       console.log(res.data);
-  //       setClothesData(res.data);
-  //     })
-  //     .catch((err) => console.log(err));
-  // };
-
-  // const getColorFilter = async (filter : any) => {
-  //       await productApi
-  //         .getFilter({
-  //           params: {
-  //             categoryId: mainCategory,
-  //             color : filter,
-  //           },
-  //         })
-  //         .then((res) => {
-  //           console.log(res.data);
-  //           setClothesData(res.data);
-  //         })
-  //         .catch((err) => console.log(err));
-  // }
-
   useEffect(() => {
     setColor('');
   }, [mainCategory, subCategory]);
