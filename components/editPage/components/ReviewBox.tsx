@@ -43,6 +43,7 @@ export function ReviewBox() {
 
       const data = await todayCodyApi.addProduct(frm);
       console.log(data);
+      alert("서버에 코디 등록!");
     } catch (e) {
       console.log(e);
     }
