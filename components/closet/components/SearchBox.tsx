@@ -1,10 +1,20 @@
 import styled from '@emotion/styled';
 import { customColor } from 'constants/index';
 import { AiOutlineSearch } from 'react-icons/ai';
-export const SearchBox: React.FC = () => {
+type Props = {
+  name: string;
+  setName: React.Dispatch<React.SetStateAction<string>>;
+};
+export const SearchBox = ({name, setName}: Props) => {
   return (
     <Wrapper>
-      <SearchInput type="text" placeholder="검색" maxLength={20} />
+      <SearchInput
+        type="text"
+        placeholder="검색"
+        maxLength={20}
+        value={name}
+        onChange={(e) => setName(e.target.value)}
+      />
       <AiOutlineSearch className="ImgSearch" />
     </Wrapper>
   );

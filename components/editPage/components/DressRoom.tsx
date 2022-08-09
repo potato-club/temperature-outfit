@@ -2,70 +2,73 @@ import React, { ChangeEvent, useEffect, useRef, useState } from 'react';
 import styled from '@emotion/styled';
 import { customColor } from 'constants/index';
 import { AiOutlinePlus } from 'react-icons/ai';
-import { RecoilState, useRecoilState } from 'recoil';
+import { RecoilState, useRecoilState, useSetRecoilState } from 'recoil';
 import { imageStateType } from 'types/editPage/imageStateType';
 import { ClothesBox } from 'components/common';
+import { chooseModal } from 'recoil/atom';
+import { ChooseModal } from 'components/modal';
+import { ProductResponse } from 'types';
 type Props = {
   category: string;
-  recoil : RecoilState<imageStateType[]>
+  recoil: RecoilState<ProductResponse[]>;
+  setModalCategory: React.Dispatch<React.SetStateAction<string>>;
 };
 
-export function DressRoom({ category, recoil }: Props) {
+export function DressRoom({ category, recoil, setModalCategory }: Props) {
   const [images, setImages] = useRecoilState(recoil);
   const imageId = useRef(0);
-  const addImage = (e: ChangeEvent<HTMLInputElement>) => {
-    e.preventDefault();
+  const setChooseModalState = useSetRecoilState(chooseModal);
 
-    if (e.target.value[0]) {
-      const fileReader = new FileReader();
-      // Todo : 필요하다면 나중에 replaceAll에 확장자명을 추가해야함.
-      const name = e.target.files![0].name.replaceAll(/.png|.jpg|.jpeg/gi,'');
-      fileReader.readAsDataURL(e.target.files![0]);
-      fileReader.onload = () => {
-        setImages([
-          ...images,
-          {
-            id: imageId.current++,
-            name: name,
-            image_file: e.target.files![0],
-            preview_URL: String(fileReader.result!),
-          },
-        ]);
-      };
-      alert('사진 등록!');
-      e.target.value = '';
-    }
+  const handleModal = () => {
+    setChooseModalState((cur) => !cur);
+    setModalCategory(category);
   };
 
-  const deleteImage = (id: number) => {
+  // const addImage = (e: ChangeEvent<HTMLInputElement>) => {
+  //   e.preventDefault();
+
+  //   if (e.target.value[0]) {
+  //     const fileReader = new FileReader();
+  //     // Todo : 필요하다면 나중에 replaceAll에 확장자명을 추가해야함.
+  //     const name = e.target.files![0].name.replaceAll(/.png|.jpg|.jpeg/gi, '');
+  //     fileReader.readAsDataURL(e.target.files![0]);
+  //     const image_file = e.target.files![0];
+  //     fileReader.onload = () => {
+  //       setImages([
+  //         ...images,
+  //         {
+  //           id: imageId.current++,
+  //           name: name,
+  //           image_file,
+  //           preview_URL: String(fileReader.result!),
+  //         },
+  //       ]);
+  //     };
+  //     alert('사진 등록!');
+  //     e.target.value = '';
+  //   }
+  // };
+
+  const deleteImage = (id: string) => {
     setImages(images.filter((image) => image.id !== id));
   };
-
   return (
     <Container>
       {images &&
         images.map((data) => (
           <ClothesWrapper key={data.id}>
             <ClothesBox
-              url={data.preview_URL}
+              url={data.imageUrl!}
               id={data.id}
-              type='edit'
+              type="edit"
               name={data.name}
               deleteImage={deleteImage}
             />
           </ClothesWrapper>
         ))}
-      <ButtonWrapper>
-        <AddButton
-          id={`imgUpload${category}`}
-          type="file"
-          accept="image/*"
-          onChange={addImage}
-        />
-        <Label htmlFor={`imgUpload${category}`}>
-          <AiOutlinePlus size={40} />
-        </Label>
-      </ButtonWrapper>
+      <AddButton onClick={() => handleModal()}>
+        <AiOutlinePlus size={40} />
+      </AddButton>
     </Container>
   );
 }
@@ -97,17 +100,13 @@ const Container = styled.section`
     border-radius: 10px;
   }
 `;
-const ButtonWrapper = styled.section``;
-const AddButton = styled.input`
-  display: none;
-`;
-const Label = styled.label`
+const AddButton = styled.label`
   border: 1px solid ${customColor.gray};
   border-radius: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 100px;
+  min-width: 100px;
   height: 80px;
   border-radius: 24px;
 `;

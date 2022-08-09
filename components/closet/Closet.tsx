@@ -1,90 +1,99 @@
 import styled from '@emotion/styled';
+import { productApi } from 'api';
+import { filterType, frontApi } from 'api/productApi';
 import { CustomButton, TypoGraphy, SelectBox } from 'components/common';
 import { AddModal, ChooseModal } from 'components/modal';
-import { clothesMainCategory, clothesSubCategory } from 'constants/index';
-import { clothesData } from 'dummy/clothesData';
-import { useState } from 'react';
-import { ClothesContainer, RadioButtons, SearchBox } from './components';
+import {
+  clothesMainCategory,
+  clothesSubCategory,
+  customColor,
+} from 'constants/index';
+import { useEffect, useState } from 'react';
+import { useSetRecoilState } from 'recoil';
+import { addModal, chooseModal } from 'recoil/atom';
+import { productType } from 'types/editPage/product.type';
+import { ClothesContainer, ColorRadio, SearchBox } from './components';
+import CategoryFilterBox from './components/CategoryFilterBox';
 
 export const Closet: React.FC = () => {
-  const [modalIsOpen, setModalIsOpen] = useState(false);
-  const [modalIsOpen2, setModalIsOpen2] = useState(false);
-  const openModal = () => {
-    setModalIsOpen(true);
-  };
+  const setAddModalState = useSetRecoilState(addModal);
+  const setChooseModalState = useSetRecoilState(chooseModal);
 
-  const closeModal = () => {
-    setModalIsOpen(false);
-  };
+  const [mainCategory, setMainCategory] = useState('all');
+  const [subCategory, setSubCategory] = useState('all');
+  const [color, setColor] = useState<string>('');
+  const [name, setName] = useState<string>('');
 
-  // 밑에 것들 지울것들임
-  const openModal2 = () => {
-    setModalIsOpen2(true);
-  };
+  const [clothesData, setClothesData] = useState<Array<productType>>();
 
-  const closeModal2 = () => {
-    setModalIsOpen2(false);
-  };
+  useEffect(() => {
+    setColor('');
+  }, [mainCategory, subCategory]);
 
-  const [selectedMainCategory, setSelectedMainCategory] = useState('top');
+  useEffect(() => {
+    let filter: filterType = {};
+    if (subCategory === 'all') {
+      if (mainCategory === 'all') {
+        filter.categoryId = '';
+      } else {
+        filter.categoryId = mainCategory;
+      }
+    } else {
+      // (subCategory !== 'all')
+      filter.categoryId = subCategory;
+    }
+
+    if (color) {
+      filter.color = color;
+    }
+
+    if(name) {
+      filter.query = name;
+    }
+
+    frontApi.getFilter(filter, setClothesData);
+  }, [mainCategory, subCategory, color, name]);
+
+  // useEffect(() => {
+  //   getColorFilter(color);
+  // }, [color]);
 
   return (
-    <Wrapper>
+    <Container>
       <TypoGraphy type="Title" fontWeight="bold">
         옷장
       </TypoGraphy>
+      <FilterWrapper>
+        <section style={{ display: 'flex', flexWrap: 'wrap', gap: '20px' }}>
+          <CategoryFilterBox
+            mainCategory={mainCategory}
+            subCategory={subCategory}
+            setMainCategory={setMainCategory}
+            setSubCategory={setSubCategory}
+          />
+          <ColorRadio setColor={setColor} color={color} filter />
+        </section>
+        <SearchBox name={name} setName={setName} />
+      </FilterWrapper>
 
-      <CategoryWrapper>
-        <SelectBox
-          label="전체"
-          dataArray={clothesMainCategory}
-          subCategoryChange={setSelectedMainCategory}
-        />
-        <SelectBox
-          label="서브"
-          dataArray={clothesSubCategory[selectedMainCategory]}
-        />
+      <Line />
 
-        <RadioButtons />
-        <SearchBox />
-      </CategoryWrapper>
-
-      <Horizen />
-
-      <ClothesContainer category={selectedMainCategory} />
-
+      <ClothesContainer clothesData={clothesData} />
       <Footer>
         <CustomButton
           customType="colorful"
           text="추가"
           sidePadding="20"
           height={40}
-          onClick={openModal}
+          onClick={() => setAddModalState((cur) => !cur)}
         />
-        {/* 이건 잠시 있는 것 */}
-        <CustomButton
-          customType="colorful"
-          text="옷 선택하기 (임시)"
-          sidePadding="20"
-          height={40}
-          onClick={openModal2}
-        />
-        {/* 여기까지 */}
+        <AddModal />
       </Footer>
-      <AddModal modalIsOpen={modalIsOpen} closeModal={closeModal} />
-
-      {/* 이건 잠시 있는 것 */}
-      <ChooseModal
-        modalIsOpen={modalIsOpen2}
-        closeModal={closeModal2}
-        mainCategory={'bottom'}
-      />
-      {/* 여기까지 */}
-    </Wrapper>
+    </Container>
   );
 };
 
-const Wrapper = styled.section`
+const Container = styled.section`
   width: 70%;
   max-width: 1178px;
   height: 90%;
@@ -99,15 +108,17 @@ const Wrapper = styled.section`
   justify-content: space-around;
 `;
 
-const CategoryWrapper = styled.section`
-  margin-top: 40px;
-  width: 100%;
+const FilterWrapper = styled.section`
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: 40px;
+  gap: 20px;
 `;
-const Horizen = styled.hr`
-  border: 1px solid;
+
+const Line = styled.hr`
+  border: 1px solid ${customColor.gray};
   border-bottom: 0px;
   margin: 24px 0 24px 0;
   width: 100%;

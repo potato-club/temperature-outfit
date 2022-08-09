@@ -9,8 +9,8 @@ type Props = {
   url: string;
   name: string;
   type : 'edit' | 'closet';
-  id?: number;
-  deleteImage?: (id: number) => void;
+  id?: string;
+  deleteImage?: (id: string) => void;
 };
 
 export function ClothesBox({ url, name, id, deleteImage, type }: Props) {

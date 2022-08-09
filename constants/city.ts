@@ -35,7 +35,7 @@ export const city: CategoryDetail[] = [
   },
   {
     name: '강원',
-    id: 'gangwon ',
+    id: 'gangwon',
   },
   {
     name: '충청',
