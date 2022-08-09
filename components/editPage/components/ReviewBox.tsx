@@ -4,14 +4,51 @@ import { CustomButton, TypoGraphy } from 'components/common';
 import { customColor } from 'constants/index';
 import Image from 'next/image';
 import { Rating } from 'react-simple-star-rating';
-import { useResetRecoilState, useRecoilState } from "recoil";
-import { bottomState, reviewImageState, etcState, outerState, reviewTextState, shoesState, topState, ratingState } from 'state/editState';
+import { useResetRecoilState, useRecoilState, useRecoilValue } from 'recoil';
+import {
+  bottomState,
+  reviewImageState,
+  etcState,
+  outerState,
+  shoesState,
+  topState,
+} from 'state/editState';
+import { todayCodyApi } from 'api';
 
 export function ReviewBox() {
-  const onClick = () => {
-    alert('버튼 클릭!');
+  const onSave = async () => {
+    const frm = new FormData();
+    let productsIdString = '';
+    topImage.forEach((data) => (productsIdString += data.id + ','));
+    outerImage.forEach((data) => (productsIdString += data.id + ','));
+    bottomImage.forEach((data) => (productsIdString += data.id + ','));
+    shoesImage.forEach((data) => (productsIdString += data.id + ','));
+    etcImage.forEach((data) => (productsIdString += data.id + ','));
+    console.log(productsIdString);
+
+    const date = new Date();
+    const year = date.getFullYear();
+    const month = date.getMonth() + 1;
+    const day = date.getDate();
+
+    console.log(productsIdString);
+
+    try {
+      frm.append('date', `${year}-${month}-${day}`);
+      frm.append('image', reviewImage!);
+      frm.append('productsId', productsIdString.slice(0,-1));
+
+      frm.append('comment', reviewText);
+      frm.append('rating', rating);
+
+      const data = await todayCodyApi.addProduct(frm);
+      console.log(data);
+      alert("서버에 코디 등록!");
+    } catch (e) {
+      console.log(e);
+    }
   };
-  
+
   const codyRef = useRef<HTMLInputElement>(null);
 
   const resetTop = useResetRecoilState(topState);
@@ -20,52 +57,70 @@ export function ReviewBox() {
   const resetShoes = useResetRecoilState(shoesState);
   const resetEtc = useResetRecoilState(etcState);
   const resetReviewImage = useResetRecoilState(reviewImageState);
-  const resetReviewText = useResetRecoilState(reviewTextState);
-  const resetRating = useResetRecoilState(ratingState);
+  // const resetReviewText = useResetRecoilState(reviewTextState);
+  // const resetRating = useResetRecoilState(ratingState);
 
+  const [reviewThumbnail, setReviewThumbnail] =
+    useRecoilState(reviewImageState);
 
+  const [reviewImage, setReviewImage] = useState<File>();
+  const [reviewText, setReviewText] = useState<string>('');
+  const [rating, setRating] = useState<string>('0');
+  const topImage = useRecoilValue(topState);
+  const outerImage = useRecoilValue(outerState);
+  const bottomImage = useRecoilValue(bottomState);
+  const shoesImage = useRecoilValue(shoesState);
+  const etcImage = useRecoilValue(etcState);
 
-  const [reviewImage, setReviewImage] = useRecoilState(reviewImageState);
-  const [reviewText, setReviewText] = useRecoilState(reviewTextState);
-  const [rating, setRating] = useRecoilState(ratingState);
-
-
-  const ResetImages = () => {
+  const ResetAll = () => {
     resetTop();
     resetOuter();
     resetBottom();
     resetShoes();
     resetEtc();
     resetReviewImage();
-    resetReviewText();
-    resetRating();
-  }
-
-  const handleRating = (rate: number) => {
-    setRating(rate);
+    setReviewText('');
+    setRating('0');
   };
 
-    const addImage = (e: ChangeEvent<HTMLInputElement>) => {
-      e.preventDefault();
+  const handleRating = (rate: number) => {
+    setRating(rate + '');
+  };
 
-      if (e.target.value[0]) {
-        const fileReader = new FileReader();
-        // Todo : 필요하다면 나중에 replaceAll에 확장자명을 추가해야함.
-        fileReader.readAsDataURL(e.target.files![0]);
-        fileReader.onload = () => {
-          setReviewImage(String(fileReader.result!));
-        };
-        alert('코디 변경!');
-        e.target.value = '';
-      }
-    };
+  const addImage = (e: ChangeEvent<HTMLInputElement>) => {
+    e.preventDefault();
+
+    if (e.target.value[0]) {
+      const fileReader = new FileReader();
+      // Todo : 필요하다면 나중에 replaceAll에 확장자명을 추가해야함.
+      fileReader.readAsDataURL(e.target.files![0]);
+      fileReader.onload = () => {
+        setReviewThumbnail(String(fileReader.result!));
+      };
+      setReviewImage(e.target.files![0]);
+      alert('코디 변경!');
+      e.target.value = '';
+    }
+  };
 
   return (
     <Container>
       <BoxWrapper>
         <ImageWrapper>
-          <AddButton id='codyImage' ref={codyRef} type="file" accept="image/*" onChange={addImage} />
-          <Image src={reviewImage} alt="review" width={360} height={240} onClick={() => codyRef.current && codyRef.current.click()}/>
+          <AddButton
+            id="codyImage"
+            ref={codyRef}
+            type="file"
+            accept="image/*"
+            onChange={addImage}
+          />
+          <Image
+            src={reviewThumbnail}
+            alt="review"
+            width={360}
+            height={240}
+            onClick={() => codyRef.current && codyRef.current.click()}
+          />
         </ImageWrapper>
         <ButtonWrapper>
           <CustomButton
@@ -80,9 +135,11 @@ export function ReviewBox() {
         <TypoGraphy type="Title" fontWeight="bold">
           후기
         </TypoGraphy>
-        <TextArea 
-        value={reviewText}
-        onChange={(e) => {setReviewText(e.target.value)}}
+        <TextArea
+          value={reviewText}
+          onChange={(e) => {
+            setReviewText(e.target.value);
+          }}
         />
       </BoxWrapper>
       <BoxWrapper>
@@ -92,7 +149,7 @@ export function ReviewBox() {
         <StarWrapper>
           <Rating
             onClick={handleRating}
-            ratingValue={rating}
+            ratingValue={Number.isNaN(parseInt(rating)) ? 0 : parseInt(rating)}
             size={40}
             allowHalfIcon
             transition
@@ -106,13 +163,13 @@ export function ReviewBox() {
           customType="white"
           text="취소"
           sidePadding="40"
-          onClick={() => ResetImages()}
+          onClick={() => ResetAll()}
         />
         <CustomButton
           customType="colorful"
           text="등록"
           sidePadding="40"
-          onClick={onClick}
+          onClick={() => onSave()}
         />
       </ButtonContainer>
     </Container>
@@ -140,7 +197,7 @@ const TextArea = styled.textarea`
   resize: none;
   padding: 8px;
   box-sizing: border-box;
-  outline : none;
+  outline: none;
   ::-webkit-scrollbar {
     opacity: 0;
     height: 12px;

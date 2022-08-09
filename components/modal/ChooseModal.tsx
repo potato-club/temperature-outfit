@@ -4,13 +4,10 @@ import styled from '@emotion/styled';
 import { CustomButton, TypoGraphy } from 'components/common';
 import {
   customColor,
-  clothesMainCategory,
   clothesSubCategory,
 } from 'constants/index';
 import { useRecoilState } from 'recoil';
 import { chooseModal } from 'recoil/atom';
-
-Modal.setAppElement('#__next');
 
 const customStyles = {
   content: {
@@ -23,56 +20,67 @@ const customStyles = {
   },
 };
 
-interface ModalProps {
-  mainCategory: string;
+type Props = {
+  categoryLabel: string;
 }
 // 1. 옷 선택하기에서 data를 props로 받아오기
 //
 
-export const ChooseModal = ({ mainCategory }: ModalProps) => {
+export const ChooseModal = ({ categoryLabel }: Props) => {
   const [chooseModalState, setChooseModalState] = useRecoilState(chooseModal);
+  const [clothesData, setClothesData] = useState<Array<productType>>([]);
 
   const switchMainCategory = () => {
-    switch (mainCategory) {
-      case 'top':
-        return '상의';
+    switch (categoryLabel) {
+      case '상의':
+        return 'top';
 
-      case 'outer':
-        return '아우터';
+      case '아우터':
+        return 'outer';
 
-      case 'bottom':
-        return '하의';
+      case '하의':
+        return 'bottom';
 
-      case 'shoes':
-        return '신발';
+      case '신발':
+        return 'shoes';
 
-      case 'mainETC':
-        return '기타';
+      case '기타':
+        return 'mainETC';
 
       default:
         return '없는 카테고리입니다.';
     }
   };
+
   return (
     <Modal
       isOpen={chooseModalState}
-      onRequestClose={() => setChooseModalState((cur) => !cur)}
+      onRequestClose={() => handleClose()}
       style={customStyles}
+      ariaHideApp={false}
       contentLabel="Add Modal">
       <Wrapper>
         <TypoGraphy type="Title" fontWeight="bold">
           {/* {cloth} */}
-          {switchMainCategory()}
+          {categoryLabel}
         </TypoGraphy>
         <ContentBox>
           <ButtonBox>
-            {clothesSubCategory[mainCategory].map((item, index) => (
-              <CustomButton customType="white" text={item.name} key={index} />
+            {clothesSubCategory[category].map((item, index) => (
+              <CustomButton
+                onClick={() =>
+                  frontApi.getFilter({categoryId: item.id}, setClothesData)
+                }
+                customType="white"
+                text={item.name}
+                key={index}
+              />
             ))}
           </ButtonBox>
-          <ClothesImgBox>
-            {/* 등록된 옷들 컴포넌트로 map 할 예정*/}
-          </ClothesImgBox>
+          <ModalClothesContainer
+            clothesData={clothesData}
+            categoryLabel={categoryLabel}
+          />
         </ContentBox>
       </Wrapper>
     </Modal>
@@ -89,7 +97,6 @@ const Wrapper = styled.section`
 
 const ContentBox = styled.section`
   width: 100%;
-  height: 200px;
   border: 1px solid ${customColor.gray};
   border-radius: 20px;
   padding: 10px;

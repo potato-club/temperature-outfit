@@ -44,6 +44,9 @@ model User {
   image         String?
   accounts      Account[]
   sessions      Session[]
+  locationId    Int       @default(1)
+  location      Location  @relation(fields: [locationId], references: [id])
+  init          Boolean   @default(false)
   products      Product[]
   outfits       Outfit[]
 }
@@ -56,14 +59,32 @@ model VerificationToken {
   @@unique([identifier, token])
 }
 
+model Location {
+  id        Int    @id @default(autoincrement())
+  name      String
+  latitude  Float
+  longitude Float
+  User      User[]
+}
+
 model Category {
-  id       String     @id @default(cuid())
-  name     String
-  order    Int
-  parentId String?
-  parent   Category?  @relation("ParentChildren", fields: [parentId], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  children Category[] @relation("ParentChildren")
-  Product  Product[]
+  id             String           @id
+  name           String
+  order          Int
+  parentId       String?
+  parent         Category?        @relation("ParentChildren", fields: [parentId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  children       Category[]       @relation("ParentChildren")
+  Product        Product[]
+  DefaultProduct DefaultProduct[]
+}
+
+model DefaultProduct {
+  id         String   @id @default(cuid())
+  name       String
+  categoryId String
+  category   Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  color      String
+  imageUrl   String?
 }
 
 model Product {
@@ -84,6 +105,7 @@ model Outfit {
   id        String    @id @default(cuid())
   ownerId   String
   owner     User      @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  date      DateTime  @db.Date
   imageUrl  String?
   comment   String?
   rating    Int       @default(0)

@@ -2,7 +2,7 @@ import React, { useState, ChangeEvent, useRef, useEffect } from 'react';
 import Modal from 'react-modal';
 import styled from '@emotion/styled';
 import { CustomButton, SelectBox, TypoGraphy } from 'components/common';
-import { RadioButtons } from 'components/closet/components';
+import { ColorRadio } from 'components/closet/components';
 import Image from 'next/image';
 import { IoMdImage } from 'react-icons/io';
 import {
@@ -31,9 +31,9 @@ export const AddModal = () => {
   const [addModalState, setAddModalState] = useRecoilState(addModal);
   const [image, setImage] = useState<File>();
   const [name, setName] = useState<string>('');
-  const [color, setColor] = useState<string>('red');
+  const [color, setColor] = useState<string>('');
   const [mainCategory, setMainCategory] = useState<string>('top');
-  const [subCategory, setSubCategory] = useState<string>('');
+  const [subCategory, setSubCategory] = useState<string>('sleeveless');
   const [thumbnail, setThumbnail] = useState<string>('');
 
   Modal.setAppElement('#__next');
@@ -60,13 +60,12 @@ export const AddModal = () => {
   };
 
   const addClothesItem = async () => {
-    // 서버에 옷 등록 로직
-    if (!subCategory) {
-      alert('서브 카테고리를 선택 해주세요.');
+    if(!(image && name && subCategory && color)) {
+      alert('상품의 이미지, 이름, 카테고리, 색상을 지정해주세요!')
       return;
     }
     const frm = new FormData();
-    frm.append('file', image!);
+    frm.append('image', image!);
     frm.append('name', name);
     frm.append('categoryId', subCategory);
     frm.append('color', color);
@@ -75,6 +74,20 @@ export const AddModal = () => {
     // 성공시 등록이 되었습니다! => 모달
     alert('서버에 옷 등록');
   };
+
+  // 확인용 코드
+  useEffect(() => {
+    console.log(image);
+  }, [image]);
+  useEffect(() => {
+    console.log(name);
+  }, [name]);
+  useEffect(() => {
+    console.log(subCategory);
+  }, [subCategory]);
+  useEffect(() => {
+    console.log(color);
+  }, [color]);
 
   return (
     <Modal
@@ -128,22 +141,26 @@ export const AddModal = () => {
           <CategoryWrapper>
             <InputWrapper>
               <SelectBox
-                label="전체"
-                dataArray={clothesMainCategory}
+                label="메인"
+                dataArray={clothesMainCategory.slice(1)}
                 categoryChange={setMainCategory}
                 changeSubByMain={setSubCategory}
+                value={mainCategory}
+                modal
               />
             </InputWrapper>
             <InputWrapper>
               <SelectBox
                 label="서브"
-                dataArray={clothesSubCategory[mainCategory]}
+                dataArray={clothesSubCategory[mainCategory].slice(1)}
                 categoryChange={setSubCategory}
+                value={subCategory}
+                modal
               />
             </InputWrapper>
           </CategoryWrapper>
           <RadioButtonsWrapper>
-            <RadioButtons setColor={setColor} />
+            <ColorRadio color={color} setColor={setColor} />
           </RadioButtonsWrapper>
           <ButtonWrapper>
             <CustomButton

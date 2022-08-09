@@ -1,8 +1,6 @@
-import { PrismaClient } from '@prisma/client';
 import type { NextApiRequest, NextApiResponse } from 'next';
+import { prisma } from '../../db';
 import { CategoryResponse } from '../../types';
-
-const prisma = new PrismaClient();
 
 export default async function handler(
   req: NextApiRequest,
@@ -12,9 +10,12 @@ export default async function handler(
     select: {
       id: true,
       name: true,
-      order: true,
-      children: { select: { id: true, name: true, order: true } },
+      children: { select: { id: true, name: true }, orderBy: { order: 'asc' } },
     },
+    where: {
+      parentId: null,
+    },
+    orderBy: { order: 'asc' },
   });
 
   res.status(200).json(categories);

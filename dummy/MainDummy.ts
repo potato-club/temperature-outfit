@@ -16,7 +16,7 @@ export const mainDummy:mainDummyType = {
   average: 10,
   max: 15,
   min: 5,
-  weather: 'sunny',
+  weather: 'snow',
   TodayBest : {
     top : "스웨터",
     bottom: "청바지",

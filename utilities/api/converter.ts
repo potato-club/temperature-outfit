@@ -19,10 +19,13 @@ export const convertOutfitToResponse = (
   },
 ): OutfitResponse => ({
   id: outfit.id,
+  date: outfit.date.toISOString().split('T')[0],
   imageUrl: outfit.imageUrl ?? undefined,
   products: outfit.products.map<ProductResponse>((product) =>
     convertProductToResponse(product),
   ),
+  comment: outfit.comment ?? undefined,
+  rating: outfit.rating,
   createdAt: outfit.createdAt.toISOString(),
   updatedAt: outfit.updatedAt.toISOString(),
 });

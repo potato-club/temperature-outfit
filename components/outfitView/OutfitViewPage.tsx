@@ -1,15 +1,11 @@
-import React, { ChangeEvent, useState } from 'react';
+import React, { useState } from 'react';
 import styled from '@emotion/styled';
 import { TypoGraphy } from 'components/common';
 import { DressRoom, ReviewBox, Title } from './components';
-import { categories } from 'types/editPage/categories';
 import { editDummy } from 'dummy/newEditDummy';
-import { ChooseModal } from 'components/modal';
-import { chooseModal } from 'recoil/atom';
 
+const categories = ['상의', '아우터', '하의', '신발', '기타'];
 export default function EditPage() {
-  const [modalCategory, setModalCategory] = useState('');
-
   return (
     <Container>
       <Title
@@ -23,22 +19,30 @@ export default function EditPage() {
           {categories.map((data, index) => (
             <Category key={index}>
               <TypoGraphy type="Title" fontWeight="bold">
-                {data.title}
+                {/* 상의, 하의 등 각각의 카테고리 값들 */}
+                {data}
               </TypoGraphy>
               <DressRoom
-                category={data.title}
-                recoil={data.recoil}
-                setModalCategory={setModalCategory}
+                images={[]} // 각각의 카테고리에 맞는 이미지값들
               />
             </Category>
           ))}
         </CodyBox>
         <ReviewBox />
       </Contents>
-      {modalCategory && <ChooseModal categoryLabel={modalCategory} />}
     </Container>
   );
 }
+
+{/* <DressRoom
+  images={[
+    {
+      id: '1',
+      name: 'dd',
+      imageUrl: '/reviewDummy/review1.jpg',
+    },
+  ]} // 각각의 카테고리에 맞는 이미지값들
+/>; */}
 
 const Container = styled.section`
   display: flex;
