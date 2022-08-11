@@ -1,30 +1,19 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import FullCalendar, {
-  EventApi,
   DateSelectArg,
   EventClickArg,
   EventContentArg,
 } from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
-import { INITIAL_EVENTS, createEventId } from './event-utils';
+import { createEventId } from './event-utils';
 import styled from '@emotion/styled';
 import { customColor } from 'constants/index';
 import { EventInput } from '@fullcalendar/react';
 import { todayCodyApi } from 'api';
 
 const Calendar = () => {
-  // const [obj, setObj] = useState<EventInput[]>([
-  //   {
-  //     id: 'cl6ls959o07904wuysx9n3adr',
-  //     start: '2022-08-01',
-  //   },
-  //   {
-  //     id: 'cl6ls959o07904wuysx9n3adr',
-  //     start: '2022-08-02',
-  //   },
-  // ]);
-  const [obj, setObj] = useState<EventInput[]>([]);
+  const [myCody, setMyCody] = useState<EventInput[]>([]);
 
   const getManyCody = async () => {
     try {
@@ -35,24 +24,18 @@ const Calendar = () => {
         maxRating: 10,
       });
 
-      console.log('DB에서 데이터 가져옴 : ', data);
-
       // data 가공
       const realData: EventInput[] = data.map(
         (item: EventInput): EventInput => {
           return {
             id: item.id,
             start: item.date,
-            end: item.date, // end는 없어도될것같음 안정화되면 실험하기
-            title: '제목',
+            title: item.comment, // 이거 변경 할 예정
           };
         },
       );
-      console.log('가공한 데이터 : ', realData);
 
-      console.log('state변경 전: ', obj);
-      setObj(realData);
-      console.log('state변경 후: ', obj); // 값은 받아와지는데 변경이 안되고 있음
+      setMyCody(realData);
     } catch (error) {
       console.log(error);
     }
@@ -61,8 +44,6 @@ const Calendar = () => {
   useEffect(() => {
     getManyCody();
   }, []);
-
-
 
   // 날짜별 정보 달력에 삽입
   function renderEventContent(eventContent: EventContentArg) {
@@ -97,6 +78,11 @@ const Calendar = () => {
         title,
         start: selectInfo.startStr,
       });
+      calendarApi.addEvent({
+        id: createEventId(),
+        title: '뭐냐고',
+        start: '2022-08-30',
+      });
     }
   };
 
@@ -115,6 +101,7 @@ const Calendar = () => {
   return (
     <Wrapper>
       <FullCalendar
+        events={myCody}
         eventClick={moveToCody} // 등록된 이벤트를 클릭할 때
         select={handleDateSelect} // 날짜 클릭 이벤트
         plugins={[dayGridPlugin, interactionPlugin]}
@@ -126,13 +113,12 @@ const Calendar = () => {
           right: 'today',
         }}
         initialView="dayGridMonth"
-        defaultAllDay={true} // 명시 해주지 않으면 FullCalendar가 추측을 하는데 최선을 다한다고 하니까 걍 명시해줌
+        defaultAllDay={true}
         editable={true}
         selectable={true}
         dayMaxEvents={true}
         weekends={true}
         eventStartEditable={false}
-        initialEvents={obj}
         contentHeight={800} // 날짜 컨텐츠 박스 크기 지정
         eventContent={renderEventContent}
       />
