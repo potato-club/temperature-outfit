@@ -11,9 +11,11 @@ import styled from '@emotion/styled';
 import { customColor } from 'constants/index';
 import { EventInput } from '@fullcalendar/react';
 import { todayCodyApi } from 'api';
+import { useRouter } from 'next/router';
 
 const Calendar = () => {
   const [myCody, setMyCody] = useState<EventInput[]>([]);
+  const router = useRouter();
 
   const getMyCody = async () => {
     try {
@@ -59,25 +61,22 @@ const Calendar = () => {
       </Date>
     );
   }
+
   // 해당 날짜를 선택하여 코디 등록할 때
   // 코디 등록page로 이동하기
   // date정보 가지고 이동
   const handleDateSelect = (selectInfo: DateSelectArg) => {
     // 만약 이벤트가 있다면 아무것도 하지않기
     //  return null;
-    // 이벤트 추가 페이지로
-    let title = prompt('Please enter a new title for your event');
-    let calendarApi = selectInfo.view.calendar;
+    // let calendarApi = selectInfo.view.calendar;
+    // calendarApi.unselect(); // clear date selection
 
-    calendarApi.unselect(); // clear date selection
-
-    if (title) {
-      calendarApi.addEvent({
-        id: createEventId(),
-        title,
-        start: selectInfo.startStr,
-      });
-    }
+    router.push({
+      pathname: `/edit`,
+      query: {
+        day: selectInfo.startStr,
+      },
+    });
   };
 
   const moveToCody = (clickInfo: EventClickArg) => {
@@ -86,12 +85,6 @@ const Calendar = () => {
     console.log(clickInfo.event.title);
   };
 
-  //  DB에서 이벤트를 처음 가져올 때
-  // handleEvents = (events: EventApi[]) => {
-  //   this.setState({
-  //     currentEvents: events,
-  //   });
-  // };
   return (
     <Wrapper>
       <FullCalendar
