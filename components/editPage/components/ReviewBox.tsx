@@ -26,6 +26,7 @@ export function ReviewBox() {
     etcImage.forEach((data) => (productsIdString += data.id + ','));
     console.log(productsIdString);
 
+    // 여기가 날짜 관리
     const date = new Date();
     const year = date.getFullYear();
     const month = date.getMonth() + 1;
@@ -34,6 +35,7 @@ export function ReviewBox() {
     console.log(productsIdString);
 
     try {
+      // 여기가 날짜 관리
       frm.append('date', `${year}-${month}-${day}`);
       frm.append('image', reviewImage!);
       frm.append('productsId', productsIdString.slice(0,-1));

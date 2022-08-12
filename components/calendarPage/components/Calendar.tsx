@@ -15,7 +15,7 @@ import { todayCodyApi } from 'api';
 const Calendar = () => {
   const [myCody, setMyCody] = useState<EventInput[]>([]);
 
-  const getManyCody = async () => {
+  const getMyCody = async () => {
     try {
       const { data } = await todayCodyApi.getManyOutfit({
         startDate: '2022-08-01',
@@ -24,7 +24,6 @@ const Calendar = () => {
         maxRating: 10,
       });
 
-      // data 가공
       const realData: EventInput[] = data.map(
         (item: EventInput): EventInput => {
           return {
@@ -42,7 +41,7 @@ const Calendar = () => {
   };
 
   useEffect(() => {
-    getManyCody();
+    getMyCody();
   }, []);
 
   // 날짜별 정보 달력에 삽입
@@ -77,11 +76,6 @@ const Calendar = () => {
         id: createEventId(),
         title,
         start: selectInfo.startStr,
-      });
-      calendarApi.addEvent({
-        id: createEventId(),
-        title: '뭐냐고',
-        start: '2022-08-30',
       });
     }
   };

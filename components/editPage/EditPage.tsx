@@ -9,14 +9,15 @@ import { chooseModal } from 'recoil/atom';
 
 export default function EditPage() {
   const [modalCategory, setModalCategory] = useState('');
-
+  const [day, setDay] = useState(new Date());
+  
   return (
     <Container>
       <Title
         average={editDummy.average}
         max={editDummy.max}
         min={editDummy.min}
-        day={editDummy.day}
+        day={day}
       />
       <Contents>
         <CodyBox>
