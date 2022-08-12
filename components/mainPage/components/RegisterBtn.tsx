@@ -19,7 +19,7 @@ export function RegisterBtn() {
 
   return (
     <Container>
-      <Wrapper onClick={() => onClick()}>
+      <Wrapper onClick={onClick}>
         <TypoGraphy type="h1" color="#7b61ff" fontWeight="bold">
           코디 등록
         </TypoGraphy>

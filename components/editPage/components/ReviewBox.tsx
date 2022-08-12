@@ -1,4 +1,4 @@
-import React, { useState, ChangeEvent, useRef, RefObject } from 'react';
+import React, { useState, ChangeEvent, useRef } from 'react';
 import styled from '@emotion/styled';
 import { CustomButton, TypoGraphy } from 'components/common';
 import { customColor } from 'constants/index';
@@ -14,8 +14,11 @@ import {
   topState,
 } from 'state/editState';
 import { todayCodyApi } from 'api';
+interface ReviewBoxProps {
+  day: string;
+}
 
-export function ReviewBox() {
+export function ReviewBox({ day }: ReviewBoxProps) {
   const onSave = async () => {
     const frm = new FormData();
     let productsIdString = '';
@@ -26,26 +29,19 @@ export function ReviewBox() {
     etcImage.forEach((data) => (productsIdString += data.id + ','));
     console.log(productsIdString);
 
-    // 여기가 날짜 관리
-    const date = new Date();
-    const year = date.getFullYear();
-    const month = date.getMonth() + 1;
-    const day = date.getDate();
-
     console.log(productsIdString);
 
     try {
-      // 여기가 날짜 관리
-      frm.append('date', `${year}-${month}-${day}`);
+      frm.append('date', `${day}`);
       frm.append('image', reviewImage!);
-      frm.append('productsId', productsIdString.slice(0,-1));
+      frm.append('productsId', productsIdString.slice(0, -1));
 
       frm.append('comment', reviewText);
       frm.append('rating', rating);
 
       const data = await todayCodyApi.addProduct(frm);
       console.log(data);
-      alert("서버에 코디 등록!");
+      alert('서버에 코디 등록!');
     } catch (e) {
       console.log(e);
     }

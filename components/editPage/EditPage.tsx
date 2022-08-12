@@ -1,16 +1,21 @@
-import React, { ChangeEvent, useState } from 'react';
+import React, { useState } from 'react';
 import styled from '@emotion/styled';
 import { TypoGraphy } from 'components/common';
 import { DressRoom, ReviewBox, Title } from './components';
 import { categories } from 'types/editPage/categories';
 import { editDummy } from 'dummy/newEditDummy';
 import { ChooseModal } from 'components/modal';
-import { chooseModal } from 'recoil/atom';
+import { useRouter } from 'next/router';
 
 export default function EditPage() {
   const [modalCategory, setModalCategory] = useState('');
-  const [day, setDay] = useState(new Date());
-  
+  const router = useRouter();
+
+  const dayQuery = router.query.day as string;
+  const temp = '2022-08-22';
+
+  const day = new Date(dayQuery ?? temp).toISOString().replace(/T.*$/, '');
+
   return (
     <Container>
       <Title
@@ -34,7 +39,7 @@ export default function EditPage() {
             </Category>
           ))}
         </CodyBox>
-        <ReviewBox />
+        <ReviewBox day={day}/>
       </Contents>
       {modalCategory && <ChooseModal categoryLabel={modalCategory} />}
     </Container>
