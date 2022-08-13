@@ -6,7 +6,6 @@ import FullCalendar, {
 } from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
-import { createEventId } from './event-utils';
 import styled from '@emotion/styled';
 import { customColor } from 'constants/index';
 import { EventInput } from '@fullcalendar/react';
