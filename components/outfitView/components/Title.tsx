@@ -3,10 +3,13 @@ import styled from '@emotion/styled';
 import { TypoGraphy } from 'components/common';
 import { editDummyType } from 'dummy/newEditDummy';
 export function Title({ average, max, min, day }: editDummyType) {
+  const dayQuery = new Date(day);
+  const month = dayQuery.getMonth() + 1;
+  const date = dayQuery.getDate();
   return (
     <Container>
       <TypoGraphy type="Title" fontWeight="bold">
-        {`${day.getMonth() + 1}월${day.getDate()}일`} 코디
+        {month}월 {date}일 코디
       </TypoGraphy>
       <SubTitle>
         <Temperatures>

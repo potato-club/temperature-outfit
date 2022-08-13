@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import FullCalendar, {
   DateSelectArg,
   EventClickArg,
@@ -68,8 +68,6 @@ const Calendar = () => {
   const handleDateSelect = (selectInfo: DateSelectArg) => {
     // 만약 이벤트가 있다면 아무것도 하지않기
     //  return null;
-    // let calendarApi = selectInfo.view.calendar;
-    // calendarApi.unselect(); // clear date selection
 
     router.push({
       pathname: `/edit`,
@@ -79,17 +77,17 @@ const Calendar = () => {
     });
   };
 
-  const moveToCody = (clickInfo: EventClickArg) => {
-    console.log(clickInfo.event.id);
-    console.log(clickInfo.event.start); // Sat Jul 23 2022 00:00:00 GMT+0900 (한국 표준시)
-    console.log(clickInfo.event.title);
+  const moveToOutfit = (clickInfo: EventClickArg) => {
+    router.push({
+      pathname: `/outfitView/${clickInfo.event.id}`,
+    });
   };
 
   return (
     <Wrapper>
       <FullCalendar
         events={myCody}
-        eventClick={moveToCody} // 등록된 이벤트를 클릭할 때
+        eventClick={moveToOutfit} // 등록된 이벤트를 클릭할 때
         select={handleDateSelect} // 날짜 클릭 이벤트
         plugins={[dayGridPlugin, interactionPlugin]}
         locale="ko"
