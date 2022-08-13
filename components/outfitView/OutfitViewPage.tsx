@@ -5,11 +5,10 @@ import { DressRoom, ReviewBox, Title } from './components';
 import { editDummy } from 'dummy/newEditDummy';
 import { useRouter } from 'next/router';
 import { todayCodyApi } from 'api';
-
-// 이거 constant로 만들기
-const categories = ['상의', '아우터', '하의', '신발', '기타'];
+import { clothesSubCategory, clothesMainCategory } from 'constants/index';
 
 export default function EditPage() {
+  const router = useRouter();
   const [outfitData, setOutfitData] = useState({
     date: '2022-08-11',
     imageUrl: '/codyDummy/cody5',
@@ -17,8 +16,6 @@ export default function EditPage() {
     products: [],
     comment: '초기 Comment',
   });
-
-  const router = useRouter();
 
   useEffect(() => {
     router.query.id &&
@@ -45,6 +42,14 @@ export default function EditPage() {
     return <div>페이지가 없습니다</div>;
   }
 
+  const categories = clothesMainCategory.filter((cate) => cate.id !== 'all');
+  const categoryFilter = (id: string): any => {
+    const subCategories = clothesSubCategory[id].map((item: any) => item.id);
+    return outfitData.products.filter((product: any) => {
+      return subCategories.includes(product.categoryId);
+    });
+  };
+
   return (
     <Container>
       <Title
@@ -55,16 +60,12 @@ export default function EditPage() {
       />
       <Contents>
         <CodyBox>
-          {categories.map((category, index) => (
-            <Category key={index}>
+          {categories.map(({ name, id }) => (
+            <Category key={id}>
               <TypoGraphy type="Title" fontWeight="bold">
-                {category}
+                {name}
               </TypoGraphy>
-
-              {/* 여기서 이제 구현해야하네 */}
-              <DressRoom
-                images={[]} // 각각의 카테고리에 맞는 이미지값들
-              />
+              <DressRoom products={categoryFilter(id)} />
             </Category>
           ))}
         </CodyBox>
@@ -76,18 +77,6 @@ export default function EditPage() {
       </Contents>
     </Container>
   );
-}
-
-{
-  /* <DressRoom
-  images={[
-    {
-      id: '1',
-      name: 'dd',
-      imageUrl: '/reviewDummy/review1.jpg',
-    },
-  ]} // 각각의 카테고리에 맞는 이미지값들
-/>; */
 }
 
 const Container = styled.section`

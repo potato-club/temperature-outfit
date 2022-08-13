@@ -22,6 +22,6 @@
     "**/*.tsx",
     "constants/color.js",
     "components/calendarPage/components/Cal.jsx"
-  ],
+, "constants/index.js"  ],
   "exclude": ["node_modules"]
 }
