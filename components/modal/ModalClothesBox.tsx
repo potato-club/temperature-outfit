@@ -7,7 +7,6 @@ import { RecoilState, useSetRecoilState } from 'recoil';
 import { chooseModal } from 'recoil/atom';
 import { useRecoilState } from "recoil";
 import { frontApi } from "api/productApi";
-import { imageStateType } from 'types/editPage/imageStateType';
 import { ProductResponse } from 'types';
 
 type Props = {
@@ -24,8 +23,7 @@ export function ModalClothesBox({ url, name, id, recoil }: Props) {
 
 
   const addImage = () => {
-    console.log(id);
-    frontApi.getClothesEdit('query', id, clothesData, setClothesData);
+    frontApi.getClothesEdit(id, clothesData, setClothesData);
     setChooseModalState(false);
   };
 

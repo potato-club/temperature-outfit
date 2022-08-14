@@ -12,6 +12,7 @@ export const productApi = {
   // 옷 전체 조회
   getAllProduct: async () => api.getAll(`product`),
 
+
   // 옷 필터해서 조회
   // { params : { 필터 : 값 } }
   getFilter: async (data: any) => api.getWithParams(`product`, data),
@@ -47,20 +48,15 @@ export const frontApi = {
   },
 
   getClothesEdit: async (
-    type: any,
-    filter: any,
+    id: any,
     clothesData: any,
     setClothesData: any,
   ) => {
       try {
-        const { data } = await productApi.getFilter({
-          params: {
-            [type]: filter,
-          },
-        });
+        const { data } = await productApi.getProduct(id);
 
         if(clothesData.findIndex(
-            (clothes: any) => clothes.id === data[0].id,
+            (clothes: any) => clothes.id === data.id,
           ) !== -1) {
             alert("이미 등록된 옷입니다.")
             return;
