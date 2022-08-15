@@ -51,6 +51,9 @@ export const Closet: React.FC = () => {
       filter.query = name;
     }
 
+    // filter.limit = 100;
+    // filter.page = 5;
+
     frontApi.getFilter(filter, setClothesData);
   }, [mainCategory, subCategory, color, name]);
 
