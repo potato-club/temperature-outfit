@@ -45,29 +45,24 @@ const Calendar = () => {
     getMyCody();
   }, []);
 
-  // 날짜별 정보 달력에 삽입
   function renderEventContent(eventContent: EventContentArg) {
-    // console.log(eventContent.event.title); // title 등록할때 있어야할 값임
-    // console.log(eventContent.event.id);
-    // 아니면 그냥 스티커처럼 뭐가 있다라고 표시만해줄까?
+    // console.log(eventContent.event.title);
+    // console.log(eventContent.event);
     return (
       <Date>
         <b>평점 : {eventContent.event.title}</b>
         <br />
         <i>평균 온도 : 23.5°C</i>
         <br />
-        <i>기후 : 해 모양</i>
+        <i>기후 : 왼쪽 위</i>
       </Date>
     );
   }
 
-  // 해당 날짜를 선택하여 코디 등록할 때
-  // 코디 등록page로 이동하기
-  // date정보 가지고 이동
   const handleDateSelect = (selectInfo: DateSelectArg) => {
-    // 만약 이벤트가 있다면 아무것도 하지않기
-    //  return null;
-
+    if (myCody.map((item) => item.start).includes(selectInfo.startStr)) {
+      return null;
+    }
     router.push({
       pathname: `/edit`,
       query: {
