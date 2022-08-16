@@ -1,123 +1,128 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import FullCalendar, {
-  EventApi,
   DateSelectArg,
   EventClickArg,
   EventContentArg,
 } from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
-import { INITIAL_EVENTS, createEventId } from './event-utils';
 import styled from '@emotion/styled';
+import { customColor } from 'constants/index';
+import { EventInput } from '@fullcalendar/react';
+import { todayCodyApi } from 'api';
+import { useRouter } from 'next/router';
 
-interface CalendarState {
-  weekendsVisible: boolean;
-  currentEvents: EventApi[];
-}
+const Calendar = () => {
+  const [myCody, setMyCody] = useState<EventInput[]>([]);
+  const router = useRouter();
 
-export default class Calendar extends React.Component<{}, CalendarState> {
-  state: CalendarState = {
-    weekendsVisible: true,
-    currentEvents: [],
+  const getMyCody = async () => {
+    try {
+      const { data } = await todayCodyApi.getManyOutfit({
+        startDate: '2022-08-01',
+        endDate: '2022-08-26',
+        minRating: 0,
+        maxRating: 10,
+      });
+
+      const realData: EventInput[] = data.map(
+        (item: EventInput): EventInput => {
+          return {
+            id: item.id,
+            start: item.date,
+            title: item.comment, // 이거 변경 할 예정
+          };
+        },
+      );
+
+      setMyCody(realData);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
-  render() {
+  useEffect(() => {
+    getMyCody();
+  }, []);
+
+  function renderEventContent(eventContent: EventContentArg) {
+    // console.log(eventContent.event.title);
+    // console.log(eventContent.event);
     return (
-      <Wrapper>
-        <FullCalendar
-          plugins={[dayGridPlugin, interactionPlugin]}
-          locale="ko"
-          headerToolbar={{
-            left: 'prev,next',
-            center: 'title',
-            right: 'today',
-          }}
-          initialView="dayGridMonth"
-          editable={true}
-          selectable={true}
-          selectMirror={true}
-          dayMaxEvents={true}
-          weekends={this.state.weekendsVisible}
-          initialEvents={INITIAL_EVENTS} // alternatively, use the `events` setting to fetch from a feed
-          select={this.handleDateSelect}
-          eventContent={renderEventContent} // custom render function
-          eventClick={this.handleEventClick}
-          eventsSet={this.handleEvents} // called after events are initialized/added/changed/removed
-          /* you can update a remote database when these fire:
-            eventAdd={function(){}}
-            eventChange={function(){}}
-            eventRemove={function(){}}
-            */
-        />
-      </Wrapper>
+      <Date>
+        <b>평점 : {eventContent.event.title}</b>
+        <br />
+        <i>평균 온도 : 23.5°C</i>
+        <br />
+        <i>기후 : 왼쪽 위</i>
+      </Date>
     );
   }
 
-  // 해당 날짜를 선택하여 코디 등록할 때
-  // 코디 등록page로 이동하기
-  // date정보 가지고 이동
-  handleDateSelect = (selectInfo: DateSelectArg) => {
-    let title = prompt('Please enter a new title for your event');
-    let calendarApi = selectInfo.view.calendar;
-
-    calendarApi.unselect(); // clear date selection
-
-    if (title) {
-      calendarApi.addEvent({
-        id: createEventId(),
-        title,
-        start: selectInfo.startStr,
-        // end: selectInfo.endStr,
-        allDay: selectInfo.allDay,
-      });
+  const handleDateSelect = (selectInfo: DateSelectArg) => {
+    if (myCody.map((item) => item.start).includes(selectInfo.startStr)) {
+      return null;
     }
-  };
-
-  // 등록된 거 클릭했을 때
-  // 해당 등록한 코디로 이동할거임
-  // date 정보 필요함
-  handleEventClick = (clickInfo: EventClickArg) => {
-    if (
-      confirm(
-        `Are you sure you want to delete the event '${clickInfo.event.title}'`,
-      )
-    ) {
-      clickInfo.event.remove();
-    }
-  };
-
-  // 뭔지 아직 모르겠음
-  handleEvents = (events: EventApi[]) => {
-    this.setState({
-      currentEvents: events,
+    router.push({
+      pathname: `/edit`,
+      query: {
+        day: selectInfo.startStr,
+      },
     });
   };
-}
 
-// 날짜별 정보 달력 안에 띄우기
-// 회의할 내용
-function renderEventContent(eventContent: EventContentArg) {
+  const moveToOutfit = (clickInfo: EventClickArg) => {
+    router.push({
+      pathname: `/outfitView/${clickInfo.event.id}`,
+    });
+  };
+
   return (
-    <Date>
-      <b>평점 : 10</b>
-      <br />
-      <i>평균 온도 : 23.5°C</i>
-      <br />
-      <i>기후 : 해 모양</i>
-    </Date>
+    <Wrapper>
+      <FullCalendar
+        events={myCody}
+        eventClick={moveToOutfit} // 등록된 이벤트를 클릭할 때
+        select={handleDateSelect} // 날짜 클릭 이벤트
+        plugins={[dayGridPlugin, interactionPlugin]}
+        locale="ko"
+        eventColor="transparent"
+        headerToolbar={{
+          left: 'prev,next',
+          center: 'title',
+          right: 'today',
+        }}
+        initialView="dayGridMonth"
+        defaultAllDay={true}
+        editable={true}
+        selectable={true}
+        dayMaxEvents={true}
+        weekends={true}
+        eventStartEditable={false}
+        contentHeight={800} // 날짜 컨텐츠 박스 크기 지정
+        eventContent={renderEventContent}
+      />
+    </Wrapper>
   );
-}
+};
 
 const Wrapper = styled.section`
   width: 100%;
   max-width: 1178px;
   padding: 20px;
-  height: 100%;
   background-color: white;
-  margin-top: 40px;
+  margin-top: 58px;
+  margin-bottom: 12px;
 `;
 
 const Date = styled.article`
-  /* background-color: wheat; */
-  /* padding: 10px 0; */
+  background-color: ${customColor.brandColor3};
+  padding: 12px 0;
+  display: flex;
+  flex-direction: column;
+  justify-items: center;
+  align-items: center;
+  cursor: pointer;
+  border-radius: 20px;
 `;
+
+export default Calendar;

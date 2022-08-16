@@ -56,8 +56,8 @@ export const AddModal = () => {
   };
 
   const addClothesItem = async () => {
-    if(!(image && name && subCategory && color)) {
-      alert('상품의 이미지, 이름, 카테고리, 색상을 지정해주세요!')
+    if (!(image && name && subCategory && color)) {
+      alert('상품의 이미지, 이름, 카테고리, 색상을 지정해주세요!');
       return;
     }
     const frm = new FormData();
@@ -69,6 +69,7 @@ export const AddModal = () => {
     console.log(data);
     // 성공시 등록이 되었습니다! => 모달
     alert('서버에 옷 등록');
+    setAddModalState((cur) => !cur);
   };
 
   useEffect(() => {

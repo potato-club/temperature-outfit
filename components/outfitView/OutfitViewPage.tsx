@@ -1,48 +1,83 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 import { TypoGraphy } from 'components/common';
 import { DressRoom, ReviewBox, Title } from './components';
 import { editDummy } from 'dummy/newEditDummy';
+import { useRouter } from 'next/router';
+import { todayCodyApi } from 'api';
+import { clothesSubCategory, clothesMainCategory } from 'constants/index';
 
-const categories = ['상의', '아우터', '하의', '신발', '기타'];
 export default function EditPage() {
+  const router = useRouter();
+  const [outfitData, setOutfitData] = useState({
+    date: '2022-08-11',
+    imageUrl: '/codyDummy/cody5',
+    rating: 0,
+    products: [],
+    comment: '초기 Comment',
+  });
+
+  useEffect(() => {
+    router.query.id &&
+      (async () => {
+        try {
+          const {
+            data: { date, imageUrl, rating, products, comment },
+          } = await todayCodyApi.getOutfit(router.query.id as string);
+
+          setOutfitData({
+            date,
+            imageUrl,
+            rating,
+            products,
+            comment,
+          });
+        } catch (error) {
+          console.log(error);
+        }
+      })();
+  }, [router.query.id]);
+
+  if (!router.query.id) {
+    return <div>페이지가 없습니다</div>;
+  }
+
+  const categories = clothesMainCategory.filter((cate) => cate.id !== 'all');
+  const categoryFilter = (id: string): any => {
+    const subCategories = clothesSubCategory[id].map((item: any) => item.id);
+    return outfitData.products.filter((product: any) => {
+      return subCategories.includes(product.categoryId);
+    });
+  };
+
   return (
     <Container>
       <Title
         average={editDummy.average}
         max={editDummy.max}
         min={editDummy.min}
-        day={editDummy.day}
+        day={outfitData.date}
       />
       <Contents>
         <CodyBox>
-          {categories.map((data, index) => (
-            <Category key={index}>
+          {categories.map(({ name, id }) => (
+            <Category key={id}>
               <TypoGraphy type="Title" fontWeight="bold">
-                {/* 상의, 하의 등 각각의 카테고리 값들 */}
-                {data}
+                {name}
               </TypoGraphy>
-              <DressRoom
-                images={[]} // 각각의 카테고리에 맞는 이미지값들
-              />
+              <DressRoom products={categoryFilter(id)} />
             </Category>
           ))}
         </CodyBox>
-        <ReviewBox />
+        <ReviewBox
+          comment={outfitData.comment}
+          rating={outfitData.rating}
+          outFitImageUrl={outfitData.imageUrl}
+        />
       </Contents>
     </Container>
   );
 }
-
-{/* <DressRoom
-  images={[
-    {
-      id: '1',
-      name: 'dd',
-      imageUrl: '/reviewDummy/review1.jpg',
-    },
-  ]} // 각각의 카테고리에 맞는 이미지값들
-/>; */}
 
 const Container = styled.section`
   display: flex;

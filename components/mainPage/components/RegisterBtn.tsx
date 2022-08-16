@@ -1,15 +1,25 @@
 import styled from '@emotion/styled';
 import { TypoGraphy } from 'components/common';
 import { customColor } from 'constants/index';
+import { useRouter } from 'next/router';
 import React from 'react';
 
 export function RegisterBtn() {
+  const router = useRouter();
+  const todayStr = new Date().toISOString().replace(/T.*$/, '');
+
   const onClick = () => {
-    alert('버튼클릭');
+    router.push({
+      pathname: `/edit`,
+      query: {
+        day: todayStr,
+      },
+    });
   };
+
   return (
     <Container>
-      <Wrapper onClick={() => onClick()}>
+      <Wrapper onClick={onClick}>
         <TypoGraphy type="h1" color="#7b61ff" fontWeight="bold">
           코디 등록
         </TypoGraphy>

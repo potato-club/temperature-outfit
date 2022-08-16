@@ -3,11 +3,11 @@ export type editDummyType = {
   average: number;
   max: number;
   min: number;
-  day: Date;
-}
+  day: string;
+};
 export const editDummy: editDummyType = {
   average: 10,
   max: 15,
   min: 5,
-  day: new Date(),
+  day: '2022-08-12',
 };

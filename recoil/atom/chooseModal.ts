@@ -1,6 +1,6 @@
 import { atom } from 'recoil';
 
 export const chooseModal = atom({
-  key: 'chooseModal',
+  key: 'chooseModalKey',
   default: false,
 });

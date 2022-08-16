@@ -4,15 +4,24 @@ import { CustomButton, TypoGraphy } from 'components/common';
 import { customColor } from 'constants/index';
 import Image from 'next/image';
 import { Rating } from 'react-simple-star-rating';
+import { useRouter } from 'next/router';
 
-export function ReviewBox() {
-
+interface ReviewBoxProps {
+  comment: string;
+  rating: number;
+  outFitImageUrl: string;
+}
+export function ReviewBox({ comment, rating, outFitImageUrl }: ReviewBoxProps) {
+  const router = useRouter();
+  const goToBack = () => {
+    router.back();
+  };
   return (
     <Container>
       <BoxWrapper>
         <ImageWrapper>
           <Image
-            src={'/reviewDummy/review1.jpg'} // 코디 사진
+            src={outFitImageUrl} // 코디 사진
             alt="review"
             width={360}
             height={240}
@@ -23,10 +32,7 @@ export function ReviewBox() {
         <TypoGraphy type="Title" fontWeight="bold">
           후기
         </TypoGraphy>
-        <TextArea
-          readOnly
-          value={''} // 후기 값
-        />
+        <TextArea readOnly value={comment} />
       </BoxWrapper>
       <BoxWrapper>
         <TypoGraphy type="Title" fontWeight="bold">
@@ -34,7 +40,7 @@ export function ReviewBox() {
         </TypoGraphy>
         <StarWrapper>
           <Rating
-            ratingValue={0} // 별점 값
+            ratingValue={rating}
             size={40}
             transition
             fillColor="orange"
@@ -47,7 +53,7 @@ export function ReviewBox() {
           customType="colorful"
           text="뒤로가기"
           sidePadding="40"
-          onClick={() => {}}
+          onClick={goToBack}
         />
       </ButtonContainer>
     </Container>

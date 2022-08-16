@@ -4,21 +4,20 @@ import { customColor } from 'constants/index';
 import { ClothesBox } from 'components/common';
 
 type Props = {
-  images: any;
+  products: any;
 };
 
-export function DressRoom({ images }: Props) {
-  
+export function DressRoom({ products }: Props) {
   return (
     <Container>
-      {images &&
-        images.map((data:any) => (
-          <ClothesWrapper key={data.id}>
+      {products &&
+        products.map((product: any) => (
+          <ClothesWrapper key={product.id}>
             <ClothesBox
-              url={data.imageUrl!}
-              id={data.id}
+              url={product.imageUrl!}
+              id={product.id}
               type="edit"
-              name={data.name}
+              name={product.name}
             />
           </ClothesWrapper>
         ))}
