@@ -23,8 +23,8 @@ export type ProductGetRequest = {
   query?: string;
   categoryId?: string;
   color?: string;
-  page?: number;
-  limit?: number;
+  page?: string;
+  limit?: string;
 };
 
 export type ProductPostRequest = {
@@ -52,6 +52,7 @@ export type OutfitGetRequest = {
 
 export type OutfitPostRequest = {
   date?: string;
+  locationId?: number;
   productsId?: string;
   comment?: string;
   rating?: string;
@@ -60,6 +61,8 @@ export type OutfitPostRequest = {
 export type OutfitResponse = {
   id: string;
   date: string;
+  locationId: number;
+  weather?: WeatherResponse;
   imageUrl?: string;
   products: ProductResponse[];
   comment?: string;
@@ -67,3 +70,10 @@ export type OutfitResponse = {
   createdAt: string;
   updatedAt: string;
 };
+
+export type WeatherGetRequest = {
+  date?: string;
+  locationId?: string;
+};
+
+export type WeatherResponse = {};

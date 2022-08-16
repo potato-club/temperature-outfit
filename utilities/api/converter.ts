@@ -1,5 +1,5 @@
-import type { Outfit, Product } from '@prisma/client';
-import { OutfitResponse, ProductResponse } from '../../types';
+import type { Outfit, Product, Weather } from '@prisma/client';
+import { OutfitResponse, ProductResponse, WeatherResponse } from '../../types';
 
 export const convertProductToResponse = (
   product: Product,
@@ -16,10 +16,13 @@ export const convertProductToResponse = (
 export const convertOutfitToResponse = (
   outfit: Outfit & {
     products: Product[];
+    weather: Weather | null;
   },
 ): OutfitResponse => ({
   id: outfit.id,
   date: outfit.date.toISOString().split('T')[0],
+  locationId: outfit.locationId,
+  weather: outfit.weather ? convertWeatherResponse(outfit.weather) : undefined,
   imageUrl: outfit.imageUrl ?? undefined,
   products: outfit.products.map<ProductResponse>((product) =>
     convertProductToResponse(product),
@@ -29,3 +32,7 @@ export const convertOutfitToResponse = (
   createdAt: outfit.createdAt.toISOString(),
   updatedAt: outfit.updatedAt.toISOString(),
 });
+
+export const convertWeatherResponse = (
+  weather: Weather,
+): WeatherResponse => ({});
