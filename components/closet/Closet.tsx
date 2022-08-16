@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import { productApi } from 'api';
 import { filterType, frontApi } from 'api/productApi';
 import { CustomButton, TypoGraphy, SelectBox } from 'components/common';
-import { AddModal, ChooseModal } from 'components/modal';
+import { AddModal } from 'components/modal';
 import {
   clothesMainCategory,
   clothesSubCategory,
@@ -10,14 +10,13 @@ import {
 } from 'constants/index';
 import { useEffect, useState } from 'react';
 import { useSetRecoilState } from 'recoil';
-import { addModal, chooseModal } from 'recoil/atom';
+import { addModal } from 'recoil/atom';
 import { productType } from 'types/editPage/product.type';
 import { ClothesContainer, ColorRadio, SearchBox } from './components';
 import CategoryFilterBox from './components/CategoryFilterBox';
 
 export const Closet: React.FC = () => {
   const setAddModalState = useSetRecoilState(addModal);
-  const setChooseModalState = useSetRecoilState(chooseModal);
 
   const [mainCategory, setMainCategory] = useState('all');
   const [subCategory, setSubCategory] = useState('all');
@@ -47,7 +46,7 @@ export const Closet: React.FC = () => {
       filter.color = color;
     }
 
-    if(name) {
+    if (name) {
       filter.query = name;
     }
 
