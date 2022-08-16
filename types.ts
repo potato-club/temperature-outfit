@@ -23,8 +23,8 @@ export type ProductGetRequest = {
   query?: string;
   categoryId?: string;
   color?: string;
-  page?: string;
-  limit?: string;
+  page?: number;
+  limit?: number;
 };
 
 export type ProductPostRequest = {
