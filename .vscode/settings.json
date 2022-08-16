@@ -1,5 +1,3 @@
 {
-  "cSpell.words": ["daygrid", "fullcalendar", "timegrid"],
-  "deno.enable": true,
-  "deno.unstable": true
+  "cSpell.words": ["daygrid", "fullcalendar", "timegrid"]
 }
