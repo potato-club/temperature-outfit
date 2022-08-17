@@ -11,15 +11,15 @@ export type mainDummyType = {
     rankTop: string;
   };
 };
-export const mainDummy:mainDummyType = {
+export const mainDummy: mainDummyType = {
   location: '인천',
   average: 10,
   max: 15,
   min: 5,
-  weather: 'snow',
-  TodayBest : {
-    top : "스웨터",
-    bottom: "청바지",
-    rankTop: "스웨터",
-  }
+  weather: 'rain',
+  TodayBest: {
+    top: '스웨터',
+    bottom: '청바지',
+    rankTop: '스웨터',
+  },
 };
