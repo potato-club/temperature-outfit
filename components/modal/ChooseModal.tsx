@@ -3,10 +3,7 @@ import Modal from 'react-modal';
 import styled from '@emotion/styled';
 import { useState } from 'react';
 import { CustomButton, TypoGraphy } from 'components/common';
-import {
-  customColor,
-  clothesSubCategory,
-} from 'constants/index';
+import { customColor, clothesSubCategory } from 'constants/index';
 import { useRecoilState } from 'recoil';
 import { chooseModal } from 'recoil/atom';
 import { productType } from 'types/editPage/product.type';
@@ -26,7 +23,7 @@ const customStyles = {
 
 type Props = {
   categoryLabel: string;
-}
+};
 // 1. 옷 선택하기에서 data를 props로 받아오기
 //
 
@@ -59,6 +56,10 @@ export const ChooseModal = ({ categoryLabel }: Props) => {
   const category = switchMainCategory();
 
   useEffect(() => {
+    setClothesData([]);
+  }, [chooseModalState]);
+
+  useEffect(() => {
     frontApi.getFilter({ categoryId: category }, setClothesData);
     // 아래는 확인용 코드
     // frontApi.getFilter({ categoryId: category, limit: 1000}, setClothesData);
@@ -66,8 +67,6 @@ export const ChooseModal = ({ categoryLabel }: Props) => {
 
   const handleClose = () => {
     setChooseModalState((cur) => !cur);
-    // setClothesData([]); // Todo : 이 코드가 없으면, 메인카테고리 넘길때 아주 잠깐 이전 카테고리 아이템들이 보임.
-                           // Todo : 이 코드가 있으면, 같은 카테고리를 두번눌렀을때 옷이 없어짐. (모달을 천천히 띄우거나 등등 어떻게할지 회의해봐야할듯)
   };
 
   return (
@@ -84,16 +83,17 @@ export const ChooseModal = ({ categoryLabel }: Props) => {
         </TypoGraphy>
         <ContentBox>
           <ButtonBox>
-            {clothesSubCategory[category].map((item, index) => (
-              <CustomButton
-                onClick={() =>
-                  frontApi.getFilter({categoryId: item.id}, setClothesData)
-                }
-                customType="white"
-                text={item.name}
-                key={index}
-              />
-            ))}
+            {clothesSubCategory[category] &&
+              clothesSubCategory[category].map((item, index) => (
+                <CustomButton
+                  onClick={() =>
+                    frontApi.getFilter({ categoryId: item.id }, setClothesData)
+                  }
+                  customType="white"
+                  text={item.name}
+                  key={index}
+                />
+              ))}
           </ButtonBox>
           <ModalClothesContainer
             clothesData={clothesData}
@@ -132,15 +132,4 @@ const ButtonBox = styled.section`
   display: flex;
   gap: 10px;
   margin-bottom: 10px;
-`;
-
-const ClothesImgBox = styled.section`
-  display: flex;
-  gap: 10px;
-`;
-
-const ButtonWrapper = styled.section`
-  display: flex;
-  justify-content: flex-end;
-  margin-top: 12px;
 `;

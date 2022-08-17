@@ -11,10 +11,10 @@ export const ModalClothesContainer = ({
   categoryLabel,
 }: Props) => {
   console.log(categoryLabel);
-  const findIndex = categories.findIndex(
+  const index = categories.findIndex(
     (data) => data.title === categoryLabel,
   );
-  const recoil = categories[findIndex].recoil;
+  const recoil = categories[index].recoil;
 
   return (
     <ItemContainer>
