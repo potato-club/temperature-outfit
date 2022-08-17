@@ -7,12 +7,12 @@ import FullCalendar, {
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import styled from '@emotion/styled';
-import { customColor } from 'constants/index';
 import { EventInput } from '@fullcalendar/react';
 import { todayCodyApi } from 'api';
 import { useRouter } from 'next/router';
+import { DateItem } from './DateItem';
 
-const Calendar = () => {
+export const Calendar = () => {
   const [myCody, setMyCody] = useState<EventInput[]>([]);
   const router = useRouter();
 
@@ -24,13 +24,13 @@ const Calendar = () => {
         minRating: 0,
         maxRating: 10,
       });
-
       const realData: EventInput[] = data.map(
         (item: EventInput): EventInput => {
           return {
             id: item.id,
             start: item.date,
             title: item.comment, // 이거 변경 할 예정
+            rating: item.rating,
           };
         },
       );
@@ -46,16 +46,14 @@ const Calendar = () => {
   }, []);
 
   function renderEventContent(eventContent: EventContentArg) {
-    // console.log(eventContent.event.title);
-    // console.log(eventContent.event);
+    console.log(eventContent.event.extendedProps.rating);
+
     return (
-      <Date>
-        <b>평점 : {eventContent.event.title}</b>
-        <br />
-        <i>평균 온도 : 23.5°C</i>
-        <br />
-        <i>기후 : 왼쪽 위</i>
-      </Date>
+      <DateItem
+        weather={'cloud'}
+        temperature={'23'}
+        rating={eventContent.event.extendedProps.rating}
+      />
     );
   }
 
@@ -113,16 +111,3 @@ const Wrapper = styled.section`
   margin-top: 58px;
   margin-bottom: 12px;
 `;
-
-const Date = styled.article`
-  background-color: ${customColor.brandColor3};
-  padding: 12px 0;
-  display: flex;
-  flex-direction: column;
-  justify-items: center;
-  align-items: center;
-  cursor: pointer;
-  border-radius: 20px;
-`;
-
-export default Calendar;
