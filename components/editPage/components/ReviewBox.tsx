@@ -14,17 +14,18 @@ import {
   topState,
 } from 'state/editState';
 import { todayCodyApi } from 'api';
+import { ProductResponse } from 'types';
 
 export function ReviewBox() {
   const onSave = async () => {
     const frm = new FormData();
     let productsIdString = '';
-    topImage.forEach((data) => (productsIdString += data.id + ','));
-    outerImage.forEach((data) => (productsIdString += data.id + ','));
-    bottomImage.forEach((data) => (productsIdString += data.id + ','));
-    shoesImage.forEach((data) => (productsIdString += data.id + ','));
-    etcImage.forEach((data) => (productsIdString += data.id + ','));
-    console.log(productsIdString);
+    topImage.forEach(({id}) => (productsIdString += id + ','));
+    outerImage.forEach(({id}) => (productsIdString += id + ','));
+    bottomImage.forEach(({id}) => (productsIdString += id + ','));
+    shoesImage.forEach(({id}) => (productsIdString += id + ','));
+    etcImage.forEach(({id}) => (productsIdString += id + ','));
+    productsIdString = productsIdString.slice(0, -1); // 반점 제거
 
     const date = new Date();
     const year = date.getFullYear();
@@ -36,7 +37,7 @@ export function ReviewBox() {
     try {
       frm.append('date', `${year}-${month}-${day}`);
       frm.append('image', reviewImage!);
-      frm.append('productsId', productsIdString.slice(0,-1));
+      frm.append('productsId', productsIdString);
 
       frm.append('comment', reviewText);
       frm.append('rating', rating);
