@@ -24,7 +24,7 @@ export const ModalClothesContainer = ({
             name={data.name}
             url={data.imageUrl}
             key={data.id}
-            id={data.name} // ! Todo : name 이 아닌 id 로 해야할것같음. (같은 이름의 옷이 있을수도 있으니(?)
+            id={data.id}
             recoil={recoil}
           />
         ))}

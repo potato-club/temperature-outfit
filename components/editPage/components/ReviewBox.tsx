@@ -26,14 +26,14 @@ export function ReviewBox({ day }: ReviewBoxProps) {
     bottomImage.forEach((data) => (productsIdString += data.id + ','));
     shoesImage.forEach((data) => (productsIdString += data.id + ','));
     etcImage.forEach((data) => (productsIdString += data.id + ','));
-    console.log(productsIdString);
+    productsIdString = productsIdString.slice(0, -1); // 반점 제거
 
     console.log(productsIdString);
 
     try {
       frm.append('date', `${day}`);
       frm.append('image', reviewImage!);
-      frm.append('productsId', productsIdString.slice(0, -1));
+      frm.append('productsId', productsIdString);
 
       frm.append('comment', reviewText);
       frm.append('rating', rating);
@@ -44,7 +44,7 @@ export function ReviewBox({ day }: ReviewBoxProps) {
     } catch (e) {
       console.log(e);
     }
-  };
+  };;
 
   const codyRef = useRef<HTMLInputElement>(null);
 
