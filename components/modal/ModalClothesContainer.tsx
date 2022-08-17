@@ -35,6 +35,7 @@ export const ModalClothesContainer = ({
 const ItemContainer = styled.section`
   position: relative;
   width: 100%;
+  flex-wrap: wrap;
   min-height: 140px;
   display: flex;
   gap: 4px;

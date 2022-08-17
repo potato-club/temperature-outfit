@@ -59,7 +59,9 @@ export const ChooseModal = ({ categoryLabel }: Props) => {
   const category = switchMainCategory();
 
   useEffect(() => {
-    frontApi.getFilter({categoryId: category}, setClothesData);
+    frontApi.getFilter({ categoryId: category }, setClothesData);
+    // 아래는 확인용 코드
+    // frontApi.getFilter({ categoryId: category, limit: 1000}, setClothesData);
   }, [category]);
 
   const handleClose = () => {
@@ -106,9 +108,17 @@ export const ChooseModal = ({ categoryLabel }: Props) => {
 const Wrapper = styled.section`
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  height: 100%;
   gap: 10px;
+  height: 100%;
+  overflow-y: auto;
+  ::-webkit-scrollbar {
+    opacity: 0;
+    width: 12px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background-color: rgb(150, 137, 235, 0.6);
+    border-radius: 24px;
+  }
 `;
 
 const ContentBox = styled.section`
