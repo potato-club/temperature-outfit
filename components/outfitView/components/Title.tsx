@@ -6,11 +6,10 @@ export function Title({ average, max, min, day }: editDummyType) {
   const dayQuery = new Date(day);
   const month = dayQuery.getMonth() + 1;
   const date = dayQuery.getDate();
-
   return (
     <Container>
       <TypoGraphy type="Title" fontWeight="bold">
-        {`${month}월 ${date}일`} 코디
+        {month}월 {date}일 코디
       </TypoGraphy>
       <SubTitle>
         <Temperatures>

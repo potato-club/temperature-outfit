@@ -106,7 +106,7 @@ const AddButton = styled.label`
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 100px;
+  min-width: 100px;
   height: 80px;
   border-radius: 24px;
 `;

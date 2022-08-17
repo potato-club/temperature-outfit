@@ -1,4 +1,4 @@
-import React, { useState, ChangeEvent, useRef, RefObject } from 'react';
+import React, { useState, ChangeEvent, useRef } from 'react';
 import styled from '@emotion/styled';
 import { CustomButton, TypoGraphy } from 'components/common';
 import { customColor } from 'constants/index';
@@ -14,28 +14,25 @@ import {
   topState,
 } from 'state/editState';
 import { todayCodyApi } from 'api';
-import { ProductResponse } from 'types';
+interface ReviewBoxProps {
+  day: string;
+}
 
-export function ReviewBox() {
+export function ReviewBox({ day }: ReviewBoxProps) {
   const onSave = async () => {
     const frm = new FormData();
     let productsIdString = '';
-    topImage.forEach(({id}) => (productsIdString += id + ','));
-    outerImage.forEach(({id}) => (productsIdString += id + ','));
-    bottomImage.forEach(({id}) => (productsIdString += id + ','));
-    shoesImage.forEach(({id}) => (productsIdString += id + ','));
-    etcImage.forEach(({id}) => (productsIdString += id + ','));
+    topImage.forEach((data) => (productsIdString += data.id + ','));
+    outerImage.forEach((data) => (productsIdString += data.id + ','));
+    bottomImage.forEach((data) => (productsIdString += data.id + ','));
+    shoesImage.forEach((data) => (productsIdString += data.id + ','));
+    etcImage.forEach((data) => (productsIdString += data.id + ','));
     productsIdString = productsIdString.slice(0, -1); // 반점 제거
-
-    const date = new Date();
-    const year = date.getFullYear();
-    const month = date.getMonth() + 1;
-    const day = date.getDay();
 
     console.log(productsIdString);
 
     try {
-      frm.append('date', `${year}-${month}-${day}`);
+      frm.append('date', `${day}`);
       frm.append('image', reviewImage!);
       frm.append('productsId', productsIdString);
 
@@ -44,10 +41,11 @@ export function ReviewBox() {
 
       const data = await todayCodyApi.addProduct(frm);
       console.log(data);
+      alert('서버에 코디 등록!');
     } catch (e) {
       console.log(e);
     }
-  };
+  };;
 
   const codyRef = useRef<HTMLInputElement>(null);
 
