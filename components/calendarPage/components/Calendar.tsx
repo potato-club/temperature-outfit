@@ -13,36 +13,32 @@ import { useRouter } from 'next/router';
 import { DateItem } from './DateItem';
 
 export const Calendar = () => {
-  const [myCody, setMyCody] = useState<EventInput[]>([]);
+  const [myOutfit, setMyOutfit] = useState<EventInput[]>([]);
   const router = useRouter();
 
-  const getMyCody = async () => {
+  const startDay = '2022-08-01';
+  const endDay = '2022-08-31';
+  const getMyOutfit = async () => {
     try {
-      const { data } = await todayCodyApi.getManyOutfit({
-        startDate: '2022-08-01',
-        endDate: '2022-08-26',
-        minRating: 0,
-        maxRating: 10,
-      });
+      const { data } = await todayCodyApi.getManyOutfit(startDay, endDay);
       const realData: EventInput[] = data.map(
         (item: EventInput): EventInput => {
           return {
             id: item.id,
             start: item.date,
-            title: item.comment, // 이거 변경 할 예정
             rating: item.rating,
           };
         },
       );
 
-      setMyCody(realData);
+      setMyOutfit(realData);
     } catch (error) {
       console.log(error);
     }
   };
 
   useEffect(() => {
-    getMyCody();
+    getMyOutfit();
   }, []);
 
   function renderEventContent(eventContent: EventContentArg) {
@@ -58,7 +54,7 @@ export const Calendar = () => {
   }
 
   const handleDateSelect = (selectInfo: DateSelectArg) => {
-    if (myCody.map((item) => item.start).includes(selectInfo.startStr)) {
+    if (myOutfit.map((item) => item.start).includes(selectInfo.startStr)) {
       return null;
     }
     router.push({
@@ -78,9 +74,9 @@ export const Calendar = () => {
   return (
     <Wrapper>
       <FullCalendar
-        events={myCody}
-        eventClick={moveToOutfit} // 등록된 이벤트를 클릭할 때
-        select={handleDateSelect} // 날짜 클릭 이벤트
+        events={myOutfit}
+        eventClick={moveToOutfit}
+        select={handleDateSelect}
         plugins={[dayGridPlugin, interactionPlugin]}
         locale="ko"
         eventColor="transparent"
@@ -96,7 +92,7 @@ export const Calendar = () => {
         dayMaxEvents={true}
         weekends={true}
         eventStartEditable={false}
-        contentHeight={800} // 날짜 컨텐츠 박스 크기 지정
+        contentHeight={800}
         eventContent={renderEventContent}
       />
     </Wrapper>
