@@ -13,11 +13,14 @@ import {
   topState,
 } from 'state/editState';
 import { todayCodyApi } from 'api';
+import { confirmModal, infoModal } from 'utils/interactionModal';
+import { useRouter } from 'next/router';
 interface ReviewBoxProps {
   day: string;
 }
 
 export function ReviewBox({ day }: ReviewBoxProps) {
+
   const onSave = async () => {
     const frm = new FormData();
     let productsIdString = '';
@@ -40,11 +43,14 @@ export function ReviewBox({ day }: ReviewBoxProps) {
 
       const data = await todayCodyApi.addProduct(frm);
       console.log(data);
-      alert('서버에 코디 등록!');
     } catch (e) {
       console.log(e);
     }
-  };;
+  };
+
+  const confirmBtn = () => {
+    confirmModal("등록 하시겠습니까?", onSave);
+  }
 
   const codyRef = useRef<HTMLInputElement>(null);
 
@@ -90,7 +96,7 @@ export function ReviewBox({ day }: ReviewBoxProps) {
         setReviewThumbnail(String(fileReader.result!));
       };
       setReviewImage(e.target.files![0]);
-      alert('코디 변경!');
+      infoModal('코디 사진 변경완료!', 'success')
       e.target.value = '';
     }
   };
@@ -164,7 +170,7 @@ export function ReviewBox({ day }: ReviewBoxProps) {
           customType="colorful"
           text="등록"
           sidePadding="40"
-          onClick={() => onSave()}
+          onClick={() => confirmBtn()}
         />
       </ButtonContainer>
     </Container>
