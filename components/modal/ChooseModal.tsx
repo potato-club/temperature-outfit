@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import Modal from 'react-modal';
 import styled from '@emotion/styled';
 import { useState } from 'react';
@@ -30,6 +30,7 @@ type Props = {
 export const ChooseModal = ({ categoryLabel }: Props) => {
   const [chooseModalState, setChooseModalState] = useRecoilState(chooseModal);
   const [clothesData, setClothesData] = useState<Array<productType>>([]);
+  const [loading, setLoading] = useState<boolean>(true);
 
   const switchMainCategory = () => {
     switch (categoryLabel) {
@@ -55,15 +56,17 @@ export const ChooseModal = ({ categoryLabel }: Props) => {
 
   const category = switchMainCategory();
 
-  useEffect(() => {
-    setClothesData([]);
-  }, [chooseModalState]);
-
-  useEffect(() => {
-    frontApi.getFilter({ categoryId: category }, setClothesData);
+  const getClothes = useCallback(async () => {
+    setLoading(true);
+    await frontApi.getFilter({ categoryId: category }, setClothesData);
     // 아래는 확인용 코드
     // frontApi.getFilter({ categoryId: category, limit: 1000}, setClothesData);
-  }, [category]);
+    setLoading(false);
+  }, [category]); 
+
+  useEffect(() => {
+    getClothes();
+  }, [getClothes]);
 
   const handleClose = () => {
     setChooseModalState((cur) => !cur);
@@ -76,7 +79,7 @@ export const ChooseModal = ({ categoryLabel }: Props) => {
       style={customStyles}
       ariaHideApp={false}
       contentLabel="Add Modal">
-      <Wrapper>
+      {!loading && <Wrapper>
         <TypoGraphy type="Title" fontWeight="bold">
           {/* {cloth} */}
           {categoryLabel}
@@ -100,7 +103,7 @@ export const ChooseModal = ({ categoryLabel }: Props) => {
             categoryLabel={categoryLabel}
           />
         </ContentBox>
-      </Wrapper>
+      </Wrapper>}
     </Modal>
   );
 };
