@@ -13,6 +13,7 @@ import {
 import { useRecoilState } from 'recoil';
 import { addModal } from 'recoil/atom';
 import { productApi } from 'api';
+import { infoModal } from 'utils/interactionModal';
 
 const customStyles = {
   content: {
@@ -46,7 +47,7 @@ export const AddModal = () => {
         setThumbnail(String(fileReader.result!));
       };
       setImage(e.target.files![0]);
-      alert('사진 등록!');
+      infoModal('옷 사진 등록완료!', 'success')
       e.target.value = '';
     }
   };
@@ -57,7 +58,7 @@ export const AddModal = () => {
 
   const addClothesItem = async () => {
     if (!(image && name && subCategory && color)) {
-      alert('상품의 이미지, 이름, 카테고리, 색상을 지정해주세요!');
+      infoModal('확인 해주세요!', 'error', '상품의 이미지, 이름, 카테고리, 색상을 지정해주세요!');
       return;
     }
     const frm = new FormData();
@@ -68,7 +69,9 @@ export const AddModal = () => {
     const data = await productApi.addProduct(frm);
     console.log(data);
     // 성공시 등록이 되었습니다! => 모달
-    alert('서버에 옷 등록');
+    infoModal('서버에 옷 등록완료!', 'success');
+
+    
     setAddModalState((cur) => !cur);
   };
 
