@@ -16,11 +16,9 @@ export const Calendar = () => {
   const [myOutfit, setMyOutfit] = useState<EventInput[]>([]);
   const router = useRouter();
 
-  const startDay = '2022-08-01';
-  const endDay = '2022-08-31';
-  const getMyOutfit = async () => {
+  const getMyOutfit = async (start: string, end: string) => {
     try {
-      const { data } = await todayCodyApi.getManyOutfit(startDay, endDay);
+      const { data } = await todayCodyApi.getManyOutfit(start, end);
       const realData: EventInput[] = data.map(
         (item: EventInput): EventInput => {
           return {
@@ -30,20 +28,14 @@ export const Calendar = () => {
           };
         },
       );
-
       setMyOutfit(realData);
     } catch (error) {
       console.log(error);
     }
   };
 
-  useEffect(() => {
-    getMyOutfit();
-  }, []);
-
   function renderEventContent(eventContent: EventContentArg) {
-    console.log(eventContent.event.extendedProps.rating);
-
+    // console.log(eventContent.event.extendedProps.rating);
     return (
       <DateItem
         weather={'cloud'}
@@ -71,13 +63,21 @@ export const Calendar = () => {
     });
   };
 
+  const dateSet = (arg: any) => {
+    const startArgDay = new Date(arg.start).toISOString().replace(/T.*$/, '');
+    const endArgDay = new Date(arg.end).toISOString().replace(/T.*$/, '');
+    getMyOutfit(startArgDay, endArgDay);
+  };
+
   return (
     <Wrapper>
       <FullCalendar
         events={myOutfit}
+        datesSet={dateSet}
         eventClick={moveToOutfit}
         select={handleDateSelect}
         plugins={[dayGridPlugin, interactionPlugin]}
+        titleFormat={{ year: 'numeric', month: 'narrow' }}
         locale="ko"
         eventColor="transparent"
         headerToolbar={{
