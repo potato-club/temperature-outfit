@@ -70,6 +70,7 @@ export function ReviewBox({ day }: ReviewBoxProps) {
     resetBottom();
     resetShoes();
     resetEtc();
+    setReviewThumbnail('');
     setReviewImage(undefined);
     setReviewText('');
     setRating('0');
