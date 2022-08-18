@@ -14,6 +14,7 @@ import { addModal } from 'recoil/atom';
 import { productType } from 'types/editPage/product.type';
 import { ClothesContainer, ColorRadio, SearchBox } from './components';
 import CategoryFilterBox from './components/CategoryFilterBox';
+import { CustomPagination } from './components/CustomPagination';
 
 export const Closet: React.FC = () => {
   const setAddModalState = useSetRecoilState(addModal);
@@ -22,6 +23,8 @@ export const Closet: React.FC = () => {
   const [subCategory, setSubCategory] = useState('all');
   const [color, setColor] = useState<string>('');
   const [name, setName] = useState<string>('');
+  const [activePage, setActivePage] = useState<number>(1);
+  const countPerPage = 10;
 
   const [clothesData, setClothesData] = useState<Array<productType>>();
 
@@ -50,11 +53,11 @@ export const Closet: React.FC = () => {
       filter.query = name;
     }
 
-    // filter.limit = 100;
-    // filter.page = 5;
+    filter.limit = countPerPage;
+    filter.page = activePage;
 
     frontApi.getFilter(filter, setClothesData);
-  }, [mainCategory, subCategory, color, name]);
+  }, [mainCategory, subCategory, color, name, activePage]);
 
   // useEffect(() => {
   //   getColorFilter(color);
@@ -81,6 +84,12 @@ export const Closet: React.FC = () => {
       <Line />
 
       <ClothesContainer clothesData={clothesData} />
+      <CustomPagination
+        activePage={activePage}
+        itemsCountPerPage={10}
+        totalItemsCount={1000} // Todo : 나중에 api 에서 필터된것들의 전체갯수 보내주면 그걸로 넣으면 됨
+        onChange={(e) => {setActivePage(e)}}
+      />
       <Footer>
         <CustomButton
           customType="colorful"
