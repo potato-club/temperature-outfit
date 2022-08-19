@@ -1,16 +1,31 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from '@emotion/styled';
 import { TypoGraphy, SelectBox } from 'components/common';
-import { customColor, city } from 'constants/index';
+import { customColor } from 'constants/index';
 import { GrLocation } from 'react-icons/Gr';
 import { signOut } from 'next-auth/react';
+import { useRecoilValue, useRecoilState } from 'recoil';
+import { locations, userState } from 'recoil/atom';
+import { userApi } from 'api';
 
 export const MyPage: React.FC = () => {
+  const [{ name, locationId }, setUser] = useRecoilState(userState);
+  const allLocations = useRecoilValue(locations);
+
+  const changeUserLocations = async (e: any) => {
+    try {
+      await userApi.changeUserLocation({ locationId: Number(e) });
+      setUser({ name, locationId: Number(e) });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <Container>
       <NameInfo>
         <TypoGraphy type="h2" color={customColor.brandColor3} fontWeight="bold">
-          아이유
+          {name}
         </TypoGraphy>
         <TypoGraphy type="h4" color={customColor.brandColor4} fontWeight="bold">
           님
@@ -19,7 +34,13 @@ export const MyPage: React.FC = () => {
 
       <LocationWrapper>
         <GrLocation size={28} />
-        <SelectBox width={80} dataArray={city} label="지역" />
+        <SelectBox
+          value={locationId.toString()}
+          categoryChange={changeUserLocations}
+          width={80}
+          dataArray={allLocations}
+          label="지역"
+        />
       </LocationWrapper>
 
       <TypoGraphy type="sm1">사는 지역을 선택해주세요</TypoGraphy>
