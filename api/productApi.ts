@@ -6,12 +6,7 @@ export const productApi = {
   addProduct: async (data: any) => api.post(`product`, data),
 
   // 옷 하나만 조회
-  // 필요없어서 지울 예정
   getProduct: async (id: string) => api.get(`product/${id}`),
-
-  // 옷 전체 조회
-  getAllProduct: async () => api.getAll(`product`),
-
 
   // 옷 필터해서 조회
   // { params : { 필터 : 값 } }
@@ -29,15 +24,6 @@ export type filterType = {
 };
 
 export const frontApi = {
-  getAllProduct: async (setClothesData: any) => {
-    try {
-      const {data} = await productApi.getAllProduct();
-      console.log(data);
-      setClothesData(data);
-    } catch(err) {
-      console.log(err);
-    }
-  },
 
   getFilter: async (filter: filterType, setClothesData: any) => {
     try {
