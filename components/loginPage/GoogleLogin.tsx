@@ -6,13 +6,26 @@ import { signIn } from 'next-auth/react';
 import { useSession } from 'next-auth/react';
 import { userState } from 'recoil/atom/user';
 import { useSetRecoilState } from 'recoil';
+import { userApi } from 'api';
 
 export const GoogleLogin: React.FC = () => {
   const { data: session, status } = useSession();
   const setUserInfo = useSetRecoilState(userState);
 
+  const userLocationzz = async () => {
+    try {
+      const { data } = await userApi.getAllLocations();
+      const { data: data2 } = await userApi.getUserLocation();
+      console.log(data);
+      console.log(data2);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
     if (session) {
+      userLocationzz();
       let userName: string = session.user!.name ?? '유저이름';
       // city도 이때 받아오기
       // 처음 값은 다 서울
