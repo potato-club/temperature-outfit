@@ -1,15 +1,23 @@
 import styled from '@emotion/styled';
+import { productApi } from 'api';
 import { ClothesBox } from 'components/common';
-import { clothesData } from 'dummy/clothesData';
+import { useEffect, useState } from 'react';
+import { productType } from 'types/editPage/product.type';
 type Props = {
-  category : string;
+  clothesData: productType[] | undefined;
 };
-export const ClothesContainer = ({category}:Props) => {
+export const ClothesContainer = ({ clothesData }: Props) => {
   return (
     <ItemContainer>
-      {clothesData.map((data, index) => (
-        data.category === category && <ClothesBox name={data.name} url={data.url} key={index} type='closet'/>
-      ))}
+      {clothesData &&
+        clothesData.map((data) => (
+          <ClothesBox
+            name={data.name}
+            url={data.imageUrl}
+            key={data.id}
+            type="closet"
+          />
+        ))}
     </ItemContainer>
   );
 };
@@ -23,5 +31,3 @@ const ItemContainer = styled.section`
   grid-auto-rows: 140px;
   justify-items: center;
 `;
-
-

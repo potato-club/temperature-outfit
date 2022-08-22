@@ -3,58 +3,58 @@ import { customColor } from 'constants/index';
 import Image from 'next/image';
 import React, { useState } from 'react';
 import { TypoGraphy } from 'components/common';
-import { FiX } from 'react-icons/fi';
+import { RecoilState, useSetRecoilState } from 'recoil';
+import { chooseModal } from 'recoil/atom';
+import { useRecoilState } from "recoil";
+import { frontApi } from "api/productApi";
+import { imageStateType } from 'types/editPage/imageStateType';
+import { ProductResponse } from 'types';
 
 type Props = {
   url: string;
   name: string;
-  type : 'edit' | 'closet';
-  id?: string;
-  deleteImage?: (id: string) => void;
+  id: string;
+  recoil: RecoilState<ProductResponse[]>;
 };
 
-export function ClothesBox({ url, name, id, deleteImage, type }: Props) {
+export function ModalClothesBox({ url, name, id, recoil }: Props) {
   const [showName, setShowName] = useState<boolean>(false);
-  const [showRemove, setShowRemove] = useState<boolean>(false);
+  const setChooseModalState = useSetRecoilState(chooseModal);
+  const [clothesData, setClothesData] = useRecoilState(recoil);
+
+
+  const addImage = () => {
+    console.log(id);
+    frontApi.getClothesEdit('query', id, clothesData, setClothesData);
+    setChooseModalState(false);
+  };
 
   return (
     <Container
-      type={type}
+      onClick={() => addImage()}
       onMouseOver={() => setShowName(true)}
       onMouseOut={() => setShowName(false)}>
-      <Image width={120} height={type === 'edit' ? 80 : 120} alt="clothes" src={url} />
+      <Image width={120} height={120} alt="clothes" src={url} />
       <ClothesName showName={showName}>
         <TypoGraphy type="sm1" color={customColor.white}>
           {name}
         </TypoGraphy>
       </ClothesName>
-      {deleteImage && id !== undefined && (
-        <RemoveWrapper
-          onClick={() => deleteImage(id)}
-          showRemove={showRemove}
-          onMouseOver={() => setShowRemove(true)}
-          onMouseOut={() => setShowRemove(false)}>
-          <FiX />
-        </RemoveWrapper>
-      )}
     </Container>
   );
 }
 
-type StyleProps = {
-  type: 'edit' | 'closet';
-};
 
-const Container = styled.section<StyleProps>`
+const Container = styled.section`
   display: flex;
-  position : ${({type}) => type === 'closet' && 'relative'};
+  position: relative;
   margin: 0;
   border: 4px solid ${customColor.brandColor1};
   border-radius: 24px;
   overflow: hidden;
   width: 120px;
-  height: ${({type}) => type === 'edit' ? '80px' : '120px'};
-  /* background: linear-gradient(180deg, #292929 0%, rgba(196, 196, 196, 0) 100%); */
+  height: 120px;
+  cursor: pointer;
 `;
 type NameProps = {
   showName: boolean;

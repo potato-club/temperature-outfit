@@ -33,6 +33,12 @@ export type ProductPostRequest = {
   color: string;
 };
 
+export type ProductPutRequest = {
+  name?: string;
+  categoryId?: string;
+  color?: string;
+};
+
 export type ProductResponse = {
   id: string;
   name: string;
@@ -53,6 +59,13 @@ export type OutfitGetRequest = {
 export type OutfitPostRequest = {
   date?: string;
   locationId?: number;
+  productsId?: string;
+  comment?: string;
+  rating?: string;
+};
+
+export type OutfitPutRequest = {
+  date?: string;
   productsId?: string;
   comment?: string;
   rating?: string;

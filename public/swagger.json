@@ -8,6 +8,10 @@
   "host": "localhost:3000",
   "tags": [
     {
+      "name": "location",
+      "description": "지역"
+    },
+    {
       "name": "category",
       "description": "카테고리"
     },
@@ -21,12 +25,93 @@
     }
   ],
   "paths": {
+    "/api/location": {
+      "get": {
+        "tags": [
+          "location"
+        ],
+        "description": "전체 지역 조회",
+        "responses": {
+          "200": {
+            "description": "조회 성공",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/LocationResponse"
+              },
+              "example": [
+                {
+                  "id": 1,
+                  "name": "서울"
+                },
+                {
+                  "id": 2,
+                  "name": "경기도"
+                },
+                {
+                  "id": 3,
+                  "name": "인천"
+                }
+              ]
+            }
+          }
+        }
+      }
+    },
+    "/api/user/location": {
+      "get": {
+        "tags": [
+          "location"
+        ],
+        "description": "자신의 지역 조회",
+        "responses": {
+          "200": {
+            "description": "조회 성공",
+            "schema": {
+              "$ref": "#/definitions/LocationResponse"
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "location"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "description": "자신의 지역 변경",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "locationId": {
+                  "type": "number"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "변경 성공",
+            "schema": {
+              "$ref": "#/definitions/LocationResponse"
+            }
+          }
+        }
+      }
+    },
     "/api/category": {
       "get": {
         "tags": [
           "category"
         ],
-        "description": "카테고리 전체 조회",
+        "description": "전체 카테고리 조회",
         "responses": {
           "200": {
             "description": "조회 성공",
@@ -51,34 +136,34 @@
         "description": "내 옷 & 악세서리 목록 조회",
         "parameters": [
           {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "type": "object",
-              "properties": {
-                "query": {
-                  "type": "string"
-                },
-                "categoryId": {
-                  "type": "string"
-                },
-                "color": {
-                  "type": "string"
-                },
-                "page": {
-                  "type": "integer",
-                  "minimum": 1,
-                  "default": 1
-                },
-                "limit": {
-                  "type": "integer",
-                  "minimum": 1,
-                  "maximum": 100,
-                  "default": 10
-                }
-              }
-            }
+            "in": "query",
+            "name": "query",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "categoryId",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "color",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "page",
+            "type": "integer",
+            "minimum": 1,
+            "default": 1
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100,
+            "default": 10
           }
         ],
         "responses": {
@@ -94,10 +179,16 @@
         }
       },
       "post": {
-        "tags": ["product"],
+        "tags": [
+          "product"
+        ],
         "description": "내 옷 & 악세서리 등록",
-        "produces": ["application/json"],
-        "consumes": ["multipart/form-data"],
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "multipart/form-data"
+        ],
         "parameters": [
           {
             "name": "image",
@@ -135,9 +226,13 @@
     },
     "/api/product/{productId}": {
       "get": {
-        "tags": ["product"],
+        "tags": [
+          "product"
+        ],
         "description": "내 옷 & 악세서리 조회",
-        "produces": ["application/json"],
+        "produces": [
+          "application/json"
+        ],
         "parameters": [
           {
             "name": "productId",
@@ -158,6 +253,93 @@
             "description": "일치하는 옷 & 악세서리가 없음 or 내 옷 & 악세서리가 아님"
           }
         }
+      },
+      "put": {
+        "tags": [
+          "product"
+        ],
+        "description": "내 옷 & 악세서리 변경",
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "parameters": [
+          {
+            "name": "productId",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "cuid"
+          },
+          {
+            "name": "image",
+            "in": "formData",
+            "type": "file"
+          },
+          {
+            "name": "name",
+            "in": "formData",
+            "type": "string"
+          },
+          {
+            "name": "categoryId",
+            "in": "formData",
+            "type": "string"
+          },
+          {
+            "name": "color",
+            "in": "formData",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "변경 성공",
+            "schema": {
+              "$ref": "#/definitions/ProductResponse"
+            }
+          },
+          "400": {
+            "description": "값 누락"
+          },
+          "404": {
+            "description": "내 옷 & 악세서리가 아님"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "product"
+        ],
+        "description": "내 옷 & 악세서리 삭제",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "productId",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "cuid"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "삭제 성공",
+            "schema": {
+              "$ref": "#/definitions/ProductResponse"
+            }
+          },
+          "400": {
+            "description": "값 누락"
+          },
+          "404": {
+            "description": "내 옷 & 악세서리가 아님"
+          }
+        }
       }
     },
     "/api/outfit": {
@@ -171,34 +353,16 @@
         "description": "내 옷차림 목록 조회",
         "parameters": [
           {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "type": "object",
-              "properties": {
-                "startDate": {
-                  "type": "string",
-                  "format": "date-time"
-                },
-                "endDate": {
-                  "type": "string",
-                  "format": "date-time"
-                },
-                "minRating": {
-                  "type": "integer",
-                  "minimum": 0,
-                  "maximum": 10,
-                  "default": 0
-                },
-                "maxRating": {
-                  "type": "integer",
-                  "minimum": 0,
-                  "maximum": 10,
-                  "default": 10
-                }
-              }
-            }
+            "in": "query",
+            "name": "startDate",
+            "type": "string",
+            "format": "date"
+          },
+          {
+            "in": "query",
+            "name": "endDate",
+            "type": "string",
+            "format": "date"
           }
         ],
         "responses": {
@@ -214,10 +378,16 @@
         }
       },
       "post": {
-        "tags": ["outfit"],
+        "tags": [
+          "outfit"
+        ],
         "description": "내 옷차림 등록",
-        "produces": ["application/json"],
-        "consumes": ["multipart/form-data"],
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "multipart/form-data"
+        ],
         "parameters": [
           {
             "name": "date",
@@ -268,9 +438,13 @@
     },
     "/api/outfit/{outfitId}": {
       "get": {
-        "tags": ["outfit"],
+        "tags": [
+          "outfit"
+        ],
         "description": "내 옷차림 조회",
-        "produces": ["application/json"],
+        "produces": [
+          "application/json"
+        ],
         "parameters": [
           {
             "name": "outfitId",
@@ -291,10 +465,119 @@
             "description": "일치하는 옷차림이 없음"
           }
         }
+      },
+      "put": {
+        "tags": [
+          "outfit"
+        ],
+        "description": "내 옷차림 변경",
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "parameters": [
+          {
+            "name": "outfitId",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "cuid"
+          },
+          {
+            "name": "date",
+            "in": "formData",
+            "type": "string",
+            "format": "date"
+          },
+          {
+            "name": "image",
+            "in": "formData",
+            "type": "file"
+          },
+          {
+            "name": "productsId",
+            "in": "formData",
+            "type": "string",
+            "description": "여러개를 ','로 구별한다. ex) id1,id2,id3"
+          },
+          {
+            "name": "comment",
+            "in": "formData",
+            "type": "string"
+          },
+          {
+            "name": "rating",
+            "in": "formData",
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 10
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "변경 성공",
+            "schema": {
+              "$ref": "#/definitions/OutfitResponse"
+            }
+          },
+          "400": {
+            "description": "값 누락"
+          },
+          "404": {
+            "description": "내 옷차림이 아님"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "outfit"
+        ],
+        "description": "내 옷차림 삭제",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "outfitId",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "cuid"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "삭제 성공",
+            "schema": {
+              "$ref": "#/definitions/OutfitResponse"
+            }
+          },
+          "400": {
+            "description": "값 누락"
+          },
+          "404": {
+            "description": "내 옷차림이 아님"
+          }
+        }
       }
     }
   },
   "definitions": {
+    "LocationResponse": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "number",
+          "example": 1
+        },
+        "name": {
+          "type": "string",
+          "example": "서울"
+        }
+      }
+    },
     "CategoryResponse": {
       "type": "object",
       "properties": {
@@ -382,7 +665,7 @@
           "type": "integer",
           "format": "int32",
           "minimum": 0,
-          "maximum": 10
+          "maximum": 100
         },
         "createdAt": {
           "type": "string",

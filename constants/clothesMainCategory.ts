@@ -2,6 +2,10 @@ import { CategoryDetail } from 'constants/types';
 
 export const clothesMainCategory: CategoryDetail[] = [
   {
+    name: '전체',
+    id: 'all',
+  },
+  {
     name: '상의',
     id: 'top',
   },
