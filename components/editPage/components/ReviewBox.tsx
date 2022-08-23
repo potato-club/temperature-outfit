@@ -11,7 +11,7 @@ import {
   outerState,
   shoesState,
   topState,
-} from 'state/editState';
+} from 'recoil/atom';
 import { todayCodyApi } from 'api';
 import { confirmModal, infoModal } from 'utils/interactionModal';
 import { useRouter } from 'next/router';
