@@ -7,60 +7,46 @@ import FullCalendar, {
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import styled from '@emotion/styled';
-import { customColor } from 'constants/index';
 import { EventInput } from '@fullcalendar/react';
 import { todayCodyApi } from 'api';
 import { useRouter } from 'next/router';
+import { DateItem } from './DateItem';
 
-const Calendar = () => {
-  const [myCody, setMyCody] = useState<EventInput[]>([]);
+export const Calendar = () => {
+  const [myOutfit, setMyOutfit] = useState<EventInput[]>([]);
   const router = useRouter();
 
-  const getMyCody = async () => {
+  const getMyOutfit = async (start: string, end: string) => {
     try {
-      const { data } = await todayCodyApi.getManyOutfit({
-        startDate: '2022-08-01',
-        endDate: '2022-08-26',
-        minRating: 0,
-        maxRating: 10,
-      });
-
+      const { data } = await todayCodyApi.getManyOutfit(start, end);
       const realData: EventInput[] = data.map(
         (item: EventInput): EventInput => {
           return {
             id: item.id,
             start: item.date,
-            title: item.comment, // 이거 변경 할 예정
+            rating: item.rating,
           };
         },
       );
-
-      setMyCody(realData);
+      setMyOutfit(realData);
     } catch (error) {
       console.log(error);
     }
   };
 
-  useEffect(() => {
-    getMyCody();
-  }, []);
-
   function renderEventContent(eventContent: EventContentArg) {
-    // console.log(eventContent.event.title);
-    // console.log(eventContent.event);
+    // console.log(eventContent.event.extendedProps.rating);
     return (
-      <Date>
-        <b>평점 : {eventContent.event.title}</b>
-        <br />
-        <i>평균 온도 : 23.5°C</i>
-        <br />
-        <i>기후 : 왼쪽 위</i>
-      </Date>
+      <DateItem
+        weather={'cloud'}
+        temperature={'23'}
+        rating={eventContent.event.extendedProps.rating}
+      />
     );
   }
 
   const handleDateSelect = (selectInfo: DateSelectArg) => {
-    if (myCody.map((item) => item.start).includes(selectInfo.startStr)) {
+    if (myOutfit.map((item) => item.start).includes(selectInfo.startStr)) {
       return null;
     }
     router.push({
@@ -77,13 +63,21 @@ const Calendar = () => {
     });
   };
 
+  const dateSet = (arg: any) => {
+    const startArgDay = new Date(arg.start).toISOString().replace(/T.*$/, '');
+    const endArgDay = new Date(arg.end).toISOString().replace(/T.*$/, '');
+    getMyOutfit(startArgDay, endArgDay);
+  };
+
   return (
     <Wrapper>
       <FullCalendar
-        events={myCody}
-        eventClick={moveToOutfit} // 등록된 이벤트를 클릭할 때
-        select={handleDateSelect} // 날짜 클릭 이벤트
+        events={myOutfit}
+        datesSet={dateSet}
+        eventClick={moveToOutfit}
+        select={handleDateSelect}
         plugins={[dayGridPlugin, interactionPlugin]}
+        titleFormat={{ year: 'numeric', month: 'narrow' }}
         locale="ko"
         eventColor="transparent"
         headerToolbar={{
@@ -98,7 +92,7 @@ const Calendar = () => {
         dayMaxEvents={true}
         weekends={true}
         eventStartEditable={false}
-        contentHeight={800} // 날짜 컨텐츠 박스 크기 지정
+        contentHeight={800}
         eventContent={renderEventContent}
       />
     </Wrapper>
@@ -113,16 +107,3 @@ const Wrapper = styled.section`
   margin-top: 58px;
   margin-bottom: 12px;
 `;
-
-const Date = styled.article`
-  background-color: ${customColor.brandColor3};
-  padding: 12px 0;
-  display: flex;
-  flex-direction: column;
-  justify-items: center;
-  align-items: center;
-  cursor: pointer;
-  border-radius: 20px;
-`;
-
-export default Calendar;

@@ -8,12 +8,12 @@ import { SessionProvider } from 'next-auth/react';
 function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
   return (
     <SessionProvider session={session}>
-      <LayoutContainer>
-        <Header />
-        <RecoilRoot>
+      <RecoilRoot>
+        <LayoutContainer>
+          <Header />
           <Component {...pageProps} />
-        </RecoilRoot>
-      </LayoutContainer>
+        </LayoutContainer>
+      </RecoilRoot>
     </SessionProvider>
   );
 }

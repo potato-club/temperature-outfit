@@ -1,3 +1,4 @@
+import { infoModal } from 'utils/interactionModal';
 import api from './common';
 
 export const productApi = {
@@ -46,12 +47,11 @@ export const frontApi = {
         if(clothesData.findIndex(
             (clothes: any) => clothes.id === data.id,
           ) !== -1) {
-            alert("이미 등록된 옷입니다.")
+            infoModal('이미 등록된 옷입니다.','error');
             return;
           }
           setClothesData(clothesData.concat(data));
-          alert('등록 성공!');
-
+          infoModal('등록 성공!', 'success');
       } catch(err) {
         console.log(err);
       }

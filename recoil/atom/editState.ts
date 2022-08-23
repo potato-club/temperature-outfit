@@ -26,8 +26,3 @@ export const etcState = atom<ProductResponse[]>({
   key: 'etcImages',
   default: [],
 });
-
-export const reviewImageState = atom({
-  key: 'codyImage',
-  default: '/reviewDummy/review1.jpg',
-});
