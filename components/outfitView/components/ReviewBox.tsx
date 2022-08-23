@@ -5,6 +5,8 @@ import { customColor } from 'constants/index';
 import Image from 'next/image';
 import { Rating } from 'react-simple-star-rating';
 import { useRouter } from 'next/router';
+import { confirmModal } from 'utils/interactionModal';
+import { todayCodyApi } from 'api';
 
 interface ReviewBoxProps {
   comment: string;
@@ -13,9 +15,23 @@ interface ReviewBoxProps {
 }
 export function ReviewBox({ comment, rating, outFitImageUrl }: ReviewBoxProps) {
   const router = useRouter();
-  const goToBack = () => {
+  const handlePut = () => {
     router.back();
+    // 해당 정보들을 가지고 edit으로 이동
   };
+
+  const deleteModal = () => {
+    confirmModal('삭제하시겠습니까?', handleDelete);
+  };
+
+  const handleDelete = async () => {
+    try {
+      await todayCodyApi.deleteOutfit(router.query.id as string);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <Container>
       <BoxWrapper>
@@ -50,10 +66,16 @@ export function ReviewBox({ comment, rating, outFitImageUrl }: ReviewBoxProps) {
       </BoxWrapper>
       <ButtonContainer>
         <CustomButton
+          customType="white"
+          text="삭제하기"
+          sidePadding="20"
+          onClick={deleteModal}
+        />
+        <CustomButton
           customType="colorful"
-          text="뒤로가기"
-          sidePadding="40"
-          onClick={goToBack}
+          text="수정하기"
+          sidePadding="20"
+          onClick={handlePut}
         />
       </ButtonContainer>
     </Container>

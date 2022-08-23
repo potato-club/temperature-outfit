@@ -17,6 +17,7 @@ export default function EditPage() {
     comment: '초기 Comment',
   });
 
+
   useEffect(() => {
     router.query.id &&
       (async () => {
