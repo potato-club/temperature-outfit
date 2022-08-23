@@ -13,6 +13,7 @@ import {
   topState,
 } from 'recoil/atom';
 import { todayCodyApi } from 'api';
+import { IoMdImage } from 'react-icons/io';
 import { confirmModal, infoModal } from 'utils/interactionModal';
 import { useRouter } from 'next/router';
 interface ReviewBoxProps {
@@ -76,6 +77,7 @@ export function ReviewBox({ day }: ReviewBoxProps) {
     resetBottom();
     resetShoes();
     resetEtc();
+    setReviewThumbnail('');
     setReviewImage(undefined);
     setReviewText('');
     setRating('0');
@@ -104,21 +106,27 @@ export function ReviewBox({ day }: ReviewBoxProps) {
   return (
     <Container>
       <BoxWrapper>
+        <AddButton
+          id="codyImage"
+          ref={codyRef}
+          type="file"
+          accept="image/*"
+          onChange={addImage}
+        />
         <ImageWrapper>
-          <AddButton
-            id="codyImage"
-            ref={codyRef}
-            type="file"
-            accept="image/*"
-            onChange={addImage}
-          />
-          <Image
-            src={reviewThumbnail || '/reviewDummy/review1.jpg'}
-            alt="review"
-            width={360}
-            height={240}
-            onClick={() => codyRef.current && codyRef.current.click()}
-          />
+          {reviewThumbnail ? (
+            <Image
+              src={reviewThumbnail}
+              alt="review"
+              layout="fill"
+              onClick={() => codyRef.current && codyRef.current.click()}
+            />
+          ) : (
+            <InitialImage
+              opacity={0.5}
+              onClick={() => codyRef.current && codyRef.current.click()}
+            />
+          )}
         </ImageWrapper>
         <ButtonWrapper>
           <CustomButton
@@ -186,7 +194,14 @@ const Container = styled.section`
   justify-content: space-between;
 `;
 
+const AddButton = styled.input`
+  display: none;
+`;
+
 const ImageWrapper = styled.section`
+  position: relative;
+  width: 360px;
+  height: 240px;
   border-radius: 10px;
   overflow: hidden;
 `;
@@ -236,6 +251,8 @@ const BoxWrapper = styled.section`
   gap: 12px 0;
 `;
 
-const AddButton = styled.input`
-  display: none;
+const InitialImage = styled(IoMdImage)`
+  width: 360px;
+  height: 240px;
+  background-color: ${customColor.gray};
 `;
