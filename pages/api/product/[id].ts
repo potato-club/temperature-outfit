@@ -55,7 +55,7 @@ handler.put(filesParser, async (req, res) => {
         where: { id: id },
         include: { owner: true },
       })
-    )?.owner.email == req.session.user?.email
+    )?.owner.email !== req.session.user?.email
   ) {
     return res.status(404);
   }
@@ -86,7 +86,7 @@ handler.delete(async (req, res) => {
         where: { id: id },
         include: { owner: true },
       })
-    )?.owner.email == req.session.user?.email
+    )?.owner.email !== req.session.user?.email
   ) {
     return res.status(404);
   }
