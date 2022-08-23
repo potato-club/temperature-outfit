@@ -1,30 +1,58 @@
-import React, { useEffect } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import styled from '@emotion/styled';
 import Image from 'next/image';
 import googleLogo from 'assets/img/googleNormal.png';
 import { signIn } from 'next-auth/react';
 import { useSession } from 'next-auth/react';
-import { userState } from 'recoil/atom/user';
+import { userState, locations } from 'recoil/atom/';
 import { useSetRecoilState } from 'recoil';
+import { userApi } from 'api';
+import { useRouter } from 'next/router';
 
 export const GoogleLogin: React.FC = () => {
+  const router = useRouter();
   const { data: session, status } = useSession();
   const setUserInfo = useSetRecoilState(userState);
+  const setAllLocations = useSetRecoilState(locations);
+
+  const handleAllLocation = useCallback(async () => {
+    try {
+      const { data } = await userApi.getAllLocations();
+      setAllLocations(data);
+    } catch (error) {
+      console.log(error);
+    }
+  }, [setAllLocations]);
+
+  const handleUserData = useCallback(
+    async (session: any) => {
+      try {
+        const { data: location } = await userApi.getUserLocation();
+        let userName: string = session.user!.name ?? '유저이름';
+        setUserInfo({ name: userName, locationId: location.id });
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    [setUserInfo],
+  );
 
   useEffect(() => {
-    if (session) {
-      let userName: string = session.user!.name ?? '유저이름';
-      // city도 이때 받아오기
-      // 처음 값은 다 서울
-      console.log(userName);
-      setUserInfo({ name: userName, city: '지역id' });
-    }
-  }, [session, setUserInfo]);
+    handleAllLocation();
+    session && handleUserData(session);
+  }, [session, handleUserData, handleAllLocation]);
 
-  console.log(status); // status가 authenticated가 되면 recoil로 state 저장
+  const onClick = () => {
+    signIn('google');
+  };
+
+  if (status === 'authenticated') {
+    router.push('/');
+  }
+
   return (
     <Button>
-      <Img onClick={() => signIn('google')}>
+      <Img onClick={onClick}>
         <Image src={googleLogo} alt="구글 로고" />
       </Img>
     </Button>
