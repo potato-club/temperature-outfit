@@ -12,7 +12,7 @@ import {
   outerState,
   shoesState,
   topState,
-} from 'state/editState';
+} from 'recoil/atom';
 import { todayCodyApi } from 'api';
 interface ReviewBoxProps {
   day: string;
