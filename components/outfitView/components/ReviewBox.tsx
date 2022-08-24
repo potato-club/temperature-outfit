@@ -21,7 +21,7 @@ export function ReviewBox({ comment, rating, outFitImageUrl }: ReviewBoxProps) {
       <BoxWrapper>
         <ImageWrapper>
           <Image
-            src={outFitImageUrl} // 코디 사진
+            src={outFitImageUrl || '/cody.jpg'} // 코디 사진
             alt="review"
             width={360}
             height={240}
