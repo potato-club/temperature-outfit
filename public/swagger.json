@@ -407,6 +407,12 @@
             "type": "file"
           },
           {
+            "name": "locationId",
+            "in": "formData",
+            "required": true,
+            "type": "string"
+          },
+          {
             "name": "productsId",
             "in": "formData",
             "required": true,
@@ -684,6 +690,12 @@
         "date": {
           "type": "string",
           "format": "date"
+        },
+        "locationId": {
+          "type": "integer"
+        },
+        "weather": {
+          "$ref": "#/definitions/WeatherResponse"
         },
         "imageUrl": {
           "type": "string"

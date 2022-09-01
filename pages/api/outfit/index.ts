@@ -63,7 +63,7 @@ handler.post(filesParser, async (req, res) => {
         connect: {
           date_locationId: {
             date: new Date(body.date),
-            locationId: body.locationId,
+            locationId: +body.locationId,
           },
         },
       },
