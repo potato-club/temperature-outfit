@@ -60,11 +60,13 @@ model VerificationToken {
 }
 
 model Location {
-  id        Int    @id @default(autoincrement())
+  id        Int       @id @default(autoincrement())
   name      String
   latitude  Float
   longitude Float
   User      User[]
+  Weather   Weather[]
+  Outfit    Outfit[]
 }
 
 model Category {
@@ -102,14 +104,42 @@ model Product {
 }
 
 model Outfit {
-  id        String    @id @default(cuid())
-  ownerId   String
-  owner     User      @relation(fields: [ownerId], references: [id], onDelete: Cascade)
-  date      DateTime  @db.Date
-  imageUrl  String?
-  comment   String?
-  rating    Int       @default(0)
-  products  Product[]
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
+  id         String    @id @default(cuid())
+  ownerId    String
+  owner      User      @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  date       DateTime  @db.Date
+  locationId Int       @default(1)
+  location   Location  @relation(fields: [locationId], references: [id], onDelete: Cascade)
+  weather    Weather?  @relation(fields: [date, locationId], references: [date, locationId], onDelete: NoAction)
+  imageUrl   String?
+  comment    String?
+  rating     Int       @default(0)
+  products   Product[]
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+}
+
+model Weather {
+  date               DateTime      @db.Date
+  locationId         Int
+  location           Location      @relation(fields: [locationId], references: [id], onDelete: Cascade)
+  status             WeatherStatus @default(sun)
+  temperature        Float
+  lowestTemperature  Float
+  highestTemperature Float
+  feelsLike          Float
+  humidity           Int
+  isForecast         Boolean       @default(true)
+  createdAt          DateTime      @default(now())
+  updatedAt          DateTime      @updatedAt
+  Outfit             Outfit[]
+
+  @@id([date, locationId])
+}
+
+enum WeatherStatus {
+  sun
+  cloud
+  rain
+  snow
 }
