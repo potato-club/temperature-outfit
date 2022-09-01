@@ -26,6 +26,7 @@ export function ReviewBox({
       {
         pathname: '/edit',
         query: {
+          day: outfitData.date,
           outfitData: JSON.stringify(outfitData),
         },
       },

@@ -18,12 +18,17 @@ import { confirmModal, infoModal } from 'utils/interactionModal';
 import { useRouter } from 'next/router';
 interface ReviewBoxProps {
   day: string;
+  putImageUrl?: string;
+  putRating?: string;
+  putComment?: string;
 }
 
-export function ReviewBox({ day }: ReviewBoxProps) {
-  const router = useRouter();
-  // console.log(JSON.parse(router.query.outfitData));
-
+export function ReviewBox({
+  day,
+  putImageUrl = '',
+  putRating = '0',
+  putComment = '',
+}: ReviewBoxProps) {
   const onSave = async () => {
     const frm = new FormData();
     let productsIdString = '';
@@ -64,9 +69,10 @@ export function ReviewBox({ day }: ReviewBoxProps) {
   const resetEtc = useResetRecoilState(etcState);
 
   const [reviewImage, setReviewImage] = useState<File>();
-  const [reviewThumbnail, setReviewThumbnail] = useState<string>();
-  const [reviewText, setReviewText] = useState<string>('');
-  const [rating, setRating] = useState<string>('0');
+  const [reviewThumbnail, setReviewThumbnail] = useState<string>(putImageUrl);
+  const [reviewText, setReviewText] = useState<string>(putComment);
+  const [rating, setRating] = useState<string>(putRating);
+
   const topImage = useRecoilValue(topState);
   const outerImage = useRecoilValue(outerState);
   const bottomImage = useRecoilValue(bottomState);

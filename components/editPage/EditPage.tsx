@@ -12,9 +12,13 @@ export default function EditPage() {
   const router = useRouter();
 
   const dayQuery = router.query.day as string;
-  const temp = '2022-08-22';
+  const tempDay = '2222-22-22';
 
-  const day = new Date(dayQuery ?? temp).toISOString().replace(/T.*$/, '');
+  const day = new Date(dayQuery ?? tempDay).toISOString().replace(/T.*$/, '');
+
+  const { imageUrl, rating, products, comment } = JSON.parse(
+    router.query.outfitData as string,
+  );
 
   return (
     <Container>
@@ -39,7 +43,12 @@ export default function EditPage() {
             </Category>
           ))}
         </CodyBox>
-        <ReviewBox day={day}/>
+        <ReviewBox
+          day={day}
+          putImageUrl={imageUrl}
+          putRating={rating}
+          putComment={comment}
+        />
       </Contents>
       <ChooseModal categoryLabel={modalCategory} />
     </Container>
