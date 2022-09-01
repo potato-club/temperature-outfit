@@ -4,8 +4,12 @@ import { TypoGraphy } from 'components/common';
 import { DressRoom, ReviewBox, Title } from './components';
 import { categories } from 'types/editPage/categories';
 import { editDummy } from 'dummy/newEditDummy';
+import { ChooseModal } from 'components/modal';
+import { chooseModal } from 'recoil/atom';
 
 export default function EditPage() {
+  const [modalCategory, setModalCategory] = useState('');
+
   return (
     <Container>
       <Title
@@ -21,12 +25,17 @@ export default function EditPage() {
               <TypoGraphy type="Title" fontWeight="bold">
                 {data.title}
               </TypoGraphy>
-              <DressRoom category={data.title} recoil={data.recoil} />
+              <DressRoom
+                category={data.title}
+                recoil={data.recoil}
+                setModalCategory={setModalCategory}
+              />
             </Category>
           ))}
         </CodyBox>
         <ReviewBox />
       </Contents>
+      {modalCategory && <ChooseModal categoryLabel={modalCategory} />}
     </Container>
   );
 }

@@ -1,6 +1,7 @@
-import { File } from 'formidable';
+import type { WeatherStatus } from '@prisma/client';
+import type { File } from 'formidable';
 import type { NextApiRequest } from 'next';
-import { Session } from 'next-auth';
+import type { Session } from 'next-auth';
 
 export type ApiRequest = NextApiRequest & {
   session?: Session;
@@ -23,14 +24,20 @@ export type ProductGetRequest = {
   query?: string;
   categoryId?: string;
   color?: string;
-  page?: number;
-  limit?: number;
+  page?: string;
+  limit?: string;
 };
 
 export type ProductPostRequest = {
   name: string;
   categoryId: string;
   color: string;
+};
+
+export type ProductPutRequest = {
+  name?: string;
+  categoryId?: string;
+  color?: string;
 };
 
 export type ProductResponse = {
@@ -52,6 +59,14 @@ export type OutfitGetRequest = {
 
 export type OutfitPostRequest = {
   date?: string;
+  locationId?: number;
+  productsId?: string;
+  comment?: string;
+  rating?: string;
+};
+
+export type OutfitPutRequest = {
+  date?: string;
   productsId?: string;
   comment?: string;
   rating?: string;
@@ -60,10 +75,29 @@ export type OutfitPostRequest = {
 export type OutfitResponse = {
   id: string;
   date: string;
+  locationId: number;
+  weather?: WeatherResponse;
   imageUrl?: string;
   products: ProductResponse[];
   comment?: string;
   rating: number;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type WeatherGetRequest = {
+  date?: string;
+  locationId?: string;
+};
+
+export type WeatherResponse = {
+  date: string;
+  locationId: number;
+  status: WeatherStatus;
+  temperature: number;
+  lowestTemperature: number;
+  highestTemperature: number;
+  isForecast: boolean;
   createdAt: string;
   updatedAt: string;
 };

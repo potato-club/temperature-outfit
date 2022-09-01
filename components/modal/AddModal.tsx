@@ -1,8 +1,8 @@
-import React, { useState, ChangeEvent } from 'react';
+import React, { useState, ChangeEvent, useRef, useEffect } from 'react';
 import Modal from 'react-modal';
 import styled from '@emotion/styled';
 import { CustomButton, SelectBox, TypoGraphy } from 'components/common';
-import { RadioButtons } from 'components/closet/components';
+import { ColorRadio } from 'components/closet/components';
 import Image from 'next/image';
 import { IoMdImage } from 'react-icons/io';
 import {
@@ -10,6 +10,9 @@ import {
   clothesMainCategory,
   clothesSubCategory,
 } from 'constants/index';
+import { useRecoilState } from 'recoil';
+import { addModal } from 'recoil/atom';
+import { productApi } from 'api';
 
 const customStyles = {
   content: {
@@ -22,53 +25,76 @@ const customStyles = {
   },
 };
 
-interface ModalProps {
-  modalIsOpen: boolean;
-  closeModal: () => void;
-}
+export const AddModal = () => {
+  const [addModalState, setAddModalState] = useRecoilState(addModal);
+  const [image, setImage] = useState<File>();
+  const [name, setName] = useState<string>('');
+  const [color, setColor] = useState<string>('');
+  const [mainCategory, setMainCategory] = useState<string>('top');
+  const [subCategory, setSubCategory] = useState<string>('sleeveless');
+  const [thumbnail, setThumbnail] = useState<string>('');
 
-export const AddModal = ({ modalIsOpen, closeModal }: ModalProps) => {
-  const [selectedMainCategory, setSelectedMainCategory] = useState('top');
-  const [clothesName, setClothesName] = useState('');
-  const [images, setImages] = useState('');
+  const codyRef = useRef<HTMLInputElement>(null);
 
   const addImage = (e: ChangeEvent<HTMLInputElement>) => {
-    // e.preventDefault();
-    console.log(e.target.value);
-    console.log(e.target.files);
-    //   if (e.target.value) {
-    //     setImages(e.target.value);
-    //     const fileReader = new FileReader();
-    //     fileReader.readAsDataURL(e.target.files![0]);
+    e.preventDefault();
 
-    //     // fileReader.onload = () => {
-    //     //   setImages({
-    //     //     id: imageId.current++,
-    //     //     image_file: e.target.files![0],
-    //     //     preview_URL: String(fileReader.result!),
-    //     //   });
-    //     // };
-    //     alert('사진 등록!');
-    //     e.target.value = '';
-    //   }
+    if (e.target.value[0]) {
+      const fileReader = new FileReader();
+      fileReader.readAsDataURL(e.target.files![0]);
+      fileReader.onload = () => {
+        setThumbnail(String(fileReader.result!));
+      };
+      setImage(e.target.files![0]);
+      alert('사진 등록!');
+      e.target.value = '';
+    }
   };
-  // color 받기
-  // 해당 카테고리 state 받기
 
   const onChange = (e: React.FormEvent<HTMLInputElement>) => {
-    setClothesName(e.currentTarget.value);
+    setName(e.currentTarget.value);
   };
 
-  const addClothesItem = () => {
-    // 서버에 옷 등록 로직
+  const addClothesItem = async () => {
+    if(!(image && name && subCategory && color)) {
+      alert('상품의 이미지, 이름, 카테고리, 색상을 지정해주세요!')
+      return;
+    }
+    const frm = new FormData();
+    frm.append('image', image!);
+    frm.append('name', name);
+    frm.append('categoryId', subCategory);
+    frm.append('color', color);
+    const data = await productApi.addProduct(frm);
+    console.log(data);
     // 성공시 등록이 되었습니다! => 모달
     alert('서버에 옷 등록');
   };
+
+  useEffect(() => {
+    setColor('');
+  }, [mainCategory, subCategory]);
+
+  // 확인용 코드
+  useEffect(() => {
+    console.log(image);
+  }, [image]);
+  useEffect(() => {
+    console.log(name);
+  }, [name]);
+  useEffect(() => {
+    console.log(subCategory);
+  }, [subCategory]);
+  useEffect(() => {
+    console.log(color);
+  }, [color]);
+
   return (
     <Modal
-      isOpen={modalIsOpen}
-      onRequestClose={closeModal}
+      isOpen={addModalState}
+      onRequestClose={() => setAddModalState((cur) => !cur)}
       style={customStyles}
+      ariaHideApp={false}
       contentLabel="Add Modal">
       <Wrapper>
         <Title>
@@ -76,22 +102,39 @@ export const AddModal = ({ modalIsOpen, closeModal }: ModalProps) => {
             옷 등록하기
           </TypoGraphy>
         </Title>
+
         <AddButton
-          id={`imgUpload`}
+          id="codyImage"
+          ref={codyRef}
           type="file"
           accept="image/*"
           onChange={addImage}
         />
-        <Label htmlFor={`imgUpload`}>
-          <IoMdImage size={200} color={customColor.black} opacity={0.5} />
-        </Label>
+        <ImageWrapper>
+          {thumbnail ? (
+            <Image
+              width={360}
+              height={360}
+              src={thumbnail}
+              alt="clothes"
+              onClick={() => codyRef.current && codyRef.current.click()}
+            />
+          ) : (
+            <InitialImage
+              size={360}
+              opacity={0.5}
+              onClick={() => codyRef.current && codyRef.current.click()}
+            />
+          )}
+        </ImageWrapper>
+
         <ContentBox>
           <InputWrapper>
             <TypoGraphy type="h3" fontWeight="bold">
               이름
             </TypoGraphy>
             <Input
-              value={clothesName}
+              value={name}
               placeholder="옷의 이름을 입력해주세요."
               onChange={onChange}
             />
@@ -99,20 +142,26 @@ export const AddModal = ({ modalIsOpen, closeModal }: ModalProps) => {
           <CategoryWrapper>
             <InputWrapper>
               <SelectBox
-                label="전체"
-                dataArray={clothesMainCategory}
-                subCategoryChange={setSelectedMainCategory}
+                label="메인"
+                dataArray={clothesMainCategory.slice(1)}
+                categoryChange={setMainCategory}
+                changeSubByMain={setSubCategory}
+                value={mainCategory}
+                modal
               />
             </InputWrapper>
             <InputWrapper>
               <SelectBox
                 label="서브"
-                dataArray={clothesSubCategory[selectedMainCategory]}
+                dataArray={clothesSubCategory[mainCategory].slice(1)}
+                categoryChange={setSubCategory}
+                value={subCategory}
+                modal
               />
             </InputWrapper>
           </CategoryWrapper>
           <RadioButtonsWrapper>
-            <RadioButtons />
+            <ColorRadio color={color} setColor={setColor} />
           </RadioButtonsWrapper>
           <ButtonWrapper>
             <CustomButton
@@ -127,12 +176,12 @@ export const AddModal = ({ modalIsOpen, closeModal }: ModalProps) => {
     </Modal>
   );
 };
-const Img = styled.article`
-  width: 100%;
-  height: 400px;
-  background-color: ${customColor.gray};
-  border-radius: 40px;
-`;
+// const Img = styled.article`
+//   width: 100%;
+//   height: 400px;
+//   background-color: ${customColor.gray};
+//   border-radius: 40px;
+// `;
 
 const Wrapper = styled.section`
   display: flex;
@@ -180,11 +229,15 @@ const AddButton = styled.input`
   display: none;
 `;
 
-const Label = styled.label`
+const InitialImage = styled(IoMdImage)`
   width: 100%;
-  height: 400px;
   background-color: ${customColor.gray};
   border-radius: 40px;
+`;
+
+const ImageWrapper = styled.section`
+  width: 100%;
+  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
