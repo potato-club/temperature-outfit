@@ -21,6 +21,8 @@ interface ReviewBoxProps {
 }
 
 export function ReviewBox({ day }: ReviewBoxProps) {
+  const router = useRouter();
+  // console.log(JSON.parse(router.query.outfitData));
 
   const onSave = async () => {
     const frm = new FormData();
@@ -50,8 +52,8 @@ export function ReviewBox({ day }: ReviewBoxProps) {
   };
 
   const confirmBtn = () => {
-    confirmModal("등록 하시겠습니까?", onSave);
-  }
+    confirmModal('등록 하시겠습니까?', onSave);
+  };
 
   const codyRef = useRef<HTMLInputElement>(null);
 
@@ -98,7 +100,7 @@ export function ReviewBox({ day }: ReviewBoxProps) {
         setReviewThumbnail(String(fileReader.result!));
       };
       setReviewImage(e.target.files![0]);
-      infoModal('코디 사진 변경완료!', 'success')
+      infoModal('코디 사진 변경완료!', 'success');
       e.target.value = '';
     }
   };

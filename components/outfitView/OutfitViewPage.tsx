@@ -17,7 +17,6 @@ export default function EditPage() {
     comment: '초기 Comment',
   });
 
-
   useEffect(() => {
     router.query.id &&
       (async () => {
@@ -25,7 +24,6 @@ export default function EditPage() {
           const {
             data: { date, imageUrl, rating, products, comment },
           } = await todayCodyApi.getOutfit(router.query.id as string);
-
           setOutfitData({
             date,
             imageUrl,
@@ -71,6 +69,7 @@ export default function EditPage() {
           ))}
         </CodyBox>
         <ReviewBox
+          outfitData={outfitData}
           comment={outfitData.comment}
           rating={outfitData.rating}
           outFitImageUrl={outfitData.imageUrl}

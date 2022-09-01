@@ -12,12 +12,25 @@ interface ReviewBoxProps {
   comment: string;
   rating: number;
   outFitImageUrl: string;
+  outfitData: any;
 }
-export function ReviewBox({ comment, rating, outFitImageUrl }: ReviewBoxProps) {
+export function ReviewBox({
+  comment,
+  rating,
+  outFitImageUrl,
+  outfitData,
+}: ReviewBoxProps) {
   const router = useRouter();
   const handlePut = () => {
-    router.back();
-    // 해당 정보들을 가지고 edit으로 이동
+    router.push(
+      {
+        pathname: '/edit',
+        query: {
+          outfitData: JSON.stringify(outfitData),
+        },
+      },
+      'put',
+    );
   };
 
   const deleteModal = () => {
