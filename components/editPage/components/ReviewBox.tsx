@@ -29,6 +29,8 @@ export function ReviewBox({
   putRating = '0',
   putComment = '',
 }: ReviewBoxProps) {
+  const router = useRouter();
+
   const onSave = async () => {
     const frm = new FormData();
     let productsIdString = '';
@@ -79,7 +81,7 @@ export function ReviewBox({
   const shoesImage = useRecoilValue(shoesState);
   const etcImage = useRecoilValue(etcState);
 
-  const ResetAll = () => {
+  const handleCancel = () => {
     resetTop();
     resetOuter();
     resetBottom();
@@ -89,6 +91,7 @@ export function ReviewBox({
     setReviewImage(undefined);
     setReviewText('');
     setRating('0');
+    router.back();
   };
 
   const handleRating = (rate: number) => {
@@ -180,13 +183,13 @@ export function ReviewBox({
           customType="white"
           text="취소"
           sidePadding="40"
-          onClick={() => ResetAll()}
+          onClick={handleCancel}
         />
         <CustomButton
           customType="colorful"
           text="등록"
           sidePadding="40"
-          onClick={() => confirmBtn()}
+          onClick={confirmBtn}
         />
       </ButtonContainer>
     </Container>
