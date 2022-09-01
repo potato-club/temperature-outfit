@@ -120,18 +120,26 @@ model Outfit {
 }
 
 model Weather {
-  date               DateTime @db.Date
+  date               DateTime      @db.Date
   locationId         Int
-  location           Location @relation(fields: [locationId], references: [id], onDelete: Cascade)
+  location           Location      @relation(fields: [locationId], references: [id], onDelete: Cascade)
+  status             WeatherStatus @default(sun)
   temperature        Float
   lowestTemperature  Float
   highestTemperature Float
   feelsLike          Float
   humidity           Int
-  isForecast         Boolean  @default(true)
-  createdAt          DateTime @default(now())
-  updatedAt          DateTime @updatedAt
+  isForecast         Boolean       @default(true)
+  createdAt          DateTime      @default(now())
+  updatedAt          DateTime      @updatedAt
   Outfit             Outfit[]
 
   @@id([date, locationId])
+}
+
+enum WeatherStatus {
+  sun
+  cloud
+  rain
+  snow
 }

@@ -1,6 +1,7 @@
-import { File } from 'formidable';
+import type { WeatherStatus } from '@prisma/client';
+import type { File } from 'formidable';
 import type { NextApiRequest } from 'next';
-import { Session } from 'next-auth';
+import type { Session } from 'next-auth';
 
 export type ApiRequest = NextApiRequest & {
   session?: Session;
@@ -89,4 +90,14 @@ export type WeatherGetRequest = {
   locationId?: string;
 };
 
-export type WeatherResponse = {};
+export type WeatherResponse = {
+  date: string;
+  locationId: number;
+  status: WeatherStatus;
+  temperature: number;
+  lowestTemperature: number;
+  highestTemperature: number;
+  isForecast: boolean;
+  createdAt: string;
+  updatedAt: string;
+};

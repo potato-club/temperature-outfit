@@ -33,6 +33,14 @@ export const convertOutfitToResponse = (
   updatedAt: outfit.updatedAt.toISOString(),
 });
 
-export const convertWeatherResponse = (
-  weather: Weather,
-): WeatherResponse => ({});
+export const convertWeatherResponse = (weather: Weather): WeatherResponse => ({
+  date: weather.date.toISOString().split('T')[0],
+  locationId: weather.locationId,
+  status: weather.status,
+  temperature: weather.temperature,
+  lowestTemperature: weather.lowestTemperature,
+  highestTemperature: weather.highestTemperature,
+  isForecast: weather.isForecast,
+  createdAt: weather.createdAt.toISOString(),
+  updatedAt: weather.updatedAt.toISOString(),
+});
