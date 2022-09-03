@@ -80,7 +80,7 @@ export function ReviewBox({
   const bottomImage = useRecoilValue(bottomState);
   const shoesImage = useRecoilValue(shoesState);
   const etcImage = useRecoilValue(etcState);
-
+  
   const handleCancel = () => {
     resetTop();
     resetOuter();

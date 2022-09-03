@@ -30,29 +30,28 @@ export default function EditPage() {
   const setOuterValue = useSetRecoilState(outerState);
   const setShoesValue = useSetRecoilState(shoesState);
 
-  const filterSubCategory = (category: string, categoryId: string) => {
+  const filterSubCategory = (category: string, categoryId: string): boolean => {
     return clothesSubCategory[category]
       .map((item: any) => item.id)
       .includes(categoryId);
   };
 
-  const filterProduct = useCallback(
-    (product: any) => {
-      if (filterSubCategory('top', product.categoryId)) {
-        setTopValue((prev) => [...prev, product]);
-      }
-      if (filterSubCategory('outer', product.categoryId)) {
-        setOuterValue((prev) => [...prev, product]);
-      }
-      if (filterSubCategory('bottom', product.categoryId)) {
-        setBottomValue((prev) => [...prev, product]);
-      }
-      if (filterSubCategory('shoes', product.categoryId)) {
-        setShoesValue((prev) => [...prev, product]);
-      }
-      if (filterSubCategory('mainETC', product.categoryId)) {
-        setEtcValue((prev) => [...prev, product]);
-      }
+  const filterProduct = useCallback((product: any): void => {
+    if (filterSubCategory('top', product.categoryId)) {
+      setTopValue((prev) => [...prev, product]);
+    }
+    if (filterSubCategory('outer', product.categoryId)) {
+      setOuterValue((prev) => [...prev, product]);
+    }
+    if (filterSubCategory('bottom', product.categoryId)) {
+      setBottomValue((prev) => [...prev, product]);
+    }
+    if (filterSubCategory('shoes', product.categoryId)) {
+      setShoesValue((prev) => [...prev, product]);
+    }
+    if (filterSubCategory('mainETC', product.categoryId)) {
+      setEtcValue((prev) => [...prev, product]);
+    }
     },
     [setBottomValue, setEtcValue, setOuterValue, setShoesValue, setTopValue],
   );
@@ -67,6 +66,7 @@ export default function EditPage() {
         const { imageUrl, rating, products, comment } = JSON.parse(
           router.query.outfitData as string,
         );
+
         setPutImageUrl(imageUrl);
         setPutRating(rating);
         setPutComment(comment);
