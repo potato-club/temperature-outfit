@@ -31,7 +31,7 @@ handler.get(async (req, res) => {
 
   const outfit = await prisma.outfit.findUnique({
     where: { id },
-    include: { products: true },
+    include: { products: true, weather: true },
   });
 
   if (!outfit) {

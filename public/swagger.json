@@ -22,6 +22,10 @@
     {
       "name": "outfit",
       "description": "옷차림"
+    },
+    {
+      "name": "weather",
+      "description": "날씨"
     }
   ],
   "paths": {
@@ -403,6 +407,12 @@
             "type": "file"
           },
           {
+            "name": "locationId",
+            "in": "formData",
+            "required": true,
+            "type": "string"
+          },
+          {
             "name": "productsId",
             "in": "formData",
             "required": true,
@@ -562,6 +572,38 @@
           }
         }
       }
+    },
+    "/api/weather": {
+      "get": {
+        "tags": [
+          "weather"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "description": "날씨 조회",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "date",
+            "type": "string",
+            "format": "date"
+          },
+          {
+            "in": "query",
+            "name": "locationId",
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "조회 성공",
+            "schema": {
+              "$ref": "#/definitions/WeatherResponse"
+            }
+          }
+        }
+      }
     }
   },
   "definitions": {
@@ -649,6 +691,12 @@
           "type": "string",
           "format": "date"
         },
+        "locationId": {
+          "type": "integer"
+        },
+        "weather": {
+          "$ref": "#/definitions/WeatherResponse"
+        },
         "imageUrl": {
           "type": "string"
         },
@@ -676,6 +724,53 @@
           "format": "date-time"
         }
       }
+    },
+    "WeatherResponse": {
+      "type": "object",
+      "properties": {
+        "date": {
+          "type": "string",
+          "format": "date"
+        },
+        "locationId": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "status": {
+          "$ref": "#/definitions/WeatherStatus"
+        },
+        "temperature": {
+          "type": "integer",
+          "description": "예보일 때 현재온도, 기록일 때 평균온도"
+        },
+        "lowestTemperature": {
+          "type": "integer"
+        },
+        "highestTemperature": {
+          "type": "integer"
+        },
+        "isForecast": {
+          "type": "boolean",
+          "description": "true면 예보, false면 기록"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "WeatherStatus": {
+      "type": "string",
+      "enum": [
+        "sun",
+        "cloud",
+        "rain",
+        "snow"
+      ]
     }
   }
 }
