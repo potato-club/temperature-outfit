@@ -9,18 +9,6 @@ import { chooseModal } from 'recoil/atom';
 import { productType } from 'types/editPage/product.type';
 import { frontApi } from 'api/productApi';
 import { ModalClothesContainer } from './ModalClothesContainer';
-
-const customStyles = {
-  content: {
-    top: '30%',
-    left: '30%',
-    width: '740px',
-    height: '360px',
-    borderRadius: '20px',
-    boxShadow: '4px 4px 5px 4px rgba(0,0,0,0.43)',
-  },
-};
-
 type Props = {
   categoryLabel: string;
 };
@@ -62,7 +50,7 @@ export const ChooseModal = ({ categoryLabel }: Props) => {
     // 아래는 확인용 코드
     // frontApi.getFilter({ categoryId: category, limit: 1000}, setClothesData);
     setLoading(false);
-  }, [category]); 
+  }, [category]);
 
   useEffect(() => {
     getClothes();
@@ -73,40 +61,57 @@ export const ChooseModal = ({ categoryLabel }: Props) => {
   };
 
   return (
-    <Modal
+    <Container
       isOpen={chooseModalState}
       onRequestClose={() => handleClose()}
-      style={customStyles}
       ariaHideApp={false}
       contentLabel="Add Modal">
-      {!loading && <Wrapper>
-        <TypoGraphy type="Title" fontWeight="bold">
-          {/* {cloth} */}
-          {categoryLabel}
-        </TypoGraphy>
-        <ContentBox>
-          <ButtonBox>
-            {clothesSubCategory[category] &&
-              clothesSubCategory[category].map((item, index) => (
-                <CustomButton
-                  onClick={() =>
-                    frontApi.getFilter({ categoryId: item.id }, setClothesData)
-                  }
-                  customType="white"
-                  text={item.name}
-                  key={index}
-                />
-              ))}
-          </ButtonBox>
-          <ModalClothesContainer
-            clothesData={clothesData}
-            categoryLabel={categoryLabel}
-          />
-        </ContentBox>
-      </Wrapper>}
-    </Modal>
+      {!loading && (
+        <Wrapper>
+          <TypoGraphy type="Title" fontWeight="bold">
+            {/* {cloth} */}
+            {categoryLabel}
+          </TypoGraphy>
+          <ContentBox>
+            <ButtonBox>
+              {clothesSubCategory[category] &&
+                clothesSubCategory[category].map((item, index) => (
+                  <CustomButton
+                    onClick={() =>
+                      frontApi.getFilter(
+                        { categoryId: item.id },
+                        setClothesData,
+                      )
+                    }
+                    customType="white"
+                    text={item.name}
+                    key={index}
+                  />
+                ))}
+            </ButtonBox>
+            <ModalClothesContainer
+              clothesData={clothesData}
+              categoryLabel={categoryLabel}
+            />
+          </ContentBox>
+        </Wrapper>
+      )}
+    </Container>
   );
 };
+
+const Container = styled(Modal)`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  max-width: 800px;
+  transform: translate(-50%, -50%);
+  background-color: ${customColor.white};
+  padding: 40px;
+  border-radius: 20px;
+  box-shadow: 4px 4px 5px 4px rgba(0, 0, 0, 0.43);
+`;
 
 const Wrapper = styled.section`
   display: flex;
@@ -128,11 +133,12 @@ const ContentBox = styled.section`
   width: 100%;
   border: 1px solid ${customColor.gray};
   border-radius: 20px;
-  padding: 10px;
+  padding: 12px;
 `;
 
 const ButtonBox = styled.section`
   display: flex;
   gap: 10px;
   margin-bottom: 10px;
+  flex-wrap: wrap;
 `;

@@ -54,6 +54,7 @@ const Button = styled.button<ButtonStyledProps>`
   justify-content: center;
   transition: transform 500ms ease-in;
   opacity: 0.9;
+  white-space: nowrap;
 
   &:hover {
     opacity: 1;

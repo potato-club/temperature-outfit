@@ -193,7 +193,8 @@ const AddButton = styled.input`
 
 const ImageWrapper = styled.section`
   position: relative;
-  width: 360px;
+  width: 100%;
+  /* width: 360px; */
   height: 240px;
   border-radius: 10px;
   overflow: hidden;
@@ -236,6 +237,10 @@ const ButtonContainer = styled.section`
   display: flex;
   justify-content: flex-end;
   gap: 0 12px;
+  @media (max-width: 525px) {
+    flex-direction: column;
+    gap: 12px 0;
+  }
 `;
 
 const BoxWrapper = styled.section`
