@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 import { TypoGraphy } from 'components/common';
 import { DressRoom, ReviewBox, Title } from './components';
@@ -14,7 +14,7 @@ import {
   shoesState,
 } from 'recoil/atom';
 import { useSetRecoilState } from 'recoil';
-import { clothesSubCategory, clothesMainCategory } from 'constants/index';
+import { clothesSubCategory } from 'constants/index';
 
 export default function EditPage() {
   const [modalCategory, setModalCategory] = useState('');
@@ -24,15 +24,6 @@ export default function EditPage() {
 
   const day = new Date(dayQuery ?? tempDay).toISOString().replace(/T.*$/, '');
 
-  // 이게 있다면 useState로 관리해서 넘겨줘야할듯
-  // const { imageUrl, rating, products, comment } = JSON.parse(
-  //   router.query.outfitData as string,
-  // );
-  useEffect(() => {
-    router.query.outfitData;
-  }, []);
-  // 분류하기
-  console.log(categories);
   const setTopValue = useSetRecoilState(topState);
   const setBottomValue = useSetRecoilState(bottomState);
   const setEtcValue = useSetRecoilState(etcState);
@@ -44,29 +35,46 @@ export default function EditPage() {
       .map((item: any) => item.id)
       .includes(categoryId);
   };
-  const filterProduct = (product: any) => {
-    if (filterSubCategory('top', product.categoryId)) {
-      setTopValue((prev) => [...prev, product]);
-    }
-    if (filterSubCategory('outer', product.categoryId)) {
-      setOuterValue((prev) => [...prev, product]);
-    }
-    if (filterSubCategory('bottom', product.categoryId)) {
-      setBottomValue((prev) => [...prev, product]);
-    }
-    if (filterSubCategory('shoes', product.categoryId)) {
-      setShoesValue((prev) => [...prev, product]);
-    }
-    if (filterSubCategory('mainETC', product.categoryId)) {
-      setEtcValue((prev) => [...prev, product]);
-    }
-  };
 
-  // useEffect(() => {
-  //   products.forEach((product: any) => {
-  //     filterProduct(product);
-  //   });
-  // }, []);
+  const filterProduct = useCallback(
+    (product: any) => {
+      if (filterSubCategory('top', product.categoryId)) {
+        setTopValue((prev) => [...prev, product]);
+      }
+      if (filterSubCategory('outer', product.categoryId)) {
+        setOuterValue((prev) => [...prev, product]);
+      }
+      if (filterSubCategory('bottom', product.categoryId)) {
+        setBottomValue((prev) => [...prev, product]);
+      }
+      if (filterSubCategory('shoes', product.categoryId)) {
+        setShoesValue((prev) => [...prev, product]);
+      }
+      if (filterSubCategory('mainETC', product.categoryId)) {
+        setEtcValue((prev) => [...prev, product]);
+      }
+    },
+    [setBottomValue, setEtcValue, setOuterValue, setShoesValue, setTopValue],
+  );
+
+  const [putImageUrl, setPutImageUrl] = useState('');
+  const [putRating, setPutRating] = useState('');
+  const [putComment, setPutComment] = useState('');
+
+  useEffect(() => {
+    router.query.outfitData &&
+      (() => {
+        const { imageUrl, rating, products, comment } = JSON.parse(
+          router.query.outfitData as string,
+        );
+        setPutImageUrl(imageUrl);
+        setPutRating(rating);
+        setPutComment(comment);
+        products.forEach((product: any) => {
+          filterProduct(product);
+        });
+      })();
+  }, [filterProduct, router.query.outfitData]);
   return (
     <Container>
       <Title
@@ -92,9 +100,9 @@ export default function EditPage() {
         </CodyBox>
         <ReviewBox
           day={day}
-          // putImageUrl={imageUrl}
-          // putRating={rating}
-          // putComment={comment}
+          putImageUrl={putImageUrl}
+          putRating={putRating}
+          putComment={putComment}
         />
       </Contents>
       <ChooseModal categoryLabel={modalCategory} />
