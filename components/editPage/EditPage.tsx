@@ -35,6 +35,7 @@ export default function EditPage() {
       .map((item: any) => item.id)
       .includes(categoryId);
   };
+  
 
   const filterProduct = useCallback((product: any): void => {
     if (filterSubCategory('top', product.categoryId)) {

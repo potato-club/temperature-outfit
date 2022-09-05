@@ -11,6 +11,7 @@ import {
   outerState,
   shoesState,
   topState,
+  userState,
 } from 'recoil/atom';
 import { todayCodyApi } from 'api';
 import { IoMdImage } from 'react-icons/io';
@@ -31,6 +32,7 @@ export function ReviewBox({
 }: ReviewBoxProps) {
   const router = useRouter();
 
+  const user = useRecoilValue(userState);
   const onSave = async () => {
     const frm = new FormData();
     let productsIdString = '';
@@ -50,6 +52,7 @@ export function ReviewBox({
 
       frm.append('comment', reviewText);
       frm.append('rating', rating);
+      frm.append('locationId', user.locationId.toString());
 
       const data = await todayCodyApi.addProduct(frm);
       console.log(data);
@@ -80,7 +83,7 @@ export function ReviewBox({
   const bottomImage = useRecoilValue(bottomState);
   const shoesImage = useRecoilValue(shoesState);
   const etcImage = useRecoilValue(etcState);
-  
+
   const handleCancel = () => {
     resetTop();
     resetOuter();
