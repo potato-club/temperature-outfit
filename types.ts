@@ -53,7 +53,7 @@ export type ProductDetailResponse = {
 export type ProductResponse = {
   page?: number;
   limit?: number;
-  maxPage?: number;
+  lastPage?: number;
   products: ProductDetailResponse[];
 };
 
