@@ -8,24 +8,22 @@ type Props = {
 };
 export const ClothesContainer = ({ clothesData }: Props) => {
   return (
-    <ItemContainer>
-      {clothesData &&
-        clothesData.map((data) => (
-          <ClothesBox
-            name={data.name}
-            url={data.imageUrl}
-            key={data.id}
-            type="closet"
-          />
-        ))}
-    </ItemContainer>
+      <Wrapper>
+        {clothesData &&
+          clothesData.map((data) => (
+            <ClothesBox
+              name={data.name}
+              url={data.imageUrl}
+              key={data.id}
+              type="closet"
+            />
+          ))}
+      </Wrapper>
   );
 };
 
-const ItemContainer = styled.section`
+const Wrapper = styled.section`
   width: 100%;
-  height: 600px;
-
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(140px, 2fr));
   grid-auto-rows: 140px;

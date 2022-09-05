@@ -103,9 +103,8 @@ export const ColorRadio = ({ setColor, filter, color }: Props) => {
 
 const Wrapper = styled.section`
   display: flex;
-  width: max-content;
+  background-color: #3b7bc43d;
   flex-wrap: wrap;
-  background-color: #a9e4e4;
   border-radius: 10px;
   padding: 0 8px;
 `;
