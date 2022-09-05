@@ -60,8 +60,6 @@ export type ProductResponse = {
 export type OutfitGetRequest = {
   startDate?: string;
   endDate?: string;
-  minRating?: number;
-  maxRating?: number;
 };
 
 export type OutfitPostRequest = {
