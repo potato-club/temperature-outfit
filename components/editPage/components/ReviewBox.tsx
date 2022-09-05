@@ -1,4 +1,4 @@
-import React, { useState, ChangeEvent, useRef } from 'react';
+import React, { useState, ChangeEvent, useRef, useEffect } from 'react';
 import styled from '@emotion/styled';
 import { CustomButton, TypoGraphy } from 'components/common';
 import { customColor } from 'constants/index';
@@ -74,15 +74,21 @@ export function ReviewBox({
   const resetEtc = useResetRecoilState(etcState);
 
   const [reviewImage, setReviewImage] = useState<File>();
-  const [reviewThumbnail, setReviewThumbnail] = useState<string>(putImageUrl);
-  const [reviewText, setReviewText] = useState<string>(putComment);
-  const [rating, setRating] = useState<string>(putRating);
+  const [reviewThumbnail, setReviewThumbnail] = useState<string>('');
+  const [reviewText, setReviewText] = useState<string>('');
+  const [rating, setRating] = useState<string>('');
 
   const topImage = useRecoilValue(topState);
   const outerImage = useRecoilValue(outerState);
   const bottomImage = useRecoilValue(bottomState);
   const shoesImage = useRecoilValue(shoesState);
   const etcImage = useRecoilValue(etcState);
+
+  useEffect(() => {
+    putImageUrl && setReviewThumbnail(putImageUrl);
+    putRating && setRating(putRating);
+    putComment && setReviewText(putComment);
+  }, [putImageUrl, putRating, putComment]);
 
   const handleCancel = () => {
     resetTop();
@@ -101,7 +107,7 @@ export function ReviewBox({
     setRating(rate + '');
   };
 
-  const addImage = (e: ChangeEvent<HTMLInputElement>) => {
+  const addReviewImage = (e: ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
 
     if (e.target.value[0]) {
@@ -125,22 +131,15 @@ export function ReviewBox({
           ref={codyRef}
           type="file"
           accept="image/*"
-          onChange={addImage}
+          onChange={addReviewImage}
         />
         <ImageWrapper>
-          {reviewThumbnail ? (
             <Image
-              src={reviewThumbnail}
+              src={reviewThumbnail || '/cody.jpg'}
               alt="review"
               layout="fill"
               onClick={() => codyRef.current && codyRef.current.click()}
             />
-          ) : (
-            <InitialImage
-              opacity={0.5}
-              onClick={() => codyRef.current && codyRef.current.click()}
-            />
-          )}
         </ImageWrapper>
         <ButtonWrapper>
           <CustomButton
@@ -214,7 +213,8 @@ const AddButton = styled.input`
 
 const ImageWrapper = styled.section`
   position: relative;
-  width: 360px;
+  width: 100%;
+  /* width: 360px; */
   height: 240px;
   border-radius: 10px;
   overflow: hidden;
@@ -257,6 +257,10 @@ const ButtonContainer = styled.section`
   display: flex;
   justify-content: flex-end;
   gap: 0 12px;
+  @media (max-width: 525px) {
+    flex-direction: column;
+    gap: 12px 0;
+  }
 `;
 
 const BoxWrapper = styled.section`

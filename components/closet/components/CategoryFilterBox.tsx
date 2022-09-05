@@ -39,4 +39,5 @@ export default function CategoryFilterBox({mainCategory, subCategory,setMainCate
 const Container = styled.section`
   display: flex;
   gap: 10px;
+  z-index: 0;
 `;
