@@ -11,6 +11,7 @@ import {
   outerState,
   shoesState,
   topState,
+  userState,
 } from 'recoil/atom';
 import { todayCodyApi } from 'api';
 import { IoMdImage } from 'react-icons/io';
@@ -18,10 +19,20 @@ import { confirmModal, infoModal } from 'utils/interactionModal';
 import { useRouter } from 'next/router';
 interface ReviewBoxProps {
   day: string;
+  putImageUrl?: string;
+  putRating?: string;
+  putComment?: string;
 }
 
-export function ReviewBox({ day }: ReviewBoxProps) {
+export function ReviewBox({
+  day,
+  putImageUrl = '',
+  putRating = '0',
+  putComment = '',
+}: ReviewBoxProps) {
+  const router = useRouter();
 
+  const user = useRecoilValue(userState);
   const onSave = async () => {
     const frm = new FormData();
     let productsIdString = '';
@@ -41,6 +52,7 @@ export function ReviewBox({ day }: ReviewBoxProps) {
 
       frm.append('comment', reviewText);
       frm.append('rating', rating);
+      frm.append('locationId', user.locationId.toString());
 
       const data = await todayCodyApi.addProduct(frm);
       console.log(data);
@@ -50,8 +62,8 @@ export function ReviewBox({ day }: ReviewBoxProps) {
   };
 
   const confirmBtn = () => {
-    confirmModal("등록 하시겠습니까?", onSave);
-  }
+    confirmModal('등록 하시겠습니까?', onSave);
+  };
 
   const codyRef = useRef<HTMLInputElement>(null);
 
@@ -62,16 +74,17 @@ export function ReviewBox({ day }: ReviewBoxProps) {
   const resetEtc = useResetRecoilState(etcState);
 
   const [reviewImage, setReviewImage] = useState<File>();
-  const [reviewThumbnail, setReviewThumbnail] = useState<string>();
-  const [reviewText, setReviewText] = useState<string>('');
-  const [rating, setRating] = useState<string>('0');
+  const [reviewThumbnail, setReviewThumbnail] = useState<string>(putImageUrl);
+  const [reviewText, setReviewText] = useState<string>(putComment);
+  const [rating, setRating] = useState<string>(putRating);
+
   const topImage = useRecoilValue(topState);
   const outerImage = useRecoilValue(outerState);
   const bottomImage = useRecoilValue(bottomState);
   const shoesImage = useRecoilValue(shoesState);
   const etcImage = useRecoilValue(etcState);
 
-  const ResetAll = () => {
+  const handleCancel = () => {
     resetTop();
     resetOuter();
     resetBottom();
@@ -81,6 +94,7 @@ export function ReviewBox({ day }: ReviewBoxProps) {
     setReviewImage(undefined);
     setReviewText('');
     setRating('0');
+    router.back();
   };
 
   const handleRating = (rate: number) => {
@@ -98,7 +112,7 @@ export function ReviewBox({ day }: ReviewBoxProps) {
         setReviewThumbnail(String(fileReader.result!));
       };
       setReviewImage(e.target.files![0]);
-      infoModal('코디 사진 변경완료!', 'success')
+      infoModal('코디 사진 변경완료!', 'success');
       e.target.value = '';
     }
   };
@@ -165,13 +179,13 @@ export function ReviewBox({ day }: ReviewBoxProps) {
           customType="white"
           text="취소"
           sidePadding="40"
-          onClick={() => ResetAll()}
+          onClick={handleCancel}
         />
         <CustomButton
           customType="colorful"
           text="등록"
           sidePadding="40"
-          onClick={() => confirmBtn()}
+          onClick={confirmBtn}
         />
       </ButtonContainer>
     </Container>

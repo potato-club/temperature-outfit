@@ -11,4 +11,9 @@ export default {
 
   post: async (url: string, params: any) =>
     await axios.post(setting.baseUrl + url, params),
+
+  delete: async (url: string) => await axios.delete(setting.baseUrl + url),
+
+  put: async (url: string, params: any) =>
+    await axios.put(setting.baseUrl + url, params),
 };
