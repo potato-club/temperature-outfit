@@ -41,7 +41,7 @@ export default function EditPage() {
         </CodyBox>
         <ReviewBox day={day}/>
       </Contents>
-      {modalCategory && <ChooseModal categoryLabel={modalCategory} />}
+      <ChooseModal categoryLabel={modalCategory} />
     </Container>
   );
 }

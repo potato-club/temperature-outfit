@@ -24,8 +24,8 @@ handler.use(authenticateHandler);
 handler.get(async (req, res) => {
   const query = req.query as ProductGetRequest;
 
-  query.page = query.page ?? 1;
-  query.limit = Math.min(query.limit ?? 10, 100);
+  const page = +(query.page ?? '1');
+  const limit = Math.min(+(query.limit ?? '10'), 100);
 
   const category = query.categoryId
     ? await prisma.category.findUnique({
@@ -45,8 +45,8 @@ handler.get(async (req, res) => {
       category: { id: { in: childrenCategoryId } },
       color: { equals: query.color },
     },
-    skip: (query.page - 1) * query.limit,
-    take: query.limit,
+    skip: (page - 1) * limit,
+    take: limit,
   });
 
   res

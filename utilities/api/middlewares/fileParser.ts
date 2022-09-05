@@ -40,12 +40,17 @@ export const filesParser: Middleware<ApiRequest, NextApiResponse> = async (
     });
   });
 
-  const image = data.files.image as File;
-  const imageUrl = storageClient.from('image').getPublicUrl(image.newFilename);
-  image.filepath = imageUrl.data?.publicURL ?? '';
+  if (data.files.image) {
+    const image = data.files.image as File;
+    const imageUrl = storageClient
+      .from('image')
+      .getPublicUrl(image.newFilename);
+    image.filepath = imageUrl.data?.publicURL ?? '';
+
+    req.file = image;
+  }
 
   req.body = data.fields;
-  req.file = image;
 
   next();
 };

@@ -13,6 +13,7 @@ import {
 import { useRecoilState } from 'recoil';
 import { addModal } from 'recoil/atom';
 import { productApi } from 'api';
+import { infoModal } from 'utils/interactionModal';
 
 export const AddModal = () => {
   const [addModalState, setAddModalState] = useRecoilState(addModal);
@@ -22,6 +23,15 @@ export const AddModal = () => {
   const [mainCategory, setMainCategory] = useState<string>('top');
   const [subCategory, setSubCategory] = useState<string>('sleeveless');
   const [thumbnail, setThumbnail] = useState<string>('');
+
+  const resetState = () => {
+    setImage(undefined);
+    setName('');
+    setColor('');
+    setMainCategory('top');
+    setSubCategory('sleeveless');
+    setThumbnail('');
+  };
 
   const codyRef = useRef<HTMLInputElement>(null);
 
@@ -35,7 +45,7 @@ export const AddModal = () => {
         setThumbnail(String(fileReader.result!));
       };
       setImage(e.target.files![0]);
-      alert('사진 등록!');
+      infoModal('옷 사진 등록완료!', 'success');
       e.target.value = '';
     }
   };
@@ -46,7 +56,11 @@ export const AddModal = () => {
 
   const addClothesItem = async () => {
     if (!(image && name && subCategory && color)) {
-      alert('상품의 이미지, 이름, 카테고리, 색상을 지정해주세요!');
+      infoModal(
+        '확인 해주세요!',
+        'error',
+        '상품의 이미지, 이름, 카테고리, 색상을 지정해주세요!',
+      );
       return;
     }
     const frm = new FormData();
@@ -57,7 +71,9 @@ export const AddModal = () => {
     const data = await productApi.addProduct(frm);
     console.log(data);
     // 성공시 등록이 되었습니다! => 모달
-    alert('서버에 옷 등록');
+    infoModal('서버에 옷 등록완료!', 'success');
+
+    resetState();
     setAddModalState((cur) => !cur);
   };
 
@@ -82,7 +98,10 @@ export const AddModal = () => {
   return (
     <Container
       isOpen={addModalState}
-      onRequestClose={() => setAddModalState((cur) => !cur)}
+      onRequestClose={() => {
+        setAddModalState((cur) => !cur);
+        resetState();
+      }}
       ariaHideApp={false}
       contentLabel="Add Modal">
       <Wrapper>
@@ -170,7 +189,7 @@ const Container = styled(Modal)`
   top: 50%;
   left: 50%;
   width: 100%;
-  max-width: 800px;
+  max-width: 680px;
   transform: translate(-50%, -50%);
   background-color: ${customColor.white};
   padding: 40px;

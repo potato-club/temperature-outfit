@@ -22,6 +22,10 @@
     {
       "name": "outfit",
       "description": "옷차림"
+    },
+    {
+      "name": "weather",
+      "description": "날씨"
     }
   ],
   "paths": {
@@ -253,6 +257,93 @@
             "description": "일치하는 옷 & 악세서리가 없음 or 내 옷 & 악세서리가 아님"
           }
         }
+      },
+      "put": {
+        "tags": [
+          "product"
+        ],
+        "description": "내 옷 & 악세서리 변경",
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "parameters": [
+          {
+            "name": "productId",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "cuid"
+          },
+          {
+            "name": "image",
+            "in": "formData",
+            "type": "file"
+          },
+          {
+            "name": "name",
+            "in": "formData",
+            "type": "string"
+          },
+          {
+            "name": "categoryId",
+            "in": "formData",
+            "type": "string"
+          },
+          {
+            "name": "color",
+            "in": "formData",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "변경 성공",
+            "schema": {
+              "$ref": "#/definitions/ProductResponse"
+            }
+          },
+          "400": {
+            "description": "값 누락"
+          },
+          "404": {
+            "description": "내 옷 & 악세서리가 아님"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "product"
+        ],
+        "description": "내 옷 & 악세서리 삭제",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "productId",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "cuid"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "삭제 성공",
+            "schema": {
+              "$ref": "#/definitions/ProductResponse"
+            }
+          },
+          "400": {
+            "description": "값 누락"
+          },
+          "404": {
+            "description": "내 옷 & 악세서리가 아님"
+          }
+        }
       }
     },
     "/api/outfit": {
@@ -316,6 +407,12 @@
             "type": "file"
           },
           {
+            "name": "locationId",
+            "in": "formData",
+            "required": true,
+            "type": "string"
+          },
+          {
             "name": "productsId",
             "in": "formData",
             "required": true,
@@ -376,6 +473,134 @@
           },
           "404": {
             "description": "일치하는 옷차림이 없음"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "outfit"
+        ],
+        "description": "내 옷차림 변경",
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "parameters": [
+          {
+            "name": "outfitId",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "cuid"
+          },
+          {
+            "name": "date",
+            "in": "formData",
+            "type": "string",
+            "format": "date"
+          },
+          {
+            "name": "image",
+            "in": "formData",
+            "type": "file"
+          },
+          {
+            "name": "productsId",
+            "in": "formData",
+            "type": "string",
+            "description": "여러개를 ','로 구별한다. ex) id1,id2,id3"
+          },
+          {
+            "name": "comment",
+            "in": "formData",
+            "type": "string"
+          },
+          {
+            "name": "rating",
+            "in": "formData",
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 10
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "변경 성공",
+            "schema": {
+              "$ref": "#/definitions/OutfitResponse"
+            }
+          },
+          "400": {
+            "description": "값 누락"
+          },
+          "404": {
+            "description": "내 옷차림이 아님"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "outfit"
+        ],
+        "description": "내 옷차림 삭제",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "outfitId",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "cuid"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "삭제 성공",
+            "schema": {
+              "$ref": "#/definitions/OutfitResponse"
+            }
+          },
+          "400": {
+            "description": "값 누락"
+          },
+          "404": {
+            "description": "내 옷차림이 아님"
+          }
+        }
+      }
+    },
+    "/api/weather": {
+      "get": {
+        "tags": [
+          "weather"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "description": "날씨 조회",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "date",
+            "type": "string",
+            "format": "date"
+          },
+          {
+            "in": "query",
+            "name": "locationId",
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "조회 성공",
+            "schema": {
+              "$ref": "#/definitions/WeatherResponse"
+            }
           }
         }
       }
@@ -466,6 +691,12 @@
           "type": "string",
           "format": "date"
         },
+        "locationId": {
+          "type": "integer"
+        },
+        "weather": {
+          "$ref": "#/definitions/WeatherResponse"
+        },
         "imageUrl": {
           "type": "string"
         },
@@ -493,6 +724,53 @@
           "format": "date-time"
         }
       }
+    },
+    "WeatherResponse": {
+      "type": "object",
+      "properties": {
+        "date": {
+          "type": "string",
+          "format": "date"
+        },
+        "locationId": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "status": {
+          "$ref": "#/definitions/WeatherStatus"
+        },
+        "temperature": {
+          "type": "integer",
+          "description": "예보일 때 현재온도, 기록일 때 평균온도"
+        },
+        "lowestTemperature": {
+          "type": "integer"
+        },
+        "highestTemperature": {
+          "type": "integer"
+        },
+        "isForecast": {
+          "type": "boolean",
+          "description": "true면 예보, false면 기록"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "WeatherStatus": {
+      "type": "string",
+      "enum": [
+        "sun",
+        "cloud",
+        "rain",
+        "snow"
+      ]
     }
   }
 }

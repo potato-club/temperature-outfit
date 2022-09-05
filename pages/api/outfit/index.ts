@@ -38,6 +38,7 @@ handler.get(async (req, res) => {
     },
     include: {
       products: true,
+      weather: true,
     },
   });
 
@@ -51,14 +52,21 @@ handler.get(async (req, res) => {
 handler.post(filesParser, async (req, res) => {
   const body = req.body as OutfitPostRequest;
 
-  if (!body.date) {
+  if (!body.date || !body.locationId) {
     return res.status(400);
   }
 
   const outfit = await prisma.outfit.create({
     data: {
       owner: { connect: { email: req?.session?.user?.email ?? '' } },
-      date: new Date(body.date),
+      weather: {
+        connect: {
+          date_locationId: {
+            date: new Date(body.date),
+            locationId: +body.locationId,
+          },
+        },
+      },
       imageUrl: req.file?.filepath,
       products: {
         connect: body.productsId?.split(',').map((id) => ({ id })),
@@ -66,7 +74,7 @@ handler.post(filesParser, async (req, res) => {
       comment: body.comment,
       rating: +(body.rating ?? '0'),
     },
-    include: { products: true },
+    include: { products: true, weather: true },
   });
 
   res.status(201).json([convertOutfitToResponse(outfit)]);
