@@ -1,4 +1,4 @@
-import React, { useState, ChangeEvent, useRef } from 'react';
+import React, { useState, ChangeEvent, useRef, useEffect } from 'react';
 import styled from '@emotion/styled';
 import { CustomButton, TypoGraphy } from 'components/common';
 import { customColor } from 'constants/index';
@@ -74,15 +74,21 @@ export function ReviewBox({
   const resetEtc = useResetRecoilState(etcState);
 
   const [reviewImage, setReviewImage] = useState<File>();
-  const [reviewThumbnail, setReviewThumbnail] = useState<string>(putImageUrl);
-  const [reviewText, setReviewText] = useState<string>(putComment);
-  const [rating, setRating] = useState<string>(putRating);
+  const [reviewThumbnail, setReviewThumbnail] = useState<string>('');
+  const [reviewText, setReviewText] = useState<string>('');
+  const [rating, setRating] = useState<string>('');
 
   const topImage = useRecoilValue(topState);
   const outerImage = useRecoilValue(outerState);
   const bottomImage = useRecoilValue(bottomState);
   const shoesImage = useRecoilValue(shoesState);
   const etcImage = useRecoilValue(etcState);
+
+  useEffect(() => {
+    putImageUrl && setReviewThumbnail(putImageUrl);
+    putRating && setRating(putRating);
+    putComment && setReviewText(putComment);
+  }, [putImageUrl, putRating, putComment]);
 
   const handleCancel = () => {
     resetTop();
