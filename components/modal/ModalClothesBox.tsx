@@ -5,23 +5,22 @@ import React, { useState } from 'react';
 import { TypoGraphy } from 'components/common';
 import { RecoilState, useSetRecoilState } from 'recoil';
 import { chooseModal } from 'recoil/atom';
-import { useRecoilState } from "recoil";
-import { frontApi } from "api/productApi";
+import { useRecoilState } from 'recoil';
+import { frontApi } from 'api/productApi';
 import { imageStateType } from 'types/editPage/imageStateType';
-import { ProductResponse } from 'types';
+import { ProductDetailResponse } from 'types';
 
 type Props = {
   url: string;
   name: string;
   id: string;
-  recoil: RecoilState<ProductResponse[]>;
+  recoil: RecoilState<ProductDetailResponse[]>;
 };
 
 export function ModalClothesBox({ url, name, id, recoil }: Props) {
   const [showName, setShowName] = useState<boolean>(false);
   const setChooseModalState = useSetRecoilState(chooseModal);
   const [clothesData, setClothesData] = useRecoilState(recoil);
-
 
   const addImage = () => {
     console.log(id);
@@ -43,7 +42,6 @@ export function ModalClothesBox({ url, name, id, recoil }: Props) {
     </Container>
   );
 }
-
 
 const Container = styled.section`
   display: flex;

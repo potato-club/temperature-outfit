@@ -7,10 +7,10 @@ import { imageStateType } from 'types/editPage/imageStateType';
 import { ClothesBox } from 'components/common';
 import { chooseModal } from 'recoil/atom';
 import { ChooseModal } from 'components/modal';
-import { ProductResponse } from 'types';
+import { ProductDetailResponse } from 'types';
 type Props = {
   category: string;
-  recoil: RecoilState<ProductResponse[]>;
+  recoil: RecoilState<ProductDetailResponse[]>;
   setModalCategory: React.Dispatch<React.SetStateAction<string>>;
 };
 

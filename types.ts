@@ -40,7 +40,7 @@ export type ProductPutRequest = {
   color?: string;
 };
 
-export type ProductResponse = {
+export type ProductDetailResponse = {
   id: string;
   name: string;
   categoryId: string;
@@ -48,6 +48,13 @@ export type ProductResponse = {
   imageUrl?: string;
   createdAt: string;
   updatedAt: string;
+};
+
+export type ProductResponse = {
+  page?: number;
+  limit?: number;
+  maxPage?: number;
+  products: ProductDetailResponse[];
 };
 
 export type OutfitGetRequest = {
@@ -78,7 +85,7 @@ export type OutfitResponse = {
   locationId: number;
   weather?: WeatherResponse;
   imageUrl?: string;
-  products: ProductResponse[];
+  products: ProductDetailResponse[];
   comment?: string;
   rating: number;
   createdAt: string;
