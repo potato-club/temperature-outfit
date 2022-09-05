@@ -14,17 +14,6 @@ import { useRecoilState } from 'recoil';
 import { addModal } from 'recoil/atom';
 import { productApi } from 'api';
 
-const customStyles = {
-  content: {
-    width: '620px',
-    borderRadius: '20px',
-    boxShadow: '4px 4px 5px 4px rgba(0,0,0,0.43)',
-    inset: '12% 40px 40px 36%',
-    height: '800px',
-    // 어느정도 낮아지면 그냥 가로로 하든가 아니면 크기 줄이던가 해야됨
-  },
-};
-
 export const AddModal = () => {
   const [addModalState, setAddModalState] = useRecoilState(addModal);
   const [image, setImage] = useState<File>();
@@ -91,10 +80,9 @@ export const AddModal = () => {
   }, [color]);
 
   return (
-    <Modal
+    <Container
       isOpen={addModalState}
       onRequestClose={() => setAddModalState((cur) => !cur)}
-      style={customStyles}
       ariaHideApp={false}
       contentLabel="Add Modal">
       <Wrapper>
@@ -174,15 +162,21 @@ export const AddModal = () => {
           </ButtonWrapper>
         </ContentBox>
       </Wrapper>
-    </Modal>
+    </Container>
   );
 };
-// const Img = styled.article`
-//   width: 100%;
-//   height: 400px;
-//   background-color: ${customColor.gray};
-//   border-radius: 40px;
-// `;
+const Container = styled(Modal)`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  max-width: 800px;
+  transform: translate(-50%, -50%);
+  background-color: ${customColor.white};
+  padding: 40px;
+  border-radius: 20px;
+  box-shadow: 4px 4px 5px 4px rgba(0, 0, 0, 0.43);
+`;
 
 const Wrapper = styled.section`
   display: flex;
