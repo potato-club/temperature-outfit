@@ -87,7 +87,7 @@ export function ReviewBox({ day }: ReviewBoxProps) {
     setRating(rate + '');
   };
 
-  const addImage = (e: ChangeEvent<HTMLInputElement>) => {
+  const addReviewImage = (e: ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
 
     if (e.target.value[0]) {
@@ -111,22 +111,15 @@ export function ReviewBox({ day }: ReviewBoxProps) {
           ref={codyRef}
           type="file"
           accept="image/*"
-          onChange={addImage}
+          onChange={addReviewImage}
         />
         <ImageWrapper>
-          {reviewThumbnail ? (
             <Image
-              src={reviewThumbnail}
+              src={reviewThumbnail || '/cody.jpg'}
               alt="review"
               layout="fill"
               onClick={() => codyRef.current && codyRef.current.click()}
             />
-          ) : (
-            <InitialImage
-              opacity={0.5}
-              onClick={() => codyRef.current && codyRef.current.click()}
-            />
-          )}
         </ImageWrapper>
         <ButtonWrapper>
           <CustomButton
@@ -200,7 +193,8 @@ const AddButton = styled.input`
 
 const ImageWrapper = styled.section`
   position: relative;
-  width: 360px;
+  width: 100%;
+  /* width: 360px; */
   height: 240px;
   border-radius: 10px;
   overflow: hidden;
@@ -243,6 +237,10 @@ const ButtonContainer = styled.section`
   display: flex;
   justify-content: flex-end;
   gap: 0 12px;
+  @media (max-width: 525px) {
+    flex-direction: column;
+    gap: 12px 0;
+  }
 `;
 
 const BoxWrapper = styled.section`
