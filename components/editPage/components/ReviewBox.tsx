@@ -22,6 +22,7 @@ interface ReviewBoxProps {
   putImageUrl?: string;
   putRating?: string;
   putComment?: string;
+  outfitId?: string;
 }
 
 export function ReviewBox({
@@ -29,10 +30,12 @@ export function ReviewBox({
   putImageUrl = '',
   putRating = '0',
   putComment = '',
+  outfitId = '',
 }: ReviewBoxProps) {
   const router = useRouter();
 
   const user = useRecoilValue(userState);
+
   const onSave = async () => {
     const frm = new FormData();
     let productsIdString = '';
@@ -60,9 +63,38 @@ export function ReviewBox({
       console.log(e);
     }
   };
+  const onPut = async () => {
+    const frm = new FormData();
+    let productsIdString = '';
+    topImage.forEach((data) => (productsIdString += data.id + ','));
+    outerImage.forEach((data) => (productsIdString += data.id + ','));
+    bottomImage.forEach((data) => (productsIdString += data.id + ','));
+    shoesImage.forEach((data) => (productsIdString += data.id + ','));
+    etcImage.forEach((data) => (productsIdString += data.id + ','));
+    productsIdString = productsIdString.slice(0, -1); // 반점 제거
+
+    try {
+      frm.append('outfitId', `${outfitId}`);
+      frm.append('date', `${day}`);
+      frm.append('image', reviewImage!);
+      frm.append('productsId', productsIdString);
+      frm.append('comment', reviewText);
+      frm.append('rating', rating);
+
+      const data = await todayCodyApi.putOutfit('outfitId', frm);
+      console.log(data);
+      console.log('outfit put하기', data);
+    } catch (e: any) {
+      console.log(e.response);
+    }
+  };
 
   const confirmBtn = () => {
-    confirmModal('등록 하시겠습니까?', onSave);
+    if (outfitId !== '') {
+      confirmModal('수정 하시겠습니까?', onPut);
+    } else {
+      confirmModal('등록 하시겠습니까?', onSave);
+    }
   };
 
   const codyRef = useRef<HTMLInputElement>(null);
@@ -134,12 +166,12 @@ export function ReviewBox({
           onChange={addReviewImage}
         />
         <ImageWrapper>
-            <Image
-              src={reviewThumbnail || '/cody.jpg'}
-              alt="review"
-              layout="fill"
-              onClick={() => codyRef.current && codyRef.current.click()}
-            />
+          <Image
+            src={reviewThumbnail || '/cody.jpg'}
+            alt="review"
+            layout="fill"
+            onClick={() => codyRef.current && codyRef.current.click()}
+          />
         </ImageWrapper>
         <ButtonWrapper>
           <CustomButton
@@ -193,6 +225,7 @@ export function ReviewBox({
           sidePadding="40"
           onClick={confirmBtn}
         />
+        <button onClick={onPut}>수정하기</button>
       </ButtonContainer>
     </Container>
   );

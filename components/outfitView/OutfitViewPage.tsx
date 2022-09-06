@@ -15,6 +15,7 @@ export default function EditPage() {
     rating: 0,
     products: [],
     comment: '초기 Comment',
+    id: 'idString',
   });
 
   useEffect(() => {
@@ -30,6 +31,7 @@ export default function EditPage() {
             rating,
             products,
             comment,
+            id: router.query.id as string,
           });
         } catch (error) {
           console.log(error);

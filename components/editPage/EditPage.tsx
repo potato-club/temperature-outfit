@@ -35,24 +35,24 @@ export default function EditPage() {
       .map((item: any) => item.id)
       .includes(categoryId);
   };
-  
 
-  const filterProduct = useCallback((product: any): void => {
-    if (filterSubCategory('top', product.categoryId)) {
-      setTopValue((prev) => [...prev, product]);
-    }
-    if (filterSubCategory('outer', product.categoryId)) {
-      setOuterValue((prev) => [...prev, product]);
-    }
-    if (filterSubCategory('bottom', product.categoryId)) {
-      setBottomValue((prev) => [...prev, product]);
-    }
-    if (filterSubCategory('shoes', product.categoryId)) {
-      setShoesValue((prev) => [...prev, product]);
-    }
-    if (filterSubCategory('mainETC', product.categoryId)) {
-      setEtcValue((prev) => [...prev, product]);
-    }
+  const filterProduct = useCallback(
+    (product: any): void => {
+      if (filterSubCategory('top', product.categoryId)) {
+        setTopValue((prev) => [...prev, product]);
+      }
+      if (filterSubCategory('outer', product.categoryId)) {
+        setOuterValue((prev) => [...prev, product]);
+      }
+      if (filterSubCategory('bottom', product.categoryId)) {
+        setBottomValue((prev) => [...prev, product]);
+      }
+      if (filterSubCategory('shoes', product.categoryId)) {
+        setShoesValue((prev) => [...prev, product]);
+      }
+      if (filterSubCategory('mainETC', product.categoryId)) {
+        setEtcValue((prev) => [...prev, product]);
+      }
     },
     [setBottomValue, setEtcValue, setOuterValue, setShoesValue, setTopValue],
   );
@@ -60,14 +60,15 @@ export default function EditPage() {
   const [putImageUrl, setPutImageUrl] = useState('');
   const [putRating, setPutRating] = useState('');
   const [putComment, setPutComment] = useState('');
+  const [outfitId, setOutfitId] = useState('');
 
   useEffect(() => {
     router.query.outfitData &&
       (() => {
-        const { imageUrl, rating, products, comment } = JSON.parse(
+        const { imageUrl, rating, products, comment, id } = JSON.parse(
           router.query.outfitData as string,
         );
-
+        setOutfitId(id);
         setPutImageUrl(imageUrl);
         setPutRating(rating);
         setPutComment(comment);
@@ -104,6 +105,7 @@ export default function EditPage() {
           putImageUrl={putImageUrl}
           putRating={putRating}
           putComment={putComment}
+          outfitId={outfitId}
         />
       </Contents>
       <ChooseModal categoryLabel={modalCategory} />
