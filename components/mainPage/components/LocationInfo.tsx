@@ -1,38 +1,59 @@
 import styled from '@emotion/styled';
 import { TypoGraphy } from 'components/common';
 import { customColor } from 'constants/index';
-import React from 'react'
+import React from 'react';
 import { IoLocationOutline } from 'react-icons/io5';
-import { BsArrowDown, BsArrowUp } from "react-icons/bs";
-import { mainDummyType } from 'dummy/MainDummy';
+import { BsArrowDown, BsArrowUp } from 'react-icons/bs';
+import { locations } from 'recoil/atom';
+import { useRecoilValue } from 'recoil';
 
-export const LocationInfo = (props: mainDummyType) => {
+interface LocationInfoProps {
+  locationId: number;
+  totalTemperature: totalTemperatureType;
+}
+type totalTemperatureType = {
+  highestTemperature: number;
+  temperature: number;
+  lowestTemperature: number;
+};
+
+export const LocationInfo = ({
+  locationId,
+  totalTemperature,
+}: LocationInfoProps) => {
+  const allLocations = useRecoilValue(locations);
+  const userLocation = allLocations.find((data) => data.id === locationId);
+
   return (
     <Container>
       <Location>
         <IoLocationOutline size={40} />
         <TypoGraphy type="h3" color={customColor.brandColor5} fontWeight="bold">
-          {props.location}
+          {userLocation!.name}
         </TypoGraphy>
       </Location>
       <TypoGraphy type="Title" color={customColor.brandColor5}>
-        평균 {props.average}°C
+        평균 {totalTemperature.temperature}°C
       </TypoGraphy>
       <Temperatures>
         <BsArrowUp color="F0771F" size={40} />
         <TypoGraphy type="body1" color={customColor.brandColor5}>
-          최고 <span style={{ display: 'inline-block' }}>{props.max}°C</span>
+          최고{' '}
+          <span style={{ display: 'inline-block' }}>
+            {totalTemperature.highestTemperature}°C
+          </span>
         </TypoGraphy>
         <BsArrowDown color="499CCE" size={40} />
         <TypoGraphy type="body1" color={customColor.brandColor5}>
-          최저 <span style={{ display: 'inline-block' }}>{props.min}°C</span>
+          최저{' '}
+          <span style={{ display: 'inline-block' }}>
+            {totalTemperature.lowestTemperature}°C
+          </span>
         </TypoGraphy>
       </Temperatures>
     </Container>
   );
 };
-
-
 
 const Container = styled.section`
   display: flex;
