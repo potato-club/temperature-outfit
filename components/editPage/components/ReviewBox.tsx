@@ -13,7 +13,7 @@ import {
   topState,
   userState,
 } from 'recoil/atom';
-import { todayCodyApi } from 'api';
+import { todayCodyApi, weatherApi } from 'api';
 import { IoMdImage } from 'react-icons/io';
 import { confirmModal, infoModal } from 'utils/interactionModal';
 import { useRouter } from 'next/router';
@@ -33,7 +33,17 @@ export function ReviewBox({
   const router = useRouter();
 
   const user = useRecoilValue(userState);
+
+  const getWeather = async () => {
+    try {
+      await weatherApi.getWeather(day, user.locationId);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const onSave = async () => {
+    await getWeather();
     const frm = new FormData();
     let productsIdString = '';
     topImage.forEach((data) => (productsIdString += data.id + ','));
@@ -43,13 +53,10 @@ export function ReviewBox({
     etcImage.forEach((data) => (productsIdString += data.id + ','));
     productsIdString = productsIdString.slice(0, -1); // 반점 제거
 
-    console.log(productsIdString);
-
     try {
       frm.append('date', `${day}`);
       frm.append('image', reviewImage!);
       frm.append('productsId', productsIdString);
-
       frm.append('comment', reviewText);
       frm.append('rating', rating);
       frm.append('locationId', user.locationId.toString());
@@ -134,12 +141,12 @@ export function ReviewBox({
           onChange={addReviewImage}
         />
         <ImageWrapper>
-            <Image
-              src={reviewThumbnail || '/cody.jpg'}
-              alt="review"
-              layout="fill"
-              onClick={() => codyRef.current && codyRef.current.click()}
-            />
+          <Image
+            src={reviewThumbnail || '/cody.jpg'}
+            alt="review"
+            layout="fill"
+            onClick={() => codyRef.current && codyRef.current.click()}
+          />
         </ImageWrapper>
         <ButtonWrapper>
           <CustomButton
