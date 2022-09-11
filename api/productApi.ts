@@ -30,7 +30,7 @@ export const frontApi = {
     try {
       const {data} = await productApi.getFilter({params: filter})
       console.log(data);
-      setClothesData(data);
+      setClothesData(data.products);
     } catch(err) {
       console.log(err)
     }

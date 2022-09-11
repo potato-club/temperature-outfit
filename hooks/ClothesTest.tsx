@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import { productApi } from 'api';
-import { filterType, frontApi } from 'api/productApi';
+import { filterType } from 'api/productApi';
 import { ClothesContainer, ColorRadio, SearchBox } from 'components/closet/components';
 import CategoryFilterBox from 'components/closet/components/CategoryFilterBox';
 import { CustomButton, TypoGraphy, SelectBox } from 'components/common';

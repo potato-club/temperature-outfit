@@ -42,10 +42,10 @@ const PaginationWrapper = styled.section`
     color: ${customColor.gray};
   }
 
-  ul.pagination li:nth-child(-n + 2) a {
+  ul.pagination li:nth-of-type(-n + 2) a {
     color: ${customColor.black};
   }
-  ul.pagination li:nth-last-child(-n + 2) a {
+  ul.pagination li:nth-last-of-type(-n + 2) a {
     color: ${customColor.black};
   }
 

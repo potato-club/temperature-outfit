@@ -2,10 +2,11 @@ import type { NextApiResponse } from 'next';
 import nextConnect from 'next-connect';
 import { prisma } from '../../../db';
 import {
-  ProductResponse,
+  ProductDetailResponse,
   ProductGetRequest,
   ApiRequest,
   ProductPostRequest,
+  ProductResponse,
 } from '../../../types';
 import { authenticateHandler } from '../../../utilities/api/middlewares/auth';
 import { convertProductToResponse } from './../../../utilities/api/converter';
@@ -17,7 +18,7 @@ export const config = {
   },
 };
 
-const handler = nextConnect<ApiRequest, NextApiResponse<ProductResponse[]>>();
+const handler = nextConnect<ApiRequest, NextApiResponse<ProductResponse>>();
 
 handler.use(authenticateHandler);
 
@@ -38,24 +39,32 @@ handler.get(async (req, res) => {
     ?.map((c) => c.id)
     .concat(category.id);
 
-  const products = await prisma.product.findMany({
-    where: {
-      owner: { email: req?.session?.user?.email },
-      name: { contains: query.query },
-      category: { id: { in: childrenCategoryId } },
-      color: { equals: query.color },
-    },
-    skip: (page - 1) * limit,
-    take: limit,
-  });
+  const where = {
+    owner: { email: req?.session?.user?.email },
+    name: { contains: query.query },
+    category: { id: { in: childrenCategoryId } },
+    color: { equals: query.color },
+  };
 
-  res
-    .status(200)
-    .json(
-      products.map<ProductResponse>((product) =>
-        convertProductToResponse(product),
-      ),
-    );
+  const [count, products] = await prisma.$transaction([
+    prisma.product.count({
+      where,
+    }),
+    prisma.product.findMany({
+      where,
+      skip: (page - 1) * limit,
+      take: limit,
+    }),
+  ]);
+
+  res.status(200).json({
+    page: page,
+    maxPage: Math.ceil(count / limit),
+    limit: limit,
+    products: products.map<ProductDetailResponse>((product) =>
+      convertProductToResponse(product),
+    ),
+  });
 });
 
 handler.post(filesParser, async (req, res) => {
@@ -71,7 +80,9 @@ handler.post(filesParser, async (req, res) => {
     },
   });
 
-  res.status(201).json([convertProductToResponse(product)]);
+  res.status(201).json({
+    products: [convertProductToResponse(product)],
+  });
 });
 
 export default handler;

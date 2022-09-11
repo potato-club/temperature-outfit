@@ -1,7 +1,7 @@
 import type { NextApiResponse } from 'next';
 import nextConnect from 'next-connect';
 import { prisma } from '../../../db';
-import { ProductPutRequest, ProductResponse } from '../../../types';
+import { ProductPutRequest, ProductDetailResponse } from '../../../types';
 import {
   authenticateHandler,
   NextApiRequestWithSession,
@@ -17,7 +17,7 @@ export const config = {
 
 const handler = nextConnect<
   NextApiRequestWithSession,
-  NextApiResponse<ProductResponse>
+  NextApiResponse<ProductDetailResponse>
 >();
 
 handler.use(authenticateHandler);

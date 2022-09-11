@@ -1,9 +1,13 @@
 import type { Outfit, Product, Weather } from '@prisma/client';
-import { OutfitResponse, ProductResponse, WeatherResponse } from '../../types';
+import {
+  OutfitResponse,
+  ProductDetailResponse,
+  WeatherResponse,
+} from '../../types';
 
 export const convertProductToResponse = (
   product: Product,
-): ProductResponse => ({
+): ProductDetailResponse => ({
   id: product.id,
   name: product.name,
   categoryId: product.categoryId,
@@ -24,7 +28,7 @@ export const convertOutfitToResponse = (
   locationId: outfit.locationId,
   weather: outfit.weather ? convertWeatherResponse(outfit.weather) : undefined,
   imageUrl: outfit.imageUrl ?? undefined,
-  products: outfit.products.map<ProductResponse>((product) =>
+  products: outfit.products.map<ProductDetailResponse>((product) =>
     convertProductToResponse(product),
   ),
   comment: outfit.comment ?? undefined,
