@@ -6,11 +6,10 @@ import { CustomButton, TypoGraphy } from 'components/common';
 import { customColor, clothesSubCategory } from 'constants/index';
 import { useRecoilState } from 'recoil';
 import { chooseModal } from 'recoil/atom';
-import { productType } from 'types/editPage/product.type';
-import { filterType, frontApi } from 'api/productApi';
 import { ModalClothesContainer } from './ModalClothesContainer';
 import useGetFilter from 'hooks/useGetFilter';
 import { CustomPagination } from 'components/closet/components/CustomPagination';
+import { filterType } from 'types/editPage/filter.type';
 type Props = {
   categoryLabel: string;
 };
@@ -63,7 +62,7 @@ export const ChooseModal = ({ categoryLabel }: Props) => {
 
   useEffect(() => {
     setActivePage(1);
-  }, [category])
+  }, [category]);
 
   const handleClose = () => {
     setChooseModalState((cur) => !cur);
