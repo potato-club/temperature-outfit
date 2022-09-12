@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useMemo } from 'react';
 import Modal from 'react-modal';
 import styled from '@emotion/styled';
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { CustomButton, TypoGraphy } from 'components/common';
 import { customColor, clothesSubCategory } from 'constants/index';
 import { useRecoilState } from 'recoil';
@@ -21,10 +21,10 @@ export const ChooseModal = ({ categoryLabel }: Props) => {
   // const [clothesData, setClothesData] = useState<Array<productType>>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const { filterItem, maxPage, getFilter } = useGetFilter();
-  const [activePage, setActivePage] = useState<number>(1);
-  const countPerPage = 20;
+  // const [activePage, setActivePage] = useState<number>(1);
+  const countPerPage = 10; // Todo : 필터에 아직 안넣었음
 
-  const category = useMemo(() => {
+  const mainCategory = useMemo(() => {
     switch (categoryLabel) {
       case '상의':
         return 'top';
@@ -46,6 +46,8 @@ export const ChooseModal = ({ categoryLabel }: Props) => {
     }
   }, [categoryLabel]);
 
+  const [filter, setFilter] = useState<filterType>({});
+
   const getClothes = useCallback(
     async (filter: filterType) => {
       setLoading(true);
@@ -56,13 +58,14 @@ export const ChooseModal = ({ categoryLabel }: Props) => {
   );
 
   useEffect(() => {
-    getClothes({ categoryId: category, page: activePage });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [category, activePage]);
+    setFilter({ categoryId: mainCategory, page: 1 });
+  }, [mainCategory]);
 
   useEffect(() => {
-    setActivePage(1);
-  }, [category]);
+    console.log('몇번호출?');
+    getClothes(filter);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [filter]);
 
   const handleClose = () => {
     setChooseModalState((cur) => !cur);
@@ -82,12 +85,11 @@ export const ChooseModal = ({ categoryLabel }: Props) => {
           </TypoGraphy>
           <ContentBox>
             <ButtonBox>
-              {clothesSubCategory[category] &&
-                clothesSubCategory[category].map((item, index) => (
+              {clothesSubCategory[mainCategory] &&
+                clothesSubCategory[mainCategory].map((item, index) => (
                   <CustomButton
                     onClick={() => {
-                      setActivePage(1);
-                      getClothes({ categoryId: item.id });
+                      setFilter({ categoryId: item.id, page: 1 });
                     }}
                     customType="white"
                     text={item.name}
@@ -100,14 +102,16 @@ export const ChooseModal = ({ categoryLabel }: Props) => {
               categoryLabel={categoryLabel}
             />
           </ContentBox>
-          <CustomPagination
-            activePage={activePage}
-            itemsCountPerPage={countPerPage}
-            totalItemsCount={maxPage * countPerPage}
-            onChange={(e) => {
-              setActivePage(e);
-            }}
-          />
+          {filter.page && (
+            <CustomPagination
+              activePage={filter.page}
+              itemsCountPerPage={countPerPage}
+              totalItemsCount={maxPage * countPerPage}
+              onChange={(e) => {
+                setFilter((prev) => ({ ...prev, page: e }));
+              }}
+            />
+          )}
         </Wrapper>
       )}
     </Container>
