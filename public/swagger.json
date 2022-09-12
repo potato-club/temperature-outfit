@@ -247,7 +247,7 @@
           {
             "name": "image",
             "in": "formData",
-            "type": "file"
+            "type": "file | null"
           },
           {
             "name": "name",
@@ -263,11 +263,6 @@
             "name": "color",
             "in": "formData",
             "type": "string"
-          },
-          {
-            "name": "resetImage",
-            "in": "formData",
-            "type": "boolean"
           }
         ],
         "responses": {
@@ -452,7 +447,7 @@
           {
             "name": "image",
             "in": "formData",
-            "type": "file"
+            "type": "file | null"
           },
           {
             "name": "productsId",
@@ -471,11 +466,6 @@
             "type": "integer",
             "minimum": 0,
             "maximum": 10
-          },
-          {
-            "name": "resetImage",
-            "in": "formData",
-            "type": "boolean"
           }
         ],
         "responses": {

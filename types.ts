@@ -38,7 +38,6 @@ export type ProductPutRequest = {
   name?: string;
   categoryId?: string;
   color?: string;
-  resetImage?: boolean;
 };
 
 export type ProductDetailResponse = {
@@ -76,7 +75,6 @@ export type OutfitPutRequest = {
   productsId?: string;
   comment?: string;
   rating?: string;
-  resetImage?: boolean;
 };
 
 export type OutfitResponse = {
