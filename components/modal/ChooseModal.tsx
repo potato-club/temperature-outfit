@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback, useEffect, useMemo } from 'react';
 import Modal from 'react-modal';
 import styled from '@emotion/styled';
 import { useState } from 'react';
@@ -7,8 +7,10 @@ import { customColor, clothesSubCategory } from 'constants/index';
 import { useRecoilState } from 'recoil';
 import { chooseModal } from 'recoil/atom';
 import { productType } from 'types/editPage/product.type';
-import { frontApi } from 'api/productApi';
+import { filterType, frontApi } from 'api/productApi';
 import { ModalClothesContainer } from './ModalClothesContainer';
+import useGetFilter from 'hooks/useGetFilter';
+import { CustomPagination } from 'components/closet/components/CustomPagination';
 type Props = {
   categoryLabel: string;
 };
@@ -17,10 +19,13 @@ type Props = {
 
 export const ChooseModal = ({ categoryLabel }: Props) => {
   const [chooseModalState, setChooseModalState] = useRecoilState(chooseModal);
-  const [clothesData, setClothesData] = useState<Array<productType>>([]);
+  // const [clothesData, setClothesData] = useState<Array<productType>>([]);
   const [loading, setLoading] = useState<boolean>(true);
+  const { filterItem, maxPage, getFilter } = useGetFilter();
+  const [activePage, setActivePage] = useState<number>(1);
+  const countPerPage = 20;
 
-  const switchMainCategory = () => {
+  const category = useMemo(() => {
     switch (categoryLabel) {
       case '상의':
         return 'top';
@@ -40,21 +45,25 @@ export const ChooseModal = ({ categoryLabel }: Props) => {
       default:
         return '없는 카테고리입니다.';
     }
-  };
+  }, [categoryLabel]);
 
-  const category = switchMainCategory();
-
-  const getClothes = useCallback(async () => {
-    setLoading(true);
-    await frontApi.getFilter({ categoryId: category }, setClothesData);
-    // 아래는 확인용 코드
-    // frontApi.getFilter({ categoryId: category, limit: 1000}, setClothesData);
-    setLoading(false);
-  }, [category]);
+  const getClothes = useCallback(
+    async (filter: filterType) => {
+      setLoading(true);
+      await getFilter(filter);
+      setLoading(false);
+    },
+    [getFilter],
+  );
 
   useEffect(() => {
-    getClothes();
-  }, [getClothes]);
+    getClothes({ categoryId: category, page: activePage });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [category, activePage]);
+
+  useEffect(() => {
+    setActivePage(1);
+  }, [category])
 
   const handleClose = () => {
     setChooseModalState((cur) => !cur);
@@ -77,12 +86,10 @@ export const ChooseModal = ({ categoryLabel }: Props) => {
               {clothesSubCategory[category] &&
                 clothesSubCategory[category].map((item, index) => (
                   <CustomButton
-                    onClick={() =>
-                      frontApi.getFilter(
-                        { categoryId: item.id },
-                        setClothesData,
-                      )
-                    }
+                    onClick={() => {
+                      setActivePage(1);
+                      getClothes({ categoryId: item.id });
+                    }}
                     customType="white"
                     text={item.name}
                     key={index}
@@ -90,10 +97,18 @@ export const ChooseModal = ({ categoryLabel }: Props) => {
                 ))}
             </ButtonBox>
             <ModalClothesContainer
-              clothesData={clothesData}
+              clothesData={filterItem}
               categoryLabel={categoryLabel}
             />
           </ContentBox>
+          <CustomPagination
+            activePage={activePage}
+            itemsCountPerPage={countPerPage}
+            totalItemsCount={maxPage * countPerPage}
+            onChange={(e) => {
+              setActivePage(e);
+            }}
+          />
         </Wrapper>
       )}
     </Container>

@@ -1,14 +1,14 @@
 import styled from '@emotion/styled';
-import { filterType, frontApi } from 'api/productApi';
+import { filterType } from 'api/productApi';
 import { CustomButton, TypoGraphy } from 'components/common';
 import { AddModal } from 'components/modal';
 import {
   customColor,
 } from 'constants/index';
-import { useEffect, useState } from 'react';
+import useGetFilter from 'hooks/useGetFilter';
+import { useEffect, useState, useMemo } from "react";
 import { useSetRecoilState } from 'recoil';
 import { addModal } from 'recoil/atom';
-import { productType } from 'types/editPage/product.type';
 import { ClothesContainer, ColorRadio, SearchBox } from './components';
 import CategoryFilterBox from './components/CategoryFilterBox';
 import { CustomPagination } from './components/CustomPagination';
@@ -21,44 +21,51 @@ export const Closet: React.FC = () => {
   const [color, setColor] = useState<string>('');
   const [name, setName] = useState<string>('');
   const [activePage, setActivePage] = useState<number>(1);
-  const countPerPage = 10;
+  const countPerPage = 20;
 
-  const [clothesData, setClothesData] = useState<Array<productType>>();
+  const {filterItem, maxPage, getFilter} = useGetFilter();
+
+
+  let filter:filterType = useMemo(() => {
+    let filtering: filterType = {};
+    if (subCategory === 'all') {
+      if (mainCategory === 'all') {
+        filtering.categoryId = '';
+      } else {
+        filtering.categoryId = mainCategory;
+      }
+    } else {
+      // (subCategory !== 'all')
+      filtering.categoryId = subCategory;
+    }
+
+    if (color) {
+      filtering.color = color;
+    }
+
+    if (name) {
+      filtering.query = name;
+    }
+    
+    filtering.limit = countPerPage;
+    filtering.page = activePage;
+    
+    return filtering;
+  }, [mainCategory, subCategory, color, name, activePage]);
+
+  useEffect(() => {
+    setActivePage(1);
+  }, [mainCategory, subCategory, color, name]);
+
+  useEffect(() => {
+    getFilter(filter);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [filter]);
+
 
   useEffect(() => {
     setColor('');
   }, [mainCategory, subCategory]);
-
-  useEffect(() => {
-    let filter: filterType = {};
-    if (subCategory === 'all') {
-      if (mainCategory === 'all') {
-        filter.categoryId = '';
-      } else {
-        filter.categoryId = mainCategory;
-      }
-    } else {
-      // (subCategory !== 'all')
-      filter.categoryId = subCategory;
-    }
-
-    if (color) {
-      filter.color = color;
-    }
-
-    if (name) {
-      filter.query = name;
-    }
-
-    filter.limit = countPerPage;
-    filter.page = activePage;
-
-    frontApi.getFilter(filter, setClothesData);
-  }, [mainCategory, subCategory, color, name, activePage]);
-
-  // useEffect(() => {
-  //   getColorFilter(color);
-  // }, [color]);
 
   return (
     <Container>
@@ -81,13 +88,13 @@ export const Closet: React.FC = () => {
 
         <Line />
 
-        <ClothesContainer clothesData={clothesData} />
+        <ClothesContainer clothesData={filterItem} />
       </div>
       <Footer>
         <CustomPagination
           activePage={activePage}
-          itemsCountPerPage={10}
-          totalItemsCount={1000} // Todo : 나중에 api 에서 필터된것들의 전체갯수 보내주면 그걸로 넣으면 됨
+          itemsCountPerPage={countPerPage}
+          totalItemsCount={maxPage * countPerPage}
           onChange={(e) => {
             setActivePage(e);
           }}

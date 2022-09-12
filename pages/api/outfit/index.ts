@@ -31,10 +31,6 @@ handler.get(async (req, res) => {
         gte: query.startDate ? new Date(query.startDate) : undefined,
         lte: query.endDate ? new Date(query.endDate) : undefined,
       },
-      rating: {
-        gte: query.minRating,
-        lte: query.maxRating,
-      },
     },
     include: {
       products: true,
