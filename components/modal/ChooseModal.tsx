@@ -19,7 +19,6 @@ type Props = {
 export const ChooseModal = ({ categoryLabel }: Props) => {
   const [chooseModalState, setChooseModalState] = useRecoilState(chooseModal);
   // const [clothesData, setClothesData] = useState<Array<productType>>([]);
-  const [loading, setLoading] = useState<boolean>(true);
   const { filterItem, maxPage, getFilter, clearItem } = useGetFilter();
   // const [activePage, setActivePage] = useState<number>(1);
   const countPerPage = 10; // Todo : 필터에 아직 안넣었음
@@ -50,9 +49,7 @@ export const ChooseModal = ({ categoryLabel }: Props) => {
 
   const getClothes = useCallback(
     async () => {
-      setLoading(true);
       await getFilter(filter);
-      setLoading(false);
     },
     [getFilter, filter],
   );
@@ -77,7 +74,6 @@ export const ChooseModal = ({ categoryLabel }: Props) => {
       onRequestClose={() => handleClose()}
       ariaHideApp={false}
       contentLabel="Add Modal">
-      {!loading && (
         <Wrapper>
           <TypoGraphy type="Title" fontWeight="bold">
             {categoryLabel}
@@ -115,7 +111,6 @@ export const ChooseModal = ({ categoryLabel }: Props) => {
             />
           )}
         </Wrapper>
-      )}
     </Container>
   );
 };
