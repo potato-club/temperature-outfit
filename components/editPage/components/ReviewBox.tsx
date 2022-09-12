@@ -58,13 +58,12 @@ export function ReviewBox({
       frm.append('productsId', productsIdString);
       frm.append('comment', reviewText);
       frm.append('rating', rating);
-      frm.append('locationId', user.locationId.toString());
 
       const data = await todayCodyApi.putOutfit(
         router.query.outfitId as string,
         frm,
       );
-      
+
       console.log(data);
     } catch (e) {
       console.log(e);
@@ -97,7 +96,10 @@ export function ReviewBox({
   };
 
   const confirmBtn = () => {
-    confirmModal('등록 하시겠습니까?', !!putRating ? onPut : onSave);
+    confirmModal(
+      '등록 하시겠습니까?',
+      (router.query.outfitId as string) ? onPut : onSave,
+    );
   };
 
   const codyRef = useRef<HTMLInputElement>(null);
