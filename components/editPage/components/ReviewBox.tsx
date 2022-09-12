@@ -42,6 +42,34 @@ export function ReviewBox({
     }
   };
 
+  const onPut = async () => {
+    const frm = new FormData();
+    let productsIdString = '';
+    topImage.forEach((data) => (productsIdString += data.id + ','));
+    outerImage.forEach((data) => (productsIdString += data.id + ','));
+    bottomImage.forEach((data) => (productsIdString += data.id + ','));
+    shoesImage.forEach((data) => (productsIdString += data.id + ','));
+    etcImage.forEach((data) => (productsIdString += data.id + ','));
+    productsIdString = productsIdString.slice(0, -1); // 반점 제거
+
+    try {
+      frm.append('date', `${day}`);
+      frm.append('image', reviewImage!);
+      frm.append('productsId', productsIdString);
+      frm.append('comment', reviewText);
+      frm.append('rating', rating);
+      frm.append('locationId', user.locationId.toString());
+
+      const data = await todayCodyApi.putOutfit(
+        router.query.outfitId as string,
+        frm,
+      );
+      
+      console.log(data);
+    } catch (e) {
+      console.log(e);
+    }
+  };
   const onSave = async () => {
     await getWeather();
     const frm = new FormData();
@@ -69,7 +97,7 @@ export function ReviewBox({
   };
 
   const confirmBtn = () => {
-    confirmModal('등록 하시겠습니까?', onSave);
+    confirmModal('등록 하시겠습니까?', !!putRating ? onPut : onSave);
   };
 
   const codyRef = useRef<HTMLInputElement>(null);
