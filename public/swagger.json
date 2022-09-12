@@ -263,6 +263,11 @@
             "name": "color",
             "in": "formData",
             "type": "string"
+          },
+          {
+            "name": "resetImage",
+            "in": "formData",
+            "type": "boolean"
           }
         ],
         "responses": {
@@ -466,6 +471,11 @@
             "type": "integer",
             "minimum": 0,
             "maximum": 10
+          },
+          {
+            "name": "resetImage",
+            "in": "formData",
+            "type": "boolean"
           }
         ],
         "responses": {

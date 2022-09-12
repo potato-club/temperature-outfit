@@ -66,7 +66,7 @@ handler.put(filesParser, async (req, res) => {
       name: body.name,
       category: { connect: { id: body.categoryId } },
       color: body.color,
-      imageUrl: req.file?.filepath,
+      imageUrl: body.resetImage ? null : req.file?.filepath,
     },
   });
 
