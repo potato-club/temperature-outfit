@@ -601,7 +601,7 @@
           "type": "integer",
           "description": "[nullable] 요청한 page"
         },
-        "maxPage": {
+        "lastPage": {
           "type": "integer",
           "description": "[nullable] 최대 요청 가능한 page"
         },
