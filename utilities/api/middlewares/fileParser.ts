@@ -41,7 +41,8 @@ export const filesParser: Middleware<ApiRequest, NextApiResponse> = async (
   });
 
   if (data.files.image) {
-    const image = data.files.image as ImageFile;
+    const image: ImageFile =
+      data.fields.image == null ? null : (data.files.image as File);
 
     if (image != null) {
       const imageUrl = storageClient
