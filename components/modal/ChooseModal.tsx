@@ -125,6 +125,8 @@ const Container = styled(Modal)`
   left: 50%;
   width: 100%;
   max-width: 800px;
+  box-sizing: content-box;
+  min-height: 412px;
   transform: translate(-50%, -50%);
   background-color: ${customColor.white};
   padding: 40px;
