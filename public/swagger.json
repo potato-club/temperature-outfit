@@ -247,7 +247,7 @@
           {
             "name": "image",
             "in": "formData",
-            "type": "file"
+            "type": "file | null"
           },
           {
             "name": "name",
@@ -447,7 +447,7 @@
           {
             "name": "image",
             "in": "formData",
-            "type": "file"
+            "type": "file | null"
           },
           {
             "name": "productsId",

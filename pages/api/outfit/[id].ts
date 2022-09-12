@@ -64,7 +64,11 @@ handler.put(filesParser, async (req, res) => {
     where: { id: id },
     data: {
       date: body.date ? new Date(body.date) : undefined,
-      imageUrl: req.file?.filepath,
+      imageUrl: req.file?.filepath
+        ? req.file.filepath
+        : req.file == null
+        ? null
+        : undefined,
       products: body.productsId
         ? {
             set: [],
