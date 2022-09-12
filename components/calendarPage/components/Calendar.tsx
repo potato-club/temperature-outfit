@@ -25,6 +25,7 @@ export const Calendar = () => {
             id: item.id,
             start: item.date,
             rating: item.rating,
+            weatherStatus: item.weather.status,
           };
         },
       );
@@ -36,9 +37,10 @@ export const Calendar = () => {
 
   function renderEventContent(eventContent: EventContentArg) {
     // console.log(eventContent.event.extendedProps.rating);
+    console.log();
     return (
       <DateItem
-        weather={'cloud'}
+        weatherStatus={eventContent.event.extendedProps.weatherStatus}
         temperature={'23'}
         rating={eventContent.event.extendedProps.rating}
       />
