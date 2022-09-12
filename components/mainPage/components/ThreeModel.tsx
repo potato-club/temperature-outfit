@@ -3,13 +3,13 @@ import { Canvas } from '@react-three/fiber';
 import React from 'react';
 import { LightController, Model } from './index';
 type Props = {
-  weather: string;
+  weatherStatus: 'sun' | 'cloud' | 'rain' | 'snow';
 };
-export const ThreeModel = ({ weather }: Props) => {
+export const ThreeModel = ({ weatherStatus }: Props) => {
   return (
     <Container>
       <Canvas>
-        <Model weather={weather} />
+        <Model weatherStatus={weatherStatus} />
         <LightController />
       </Canvas>
     </Container>

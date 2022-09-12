@@ -1,11 +1,11 @@
-import type { NextPage } from 'next';
 import { useRef, useState } from 'react';
 import { GLTF, GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import { ObjectMap, useFrame, useLoader } from '@react-three/fiber';
 type Props = {
-  weather: string;
+  weatherStatus: 'sun' | 'cloud' | 'rain' | 'snow';
 };
-export const Model = ({ weather } : Props) => {
+
+export const Model = ({ weatherStatus }: Props) => {
   const modelRef = useRef<THREE.Mesh>(null);
   const frameCount = useRef(0);
 
@@ -21,7 +21,9 @@ export const Model = ({ weather } : Props) => {
     return data;
   };
 
-  const gltf = typeGard(useLoader(GLTFLoader, `/weatherModel/${weather}.glb`));
+  const gltf = typeGard(
+    useLoader(GLTFLoader, `/weatherModel/${weatherStatus}.glb`),
+  );
 
   useFrame(async () => {
     if (animate) {

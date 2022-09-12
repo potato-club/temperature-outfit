@@ -6,11 +6,15 @@ import { IoUmbrella } from 'react-icons/io5';
 import { BsFillCloudFill, BsSnow2, BsSunFill } from 'react-icons/bs';
 
 interface DateItemProps {
-  weather: string;
+  weatherStatus: string;
   temperature: string;
   rating: string;
 }
-export const DateItem = ({ weather, temperature, rating }: DateItemProps) => {
+export const DateItem = ({
+  weatherStatus,
+  temperature,
+  rating,
+}: DateItemProps) => {
   // weather값(정해진 4개)에 따라 기후 icon 4가지 중에 하나 보여줘야 함
   // 비(우산), 눈(눈 결정), 해, 구름
   const iconSelect = (weather: string): any => {
@@ -29,10 +33,7 @@ export const DateItem = ({ weather, temperature, rating }: DateItemProps) => {
   };
   return (
     <Date>
-      <WeatherIcon>
-        {/* <IoIosUmbrella /> */}
-        {iconSelect(weather)}
-      </WeatherIcon>
+      <WeatherIcon>{iconSelect(weatherStatus)}</WeatherIcon>
 
       <DateInfo>
         <TypoGraphy color="white">

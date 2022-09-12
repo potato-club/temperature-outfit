@@ -28,6 +28,7 @@ export function ReviewBox({
         query: {
           day: outfitData.date,
           outfitData: JSON.stringify(outfitData),
+          outfitId : router.query.id
         },
       },
       'put',
