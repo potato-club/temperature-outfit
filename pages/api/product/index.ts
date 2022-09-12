@@ -59,7 +59,7 @@ handler.get(async (req, res) => {
 
   res.status(200).json({
     page: page,
-    maxPage: Math.ceil(count / limit),
+    lastPage: Math.ceil(count / limit),
     limit: limit,
     products: products.map<ProductDetailResponse>((product) =>
       convertProductToResponse(product),

@@ -247,7 +247,7 @@
           {
             "name": "image",
             "in": "formData",
-            "type": "file"
+            "type": "file | null"
           },
           {
             "name": "name",
@@ -447,7 +447,7 @@
           {
             "name": "image",
             "in": "formData",
-            "type": "file"
+            "type": "file | null"
           },
           {
             "name": "productsId",
@@ -591,7 +591,7 @@
           "type": "integer",
           "description": "[nullable] 요청한 page"
         },
-        "maxPage": {
+        "lastPage": {
           "type": "integer",
           "description": "[nullable] 최대 요청 가능한 page"
         },

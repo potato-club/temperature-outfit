@@ -3,9 +3,11 @@ import type { File } from 'formidable';
 import type { NextApiRequest } from 'next';
 import type { Session } from 'next-auth';
 
+export type ImageFile = File | null;
+
 export type ApiRequest = NextApiRequest & {
   session?: Session;
-  file?: File;
+  file?: ImageFile;
 };
 
 export type UserLocationPostRequest = {
@@ -53,7 +55,7 @@ export type ProductDetailResponse = {
 export type ProductResponse = {
   page?: number;
   limit?: number;
-  maxPage?: number;
+  lastPage?: number;
   products: ProductDetailResponse[];
 };
 

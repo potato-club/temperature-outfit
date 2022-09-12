@@ -3,7 +3,7 @@ import { Fields, File, Files, Formidable } from 'formidable';
 import type { NextApiResponse } from 'next';
 import { Middleware } from 'next-connect';
 import { PassThrough } from 'stream';
-import { ApiRequest } from '../../../types';
+import { ApiRequest, ImageFile } from '../../../types';
 import { storageClient } from '../storage';
 
 const uploadStream = (file: { newFilename: string }) => {
@@ -41,11 +41,14 @@ export const filesParser: Middleware<ApiRequest, NextApiResponse> = async (
   });
 
   if (data.files.image) {
-    const image = data.files.image as File;
-    const imageUrl = storageClient
-      .from('image')
-      .getPublicUrl(image.newFilename);
-    image.filepath = imageUrl.data?.publicURL ?? '';
+    const image = data.files.image as ImageFile;
+
+    if (image != null) {
+      const imageUrl = storageClient
+        .from('image')
+        .getPublicUrl(image.newFilename);
+      image.filepath = imageUrl.data?.publicURL ?? '';
+    }
 
     req.file = image;
   }
