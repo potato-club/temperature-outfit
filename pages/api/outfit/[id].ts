@@ -67,13 +67,14 @@ handler.put(filesParser, async (req, res) => {
       imageUrl: req.file?.filepath,
       products: body.productsId
         ? {
+            set: [],
             connect: body.productsId.split(',').map((id) => ({ id })),
           }
         : undefined,
       comment: body.comment,
       rating: body.rating ? +body.rating : undefined,
     },
-    include: { products: true },
+    include: { products: true, weather: true },
   });
 
   res.status(200).json(convertOutfitToResponse(outfit));
@@ -99,7 +100,7 @@ handler.delete(async (req, res) => {
 
   const outfit = await prisma.outfit.delete({
     where: { id: id },
-    include: { products: true },
+    include: { products: true, weather: true },
   });
 
   res.status(200).json(convertOutfitToResponse(outfit));
