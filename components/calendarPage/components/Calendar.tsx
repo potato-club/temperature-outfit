@@ -87,8 +87,8 @@ export const Calendar = () => {
         }}
         initialView="dayGridMonth"
         defaultAllDay={true}
-        editable={true}
-        selectable={true}
+        editable={false}
+        selectable={false}
         dayMaxEvents={true}
         weekends={true}
         eventStartEditable={false}
