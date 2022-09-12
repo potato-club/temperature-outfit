@@ -49,12 +49,12 @@ export const ChooseModal = ({ categoryLabel }: Props) => {
   const [filter, setFilter] = useState<filterType>({});
 
   const getClothes = useCallback(
-    async (filter: filterType) => {
+    async () => {
       setLoading(true);
       await getFilter(filter);
       setLoading(false);
     },
-    [getFilter],
+    [getFilter, filter],
   );
 
   useEffect(() => {
@@ -62,8 +62,7 @@ export const ChooseModal = ({ categoryLabel }: Props) => {
   }, [mainCategory]);
 
   useEffect(() => {
-    console.log('몇번호출?');
-    getClothes(filter);
+    getClothes();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filter]);
 
@@ -80,7 +79,6 @@ export const ChooseModal = ({ categoryLabel }: Props) => {
       {!loading && (
         <Wrapper>
           <TypoGraphy type="Title" fontWeight="bold">
-            {/* {cloth} */}
             {categoryLabel}
           </TypoGraphy>
           <ContentBox>
@@ -89,7 +87,10 @@ export const ChooseModal = ({ categoryLabel }: Props) => {
                 clothesSubCategory[mainCategory].map((item, index) => (
                   <CustomButton
                     onClick={() => {
-                      setFilter({ categoryId: item.id, page: 1 });
+                      if(filter.categoryId === item.id) {
+                        return;
+                      }
+                      setFilter((prev) => ({...prev, categoryId: item.id, page: 1}));
                     }}
                     customType="white"
                     text={item.name}
