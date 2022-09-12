@@ -18,10 +18,9 @@ type Props = {
 
 export const ChooseModal = ({ categoryLabel }: Props) => {
   const [chooseModalState, setChooseModalState] = useRecoilState(chooseModal);
-  // const [clothesData, setClothesData] = useState<Array<productType>>([]);
-  const { filterItem, maxPage, getFilter, clearItem } = useGetFilter();
-  // const [activePage, setActivePage] = useState<number>(1);
-  const countPerPage = 10; // Todo : 필터에 아직 안넣었음
+  const [loading, setLoading] = useState<boolean>(true);
+  const { filterItem, maxPage, getFilter } = useGetFilter();
+  const countPerPage = 10;
 
   const mainCategory = useMemo(() => {
     switch (categoryLabel) {
@@ -47,15 +46,14 @@ export const ChooseModal = ({ categoryLabel }: Props) => {
 
   const [filter, setFilter] = useState<filterType>({});
 
-  const getClothes = useCallback(
-    async () => {
-      await getFilter(filter);
-    },
-    [getFilter, filter],
-  );
+  const getClothes = useCallback(async () => {
+    setLoading(true);
+    await getFilter(filter);
+    setLoading(false);
+  }, [getFilter, filter]);
 
   useEffect(() => {
-    setFilter({ categoryId: mainCategory, page: 1 });
+    setFilter({ categoryId: mainCategory, page: 1, limit: countPerPage });
   }, [mainCategory]);
 
   useEffect(() => {
@@ -65,7 +63,6 @@ export const ChooseModal = ({ categoryLabel }: Props) => {
 
   const handleClose = () => {
     setChooseModalState((cur) => !cur);
-    clearItem();
   };
 
   return (
@@ -74,6 +71,7 @@ export const ChooseModal = ({ categoryLabel }: Props) => {
       onRequestClose={() => handleClose()}
       ariaHideApp={false}
       contentLabel="Add Modal">
+      {!loading && (
         <Wrapper>
           <TypoGraphy type="Title" fontWeight="bold">
             {categoryLabel}
@@ -84,10 +82,14 @@ export const ChooseModal = ({ categoryLabel }: Props) => {
                 clothesSubCategory[mainCategory].map((item, index) => (
                   <CustomButton
                     onClick={() => {
-                      if(filter.categoryId === item.id) {
+                      if (filter.categoryId === item.id) {
                         return;
                       }
-                      setFilter((prev) => ({...prev, categoryId: item.id, page: 1}));
+                      setFilter((prev) => ({
+                        ...prev,
+                        categoryId: item.id,
+                        page: 1,
+                      }));
                     }}
                     customType="white"
                     text={item.name}
@@ -111,6 +113,7 @@ export const ChooseModal = ({ categoryLabel }: Props) => {
             />
           )}
         </Wrapper>
+      )}
     </Container>
   );
 };
