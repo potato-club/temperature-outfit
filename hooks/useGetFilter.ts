@@ -16,10 +16,15 @@ export default function useGetFilter() {
       console.log(err);
     }
   };
+  
+  const clearItem = () => {
+    setFilterItem([])
+  }
 
   return {
     filterItem,
     getFilter,
     maxPage,
+    clearItem,
   };
 }
