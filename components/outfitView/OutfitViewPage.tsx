@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 import { TypoGraphy } from 'components/common';
 import { DressRoom, ReviewBox, Title } from './components';
-import { editDummy } from 'dummy/newEditDummy';
 import { useRouter } from 'next/router';
 import { todayCodyApi } from 'api';
 import { clothesSubCategory, clothesMainCategory } from 'constants/index';
@@ -16,14 +15,28 @@ export default function EditPage() {
     products: [],
     comment: '초기 Comment',
   });
+  const [weather, setWeather] = useState({
+    temperature: 0,
+    lowestTemperature: 0,
+    highestTemperature: 0,
+  });
 
   useEffect(() => {
     router.query.id &&
       (async () => {
         try {
           const {
-            data: { date, imageUrl, rating, products, comment },
+            data: {
+              date,
+              imageUrl,
+              rating,
+              products,
+              comment,
+              weather: { temperature, lowestTemperature, highestTemperature },
+            },
           } = await todayCodyApi.getOutfit(router.query.id as string);
+
+          setWeather({ temperature, lowestTemperature, highestTemperature });
           setOutfitData({
             date,
             imageUrl,
@@ -52,9 +65,9 @@ export default function EditPage() {
   return (
     <Container>
       <Title
-        average={editDummy.average}
-        max={editDummy.max}
-        min={editDummy.min}
+        average={weather.temperature}
+        max={weather.highestTemperature}
+        min={weather.lowestTemperature}
         day={outfitData.date}
       />
       <Contents>
