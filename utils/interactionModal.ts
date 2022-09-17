@@ -17,9 +17,6 @@ export const confirmModal = (
   }).then((result) => {
     if (result.isConfirmed) {
       fn();
-      Swal.fire({ title: '완료 되었습니다.', icon: 'success' }).then(() =>
-        window.location.assign('/calendar'),
-      );
     }
   });
 };

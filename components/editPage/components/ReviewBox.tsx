@@ -17,6 +17,7 @@ import { todayCodyApi, weatherApi } from 'api';
 import { IoMdImage } from 'react-icons/io';
 import { confirmModal, infoModal } from 'utils/interactionModal';
 import { useRouter } from 'next/router';
+import Swal from 'sweetalert2';
 interface ReviewBoxProps {
   day: string;
   putImageUrl?: string;
@@ -73,6 +74,10 @@ export function ReviewBox({
       );
 
       console.log(data);
+
+      Swal.fire({ title: '완료 되었습니다.', icon: 'success' }).then(() =>
+        window.location.assign('/calendar'),
+      );
     } catch (e) {
       console.log(e);
     }
@@ -104,6 +109,9 @@ export function ReviewBox({
 
       const data = await todayCodyApi.addProduct(frm);
       console.log(data);
+      Swal.fire({ title: '완료 되었습니다.', icon: 'success' }).then(() =>
+        window.location.assign('/calendar'),
+      );
     } catch (e) {
       console.log(e);
     }

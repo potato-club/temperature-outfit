@@ -7,6 +7,7 @@ import { Rating } from 'react-simple-star-rating';
 import { useRouter } from 'next/router';
 import { confirmModal } from 'utils/interactionModal';
 import { todayCodyApi } from 'api';
+import Swal from 'sweetalert2';
 
 interface ReviewBoxProps {
   comment: string;
@@ -28,7 +29,7 @@ export function ReviewBox({
         query: {
           day: outfitData.date,
           outfitData: JSON.stringify(outfitData),
-          outfitId : router.query.id
+          outfitId: router.query.id,
         },
       },
       'put',
@@ -42,6 +43,10 @@ export function ReviewBox({
   const handleDelete = async () => {
     try {
       await todayCodyApi.deleteOutfit(router.query.id as string);
+
+      Swal.fire({ title: '완료 되었습니다.', icon: 'success' }).then(() =>
+        window.location.assign('/calendar'),
+      );
     } catch (error) {
       console.log(error);
     }
