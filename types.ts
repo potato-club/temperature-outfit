@@ -3,11 +3,11 @@ import type { File } from 'formidable';
 import type { NextApiRequest } from 'next';
 import type { Session } from 'next-auth';
 
-export type ImageFile = File | null;
+export type FilePath = string | null;
 
 export type ApiRequest = NextApiRequest & {
   session?: Session;
-  file?: ImageFile;
+  filePath?: FilePath;
 };
 
 export type UserLocationPostRequest = {
