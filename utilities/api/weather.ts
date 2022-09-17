@@ -17,9 +17,9 @@ export const getCurrentWeather = async (
   );
 
   return {
-    temperature: res.data.main.temp,
-    lowestTemperature: res.data.main.temp_min,
-    highestTemperature: res.data.main.temp_max,
+    temperature: (res.data.main.temp as number).toFixed(1),
+    lowestTemperature: (res.data.main.temp_min as number).toFixed(1),
+    highestTemperature: res.data.main.temp_max as number,
     feelsLike: res.data.main.feels_like,
     humidity: res.data.main.humidity,
   };

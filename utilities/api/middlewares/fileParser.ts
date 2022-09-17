@@ -40,9 +40,6 @@ export const filesParser: Middleware<ApiRequest, NextApiResponse> = async (
     });
   });
 
-  console.log(data.files);
-  console.log(data.fields);
-
   if (data.files.image) {
     const image = data.files.image as File;
 
