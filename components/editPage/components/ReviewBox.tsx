@@ -52,12 +52,20 @@ export function ReviewBox({
     etcImage.forEach((data) => (productsIdString += data.id + ','));
     productsIdString = productsIdString.slice(0, -1); // 반점 제거
 
+    if (!productsIdString) {
+      infoModal('확인 해주세요!', 'error', '옷을 하나 이상 등록 해주세요!');
+      return;
+    }
+
     try {
       frm.append('date', `${day}`);
       frm.append('image', reviewImage!);
+      console.log('리뷰이미지!', reviewImage);
       frm.append('productsId', productsIdString);
       frm.append('comment', reviewText);
       frm.append('rating', rating);
+
+      console.log(reviewImage);
 
       const data = await todayCodyApi.putOutfit(
         router.query.outfitId as string,
@@ -69,6 +77,7 @@ export function ReviewBox({
       console.log(e);
     }
   };
+
   const onSave = async () => {
     await getWeather();
     const frm = new FormData();
@@ -79,6 +88,11 @@ export function ReviewBox({
     shoesImage.forEach((data) => (productsIdString += data.id + ','));
     etcImage.forEach((data) => (productsIdString += data.id + ','));
     productsIdString = productsIdString.slice(0, -1); // 반점 제거
+
+    if (!productsIdString) {
+      infoModal('확인 해주세요!', 'error', '옷을 하나 이상 등록 해주세요!');
+      return;
+    }
 
     try {
       frm.append('date', `${day}`);
@@ -110,10 +124,11 @@ export function ReviewBox({
   const resetShoes = useResetRecoilState(shoesState);
   const resetEtc = useResetRecoilState(etcState);
 
-  const [reviewImage, setReviewImage] = useState<File>();
+  // * null 일때는 삭제, undefined 는 기존
+  const [reviewImage, setReviewImage] = useState<File | null>();
   const [reviewThumbnail, setReviewThumbnail] = useState<string>('');
   const [reviewText, setReviewText] = useState<string>('');
-  const [rating, setRating] = useState<string>('');
+  const [rating, setRating] = useState<string>('0');
 
   const topImage = useRecoilValue(topState);
   const outerImage = useRecoilValue(outerState);
@@ -134,7 +149,7 @@ export function ReviewBox({
     resetShoes();
     resetEtc();
     setReviewThumbnail('');
-    setReviewImage(undefined);
+    setReviewImage(null);
     setReviewText('');
     setRating('0');
     router.back();
@@ -185,7 +200,7 @@ export function ReviewBox({
             sidePadding="20"
             onClick={() => {
               setReviewThumbnail('');
-              setReviewImage(undefined);
+              setReviewImage(null);
             }}
           />
         </ButtonWrapper>
