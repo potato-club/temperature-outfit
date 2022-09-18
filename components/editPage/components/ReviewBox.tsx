@@ -13,7 +13,7 @@ import {
   topState,
   userState,
 } from 'recoil/atom';
-import { todayCodyApi } from 'api';
+import { todayCodyApi, weatherApi } from 'api';
 import { IoMdImage } from 'react-icons/io';
 import { confirmModal, infoModal } from 'utils/interactionModal';
 import { useRouter } from 'next/router';
@@ -33,7 +33,16 @@ export function ReviewBox({
   const router = useRouter();
 
   const user = useRecoilValue(userState);
-  const onSave = async () => {
+
+  const getWeather = async () => {
+    try {
+      await weatherApi.getWeather(day, user.locationId);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const onPut = async () => {
     const frm = new FormData();
     let productsIdString = '';
     topImage.forEach((data) => (productsIdString += data.id + ','));
@@ -43,13 +52,38 @@ export function ReviewBox({
     etcImage.forEach((data) => (productsIdString += data.id + ','));
     productsIdString = productsIdString.slice(0, -1); // 반점 제거
 
-    console.log(productsIdString);
+    try {
+      frm.append('date', `${day}`);
+      frm.append('image', reviewImage!);
+      frm.append('productsId', productsIdString);
+      frm.append('comment', reviewText);
+      frm.append('rating', rating);
+
+      const data = await todayCodyApi.putOutfit(
+        router.query.outfitId as string,
+        frm,
+      );
+
+      console.log(data);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+  const onSave = async () => {
+    await getWeather();
+    const frm = new FormData();
+    let productsIdString = '';
+    topImage.forEach((data) => (productsIdString += data.id + ','));
+    outerImage.forEach((data) => (productsIdString += data.id + ','));
+    bottomImage.forEach((data) => (productsIdString += data.id + ','));
+    shoesImage.forEach((data) => (productsIdString += data.id + ','));
+    etcImage.forEach((data) => (productsIdString += data.id + ','));
+    productsIdString = productsIdString.slice(0, -1); // 반점 제거
 
     try {
       frm.append('date', `${day}`);
       frm.append('image', reviewImage!);
       frm.append('productsId', productsIdString);
-
       frm.append('comment', reviewText);
       frm.append('rating', rating);
       frm.append('locationId', user.locationId.toString());
@@ -62,7 +96,10 @@ export function ReviewBox({
   };
 
   const confirmBtn = () => {
-    confirmModal('등록 하시겠습니까?', onSave);
+    confirmModal(
+      '등록 하시겠습니까?',
+      (router.query.outfitId as string) ? onPut : onSave,
+    );
   };
 
   const codyRef = useRef<HTMLInputElement>(null);
@@ -134,12 +171,12 @@ export function ReviewBox({
           onChange={addReviewImage}
         />
         <ImageWrapper>
-            <Image
-              src={reviewThumbnail || '/cody.jpg'}
-              alt="review"
-              layout="fill"
-              onClick={() => codyRef.current && codyRef.current.click()}
-            />
+          <Image
+            src={reviewThumbnail || '/cody.jpg'}
+            alt="review"
+            layout="fill"
+            onClick={() => codyRef.current && codyRef.current.click()}
+          />
         </ImageWrapper>
         <ButtonWrapper>
           <CustomButton

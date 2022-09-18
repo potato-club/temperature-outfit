@@ -8,6 +8,7 @@ type Props = {
   url: string;
 };
 export function ClothesDummy({ name, url }: Props) {
+  
   return (
     <Container>
       <Image width={120} height={120} alt="clothes" src={url} />

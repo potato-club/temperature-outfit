@@ -10,8 +10,7 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
   return (
     <SessionProvider session={session}>
       <Head>
-        <title>날씨별 옷차림</title>
-        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       </Head>
       <RecoilRoot>
         <LayoutContainer>

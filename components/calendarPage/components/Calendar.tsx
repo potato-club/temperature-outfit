@@ -15,6 +15,7 @@ import { DateItem } from './DateItem';
 export const Calendar = () => {
   const [myOutfit, setMyOutfit] = useState<EventInput[]>([]);
   const router = useRouter();
+  const today = new Date().getDate();
 
   const getMyOutfit = async (start: string, end: string) => {
     try {
@@ -25,6 +26,7 @@ export const Calendar = () => {
             id: item.id,
             start: item.date,
             rating: item.rating,
+            weatherStatus: item.weather.status,
           };
         },
       );
@@ -36,9 +38,10 @@ export const Calendar = () => {
 
   function renderEventContent(eventContent: EventContentArg) {
     // console.log(eventContent.event.extendedProps.rating);
+    console.log();
     return (
       <DateItem
-        weather={'cloud'}
+        weatherStatus={eventContent.event.extendedProps.weatherStatus}
         temperature={'23'}
         rating={eventContent.event.extendedProps.rating}
       />
@@ -46,13 +49,20 @@ export const Calendar = () => {
   }
 
   const handleDateSelect = (selectInfo: DateSelectArg) => {
-    if (myOutfit.map((item) => item.start).includes(selectInfo.startStr)) {
+    const selectedItem = selectInfo.startStr;
+    const selectDate = new Date(selectedItem).getDate();
+
+    if (myOutfit.map((item) => item.start).includes(selectedItem)) {
+      return null;
+    }
+
+    if (selectDate > today) {
       return null;
     }
     router.push({
       pathname: `/edit`,
       query: {
-        day: selectInfo.startStr,
+        day: selectedItem,
       },
     });
   };
