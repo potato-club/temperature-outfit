@@ -21,7 +21,7 @@ export const ChooseModal = ({ categoryLabel }: Props) => {
   const [chooseModalState, setChooseModalState] = useRecoilState(chooseModal);
   // const [clothesData, setClothesData] = useState<Array<productType>>([]);
   const [loading, setLoading] = useState<boolean>(true);
-  const { filterItem, maxPage, getFilter } = useGetFilter();
+  const { filterItem, lastPage, getFilter } = useGetFilter();
   const [activePage, setActivePage] = useState<number>(1);
   const countPerPage = 20;
 
@@ -104,7 +104,7 @@ export const ChooseModal = ({ categoryLabel }: Props) => {
           <CustomPagination
             activePage={activePage}
             itemsCountPerPage={countPerPage}
-            totalItemsCount={maxPage * countPerPage}
+            totalItemsCount={lastPage * countPerPage}
             onChange={(e) => {
               setActivePage(e);
             }}
