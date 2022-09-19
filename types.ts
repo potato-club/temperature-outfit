@@ -101,9 +101,9 @@ export type WeatherResponse = {
   date: string;
   locationId: number;
   status: WeatherStatus;
-  temperature: number;
-  lowestTemperature: number;
-  highestTemperature: number;
+  temperature: string;
+  lowestTemperature: string;
+  highestTemperature: string;
   isForecast: boolean;
   createdAt: string;
   updatedAt: string;
