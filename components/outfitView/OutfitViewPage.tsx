@@ -6,6 +6,12 @@ import { useRouter } from 'next/router';
 import { todayCodyApi } from 'api';
 import { clothesSubCategory, clothesMainCategory } from 'constants/index';
 
+type totalTemperatureType = {
+  highestTemperature: string;
+  temperature: string;
+  lowestTemperature: string;
+};
+
 export default function EditPage() {
   const router = useRouter();
   const [outfitData, setOutfitData] = useState({
@@ -15,10 +21,10 @@ export default function EditPage() {
     products: [],
     comment: '초기 Comment',
   });
-  const [weather, setWeather] = useState({
-    temperature: 0,
-    lowestTemperature: 0,
-    highestTemperature: 0,
+  const [weather, setWeather] = useState<totalTemperatureType>({
+    temperature: '0',
+    lowestTemperature: '0',
+    highestTemperature: '0',
   });
 
   useEffect(() => {

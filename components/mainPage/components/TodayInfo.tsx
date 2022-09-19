@@ -8,9 +8,9 @@ import { userState } from 'recoil/atom';
 
 type weatherStatusType = 'sun' | 'cloud' | 'rain' | 'snow';
 type totalTemperatureType = {
-  highestTemperature: number;
-  temperature: number;
-  lowestTemperature: number;
+  highestTemperature: string;
+  temperature: string;
+  lowestTemperature: string;
 };
 
 export function TodayInfo(props: mainDummyType) {
@@ -19,7 +19,11 @@ export function TodayInfo(props: mainDummyType) {
   const { locationId } = useRecoilValue(userState);
   const [weatherStatus, setWeatherStatus] = useState<weatherStatusType>('sun');
   const [totalTemperature, setTotalTemperature] =
-    useState<totalTemperatureType>({});
+    useState<totalTemperatureType>({
+      highestTemperature: '0',
+      temperature: '0',
+      lowestTemperature: '0',
+    });
 
   const getTodayWeather = useCallback(async () => {
     try {
