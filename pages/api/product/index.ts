@@ -75,7 +75,7 @@ handler.post(filesParser, async (req, res) => {
       name: body.name,
       category: { connect: { id: body.categoryId } },
       color: body.color,
-      imageUrl: req.file?.filepath,
+      imageUrl: req.filePath,
       owner: { connect: { email: req?.session?.user?.email ?? '' } },
     },
   });

@@ -3,11 +3,11 @@ import type { File } from 'formidable';
 import type { NextApiRequest } from 'next';
 import type { Session } from 'next-auth';
 
-export type ImageFile = File | null;
+export type FilePath = string | null;
 
 export type ApiRequest = NextApiRequest & {
   session?: Session;
-  file?: ImageFile;
+  filePath?: FilePath;
 };
 
 export type UserLocationPostRequest = {
@@ -101,9 +101,9 @@ export type WeatherResponse = {
   date: string;
   locationId: number;
   status: WeatherStatus;
-  temperature: number;
-  lowestTemperature: number;
-  highestTemperature: number;
+  temperature: string;
+  lowestTemperature: string;
+  highestTemperature: string;
   isForecast: boolean;
   createdAt: string;
   updatedAt: string;
