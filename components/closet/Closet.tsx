@@ -1,5 +1,4 @@
 import styled from '@emotion/styled';
-import { filterType } from 'api/productApi';
 import { CustomButton, TypoGraphy } from 'components/common';
 import { AddModal } from 'components/modal';
 import {
@@ -9,6 +8,7 @@ import useGetFilter from 'hooks/useGetFilter';
 import { useEffect, useState, useMemo } from "react";
 import { useSetRecoilState } from 'recoil';
 import { addModal } from 'recoil/atom';
+import { filterType } from 'types/editPage/filter.type';
 import { ClothesContainer, ColorRadio, SearchBox } from './components';
 import CategoryFilterBox from './components/CategoryFilterBox';
 import { CustomPagination } from './components/CustomPagination';
