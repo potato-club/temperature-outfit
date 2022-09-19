@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 import { TypoGraphy } from 'components/common';
 import { DressRoom, ReviewBox, Title } from './components';
-import { categories } from 'types/editPage/categories';
+import { categories } from 'constants/categories';
 import { editDummy } from 'dummy/newEditDummy';
 import { ChooseModal } from 'components/modal';
 import { useRouter } from 'next/router';

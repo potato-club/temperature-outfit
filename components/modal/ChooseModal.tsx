@@ -1,16 +1,15 @@
 import React, { useCallback, useEffect, useMemo } from 'react';
 import Modal from 'react-modal';
 import styled from '@emotion/styled';
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { CustomButton, TypoGraphy } from 'components/common';
 import { customColor, clothesSubCategory } from 'constants/index';
 import { useRecoilState } from 'recoil';
 import { chooseModal } from 'recoil/atom';
-import { productType } from 'types/editPage/product.type';
-import { filterType, frontApi } from 'api/productApi';
 import { ModalClothesContainer } from './ModalClothesContainer';
 import useGetFilter from 'hooks/useGetFilter';
 import { CustomPagination } from 'components/closet/components/CustomPagination';
+import { filterType } from 'types/editPage/filter.type';
 type Props = {
   categoryLabel: string;
 };
@@ -19,13 +18,11 @@ type Props = {
 
 export const ChooseModal = ({ categoryLabel }: Props) => {
   const [chooseModalState, setChooseModalState] = useRecoilState(chooseModal);
-  // const [clothesData, setClothesData] = useState<Array<productType>>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const { filterItem, maxPage, getFilter } = useGetFilter();
-  const [activePage, setActivePage] = useState<number>(1);
-  const countPerPage = 20;
+  const countPerPage = 10;
 
-  const category = useMemo(() => {
+  const mainCategory = useMemo(() => {
     switch (categoryLabel) {
       case '상의':
         return 'top';
@@ -47,23 +44,22 @@ export const ChooseModal = ({ categoryLabel }: Props) => {
     }
   }, [categoryLabel]);
 
-  const getClothes = useCallback(
-    async (filter: filterType) => {
-      setLoading(true);
-      await getFilter(filter);
-      setLoading(false);
-    },
-    [getFilter],
-  );
+  const [filter, setFilter] = useState<filterType>({});
+
+  const getClothes = useCallback(async () => {
+    setLoading(true);
+    await getFilter(filter);
+    setLoading(false);
+  }, [getFilter, filter]);
 
   useEffect(() => {
-    getClothes({ categoryId: category, page: activePage });
+    setFilter({ categoryId: mainCategory, page: 1, limit: countPerPage });
+  }, [mainCategory]);
+
+  useEffect(() => {
+    getClothes();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [category, activePage]);
-
-  useEffect(() => {
-    setActivePage(1);
-  }, [category])
+  }, [filter]);
 
   const handleClose = () => {
     setChooseModalState((cur) => !cur);
@@ -78,17 +74,22 @@ export const ChooseModal = ({ categoryLabel }: Props) => {
       {!loading && (
         <Wrapper>
           <TypoGraphy type="Title" fontWeight="bold">
-            {/* {cloth} */}
             {categoryLabel}
           </TypoGraphy>
           <ContentBox>
             <ButtonBox>
-              {clothesSubCategory[category] &&
-                clothesSubCategory[category].map((item, index) => (
+              {clothesSubCategory[mainCategory] &&
+                clothesSubCategory[mainCategory].map((item, index) => (
                   <CustomButton
                     onClick={() => {
-                      setActivePage(1);
-                      getClothes({ categoryId: item.id });
+                      if (filter.categoryId === item.id) {
+                        return;
+                      }
+                      setFilter((prev) => ({
+                        ...prev,
+                        categoryId: item.id,
+                        page: 1,
+                      }));
                     }}
                     customType="white"
                     text={item.name}
@@ -101,14 +102,16 @@ export const ChooseModal = ({ categoryLabel }: Props) => {
               categoryLabel={categoryLabel}
             />
           </ContentBox>
-          <CustomPagination
-            activePage={activePage}
-            itemsCountPerPage={countPerPage}
-            totalItemsCount={maxPage * countPerPage}
-            onChange={(e) => {
-              setActivePage(e);
-            }}
-          />
+          {filter.page && (
+            <CustomPagination
+              activePage={filter.page}
+              itemsCountPerPage={countPerPage}
+              totalItemsCount={maxPage * countPerPage}
+              onChange={(e) => {
+                setFilter((prev) => ({ ...prev, page: e }));
+              }}
+            />
+          )}
         </Wrapper>
       )}
     </Container>
@@ -121,6 +124,8 @@ const Container = styled(Modal)`
   left: 50%;
   width: 100%;
   max-width: 800px;
+  box-sizing: content-box;
+  min-height: 412px;
   transform: translate(-50%, -50%);
   background-color: ${customColor.white};
   padding: 40px;
