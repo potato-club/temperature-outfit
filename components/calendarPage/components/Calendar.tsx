@@ -110,7 +110,7 @@ export const Calendar = () => {
 };
 
 const Wrapper = styled.section`
-  width: 100%;
+  width: 1178px;
   max-width: 1178px;
   padding: 20px;
   background-color: white;
