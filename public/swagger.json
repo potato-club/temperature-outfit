@@ -698,14 +698,14 @@
           "$ref": "#/definitions/WeatherStatus"
         },
         "temperature": {
-          "type": "integer",
+          "type": "string",
           "description": "예보일 때 현재온도, 기록일 때 평균온도"
         },
         "lowestTemperature": {
-          "type": "integer"
+          "type": "string"
         },
         "highestTemperature": {
-          "type": "integer"
+          "type": "string"
         },
         "isForecast": {
           "type": "boolean",
