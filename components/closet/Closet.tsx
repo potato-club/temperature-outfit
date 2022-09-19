@@ -23,7 +23,7 @@ export const Closet: React.FC = () => {
   const [activePage, setActivePage] = useState<number>(1);
   const countPerPage = 20;
 
-  const {filterItem, maxPage, getFilter} = useGetFilter();
+  const {filterItem, lastPage, getFilter} = useGetFilter();
 
 
   let filter:filterType = useMemo(() => {
@@ -94,7 +94,7 @@ export const Closet: React.FC = () => {
         <CustomPagination
           activePage={activePage}
           itemsCountPerPage={countPerPage}
-          totalItemsCount={maxPage * countPerPage}
+          totalItemsCount={lastPage * countPerPage}
           onChange={(e) => {
             setActivePage(e);
           }}

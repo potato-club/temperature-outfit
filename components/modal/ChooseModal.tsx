@@ -19,7 +19,7 @@ type Props = {
 export const ChooseModal = ({ categoryLabel }: Props) => {
   const [chooseModalState, setChooseModalState] = useRecoilState(chooseModal);
   const [loading, setLoading] = useState<boolean>(true);
-  const { filterItem, maxPage, getFilter } = useGetFilter();
+  const { filterItem, lastPage, getFilter } = useGetFilter();
   const countPerPage = 10;
 
   const mainCategory = useMemo(() => {
@@ -106,7 +106,7 @@ export const ChooseModal = ({ categoryLabel }: Props) => {
             <CustomPagination
               activePage={filter.page}
               itemsCountPerPage={countPerPage}
-              totalItemsCount={maxPage * countPerPage}
+              totalItemsCount={lastPage * countPerPage}
               onChange={(e) => {
                 setFilter((prev) => ({ ...prev, page: e }));
               }}
