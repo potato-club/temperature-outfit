@@ -14,22 +14,25 @@ import { useRecoilState } from 'recoil';
 import { addModal } from 'recoil/atom';
 import { productApi } from 'api';
 import { infoModal } from 'utils/interactionModal';
+import { useForm } from 'react-hook-form';
+import { MainSubSelectBox } from './mainSubSelectBox';
 
 export const AddModal = () => {
   const [addModalState, setAddModalState] = useRecoilState(addModal);
   const [image, setImage] = useState<File>();
-  const [name, setName] = useState<string>('');
+  // const [name, setName] = useState<string>('');
   const [color, setColor] = useState<string>('');
-  const [mainCategory, setMainCategory] = useState<string>('top');
-  const [subCategory, setSubCategory] = useState<string>('sleeveless');
+  // const [mainCategory, setMainCategory] = useState<string>('top');
+  // const [subCategory, setSubCategory] = useState<string>('sleeveless');
   const [thumbnail, setThumbnail] = useState<string>('');
+  const { register, handleSubmit } = useForm();
 
   const resetState = () => {
     setImage(undefined);
-    setName('');
+    // setName('');
     setColor('');
-    setMainCategory('top');
-    setSubCategory('sleeveless');
+    // setMainCategory('top');
+    // setSubCategory('sleeveless');
     setThumbnail('');
   };
 
@@ -50,47 +53,53 @@ export const AddModal = () => {
     }
   };
 
-  const onChange = (e: React.FormEvent<HTMLInputElement>) => {
-    setName(e.currentTarget.value);
+  // const onChange = (e: React.FormEvent<HTMLInputElement>) => {
+  //   setName(e.currentTarget.value);
+  // };
+
+  const addClothesItem = async (data: any) => {
+    // if (!(image && name && subCategory && color)) {
+
+    const test = data;
+    console.log(test);
+
+    // * 기존에 쓰던코드
+    // if (!(image && subCategory && color)) {
+    //   infoModal(
+    //     '확인 해주세요!',
+    //     'error',
+    //     '상품의 이미지, 이름, 카테고리, 색상을 지정해주세요!',
+    //   );
+    //   return;
+    // }
+    // const frm = new FormData();
+    // frm.append('image', image!);
+    // // frm.append('name', name);
+    // frm.append('categoryId', subCategory);
+    // frm.append('color', color);
+    // const data = await productApi.addProduct(frm);
+    // console.log(data);
+    // // 성공시 등록이 되었습니다! => 모달
+    // infoModal('서버에 옷 등록완료!', 'success');
+
+    // resetState();
+    // setAddModalState((cur) => !cur);
   };
 
-  const addClothesItem = async () => {
-    if (!(image && name && subCategory && color)) {
-      infoModal(
-        '확인 해주세요!',
-        'error',
-        '상품의 이미지, 이름, 카테고리, 색상을 지정해주세요!',
-      );
-      return;
-    }
-    const frm = new FormData();
-    frm.append('image', image!);
-    frm.append('name', name);
-    frm.append('categoryId', subCategory);
-    frm.append('color', color);
-    const data = await productApi.addProduct(frm);
-    console.log(data);
-    // 성공시 등록이 되었습니다! => 모달
-    infoModal('서버에 옷 등록완료!', 'success');
-
-    resetState();
-    setAddModalState((cur) => !cur);
-  };
-
-  useEffect(() => {
-    setColor('');
-  }, [mainCategory, subCategory]);
+  // useEffect(() => {
+  //   setColor('');
+  // }, [mainCategory, subCategory]);
 
   // 확인용 코드
   useEffect(() => {
     console.log(image);
   }, [image]);
-  useEffect(() => {
-    console.log(name);
-  }, [name]);
-  useEffect(() => {
-    console.log(subCategory);
-  }, [subCategory]);
+  // useEffect(() => {
+  //   console.log(name);
+  // }, [name]);
+  // useEffect(() => {
+  //   console.log(subCategory);
+  // }, [subCategory]);
   useEffect(() => {
     console.log(color);
   }, [color]);
@@ -111,75 +120,78 @@ export const AddModal = () => {
           </TypoGraphy>
         </Title>
 
-        <AddButton
-          id="codyImage"
-          ref={codyRef}
-          type="file"
-          accept="image/*"
-          onChange={addImage}
-        />
-        <ImageWrapper>
-          {thumbnail ? (
-            <Image
-              width={360}
-              height={360}
-              src={thumbnail}
-              alt="clothes"
-              onClick={() => codyRef.current && codyRef.current.click()}
-            />
-          ) : (
-            <InitialImage
-              size={360}
-              opacity={0.5}
-              onClick={() => codyRef.current && codyRef.current.click()}
-            />
-          )}
-        </ImageWrapper>
+        <form onSubmit={handleSubmit(addClothesItem)}>
+          <ImageInput
+            id="codyImage"
+            ref={codyRef}
+            type="file"
+            accept="image/*"
+            onChange={addImage}
+          />
+          <ImageWrapper>
+            {thumbnail ? (
+              <Image
+                width={360}
+                height={360}
+                src={thumbnail}
+                alt="clothes"
+                onClick={() => codyRef.current && codyRef.current.click()}
+              />
+            ) : (
+              <InitialImage
+                size={360}
+                opacity={0.5}
+                onClick={() => codyRef.current && codyRef.current.click()}
+              />
+            )}
+          </ImageWrapper>
 
-        <ContentBox>
-          <InputWrapper>
-            <TypoGraphy type="h3" fontWeight="bold">
-              이름
-            </TypoGraphy>
-            <Input
-              value={name}
-              placeholder="옷의 이름을 입력해주세요."
-              onChange={onChange}
-            />
-          </InputWrapper>
-          <CategoryWrapper>
+          <ContentBox>
             <InputWrapper>
-              <SelectBox
-                label="메인"
-                dataArray={clothesMainCategory.slice(1)}
-                categoryChange={setMainCategory}
-                changeSubByMain={setSubCategory}
-                value={mainCategory}
-                modal
+              <TypoGraphy type="h3" fontWeight="bold">
+                이름
+              </TypoGraphy>
+              <Input
+                // value={name}
+                placeholder="옷의 이름을 입력해주세요."
+                {...register('name')}
               />
             </InputWrapper>
-            <InputWrapper>
-              <SelectBox
-                label="서브"
-                dataArray={clothesSubCategory[mainCategory].slice(1)}
-                categoryChange={setSubCategory}
-                value={subCategory}
-                modal
+            <CategoryWrapper>
+              <MainSubSelectBox register={register}/>
+              {/* <InputWrapper>
+                <select {...register('main')}>
+                  {clothesMainCategory.slice(1).map((data: any) => (
+                    <option value={data.id} key={data.id}>
+                      {data.name}
+                    </option>
+                  ))}
+                </select>
+              </InputWrapper>
+              <InputWrapper>
+                <select {...register('sub')}>
+                  {clothesSubCategory[mainCategory].slice(1).map((data: any) => (
+                    <option value={data.id} key={data.id}>
+                      {data.name}
+                    </option>
+                  ))}
+                </select>
+              </InputWrapper> */}
+            </CategoryWrapper>
+            <RadioButtonsWrapper>
+              <ColorRadio color={color} setColor={setColor} />
+            </RadioButtonsWrapper>
+            <ButtonWrapper>
+              <CustomButton
+                customType="colorful"
+                text="등록"
+                sidePadding="20"
+                type="submit"
+                // onClick={addClothesItem}
               />
-            </InputWrapper>
-          </CategoryWrapper>
-          <RadioButtonsWrapper>
-            <ColorRadio color={color} setColor={setColor} />
-          </RadioButtonsWrapper>
-          <ButtonWrapper>
-            <CustomButton
-              customType="colorful"
-              text="등록"
-              sidePadding="20"
-              onClick={addClothesItem}
-            />
-          </ButtonWrapper>
-        </ContentBox>
+            </ButtonWrapper>
+          </ContentBox>
+        </form>
       </Wrapper>
     </Container>
   );
@@ -207,8 +219,9 @@ const Wrapper = styled.section`
 const InputWrapper = styled.section`
   display: flex;
   flex-direction: column;
-  flex: 1;
+  width: 100%;
 `;
+
 const CategoryWrapper = styled.section`
   display: flex;
   gap: 10px;
@@ -239,7 +252,7 @@ const RadioButtonsWrapper = styled.section``;
 
 const Title = styled.section``;
 
-const AddButton = styled.input`
+const ImageInput = styled.input`
   display: none;
 `;
 
