@@ -28,7 +28,7 @@ export const clothesSubCategory: Clothes = {
     { name: '자켓', id: 'jacket' },
     { name: '코트', id: 'coat' },
     { name: '패딩', id: 'padding' },
-    { name: '기타', id: 'topETC' },
+    { name: '기타', id: 'outerETC' },
   ],
   bottom: [
     { name: '전체', id: 'bottom' },
