@@ -7,15 +7,13 @@ import Image from 'next/image';
 import { IoMdImage } from 'react-icons/io';
 import {
   customColor,
-  clothesMainCategory,
-  clothesSubCategory,
 } from 'constants/index';
 import { useRecoilState } from 'recoil';
 import { addModal } from 'recoil/atom';
-import { productApi } from 'api';
 import { infoModal } from 'utils/interactionModal';
 import { useForm } from 'react-hook-form';
-import { MainSubSelectBox } from './mainSubSelectBox';
+import { MainSubSelectBox } from './components/index';
+import { ClothesInput } from './components/ClothesInput';
 
 export const AddModal = () => {
   const [addModalState, setAddModalState] = useRecoilState(addModal);
@@ -24,8 +22,8 @@ export const AddModal = () => {
   const [color, setColor] = useState<string>('');
   // const [mainCategory, setMainCategory] = useState<string>('top');
   // const [subCategory, setSubCategory] = useState<string>('sleeveless');
-  const [thumbnail, setThumbnail] = useState<string>('');
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, watch } = useForm();
+  
 
   const resetState = () => {
     setImage(undefined);
@@ -33,25 +31,24 @@ export const AddModal = () => {
     setColor('');
     // setMainCategory('top');
     // setSubCategory('sleeveless');
-    setThumbnail('');
+    // setThumbnail('');
   };
 
-  const codyRef = useRef<HTMLInputElement>(null);
 
-  const addImage = (e: ChangeEvent<HTMLInputElement>) => {
-    e.preventDefault();
+  // const addImage = (e: ChangeEvent<HTMLInputElement>) => {
+  //   e.preventDefault();
 
-    if (e.target.value[0]) {
-      const fileReader = new FileReader();
-      fileReader.readAsDataURL(e.target.files![0]);
-      fileReader.onload = () => {
-        setThumbnail(String(fileReader.result!));
-      };
-      setImage(e.target.files![0]);
-      infoModal('옷 사진 등록완료!', 'success');
-      e.target.value = '';
-    }
-  };
+  //   if (e.target.value[0]) {
+  //     const fileReader = new FileReader();
+  //     fileReader.readAsDataURL(e.target.files![0]);
+  //     fileReader.onload = () => {
+  //       setThumbnail(String(fileReader.result!));
+  //     };
+  //     setImage(e.target.files![0]);
+  //     infoModal('옷 사진 등록완료!', 'success');
+  //     e.target.value = '';
+  //   }
+  // };
 
   // const onChange = (e: React.FormEvent<HTMLInputElement>) => {
   //   setName(e.currentTarget.value);
@@ -121,12 +118,17 @@ export const AddModal = () => {
         </Title>
 
         <form onSubmit={handleSubmit(addClothesItem)}>
-          <ImageInput
-            id="codyImage"
-            ref={codyRef}
+          {/* <ClothesInput
+            id="clothesImage"
             type="file"
             accept="image/*"
-            onChange={addImage}
+            // onChange={addImage}
+            // {...register('clothesImage')}
+            {...rest}
+            ref={(e) => {
+              ref(e)
+              clothesInputRef.current = e;
+            }}
           />
           <ImageWrapper>
             {thumbnail ? (
@@ -135,16 +137,17 @@ export const AddModal = () => {
                 height={360}
                 src={thumbnail}
                 alt="clothes"
-                onClick={() => codyRef.current && codyRef.current.click()}
+                onClick={() => clothesInputRef.current && clothesInputRef.current.click()}
               />
             ) : (
               <InitialImage
                 size={360}
                 opacity={0.5}
-                onClick={() => codyRef.current && codyRef.current.click()}
+                onClick={() => clothesInputRef.current && clothesInputRef.current.click()}
               />
             )}
-          </ImageWrapper>
+          </ImageWrapper> */}
+          <ClothesInput register={register} watch={watch}/>
 
           <ContentBox>
             <InputWrapper>
@@ -158,7 +161,7 @@ export const AddModal = () => {
               />
             </InputWrapper>
             <CategoryWrapper>
-              <MainSubSelectBox register={register}/>
+              <MainSubSelectBox register={register} />
               {/* <InputWrapper>
                 <select {...register('main')}>
                   {clothesMainCategory.slice(1).map((data: any) => (
@@ -196,6 +199,7 @@ export const AddModal = () => {
     </Container>
   );
 };
+
 const Container = styled(Modal)`
   position: absolute;
   top: 50%;
@@ -251,10 +255,6 @@ const ContentBox = styled.section`
 const RadioButtonsWrapper = styled.section``;
 
 const Title = styled.section``;
-
-const ImageInput = styled.input`
-  display: none;
-`;
 
 const InitialImage = styled(IoMdImage)`
   width: 100%;
