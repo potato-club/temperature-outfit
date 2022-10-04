@@ -12,9 +12,9 @@ interface LocationInfoProps {
   totalTemperature: totalTemperatureType;
 }
 type totalTemperatureType = {
-  highestTemperature: number;
-  temperature: number;
-  lowestTemperature: number;
+  highestTemperature: string;
+  temperature: string;
+  lowestTemperature: string;
 };
 
 export const LocationInfo = ({

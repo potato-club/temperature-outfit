@@ -63,7 +63,7 @@ handler.post(filesParser, async (req, res) => {
           },
         },
       },
-      imageUrl: req.file?.filepath,
+      imageUrl: req.filePath,
       products: {
         connect: body.productsId?.split(',').map((id) => ({ id })),
       },

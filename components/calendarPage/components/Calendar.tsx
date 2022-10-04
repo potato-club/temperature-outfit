@@ -20,6 +20,7 @@ export const Calendar = () => {
   const getMyOutfit = async (start: string, end: string) => {
     try {
       const { data } = await todayCodyApi.getManyOutfit(start, end);
+      console.log(data);
       const realData: EventInput[] = data.map(
         (item: EventInput): EventInput => {
           return {
@@ -27,6 +28,7 @@ export const Calendar = () => {
             start: item.date,
             rating: item.rating,
             weatherStatus: item.weather.status,
+            temperature: item.weather.temperature,
           };
         },
       );
@@ -38,11 +40,11 @@ export const Calendar = () => {
 
   function renderEventContent(eventContent: EventContentArg) {
     // console.log(eventContent.event.extendedProps.rating);
-    console.log();
+    console.log(eventContent.event.extendedProps);
     return (
       <DateItem
         weatherStatus={eventContent.event.extendedProps.weatherStatus}
-        temperature={'23'}
+        temperature={eventContent.event.extendedProps.temperature}
         rating={eventContent.event.extendedProps.rating}
       />
     );
@@ -97,8 +99,8 @@ export const Calendar = () => {
         }}
         initialView="dayGridMonth"
         defaultAllDay={true}
-        editable={true}
-        selectable={true}
+        editable={false}
+        selectable={false}
         dayMaxEvents={true}
         weekends={true}
         eventStartEditable={false}
@@ -110,7 +112,7 @@ export const Calendar = () => {
 };
 
 const Wrapper = styled.section`
-  width: 100%;
+  width: 1178px;
   max-width: 1178px;
   padding: 20px;
   background-color: white;
