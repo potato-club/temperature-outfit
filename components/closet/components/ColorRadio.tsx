@@ -43,7 +43,7 @@ export const ColorRadio = ({ setColor, filter, color }: Props) => {
     'cyan',
     'blue',
     'purple',
-    'gray',
+    'grey',
     'black',
   ];
   const colors = [red, orange, yellow, green, cyan, blue, purple, grey];
