@@ -13,17 +13,16 @@ export default async function handler(
 ) {
   const query = req.query as SuggestionGetRequest;
 
-  if (!query.temperature || typeof query.temperature != 'number') {
-    // 필수 쿼리
+  const temperature = Number(query.temperature);
+
+  if (isNaN(temperature)) {
     return res.status(400);
   }
 
   //   const today = new Date();
 
   const result: SuggestionOutfit[] = await prisma.$queryRawUnsafe(
-    `SELECT a.id, a."imageUrl", a.rating, b.temperature FROM "Outfit" as a JOIN "Weather" as b ON (a.date = b.date AND a."locationId" = b."locationId") ORDER BY abs(${Number(
-      query.temperature,
-    )} - b.temperature) LIMIT 5`,
+    `SELECT a.id, a."imageUrl", a.rating, b.temperature FROM "Outfit" as a JOIN "Weather" as b ON (a.date = b.date AND a."locationId" = b."locationId") ORDER BY abs(${temperature} - b.temperature) LIMIT 5`,
   );
 
   result.sort((a, b) => b.rating - a.rating);
