@@ -1,8 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { prisma } from '../../../db';
 import { WeatherGetRequest, WeatherResponse } from '../../../types';
-import { getCurrentWeather } from '../../../utilities/api/weather';
-import { Weather } from '@prisma/client';
+import { updateWeather } from '../../../utilities/api/weather';
 import { convertWeatherResponse } from '../../../utilities/api/converter';
 
 export default async function handler(
@@ -37,39 +36,7 @@ export default async function handler(
     return res.status(400);
   }
 
-  const weather = await prisma.weather.findFirst({
-    where: { date, locationId: location.id },
-  });
-
-  let result: Weather;
-
-  // 함수 분리
-  if (weather) {
-    if (
-      !weather.isForecast ||
-      today.getTime() - weather.updatedAt.getTime() <= 1000 * 60 * 10
-    ) {
-      result = weather;
-    } else {
-      result = await prisma.weather.update({
-        where: {
-          date_locationId: {
-            date: weather.date,
-            locationId: weather.locationId,
-          },
-        },
-        data: await getCurrentWeather(location.latitude, location.longitude),
-      });
-    }
-  } else {
-    result = await prisma.weather.create({
-      data: {
-        date,
-        locationId: location.id,
-        ...(await getCurrentWeather(location.latitude, location.longitude)),
-      },
-    });
-  }
+  let result = await updateWeather(date, location, today);
 
   res.status(200).json(convertWeatherResponse(result));
 }
