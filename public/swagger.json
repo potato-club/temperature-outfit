@@ -26,6 +26,10 @@
     {
       "name": "weather",
       "description": "날씨"
+    },
+    {
+      "name": "suggestion",
+      "description": "제안"
     }
   ],
   "paths": {
@@ -539,6 +543,28 @@
           }
         }
       }
+    },
+    "/api/suggestion": {
+      "get": {
+        "tags": ["suggestion"],
+        "produces": ["application/json"],
+        "description": "제안 옷차림 조회",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "temperature",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "조회 성공",
+            "schema": {
+              "$ref": "#/definitions/SuggestionResponse"
+            }
+          }
+        }
+      }
     }
   },
   "definitions": {
@@ -724,6 +750,39 @@
     "WeatherStatus": {
       "type": "string",
       "enum": ["sun", "cloud", "rain", "snow"]
+    },
+    "SuggestionOutfit": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "cuid",
+          "example": "cl5qjhkic000409mi4nmw7epr"
+        },
+        "imageUrl": {
+          "type": "string"
+        },
+        "rating": {
+          "type": "integer",
+          "format": "int32",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "temperature": {
+          "type": "string"
+        }
+      }
+    },
+    "SuggestionResponse": {
+      "type": "object",
+      "properties": {
+        "outfits": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/SuggestionOutfit"
+          }
+        }
+      }
     }
   }
 }
