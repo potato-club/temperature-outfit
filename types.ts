@@ -108,3 +108,18 @@ export type WeatherResponse = {
   createdAt: string;
   updatedAt: string;
 };
+
+export type SuggestionGetRequest = {
+  temperature?: string;
+};
+
+export type SuggestionOutfit = {
+  id: string;
+  imageUrl: string | null;
+  rating: number;
+  temperature: string;
+};
+
+export type SuggestionResponse = {
+  outfits: SuggestionOutfit[];
+};
