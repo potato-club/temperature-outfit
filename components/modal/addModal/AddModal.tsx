@@ -22,7 +22,7 @@ export const AddModal = () => {
   const [color, setColor] = useState<string>('');
   // const [mainCategory, setMainCategory] = useState<string>('top');
   // const [subCategory, setSubCategory] = useState<string>('sleeveless');
-  const { register, handleSubmit, watch } = useForm();
+  const { register, handleSubmit } = useForm();
   
 
   const resetState = () => {
@@ -147,7 +147,7 @@ export const AddModal = () => {
               />
             )}
           </ImageWrapper> */}
-          <ClothesInput register={register} watch={watch}/>
+          <ClothesInput register={register} />
 
           <ContentBox>
             <InputWrapper>

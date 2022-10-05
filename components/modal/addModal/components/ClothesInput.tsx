@@ -17,21 +17,35 @@ import {
 } from 'react-hook-form';
 type Props = {
   register: UseFormRegister<FieldValues>;
-  watch: UseFormWatch<FieldValues>;
+  // watch: UseFormWatch<FieldValues>;
 };
-export const ClothesInput = ({ register, watch }: Props) => {
-  const { ref, ...rest } = register('clothesImage');
+export const ClothesInput = ({ register }: Props) => {
+  const { ref, onChange, ...rest } = register('clothesImage');
   const clothesInputRef = useRef<HTMLInputElement | null>(null);
 
   const [thumbnail, setThumbnail] = useState<string>('');
-  const clothesImage = watch('clothesImage');
+  // const { watch } = useForm();
+  // const clothesImage = watch('clothesImage');
 
-  useEffect(() => {
-    if (clothesImage && clothesImage.length > 0) {
-      const file = clothesImage[0];
-      setThumbnail(URL.createObjectURL(file));
+  const addImage = (e: ChangeEvent<HTMLInputElement>) => {
+    e.preventDefault();
+
+    if (e.target.value[0]) {
+      const fileReader = new FileReader();
+      fileReader.readAsDataURL(e.target.files![0]);
+      fileReader.onload = () => {
+        setThumbnail(String(fileReader.result!));
+      };
+      infoModal('옷 사진 등록완료!', 'success');
     }
-  }, [clothesImage]);
+  };
+
+  // useEffect(() => {
+  //   if (clothesImage && clothesImage.length > 0) {
+  //     const file = clothesImage[0];
+  //     setThumbnail(URL.createObjectURL(file));
+  //   }
+  // }, [clothesImage]);
 
   return (
     <>
@@ -39,7 +53,10 @@ export const ClothesInput = ({ register, watch }: Props) => {
         id="clothesImage"
         type="file"
         accept="image/*"
-        // {...register('clothesImage')}
+        onChange={(e) => {
+          addImage(e);
+          onChange(e);
+        }}
         {...rest}
         ref={(e) => {
           ref(e);
