@@ -1,9 +1,9 @@
 import React, { useCallback } from 'react';
 import styled from '@emotion/styled';
-import { FieldValues, UseFormGetValues, UseFormRegister, UseFormSetValue } from 'react-hook-form';
+import { FieldValues, UseFormRegister, UseFormSetValue } from 'react-hook-form';
 import { CategoryDetail } from 'constants/types';
 import { clothesSubCategory } from 'constants/index';
-import { useState, useEffect } from 'react';
+import { useState, ChangeEvent } from "react";
 import { clothesMainCategory } from 'constants/index';
 
 type Props = {
@@ -13,7 +13,7 @@ type Props = {
 export const MainSubSelectBox = ({ register, setValue }: Props) => {
   const [mainCategory, setMainCategory] = useState('top');
   
-  const changeMainCategory = useCallback((e: any) => {
+  const changeMainCategory = useCallback((e: ChangeEvent<HTMLSelectElement>) => {
     const selectedMain = e.target.value as string;
     setMainCategory(selectedMain);
     setValue('category', clothesSubCategory[selectedMain][1].id);
@@ -22,9 +22,7 @@ export const MainSubSelectBox = ({ register, setValue }: Props) => {
   return (
     <>
       <Wrapper>
-        <select
-          {...register('main')}
-          onChange={changeMainCategory}>
+        <select {...register('main')} onChange={changeMainCategory}>
           {clothesMainCategory.slice(1).map((data: CategoryDetail) => (
             <option
               value={data.id}
@@ -36,7 +34,7 @@ export const MainSubSelectBox = ({ register, setValue }: Props) => {
         </select>
       </Wrapper>
       <Wrapper>
-        <select {...register('category')} >
+        <select {...register('category')}>
           {clothesSubCategory[mainCategory]
             .slice(1)
             .map((data: CategoryDetail) => (
