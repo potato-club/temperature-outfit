@@ -1,11 +1,9 @@
 import styled from '@emotion/styled';
 import { CustomButton, TypoGraphy } from 'components/common';
 import { AddModal } from 'components/modal';
-import {
-  customColor,
-} from 'constants/index';
+import { customColor } from 'constants/index';
 import useGetFilter from 'hooks/useGetFilter';
-import { useEffect, useState, useMemo } from "react";
+import { useEffect, useState, useMemo } from 'react';
 import { useSetRecoilState } from 'recoil';
 import { addModal } from 'recoil/atom';
 import { filterType } from 'types/editPage/filter.type';
@@ -23,10 +21,9 @@ export const Closet: React.FC = () => {
   const [activePage, setActivePage] = useState<number>(1);
   const countPerPage = 20;
 
-  const {filterItem, lastPage, getFilter} = useGetFilter();
+  const { filterItem, lastPage, getFilter } = useGetFilter();
 
-
-  let filter:filterType = useMemo(() => {
+  let filter: filterType = useMemo(() => {
     let filtering: filterType = {};
     if (subCategory === 'all') {
       if (mainCategory === 'all') {
@@ -46,10 +43,10 @@ export const Closet: React.FC = () => {
     if (name) {
       filtering.query = name;
     }
-    
+
     filtering.limit = countPerPage;
     filtering.page = activePage;
-    
+
     return filtering;
   }, [mainCategory, subCategory, color, name, activePage]);
 
@@ -59,9 +56,8 @@ export const Closet: React.FC = () => {
 
   useEffect(() => {
     getFilter(filter);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filter]);
-
 
   useEffect(() => {
     setColor('');
@@ -101,6 +97,7 @@ export const Closet: React.FC = () => {
         />
         <ButtonWrapper>
           <CustomButton
+            type="button"
             customType="colorful"
             text="추가"
             sidePadding="20"
