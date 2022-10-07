@@ -13,6 +13,7 @@ import { clothesSubCategory } from 'constants/index';
 import { useState, useEffect } from 'react';
 import { clothesMainCategory } from 'constants/index';
 import { MenuItem, Select, SelectChangeEvent } from '@mui/material';
+import { SubSelectBox } from "./SubSelectBox";
 
 type Props = {
   register: UseFormRegister<FieldValues>;
@@ -21,8 +22,6 @@ type Props = {
 };
 export const MainSubSelectBox = ({ register, setValue, getValues }: Props) => {
   const [mainCategory, setMainCategory] = useState('top');
-  const [sub, setSub] = useState('');
-  const { onChange, ...rest } = register('category');
 
   const changeMainCategory = useCallback(
     (e: SelectChangeEvent) => {
@@ -32,15 +31,6 @@ export const MainSubSelectBox = ({ register, setValue, getValues }: Props) => {
     },
     [setValue],
   );
-  useEffect(() => {
-    setSub(clothesSubCategory[mainCategory][1].id);
-  }, [mainCategory]);
-
-  useEffect(() => {
-    setValue('category', clothesSubCategory[mainCategory][1].id);
-    setSub(clothesSubCategory[mainCategory][1].id);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   return (
     <>
@@ -54,21 +44,12 @@ export const MainSubSelectBox = ({ register, setValue, getValues }: Props) => {
         </Select>
       </Wrapper>
       <Wrapper>
-        <Select
-          {...rest}
-          value={getValues('category') === sub ? sub : ''} // 서브카테고리가 메인카테고리 범위안에 있는지 확인하기 위한 코드
-          onChange={(e) => {
-            setSub(e.target.value);
-            setValue('category', e.target.value);
-          }}>
-          {clothesSubCategory[mainCategory]
-            .slice(1)
-            .map((data: CategoryDetail) => (
-              <MenuItem value={data.id} key={data.id}>
-                {data.name}
-              </MenuItem>
-            ))}
-        </Select>
+        <SubSelectBox
+          register={register}
+          setValue={setValue}
+          getValues={getValues}
+          mainCategory={mainCategory}
+        />
       </Wrapper>
       )
     </>
