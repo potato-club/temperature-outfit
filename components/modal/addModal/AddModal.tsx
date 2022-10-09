@@ -14,6 +14,7 @@ import { infoModal } from 'utils/interactionModal';
 import { useForm } from 'react-hook-form';
 import { MainSubSelectBox } from './components/index';
 import { ClothesInput } from './components/ClothesInput';
+import { ColorRadioTest } from 'components/closet/components/ColorRadioTest';
 
 export const AddModal = () => {
   const [addModalState, setAddModalState] = useRecoilState(addModal);
@@ -186,7 +187,7 @@ export const AddModal = () => {
               </InputWrapper> */}
             </CategoryWrapper>
             <RadioButtonsWrapper>
-              <ColorRadio color={color} setColor={setColor} />
+              <ColorRadioTest register={register}/>
             </RadioButtonsWrapper>
             <ButtonWrapper>
               <CustomButton
