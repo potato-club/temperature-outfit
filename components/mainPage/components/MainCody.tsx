@@ -10,18 +10,40 @@ const dummyImageUrl = [
   '/codyDummy/cody4.png',
   '/codyDummy/cody5.jpg',
 ];
-export function MainCody() {
+
+interface Props {
+  suggestions: Suggestions[];
+}
+interface Suggestions {
+  id: string;
+  imageUrl: string;
+  rating: number;
+  temperature: number;
+}
+
+export function MainCody({ suggestions }: Props) {
   return (
     <Container>
-      {dummyImageUrl.map((data, index) => (
-        <ImageWrapper key={index}>
-          <Image
-            width={160}
-            height={250}
-            src={data}
-            alt="cody"
-            objectFit="fill"
-          />
+      {suggestions.map((data) => (
+        <ImageWrapper key={data.id}>
+          {data.imageUrl !== null ? (
+            <Image
+              width={160}
+              height={250}
+              src={data.imageUrl}
+              alt="cody"
+              objectFit="fill"
+            />
+          ) : (
+            <p>
+              등록된 사진이 없음 <br />
+              그래서 어칼지 고민 <br />
+              현재는 null 일때 아무 이미지를
+              <br />
+              프론트에서 설정해서 보여주는 것<br />
+              생각함
+            </p>
+          )}
         </ImageWrapper>
       ))}
     </Container>
