@@ -13,7 +13,7 @@ import { clothesSubCategory } from 'constants/index';
 import { useState, useEffect } from 'react';
 import { clothesMainCategory } from 'constants/index';
 import { MenuItem, Select, SelectChangeEvent } from '@mui/material';
-import { SubSelectBox } from "./SubSelectBox";
+import { SubSelectBox } from './SubSelectBox';
 
 type Props = {
   register: UseFormRegister<FieldValues>;
@@ -51,7 +51,6 @@ export const MainSubSelectBox = ({ register, setValue, getValues }: Props) => {
           mainCategory={mainCategory}
         />
       </Wrapper>
-      )
     </>
   );
 };
