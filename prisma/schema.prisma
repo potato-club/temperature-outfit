@@ -64,6 +64,7 @@ model Location {
   name      String
   latitude  Float
   longitude Float
+  code      Int
   User      User[]
   Weather   Weather[]
   Outfit    Outfit[]
@@ -127,7 +128,6 @@ model Weather {
   temperature        Float
   lowestTemperature  Float
   highestTemperature Float
-  feelsLike          Float
   humidity           Int
   isForecast         Boolean       @default(true)
   createdAt          DateTime      @default(now())
