@@ -6,7 +6,6 @@ type RawWeather = {
   temperature: number;
   lowestTemperature: number;
   highestTemperature: number;
-  feelsLike: number;
   humidity: number;
 };
 
@@ -63,7 +62,6 @@ export const getCurrentWeather = async (
     temperature: res.data.main.temp,
     lowestTemperature: res.data.main.temp_min,
     highestTemperature: res.data.main.temp_max,
-    feelsLike: res.data.main.feels_like,
     humidity: res.data.main.humidity,
   };
 };
