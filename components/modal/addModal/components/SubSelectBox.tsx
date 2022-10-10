@@ -1,40 +1,64 @@
 import { MenuItem, Select } from '@mui/material';
 import { CategoryDetail, clothesSubCategory } from 'constants/index';
-import React, { useEffect, useState } from 'react'
-import { FieldValues, UseFormGetValues, UseFormRegister, UseFormSetValue } from 'react-hook-form';
+import React, { useEffect, useMemo, useState } from 'react';
+import {
+  Control,
+  Controller,
+  FieldValues,
+  UseFormRegister,
+  UseFormSetValue,
+} from 'react-hook-form';
 type Props = {
   register: UseFormRegister<FieldValues>;
   setValue: UseFormSetValue<FieldValues>;
-  getValues: UseFormGetValues<FieldValues>;
+  control: Control<FieldValues>;
   mainCategory: string;
 };
-export const SubSelectBox = ({ register,setValue, getValues, mainCategory }: Props) => {
-  const [sub, setSub] = useState('');
-  const { onChange, ...rest } = register('category');
+export const SubSelectBox = ({ control, mainCategory, setValue }: Props) => {
+  const mainId = useMemo(
+    () => clothesSubCategory[mainCategory].slice(1).map((data) => data.id),
+    [mainCategory],
+  );
 
-    useEffect(() => {
-      setSub(clothesSubCategory[mainCategory][1].id);
-    }, [mainCategory]);
-
-    useEffect(() => {
-      setValue('category', clothesSubCategory[mainCategory][1].id);
-      setSub(clothesSubCategory[mainCategory][1].id);
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+  useEffect(() => {
+    setValue('category', mainId[0]);
+  }, [setValue, mainId]);
 
   return (
-    <Select
-      {...rest}
-      value={getValues('category') === sub ? sub : ''} // 서브카테고리가 메인카테고리 범위안에 있는지 확인하기 위한 코드
-      onChange={(e) => {
-        setSub(e.target.value);
-        setValue('category', e.target.value);
-      }}>
-      {clothesSubCategory[mainCategory].slice(1).map((data: CategoryDetail) => (
-        <MenuItem value={data.id} key={data.id}>
-          {data.name}
-        </MenuItem>
-      ))}
-    </Select>
+    <Controller
+      name="category"
+      control={control}
+      render={({ field: { onChange, value } }) => {
+        return (
+          <Select
+            value={mainId.includes(value) ? value : ''}
+            onChange={onChange}>
+            {clothesSubCategory[mainCategory]
+              .slice(1)
+              .map((data: CategoryDetail) => (
+                <MenuItem value={data.id} key={data.id}>
+                  {data.name}
+                </MenuItem>
+              ))}
+          </Select>
+        );
+      }}
+    />
   );
 };
+
+// <Select
+//   {...rest}
+//   value={getValues('category') === sub ? sub : ''} // 서브카테고리가 메인카테고리 범위안에 있는지 확인하기 위한 코드
+//   onChange={(e) => {
+//     setSub(e.target.value);
+//     setValue('category', e.target.value);
+//   }}>
+//   {clothesSubCategory[mainCategory]
+//     .slice(1)
+//     .map((data: CategoryDetail) => (
+//       <MenuItem value={data.id} key={data.id}>
+//         {data.name}
+//       </MenuItem>
+//     ))}
+// </Select>;

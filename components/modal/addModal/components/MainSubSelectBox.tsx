@@ -18,24 +18,15 @@ import { SubSelectBox } from './SubSelectBox';
 type Props = {
   register: UseFormRegister<FieldValues>;
   setValue: UseFormSetValue<FieldValues>;
-  getValues: UseFormGetValues<FieldValues>;
+  control: Control<FieldValues>;
 };
-export const MainSubSelectBox = ({ register, setValue, getValues }: Props) => {
+export const MainSubSelectBox = ({ register, setValue, control }: Props) => {
   const [mainCategory, setMainCategory] = useState('top');
-
-  const changeMainCategory = useCallback(
-    (e: SelectChangeEvent) => {
-      const selectedMain = e.target.value as string;
-      setMainCategory(selectedMain);
-      setValue('category', clothesSubCategory[selectedMain][1].id);
-    },
-    [setValue],
-  );
 
   return (
     <>
       <Wrapper>
-        <Select onChange={changeMainCategory} value={mainCategory}>
+        <Select onChange={(e) => setMainCategory(e.target.value as string)} value={mainCategory}>
           {clothesMainCategory.slice(1).map((data: CategoryDetail) => (
             <MenuItem value={data.id} key={data.id}>
               {data.name}
@@ -47,7 +38,7 @@ export const MainSubSelectBox = ({ register, setValue, getValues }: Props) => {
         <SubSelectBox
           register={register}
           setValue={setValue}
-          getValues={getValues}
+          control={control}
           mainCategory={mainCategory}
         />
       </Wrapper>

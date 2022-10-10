@@ -23,7 +23,7 @@ export const AddModal = () => {
   const [color, setColor] = useState<string>('');
   // const [mainCategory, setMainCategory] = useState<string>('top');
   // const [subCategory, setSubCategory] = useState<string>('sleeveless');
-  const { register, handleSubmit, setValue, getValues } = useForm();
+  const { register, handleSubmit, setValue, control } = useForm();
   
 
   const resetState = () => {
@@ -165,7 +165,7 @@ export const AddModal = () => {
               <MainSubSelectBox
                 register={register}
                 setValue={setValue}
-                getValues={getValues}
+                control={control}
               />
               {/* <InputWrapper>
                 <select {...register('main')}>
