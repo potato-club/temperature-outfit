@@ -28,21 +28,17 @@ export const SubSelectBox = ({ control, mainCategory, setValue }: Props) => {
     <Controller
       name="category"
       control={control}
-      render={({ field: { onChange, value } }) => {
-        return (
-          <Select
-            value={mainId.includes(value) ? value : ''}
-            onChange={onChange}>
-            {clothesSubCategory[mainCategory]
-              .slice(1)
-              .map((data: CategoryDetail) => (
-                <MenuItem value={data.id} key={data.id}>
-                  {data.name}
-                </MenuItem>
-              ))}
-          </Select>
-        );
-      }}
+      render={({ field: { onChange, value } }) => (
+        <Select value={mainId.includes(value) ? value : ''} onChange={onChange}>
+          {clothesSubCategory[mainCategory]
+            .slice(1)
+            .map((data: CategoryDetail) => (
+              <MenuItem value={data.id} key={data.id}>
+                {data.name}
+              </MenuItem>
+            ))}
+        </Select>
+      )}
     />
   );
 };
