@@ -1,50 +1,18 @@
 import styled from '@emotion/styled';
-import { mainDummyType } from 'dummy/MainDummy';
-import React, { useCallback, useEffect, useState } from 'react';
+import React from 'react';
 import { ThreeModel, LocationInfo, TodayClothes } from './index';
-import { weatherApi } from 'api';
-import { useRecoilValue } from 'recoil';
-import { userState } from 'recoil/atom';
 
-type weatherStatusType = 'sun' | 'cloud' | 'rain' | 'snow';
-type totalTemperatureType = {
-  highestTemperature: string;
-  temperature: string;
-  lowestTemperature: string;
-};
+interface Props {
+  weatherStatus: any;
+  locationId: any;
+  totalTemperature: any;
+}
 
-export function TodayInfo(props: mainDummyType) {
-  const todayStr = new Date().toISOString().replace(/T.*$/, '');
-
-  const { locationId } = useRecoilValue(userState);
-  const [weatherStatus, setWeatherStatus] = useState<weatherStatusType>('sun');
-  const [totalTemperature, setTotalTemperature] =
-    useState<totalTemperatureType>({
-      highestTemperature: '0',
-      temperature: '0',
-      lowestTemperature: '0',
-    });
-
-  const getTodayWeather = useCallback(async () => {
-    try {
-      const {
-        data: { status, highestTemperature, lowestTemperature, temperature },
-      } = await weatherApi.getWeather(todayStr, locationId);
-      setWeatherStatus(status);
-      setTotalTemperature({
-        highestTemperature,
-        temperature,
-        lowestTemperature,
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  }, [locationId, todayStr]);
-
-  useEffect(() => {
-    getTodayWeather();
-  }, [getTodayWeather]);
-
+export function TodayInfo({
+  weatherStatus,
+  locationId,
+  totalTemperature,
+}: Props) {
   return (
     <Container>
       <ThreeModel weatherStatus={weatherStatus} />
@@ -52,7 +20,7 @@ export function TodayInfo(props: mainDummyType) {
         locationId={locationId}
         totalTemperature={totalTemperature}
       />
-      <TodayClothes {...props} />
+      {/* <TodayClothes {...props} /> */}
     </Container>
   );
 }
