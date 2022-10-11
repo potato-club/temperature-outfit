@@ -11,22 +11,18 @@ import {
   grey,
 } from '@mui/material/colors';
 import styled from '@emotion/styled';
-import { FieldValues, UseFormRegister } from 'react-hook-form';
+import {
+  Control,
+  Controller,
+  FieldValues,
+  UseFormRegister,
+} from 'react-hook-form';
 type Props = {
   register: UseFormRegister<FieldValues>;
+  control: Control<FieldValues>;
 };
-export const ColorRadioTest = ({ register }: Props) => {
-  const colorName = [
-    'red',
-    'orange',
-    'yellow',
-    'green',
-    'cyan',
-    'blue',
-    'purple',
-    'grey',
-    'black',
-  ];
+export const ColorRadioTest = ({ register, control }: Props) => {
+  
   // const colors = [red, orange, yellow, green, cyan, blue, purple, grey];
   const colors: TestType = {
     red,
@@ -40,60 +36,62 @@ export const ColorRadioTest = ({ register }: Props) => {
   };
 
   type TestType = {
-    [index: string] : Object;
-  }
+    [index: string]: TestType2;
+  };
 
+  type TestType2 = {
+    [index: string]: string;
+  };
 
   return (
     <Wrapper>
-      {Object.keys(colors).map((data) => {
-        console.log(data);
-        console.log(colors[data]);
-      })}
-      {/* <Radio
-        {...register('food', { required: true })}
-        value="Pizza"
-        id="pizza"
-      />{' '}
-      {colors.map((data, i) => (
-        <Radio
-          key={i}
-          {...controlProps(colorName[i])}
-          sx={{
-            color: data[500],
-            '&.Mui-checked': {
-              color: data[500],
-            },
-            '& .MuiSvgIcon-root': {
-              fontSize: 28,
-            },
-          }}
-        />
-      ))}
-      <Radio
-        {...controlProps('black')}
-        sx={{
-          color: grey[900],
-          '&.Mui-checked': {
-            color: grey[900],
-          },
-          '& .MuiSvgIcon-root': {
-            fontSize: 28,
-          },
-        }}
+      <Controller
+        name="color"
+        control={control}
+        render={({ field: { onChange, value } }) => (
+          <>
+            {Object.keys(colors).map((data) => (
+              <Radio
+                {...register}
+                onChange={onChange}
+                value={data}
+                key={data}
+                checked={data === value}
+                sx={{
+                  color: colors[data][500],
+                  '&.Mui-checked': {
+                    color: colors[data][500],
+                  },
+                }}
+              />
+            ))}
+            <Radio
+              {...register}
+              onChange={onChange}
+              value="black"
+              checked={'black' === value}
+              sx={{
+                color: '#000000',
+                '&.Mui-checked': {
+                  color: '#000000',
+                },
+              }}
+            />
+            <Radio
+              {...register}
+              onChange={onChange}
+              value="white"
+              checked={'white' === value}
+              sx={{
+                color: '#FFFFFF',
+                '&.Mui-checked': {
+                  color: '#FFFFFF',
+                },
+              }}
+            />
+          </>
+        )}
       />
-      <Radio
-        {...controlProps('white')}
-        sx={{
-          color: grey[100],
-          '&.Mui-checked': {
-            color: grey[100],
-          },
-          '& .MuiSvgIcon-root': {
-            fontSize: 28,
-          },
-        }}
-      /> */}
     </Wrapper>
   );
 };

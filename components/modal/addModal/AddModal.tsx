@@ -5,9 +5,7 @@ import { CustomButton, SelectBox, TypoGraphy } from 'components/common';
 import { ColorRadio } from 'components/closet/components';
 import Image from 'next/image';
 import { IoMdImage } from 'react-icons/io';
-import {
-  customColor,
-} from 'constants/index';
+import { customColor } from 'constants/index';
 import { useRecoilState } from 'recoil';
 import { addModal } from 'recoil/atom';
 import { infoModal } from 'utils/interactionModal';
@@ -24,7 +22,6 @@ export const AddModal = () => {
   // const [mainCategory, setMainCategory] = useState<string>('top');
   // const [subCategory, setSubCategory] = useState<string>('sleeveless');
   const { register, handleSubmit, setValue, control } = useForm();
-  
 
   const resetState = () => {
     setImage(undefined);
@@ -34,7 +31,6 @@ export const AddModal = () => {
     // setSubCategory('sleeveless');
     // setThumbnail('');
   };
-
 
   // const addImage = (e: ChangeEvent<HTMLInputElement>) => {
   //   e.preventDefault();
@@ -187,7 +183,7 @@ export const AddModal = () => {
               </InputWrapper> */}
             </CategoryWrapper>
             <RadioButtonsWrapper>
-              <ColorRadioTest register={register}/>
+              <ColorRadioTest register={register} control={control} />
             </RadioButtonsWrapper>
             <ButtonWrapper>
               <CustomButton
