@@ -1,15 +1,5 @@
 import * as React from 'react';
 import Radio from '@mui/material/Radio';
-import {
-  red,
-  orange,
-  yellow,
-  green,
-  cyan,
-  blue,
-  purple,
-  grey,
-} from '@mui/material/colors';
 import styled from '@emotion/styled';
 import {
   Control,
@@ -17,32 +7,12 @@ import {
   FieldValues,
   UseFormRegister,
 } from 'react-hook-form';
+import { radioBtnColor } from 'constants/customColor';
 type Props = {
   register: UseFormRegister<FieldValues>;
   control: Control<FieldValues>;
 };
 export const ColorRadioTest = ({ register, control }: Props) => {
-  
-  // const colors = [red, orange, yellow, green, cyan, blue, purple, grey];
-  const colors: TestType = {
-    red,
-    orange,
-    yellow,
-    green,
-    cyan,
-    blue,
-    purple,
-    grey,
-  };
-
-  type TestType = {
-    [index: string]: TestType2;
-  };
-
-  type TestType2 = {
-    [index: string]: string;
-  };
-
   return (
     <Wrapper>
       <Controller
@@ -50,45 +20,21 @@ export const ColorRadioTest = ({ register, control }: Props) => {
         control={control}
         render={({ field: { onChange, value } }) => (
           <>
-            {Object.keys(colors).map((data) => (
+            {Object.keys(radioBtnColor).map((colorKey) => (
               <Radio
                 {...register}
                 onChange={onChange}
-                value={data}
-                key={data}
-                checked={data === value}
+                value={colorKey}
+                key={colorKey}
+                checked={colorKey === value}
                 sx={{
-                  color: colors[data][500],
+                  color: radioBtnColor[colorKey],
                   '&.Mui-checked': {
-                    color: colors[data][500],
+                    color: radioBtnColor[colorKey],
                   },
                 }}
               />
             ))}
-            <Radio
-              {...register}
-              onChange={onChange}
-              value="black"
-              checked={'black' === value}
-              sx={{
-                color: '#000000',
-                '&.Mui-checked': {
-                  color: '#000000',
-                },
-              }}
-            />
-            <Radio
-              {...register}
-              onChange={onChange}
-              value="white"
-              checked={'white' === value}
-              sx={{
-                color: '#FFFFFF',
-                '&.Mui-checked': {
-                  color: '#FFFFFF',
-                },
-              }}
-            />
           </>
         )}
       />
@@ -102,11 +48,4 @@ const Wrapper = styled.section`
   flex-wrap: wrap;
   border-radius: 10px;
   padding: 0 8px;
-`;
-
-const IconWrapper = styled.section`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
 `;
