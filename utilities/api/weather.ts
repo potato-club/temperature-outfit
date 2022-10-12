@@ -1,11 +1,53 @@
+import { Location, Weather } from '@prisma/client';
 import axios from 'axios';
+import { prisma } from 'db';
 
 type RawWeather = {
   temperature: number;
   lowestTemperature: number;
   highestTemperature: number;
-  feelsLike: number;
   humidity: number;
+};
+
+export const updateWeather = async (
+  date: Date,
+  location: Location,
+  today: Date,
+) => {
+  const weather = await prisma.weather.findFirst({
+    where: { date, locationId: location.id },
+  });
+
+  let result: Weather;
+
+  if (weather) {
+    if (
+      !weather.isForecast ||
+      today.getTime() - weather.updatedAt.getTime() <= 1000 * 60 * 10
+    ) {
+      result = weather;
+    } else {
+      result = await prisma.weather.update({
+        where: {
+          date_locationId: {
+            date: weather.date,
+            locationId: weather.locationId,
+          },
+        },
+        data: await getCurrentWeather(location.latitude, location.longitude),
+      });
+    }
+  } else {
+    result = await prisma.weather.create({
+      data: {
+        date,
+        locationId: location.id,
+        ...(await getCurrentWeather(location.latitude, location.longitude)),
+      },
+    });
+  }
+
+  return result;
 };
 
 export const getCurrentWeather = async (
@@ -20,7 +62,6 @@ export const getCurrentWeather = async (
     temperature: res.data.main.temp,
     lowestTemperature: res.data.main.temp_min,
     highestTemperature: res.data.main.temp_max,
-    feelsLike: res.data.main.feels_like,
     humidity: res.data.main.humidity,
   };
 };
