@@ -20,7 +20,7 @@ type Props = {
   // watch: UseFormWatch<FieldValues>;
 };
 export const ClothesInput = ({ register }: Props) => {
-  const { ref, onChange, ...rest } = register('clothesImage');
+  const { ref, onChange, ...rest } = register('image');
   const clothesInputRef = useRef<HTMLInputElement | null>(null);
 
   const [thumbnail, setThumbnail] = useState<string>('');

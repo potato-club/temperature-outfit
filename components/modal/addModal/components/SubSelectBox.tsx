@@ -21,12 +21,12 @@ export const SubSelectBox = ({ control, mainCategory, setValue }: Props) => {
   );
 
   useEffect(() => {
-    setValue('category', mainId[0]);
+    setValue('categoryId', mainId[0]);
   }, [setValue, mainId]);
 
   return (
     <Controller
-      name="category"
+      name="categoryId"
       control={control}
       render={({ field: { onChange, value } }) => (
         <Select value={mainId.includes(value) ? value : ''} onChange={onChange}>

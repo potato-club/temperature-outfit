@@ -13,24 +13,25 @@ import { useForm } from 'react-hook-form';
 import { MainSubSelectBox } from './components/index';
 import { ClothesInput } from './components/ClothesInput';
 import { ColorRadioTest } from 'components/closet/components/ColorRadioTest';
+import { productApi } from 'api';
 
 export const AddModal = () => {
   const [addModalState, setAddModalState] = useRecoilState(addModal);
-  const [image, setImage] = useState<File>();
+  // const [image, setImage] = useState<File>();
   // const [name, setName] = useState<string>('');
-  const [color, setColor] = useState<string>('');
+  // const [color, setColor] = useState<string>('');
   // const [mainCategory, setMainCategory] = useState<string>('top');
   // const [subCategory, setSubCategory] = useState<string>('sleeveless');
   const { register, handleSubmit, setValue, control } = useForm();
 
-  const resetState = () => {
-    setImage(undefined);
+  // const resetState = () => {
+    // setImage(undefined);
     // setName('');
-    setColor('');
+    // setColor('');
     // setMainCategory('top');
     // setSubCategory('sleeveless');
     // setThumbnail('');
-  };
+  // };
 
   // const addImage = (e: ChangeEvent<HTMLInputElement>) => {
   //   e.preventDefault();
@@ -56,6 +57,19 @@ export const AddModal = () => {
 
     const test = data;
     console.log(test);
+    const test2 = {...test, image: test.image[0]}
+    console.log(test2);
+    // console.log(test.image[0])
+    const backData = await productApi.addProduct(test2);
+    console.log(backData);
+
+    //     if (test) {
+    //   const fileReader = new FileReader();
+    //   fileReader.readAsDataURL(test.image);
+    //   fileReader.onload = () => {
+    //   };
+    //   infoModal('옷 사진 등록완료!', 'success');
+    // }
 
     // * 기존에 쓰던코드
     // if (!(image && subCategory && color)) {
@@ -68,7 +82,7 @@ export const AddModal = () => {
     // }
     // const frm = new FormData();
     // frm.append('image', image!);
-    // // frm.append('name', name);
+    // frm.append('name', name);
     // frm.append('categoryId', subCategory);
     // frm.append('color', color);
     // const data = await productApi.addProduct(frm);
@@ -85,25 +99,25 @@ export const AddModal = () => {
   // }, [mainCategory, subCategory]);
 
   // 확인용 코드
-  useEffect(() => {
-    console.log(image);
-  }, [image]);
+  // useEffect(() => {
+  //   console.log(image);
+  // }, [image]);
   // useEffect(() => {
   //   console.log(name);
   // }, [name]);
   // useEffect(() => {
   //   console.log(subCategory);
   // }, [subCategory]);
-  useEffect(() => {
-    console.log(color);
-  }, [color]);
+  // useEffect(() => {
+  //   console.log(color);
+  // }, [color]);
 
   return (
     <Container
       isOpen={addModalState}
       onRequestClose={() => {
         setAddModalState((cur) => !cur);
-        resetState();
+        // resetState();
       }}
       ariaHideApp={false}
       contentLabel="Add Modal">
