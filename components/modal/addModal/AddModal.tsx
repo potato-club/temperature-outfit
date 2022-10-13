@@ -55,12 +55,12 @@ export const AddModal = () => {
   const addClothesItem = async (data: any) => {
     // if (!(image && name && subCategory && color)) {
 
-    const test = data;
+    const test = {...data, image: data.image[0]}
+    console.log("====보내는 데이터====")
     console.log(test);
-    const test2 = {...test, image: test.image[0]}
-    console.log(test2);
     // console.log(test.image[0])
-    const backData = await productApi.addProduct(test2);
+    const backData = await productApi.addProduct(test);
+    console.log("====백엔드에서 보내준 값====")
     console.log(backData);
 
     //     if (test) {
