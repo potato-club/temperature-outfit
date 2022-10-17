@@ -53,7 +53,6 @@ export const Calendar = () => {
   const handleDateSelect = (selectInfo: DateSelectArg) => {
     const selectedItem = selectInfo.startStr;
     const selectDate = new Date(selectedItem).getDate();
-
     if (myOutfit.map((item) => item.start).includes(selectedItem)) {
       return null;
     }
@@ -100,7 +99,7 @@ export const Calendar = () => {
         initialView="dayGridMonth"
         defaultAllDay={true}
         editable={false}
-        selectable={false}
+        selectable={true}
         dayMaxEvents={true}
         weekends={true}
         eventStartEditable={false}
