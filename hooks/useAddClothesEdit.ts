@@ -1,16 +1,13 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { productApi } from '../api/productApi';
-import { filterType } from 'api/productApi';
-import { productType } from 'types/editPage/product.type';
 import { infoModal } from 'utils/interactionModal';
 import { ProductDetailResponse } from 'types';
+import { RecoilState, useRecoilState } from 'recoil';
 
-export default function useGetClothesEdit() {
-  const [clothesData, setClothesData] = useState<ProductDetailResponse[]>([]);
+export default function useAddClothesEdit(recoil: RecoilState<ProductDetailResponse[]>) {
+  const [clothesData, setClothesData] = useRecoilState(recoil);
 
-  const getClothesEdit = async (
-    id: any,
-  ) => {
+  const addClothesEdit = async (id: any) => {
     try {
       const { data } = await productApi.getProduct(id);
       if (
@@ -28,6 +25,6 @@ export default function useGetClothesEdit() {
 
   return {
     clothesData,
-    getClothesEdit,
+    addClothesEdit,
   };
 }

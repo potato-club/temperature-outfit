@@ -1,5 +1,4 @@
 import styled from '@emotion/styled';
-import { filterType } from 'api/productApi';
 import { CustomButton, TypoGraphy } from 'components/common';
 import { AddModal } from 'components/modal';
 import {
@@ -9,6 +8,7 @@ import useGetFilter from 'hooks/useGetFilter';
 import { useEffect, useState, useMemo } from "react";
 import { useSetRecoilState } from 'recoil';
 import { addModal } from 'recoil/atom';
+import { filterType } from 'types/editPage/filter.type';
 import { ClothesContainer, ColorRadio, SearchBox } from './components';
 import CategoryFilterBox from './components/CategoryFilterBox';
 import { CustomPagination } from './components/CustomPagination';
@@ -23,7 +23,7 @@ export const Closet: React.FC = () => {
   const [activePage, setActivePage] = useState<number>(1);
   const countPerPage = 20;
 
-  const {filterItem, maxPage, getFilter} = useGetFilter();
+  const {filterItem, lastPage, getFilter} = useGetFilter();
 
 
   let filter:filterType = useMemo(() => {
@@ -94,7 +94,7 @@ export const Closet: React.FC = () => {
         <CustomPagination
           activePage={activePage}
           itemsCountPerPage={countPerPage}
-          totalItemsCount={maxPage * countPerPage}
+          totalItemsCount={lastPage * countPerPage}
           onChange={(e) => {
             setActivePage(e);
           }}
