@@ -39,8 +39,6 @@ export const Calendar = () => {
   };
 
   function renderEventContent(eventContent: EventContentArg) {
-    // console.log(eventContent.event.extendedProps.rating);
-    console.log(eventContent.event.extendedProps);
     return (
       <DateItem
         weatherStatus={eventContent.event.extendedProps.weatherStatus}
