@@ -2,14 +2,12 @@ import React, { useState, ChangeEvent, useRef, useEffect } from 'react';
 import Modal from 'react-modal';
 import styled from '@emotion/styled';
 import { CustomButton, SelectBox, TypoGraphy } from 'components/common';
-import { ColorRadio } from 'components/closet/components';
-import Image from 'next/image';
 import { IoMdImage } from 'react-icons/io';
 import { customColor } from 'constants/index';
 import { useRecoilState } from 'recoil';
 import { addModal } from 'recoil/atom';
 import { infoModal } from 'utils/interactionModal';
-import { useForm } from 'react-hook-form';
+import { FieldValues, useForm } from 'react-hook-form';
 import { MainSubSelectBox } from './components/index';
 import { ClothesInput } from './components/ClothesInput';
 import { ColorRadioTest } from 'components/closet/components/ColorRadioTest';
@@ -25,12 +23,12 @@ export const AddModal = () => {
   const { register, handleSubmit, setValue, control } = useForm();
 
   // const resetState = () => {
-    // setImage(undefined);
-    // setName('');
-    // setColor('');
-    // setMainCategory('top');
-    // setSubCategory('sleeveless');
-    // setThumbnail('');
+  // setImage(undefined);
+  // setName('');
+  // setColor('');
+  // setMainCategory('top');
+  // setSubCategory('sleeveless');
+  // setThumbnail('');
   // };
 
   // const addImage = (e: ChangeEvent<HTMLInputElement>) => {
@@ -52,16 +50,20 @@ export const AddModal = () => {
   //   setName(e.currentTarget.value);
   // };
 
-  const addClothesItem = async (data: any) => {
+  const addClothesItem = async (data: FieldValues) => {
     // if (!(image && name && subCategory && color)) {
 
-    const test = {...data, image: data.image[0]}
-    console.log("====보내는 데이터====")
-    console.log(test);
-    // console.log(test.image[0])
-    const backData = await productApi.addProduct(test);
-    console.log("====백엔드에서 보내준 값====")
+    const frm = new FormData();
+    frm.append('image', data.image[0]);
+    frm.append('name', data.name);
+    frm.append('categoryId', data.categoryId);
+    frm.append('color', data.color);
+    const backData = await productApi.addProduct(frm);
     console.log(backData);
+
+    infoModal('서버에 옷 등록완료!', 'success');
+
+    setAddModalState((cur) => !cur);
 
     //     if (test) {
     //   const fileReader = new FileReader();
@@ -117,7 +119,6 @@ export const AddModal = () => {
       isOpen={addModalState}
       onRequestClose={() => {
         setAddModalState((cur) => !cur);
-        // resetState();
       }}
       ariaHideApp={false}
       contentLabel="Add Modal">
