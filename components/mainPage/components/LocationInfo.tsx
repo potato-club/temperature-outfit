@@ -9,17 +9,12 @@ import { useRecoilValue } from 'recoil';
 
 interface LocationInfoProps {
   locationId: number;
-  totalTemperature: totalTemperatureType;
-}
-type totalTemperatureType = {
-  highestTemperature: string;
   temperature: string;
-  lowestTemperature: string;
-};
+}
 
 export const LocationInfo = ({
   locationId,
-  totalTemperature,
+  temperature,
 }: LocationInfoProps) => {
   const allLocations = useRecoilValue(locations);
   const userLocation = allLocations.find((data) => data.id === locationId);
@@ -33,24 +28,8 @@ export const LocationInfo = ({
         </TypoGraphy>
       </Location>
       <TypoGraphy type="Title" color={customColor.brandColor5}>
-        평균 {totalTemperature.temperature}°C
+        현재 {temperature}°C
       </TypoGraphy>
-      <Temperatures>
-        <BsArrowUp color="F0771F" size={40} />
-        <TypoGraphy type="body1" color={customColor.brandColor5}>
-          최고{' '}
-          <span style={{ display: 'inline-block' }}>
-            {totalTemperature.highestTemperature}°C
-          </span>
-        </TypoGraphy>
-        <BsArrowDown color="499CCE" size={40} />
-        <TypoGraphy type="body1" color={customColor.brandColor5}>
-          최저{' '}
-          <span style={{ display: 'inline-block' }}>
-            {totalTemperature.lowestTemperature}°C
-          </span>
-        </TypoGraphy>
-      </Temperatures>
     </Container>
   );
 };
