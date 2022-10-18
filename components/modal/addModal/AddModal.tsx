@@ -20,7 +20,8 @@ export const AddModal = () => {
   // const [color, setColor] = useState<string>('');
   // const [mainCategory, setMainCategory] = useState<string>('top');
   // const [subCategory, setSubCategory] = useState<string>('sleeveless');
-  const { register, handleSubmit, setValue, control } = useForm();
+  const { register, handleSubmit, setValue, control, resetField, reset } = useForm();
+  
 
   // const resetState = () => {
   // setImage(undefined);
@@ -65,54 +66,11 @@ export const AddModal = () => {
 
     setAddModalState((cur) => !cur);
 
-    //     if (test) {
-    //   const fileReader = new FileReader();
-    //   fileReader.readAsDataURL(test.image);
-    //   fileReader.onload = () => {
-    //   };
-    //   infoModal('옷 사진 등록완료!', 'success');
-    // }
-
-    // * 기존에 쓰던코드
-    // if (!(image && subCategory && color)) {
-    //   infoModal(
-    //     '확인 해주세요!',
-    //     'error',
-    //     '상품의 이미지, 이름, 카테고리, 색상을 지정해주세요!',
-    //   );
-    //   return;
-    // }
-    // const frm = new FormData();
-    // frm.append('image', image!);
-    // frm.append('name', name);
-    // frm.append('categoryId', subCategory);
-    // frm.append('color', color);
-    // const data = await productApi.addProduct(frm);
-    // console.log(data);
-    // // 성공시 등록이 되었습니다! => 모달
-    // infoModal('서버에 옷 등록완료!', 'success');
-
-    // resetState();
-    // setAddModalState((cur) => !cur);
   };
 
-  // useEffect(() => {
-  //   setColor('');
-  // }, [mainCategory, subCategory]);
-
-  // 확인용 코드
-  // useEffect(() => {
-  //   console.log(image);
-  // }, [image]);
-  // useEffect(() => {
-  //   console.log(name);
-  // }, [name]);
-  // useEffect(() => {
-  //   console.log(subCategory);
-  // }, [subCategory]);
-  // useEffect(() => {
-  //   console.log(color);
-  // }, [color]);
+  useEffect(() => {
+    reset();
+  }, [addModalState, reset]);
 
   return (
     <Container
@@ -198,7 +156,11 @@ export const AddModal = () => {
               </InputWrapper> */}
             </CategoryWrapper>
             <RadioButtonsWrapper>
-              <ColorRadioTest register={register} control={control} />
+              <ColorRadioTest
+                register={register}
+                control={control}
+                resetField={resetField}
+              />
             </RadioButtonsWrapper>
             <ButtonWrapper>
               <CustomButton

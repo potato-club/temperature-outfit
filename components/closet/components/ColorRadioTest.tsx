@@ -6,13 +6,18 @@ import {
   Controller,
   FieldValues,
   UseFormRegister,
+  UseFormReset,
+  UseFormResetField,
 } from 'react-hook-form';
 import { radioBtnColor } from 'constants/customColor';
+import { HiOutlineX } from 'react-icons/hi';
 type Props = {
   register: UseFormRegister<FieldValues>;
   control: Control<FieldValues>;
+  resetBtn?: boolean;
+  resetField?: UseFormResetField<FieldValues>;
 };
-export const ColorRadioTest = ({ register, control }: Props) => {
+export const ColorRadioTest = ({ register, control, resetBtn, resetField }: Props) => {
   return (
     <Wrapper>
       <Controller
@@ -35,6 +40,14 @@ export const ColorRadioTest = ({ register, control }: Props) => {
                 }}
               />
             ))}
+            {resetBtn && resetField && (
+              <IconWrapper
+                onClick={() => {
+                  resetField('color')
+                }}>
+                <HiOutlineX size={30} />
+              </IconWrapper>
+            )}
           </>
         )}
       />
@@ -48,4 +61,11 @@ const Wrapper = styled.section`
   flex-wrap: wrap;
   border-radius: 10px;
   padding: 0 8px;
+`;
+
+const IconWrapper = styled.section`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
 `;
