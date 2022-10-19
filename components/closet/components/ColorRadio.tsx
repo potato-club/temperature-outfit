@@ -4,18 +4,18 @@ import styled from '@emotion/styled';
 import { radioBtnColor } from 'constants/customColor';
 import { HiOutlineX } from 'react-icons/hi';
 import { useRecoilState } from "recoil";
-import { filtering } from 'recoil/atom/filtering';
+import { colorFilter } from 'recoil/atom/filtering';
 export const ColorRadio = () => {
-  const [filter, setFilter] = useRecoilState(filtering);
+  const [color, setColor] = useRecoilState(colorFilter);
   return (
     <Wrapper>
       <>
         {Object.keys(radioBtnColor).map((colorKey) => (
           <Radio
-            onChange={(e) => setFilter(prev => ({...prev, color: e.target.value}))}
+            onChange={(e) => setColor(e.target.value)}
             value={colorKey}
             key={colorKey}
-            checked={colorKey === filter.color}
+            checked={colorKey === color}
             sx={{
               color: radioBtnColor[colorKey],
               '&.Mui-checked': {
@@ -26,7 +26,7 @@ export const ColorRadio = () => {
         ))}
         <IconWrapper
           onClick={() => {
-            setFilter(prev => ({...prev, color: ''}))
+            setColor('')
           }}>
           <HiOutlineX size={30} />
         </IconWrapper>
