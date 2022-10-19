@@ -5,4 +5,5 @@ export { Header } from './Header';
 export { CustomButton } from './CustomButton';
 export { RadioButton } from './RadioButton';
 export { SelectBox } from './SelectBox';
+export { LocationSelectBox } from './LocationSelectBox';
 export { ClothesBox } from './ClothesBox';
