@@ -14,7 +14,7 @@ type Props = {
   control: Control<FieldValues>;
   mainCategory: string;
 };
-export const SubSelectBox = ({ control, mainCategory, setValue }: Props) => {
+export const SubSelectBoxForm = ({ control, mainCategory, setValue }: Props) => {
   const mainId = useMemo(
     () => clothesSubCategory[mainCategory].slice(1).map((data) => data.id),
     [mainCategory],

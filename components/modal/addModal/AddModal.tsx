@@ -8,10 +8,10 @@ import { useRecoilState } from 'recoil';
 import { addModal } from 'recoil/atom';
 import { infoModal } from 'utils/interactionModal';
 import { FieldValues, useForm } from 'react-hook-form';
-import { MainSubSelectBox } from './components/index';
+import { MainSubSelectBoxForm } from './components/index';
 import { ClothesInput } from './components/ClothesInput';
-import { ColorRadioTest } from 'components/closet/components/ColorRadioTest';
 import { productApi } from 'api';
+import { ColorRadioForm } from './components/ColorRadioForm';
 
 export const AddModal = () => {
   const [addModalState, setAddModalState] = useRecoilState(addModal);
@@ -20,7 +20,7 @@ export const AddModal = () => {
   // const [color, setColor] = useState<string>('');
   // const [mainCategory, setMainCategory] = useState<string>('top');
   // const [subCategory, setSubCategory] = useState<string>('sleeveless');
-  const { register, handleSubmit, setValue, control, resetField, reset } = useForm();
+  const { register, handleSubmit, setValue, control, reset } = useForm();
   
 
   // const resetState = () => {
@@ -131,7 +131,7 @@ export const AddModal = () => {
               />
             </InputWrapper>
             <CategoryWrapper>
-              <MainSubSelectBox
+              <MainSubSelectBoxForm
                 register={register}
                 setValue={setValue}
                 control={control}
@@ -156,10 +156,9 @@ export const AddModal = () => {
               </InputWrapper> */}
             </CategoryWrapper>
             <RadioButtonsWrapper>
-              <ColorRadioTest
+              <ColorRadioForm
                 register={register}
                 control={control}
-                resetField={resetField}
               />
             </RadioButtonsWrapper>
             <ButtonWrapper>

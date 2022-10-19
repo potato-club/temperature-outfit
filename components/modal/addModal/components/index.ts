@@ -1,2 +1,2 @@
-export { MainSubSelectBox } from "./MainSubSelectBox";
-export { SubSelectBox } from './SubSelectBox';
+export { MainSubSelectBoxForm } from "./MainSubSelectBoxForm";
+export { SubSelectBoxForm } from './SubSelectBoxForm';

@@ -8,3 +8,4 @@ export { etcState } from './editState';
 export { reviewImageState } from './editState';
 export { userState } from './user';
 export { locations } from './locations';
+export { filtering } from './filtering';

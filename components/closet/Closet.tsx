@@ -8,8 +8,8 @@ import { useSetRecoilState } from 'recoil';
 import { addModal } from 'recoil/atom';
 import { filterType } from 'types/editPage/filter.type';
 import { ClothesContainer, ColorRadio, SearchBox } from './components';
-import CategoryFilterBox from './components/CategoryFilterBox';
 import { CustomPagination } from './components/CustomPagination';
+import { MainSubSelectBox } from './components/MainSubSelectBox';
 
 export const Closet: React.FC = () => {
   const setAddModalState = useSetRecoilState(addModal);
@@ -71,13 +71,8 @@ export const Closet: React.FC = () => {
         </TypoGraphy>
         <FilterWrapper>
           <section style={{ display: 'flex', flexWrap: 'wrap', gap: '20px' }}>
-            <CategoryFilterBox
-              mainCategory={mainCategory}
-              subCategory={subCategory}
-              setMainCategory={setMainCategory}
-              setSubCategory={setSubCategory}
-            />
-            <ColorRadio setColor={setColor} color={color} filter />
+            <MainSubSelectBox />
+            <ColorRadio />
           </section>
           <SearchBox name={name} setName={setName} />
         </FilterWrapper>
