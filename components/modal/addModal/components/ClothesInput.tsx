@@ -10,17 +10,20 @@ import { useRecoilState } from 'recoil';
 import { addModal } from 'recoil/atom';
 import { infoModal } from 'utils/interactionModal';
 import {
+  FieldErrorsImpl,
   FieldValues,
   useForm,
   UseFormRegister,
   UseFormWatch,
 } from 'react-hook-form';
+import { ErrorMessage } from '@hookform/error-message';
 type Props = {
   register: UseFormRegister<FieldValues>;
+  errors: Partial<FieldErrorsImpl>;
   // watch: UseFormWatch<FieldValues>;
 };
-export const ClothesInput = ({ register }: Props) => {
-  const { ref, onChange, ...rest } = register('image');
+export const ClothesInput = ({ register, errors }: Props) => {
+  const { ref, onChange, ...rest } = register('image', {required: '테스트입니다'});
   const clothesInputRef = useRef<HTMLInputElement | null>(null);
 
   const [thumbnail, setThumbnail] = useState<string>('');
@@ -84,6 +87,7 @@ export const ClothesInput = ({ register }: Props) => {
           />
         )}
       </ImageWrapper>
+      <ErrorMessage name="image" errors={errors} />
     </>
   );
 };

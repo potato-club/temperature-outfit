@@ -12,6 +12,7 @@ import { MainSubSelectBoxForm } from './components/index';
 import { ClothesInput } from './components/ClothesInput';
 import { productApi } from 'api';
 import { ColorRadioForm } from './components/ColorRadioForm';
+import { ErrorMessage } from '@hookform/error-message';
 
 export const AddModal = () => {
   const [addModalState, setAddModalState] = useRecoilState(addModal);
@@ -20,8 +21,14 @@ export const AddModal = () => {
   // const [color, setColor] = useState<string>('');
   // const [mainCategory, setMainCategory] = useState<string>('top');
   // const [subCategory, setSubCategory] = useState<string>('sleeveless');
-  const { register, handleSubmit, setValue, control, reset } = useForm();
-  
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    control,
+    reset,
+    formState: { errors },
+  } = useForm();
 
   // const resetState = () => {
   // setImage(undefined);
@@ -65,7 +72,6 @@ export const AddModal = () => {
     infoModal('서버에 옷 등록완료!', 'success');
 
     setAddModalState((cur) => !cur);
-
   };
 
   useEffect(() => {
@@ -117,7 +123,7 @@ export const AddModal = () => {
               />
             )}
           </ImageWrapper> */}
-          <ClothesInput register={register} />
+          <ClothesInput register={register} errors={errors} />
 
           <ContentBox>
             <InputWrapper>
@@ -127,7 +133,12 @@ export const AddModal = () => {
               <Input
                 // value={name}
                 placeholder="옷의 이름을 입력해주세요."
-                {...register('name')}
+                {...register('name', { required: '테스트 에러' })}
+              />
+              <ErrorMessage
+                errors={errors}
+                name="name"
+                render={({ message }) => <p>{message}</p>}
               />
             </InputWrapper>
             <CategoryWrapper>
@@ -156,10 +167,7 @@ export const AddModal = () => {
               </InputWrapper> */}
             </CategoryWrapper>
             <RadioButtonsWrapper>
-              <ColorRadioForm
-                register={register}
-                control={control}
-              />
+              <ColorRadioForm register={register} control={control} />
             </RadioButtonsWrapper>
             <ButtonWrapper>
               <CustomButton
