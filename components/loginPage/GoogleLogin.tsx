@@ -8,6 +8,7 @@ import { userState, locations } from 'recoil/atom/';
 import { useSetRecoilState } from 'recoil';
 import { userApi } from 'api';
 import { useRouter } from 'next/router';
+import { useQuery } from 'react-query';
 
 export const GoogleLogin: React.FC = () => {
   const router = useRouter();
@@ -15,14 +16,11 @@ export const GoogleLogin: React.FC = () => {
   const setUserInfo = useSetRecoilState(userState);
   const setAllLocations = useSetRecoilState(locations);
 
-  const handleAllLocation = useCallback(async () => {
-    try {
-      const { data } = await userApi.getAllLocations();
+  useQuery('getAllLocations', userApi.getAllLocations, {
+    onSuccess: ({ data }) => {
       setAllLocations(data);
-    } catch (error) {
-      console.log(error);
-    }
-  }, [setAllLocations]);
+    },
+  });
 
   const handleUserData = useCallback(
     async (session: any) => {
@@ -38,9 +36,8 @@ export const GoogleLogin: React.FC = () => {
   );
 
   useEffect(() => {
-    handleAllLocation();
     session && handleUserData(session);
-  }, [session, handleUserData, handleAllLocation]);
+  }, [session, handleUserData]);
 
   const onClick = () => {
     signIn('google');
