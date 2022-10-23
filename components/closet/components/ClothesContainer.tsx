@@ -1,9 +1,7 @@
 import styled from '@emotion/styled';
-import { productApi } from 'api';
 import { ClothesBox } from 'components/common';
 import useGetFilter from 'hooks/useGetFilter';
 import { useEffect, useState } from 'react';
-import { productType } from 'types/editPage/product.type';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import {
   categoryFilter,
@@ -11,7 +9,6 @@ import {
   nameFilter,
   pageFilter,
 } from 'recoil/atom/filtering';
-import { useMemo } from 'react';
 import { filterType } from 'types/editPage/filter.type';
 export const ClothesContainer = () => {
   const [filter, setFilter] = useState<filterType>({
@@ -25,7 +22,6 @@ export const ClothesContainer = () => {
   const query = useRecoilValue(nameFilter);
   const categoryId = useRecoilValue(categoryFilter);
   const color = useRecoilValue(colorFilter);
-  // const page = useRecoilValue(pageFilter);
   const [page, setPage] = useRecoilState(pageFilter);
 
   useEffect(() => {

@@ -1,34 +1,25 @@
-import React, { useState, ChangeEvent, useRef, useEffect } from 'react';
-import Modal from 'react-modal';
+import React, { useState, ChangeEvent, useRef } from 'react';
 import styled from '@emotion/styled';
-import { CustomButton, SelectBox, TypoGraphy } from 'components/common';
-import { ColorRadio } from 'components/closet/components';
+import { TypoGraphy } from 'components/common';
 import Image from 'next/image';
 import { IoMdImage } from 'react-icons/io';
 import { customColor } from 'constants/index';
-import { useRecoilState } from 'recoil';
-import { addModal } from 'recoil/atom';
-import { infoModal } from 'utils/interactionModal';
 import {
   FieldErrorsImpl,
   FieldValues,
-  useForm,
   UseFormRegister,
-  UseFormWatch,
 } from 'react-hook-form';
 import { ErrorMessage } from '@hookform/error-message';
+import { infoModal } from 'utils/interactionModal';
 type Props = {
   register: UseFormRegister<FieldValues>;
   errors: Partial<FieldErrorsImpl>;
-  // watch: UseFormWatch<FieldValues>;
 };
-export const ClothesInput = ({ register, errors }: Props) => {
+export const ImageInput = ({ register, errors }: Props) => {
   const { ref, onChange, ...rest } = register('image', {required: '이미지를 선택해주세요'});
   const clothesInputRef = useRef<HTMLInputElement | null>(null);
 
   const [thumbnail, setThumbnail] = useState<string>('');
-  // const { watch } = useForm();
-  // const clothesImage = watch('clothesImage');
 
   const addImage = (e: ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
@@ -42,13 +33,6 @@ export const ClothesInput = ({ register, errors }: Props) => {
       infoModal('옷 사진 등록완료!', 'success');
     }
   };
-
-  // useEffect(() => {
-  //   if (clothesImage && clothesImage.length > 0) {
-  //     const file = clothesImage[0];
-  //     setThumbnail(URL.createObjectURL(file));
-  //   }
-  // }, [clothesImage]);
 
   return (
     <>

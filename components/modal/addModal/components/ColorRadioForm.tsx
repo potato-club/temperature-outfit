@@ -6,11 +6,8 @@ import {
   Controller,
   FieldErrorsImpl,
   FieldValues,
-  UseFormRegister,
-  UseFormResetField,
 } from 'react-hook-form';
 import { radioBtnColor } from 'constants/customColor';
-import { HiOutlineX } from 'react-icons/hi';
 import { ErrorMessage } from '@hookform/error-message';
 import { TypoGraphy } from 'components/common';
 type Props = {
@@ -19,7 +16,7 @@ type Props = {
 };
 export const ColorRadioForm = ({ control, errors }: Props) => {
   return (
-    <>
+    <section>
       <Wrapper>
         <Controller
           name="color"
@@ -54,7 +51,7 @@ export const ColorRadioForm = ({ control, errors }: Props) => {
           </section>
         )}
       />
-    </>
+    </section>
   );
 };
 
@@ -64,11 +61,4 @@ const Wrapper = styled.section`
   flex-wrap: wrap;
   border-radius: 10px;
   padding: 0 8px;
-`;
-
-const IconWrapper = styled.section`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
 `;

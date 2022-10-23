@@ -1,7 +1,6 @@
-import { preventContextMenu } from '@fullcalendar/common';
 import { MenuItem, Select } from '@mui/material';
 import { CategoryDetail, clothesSubCategory } from 'constants/index';
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { useRecoilState } from 'recoil';
 import { categoryFilter } from 'recoil/atom/filtering';
 

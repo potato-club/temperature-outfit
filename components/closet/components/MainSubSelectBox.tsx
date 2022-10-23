@@ -1,18 +1,9 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 import styled from '@emotion/styled';
-import {
-  Control,
-  Controller,
-  FieldValues,
-  UseFormGetValues,
-  UseFormRegister,
-  UseFormSetValue,
-} from 'react-hook-form';
 import { CategoryDetail } from 'constants/types';
-import { clothesSubCategory } from 'constants/index';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { clothesMainCategory } from 'constants/index';
-import { MenuItem, Select, SelectChangeEvent } from '@mui/material';
+import { MenuItem, Select } from '@mui/material';
 import { SubSelectBox } from './SubSelectBox';
 
 export const MainSubSelectBox = () => {

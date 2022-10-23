@@ -1,12 +1,10 @@
-import { ErrorMessage } from '@hookform/error-message';
 import { MenuItem, Select } from '@mui/material';
 import { CategoryDetail, clothesSubCategory } from 'constants/index';
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import {
   Control,
   Controller,
   FieldValues,
-  UseFormRegister,
   UseFormSetValue,
 } from 'react-hook-form';
 type Props = {
@@ -46,19 +44,3 @@ export const SubSelectBoxForm = ({ control, mainCategory, setValue }: Props) => 
     </>
   );
 };
-
-// <Select
-//   {...rest}
-//   value={getValues('category') === sub ? sub : ''} // 서브카테고리가 메인카테고리 범위안에 있는지 확인하기 위한 코드
-//   onChange={(e) => {
-//     setSub(e.target.value);
-//     setValue('category', e.target.value);
-//   }}>
-//   {clothesSubCategory[mainCategory]
-//     .slice(1)
-//     .map((data: CategoryDetail) => (
-//       <MenuItem value={data.id} key={data.id}>
-//         {data.name}
-//       </MenuItem>
-//     ))}
-// </Select>;
