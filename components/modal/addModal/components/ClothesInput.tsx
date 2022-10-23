@@ -23,7 +23,7 @@ type Props = {
   // watch: UseFormWatch<FieldValues>;
 };
 export const ClothesInput = ({ register, errors }: Props) => {
-  const { ref, onChange, ...rest } = register('image', {required: '테스트입니다'});
+  const { ref, onChange, ...rest } = register('image', {required: '이미지를 선택해주세요'});
   const clothesInputRef = useRef<HTMLInputElement | null>(null);
 
   const [thumbnail, setThumbnail] = useState<string>('');
@@ -87,7 +87,15 @@ export const ClothesInput = ({ register, errors }: Props) => {
           />
         )}
       </ImageWrapper>
-      <ErrorMessage name="image" errors={errors} />
+      <ErrorMessage
+        name="image"
+        errors={errors}
+        render={({ message }) => (
+          <section className="errorWrapper">
+            <TypoGraphy color="red">{message}</TypoGraphy>
+          </section>
+        )}
+      />
     </>
   );
 };

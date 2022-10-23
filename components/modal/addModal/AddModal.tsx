@@ -66,6 +66,7 @@ export const AddModal = () => {
     frm.append('name', data.name);
     frm.append('categoryId', data.categoryId);
     frm.append('color', data.color);
+    console.log(frm)
     const backData = await productApi.addProduct(frm);
     console.log(backData);
 
@@ -133,17 +134,20 @@ export const AddModal = () => {
               <Input
                 // value={name}
                 placeholder="옷의 이름을 입력해주세요."
-                {...register('name', { required: '테스트 에러' })}
+                {...register('name', { required: '상품명을 입력해주세요' })}
               />
               <ErrorMessage
                 errors={errors}
                 name="name"
-                render={({ message }) => <p>{message}</p>}
+                render={({ message }) => (
+                  <section className="errorWrapper">
+                    <TypoGraphy color="red">{message}</TypoGraphy>
+                  </section>
+                )}
               />
             </InputWrapper>
             <CategoryWrapper>
               <MainSubSelectBoxForm
-                register={register}
                 setValue={setValue}
                 control={control}
               />
@@ -167,7 +171,7 @@ export const AddModal = () => {
               </InputWrapper> */}
             </CategoryWrapper>
             <RadioButtonsWrapper>
-              <ColorRadioForm register={register} control={control} />
+              <ColorRadioForm control={control} errors={errors}/>
             </RadioButtonsWrapper>
             <ButtonWrapper>
               <CustomButton

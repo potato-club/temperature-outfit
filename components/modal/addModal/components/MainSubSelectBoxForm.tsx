@@ -16,11 +16,10 @@ import { MenuItem, Select, SelectChangeEvent } from '@mui/material';
 import { SubSelectBoxForm } from './SubSelectBoxForm';
 
 type Props = {
-  register: UseFormRegister<FieldValues>;
   setValue: UseFormSetValue<FieldValues>;
   control: Control<FieldValues>;
 };
-export const MainSubSelectBoxForm = ({ register, setValue, control }: Props) => {
+export const MainSubSelectBoxForm = ({ setValue, control }: Props) => {
   const [mainCategory, setMainCategory] = useState('top');
 
   return (
@@ -36,7 +35,6 @@ export const MainSubSelectBoxForm = ({ register, setValue, control }: Props) => 
       </Wrapper>
       <Wrapper>
         <SubSelectBoxForm
-          register={register}
           setValue={setValue}
           control={control}
           mainCategory={mainCategory}

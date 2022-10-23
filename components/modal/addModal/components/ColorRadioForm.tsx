@@ -4,43 +4,57 @@ import styled from '@emotion/styled';
 import {
   Control,
   Controller,
+  FieldErrorsImpl,
   FieldValues,
   UseFormRegister,
   UseFormResetField,
 } from 'react-hook-form';
 import { radioBtnColor } from 'constants/customColor';
 import { HiOutlineX } from 'react-icons/hi';
+import { ErrorMessage } from '@hookform/error-message';
+import { TypoGraphy } from 'components/common';
 type Props = {
-  register: UseFormRegister<FieldValues>;
   control: Control<FieldValues>;
+  errors: Partial<FieldErrorsImpl>;
 };
-export const ColorRadioForm = ({ register, control }: Props) => {
+export const ColorRadioForm = ({ control, errors }: Props) => {
   return (
-    <Wrapper>
-      <Controller
-        name="color"
-        control={control}
-        render={({ field: { onChange, value } }) => (
-          <>
-            {Object.keys(radioBtnColor).map((colorKey) => (
-              <Radio
-                {...register}
-                onChange={onChange}
-                value={colorKey}
-                key={colorKey}
-                checked={colorKey === value}
-                sx={{
-                  color: radioBtnColor[colorKey],
-                  '&.Mui-checked': {
+    <>
+      <Wrapper>
+        <Controller
+          name="color"
+          control={control}
+          rules={{ required: '색상을 선택해주세요' }}
+          render={({ field: { onChange, value } }) => (
+            <>
+              {Object.keys(radioBtnColor).map((colorKey) => (
+                <Radio
+                  onChange={onChange}
+                  value={colorKey}
+                  key={colorKey}
+                  checked={colorKey === value}
+                  sx={{
                     color: radioBtnColor[colorKey],
-                  },
-                }}
-              />
-            ))}
-          </>
+                    '&.Mui-checked': {
+                      color: radioBtnColor[colorKey],
+                    },
+                  }}
+                />
+              ))}
+            </>
+          )}
+        />
+      </Wrapper>
+      <ErrorMessage
+        errors={errors}
+        name="color"
+        render={({ message }) => (
+          <section className="errorWrapper">
+            <TypoGraphy color="red">{message}</TypoGraphy>
+          </section>
         )}
       />
-    </Wrapper>
+    </>
   );
 };
 
