@@ -12,14 +12,11 @@ export const LoginUi: React.FC = () => {
           <Title>
             &quot;Would you like to join us?&quot;
             <MainIcon>
-              <Image src={fountainPen} alt="구글 로고" />
+              <Image src={fountainPen} alt="Google Logo" />
             </MainIcon>
           </Title>
-
-          <SubTitle>날씨의 따른 당신의 코디를 기록하세요</SubTitle>
-
+          <SubTitle>날씨에 따라 당신의 코디를 기록하세요</SubTitle>
           <GoogleLogin />
-
           <Footer>From.ChocoStick</Footer>
         </InWrap>
       </OutWrap>

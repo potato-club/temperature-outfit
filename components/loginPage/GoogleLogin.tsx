@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from 'react';
+import React from 'react';
 import styled from '@emotion/styled';
 import Image from 'next/image';
 import googleLogo from 'assets/img/googleNormal.png';
@@ -12,7 +12,7 @@ import { useQuery } from 'react-query';
 
 export const GoogleLogin: React.FC = () => {
   const router = useRouter();
-  const { data: session, status } = useSession();
+  const { data: session } = useSession();
   const setUserInfo = useSetRecoilState(userState);
   const setAllLocations = useSetRecoilState(locations);
 
@@ -22,34 +22,20 @@ export const GoogleLogin: React.FC = () => {
     },
   });
 
-  const handleUserData = useCallback(
-    async (session: any) => {
-      try {
-        const { data: location } = await userApi.getUserLocation();
-        let userName: string = session.user!.name ?? '유저이름';
-        setUserInfo({ name: userName, locationId: location.id });
-      } catch (error) {
-        console.log(error);
-      }
+  useQuery('getUserInfo', userApi.getUserLocation, {
+    enabled: !!session,
+    onSuccess: ({ data }) => {
+      setUserInfo({
+        name: session!.user!.name ?? '사용자 이름',
+        locationId: data.id,
+      });
+      router.push('/');
     },
-    [setUserInfo],
-  );
-
-  useEffect(() => {
-    session && handleUserData(session);
-  }, [session, handleUserData]);
-
-  const onClick = () => {
-    signIn('google');
-  };
-
-  if (status === 'authenticated') {
-    router.push('/');
-  }
+  });
 
   return (
     <Button>
-      <Img onClick={onClick}>
+      <Img onClick={() => signIn('google')}>
         <Image src={googleLogo} alt="구글 로고" />
       </Img>
     </Button>
