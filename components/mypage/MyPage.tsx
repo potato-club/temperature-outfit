@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import styled from '@emotion/styled';
-import { TypoGraphy, SelectBox } from 'components/common';
+import { TypoGraphy, LocationSelectBox } from 'components/common';
 import { customColor } from 'constants/index';
 import { GrLocation } from 'react-icons/Gr';
 import { signOut } from 'next-auth/react';
@@ -12,10 +12,10 @@ export const MyPage: React.FC = () => {
   const [{ name, locationId }, setUser] = useRecoilState(userState);
   const allLocations = useRecoilValue(locations);
 
-  const changeUserLocations = async (e: any) => {
+  const changeUserLocations = async (data: number) => {
     try {
-      await userApi.changeUserLocation({ locationId: Number(e) });
-      setUser({ name, locationId: Number(e) });
+      await userApi.changeUserLocation({ locationId: data });
+      setUser({ name, locationId: data });
     } catch (error) {
       console.log(error);
     }
@@ -31,20 +31,15 @@ export const MyPage: React.FC = () => {
           님
         </TypoGraphy>
       </NameInfo>
-
       <LocationWrapper>
         <GrLocation size={28} />
-        <SelectBox
-          value={locationId.toString()}
-          categoryChange={changeUserLocations}
-          width={80}
-          dataArray={allLocations}
-          label="지역"
+        <LocationSelectBox
+          myLocation={locationId.toString()}
+          changeUserLocations={changeUserLocations}
+          allLocations={allLocations}
         />
       </LocationWrapper>
-
       <TypoGraphy type="sm1">사는 지역을 선택해주세요</TypoGraphy>
-
       <Footer>
         <LogOut onClick={() => signOut()}>
           <TypoGraphy
