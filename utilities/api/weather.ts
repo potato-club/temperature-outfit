@@ -1,18 +1,20 @@
-import { Location, Weather } from '@prisma/client';
+import { Location, Weather, WeatherStatus } from '@prisma/client';
 import axios from 'axios';
 import { prisma } from 'db';
 
 type RawWeather = {
+  status: WeatherStatus;
   temperature: number;
   lowestTemperature: number;
   highestTemperature: number;
   humidity: number;
+  isForecast: boolean;
 };
 
 export const updateWeather = async (
   date: Date,
-  location: Location,
   today: Date,
+  location: Location,
 ) => {
   const weather = await prisma.weather.findFirst({
     where: { date, locationId: location.id },
@@ -34,7 +36,7 @@ export const updateWeather = async (
             locationId: weather.locationId,
           },
         },
-        data: await getCurrentWeather(location.latitude, location.longitude),
+        data: await getWeather(date, today, location),
       });
     }
   } else {
@@ -42,12 +44,25 @@ export const updateWeather = async (
       data: {
         date,
         locationId: location.id,
-        ...(await getCurrentWeather(location.latitude, location.longitude)),
+        ...(await getWeather(date, today, location)),
       },
     });
   }
 
   return result;
+};
+
+export const getWeather = async (
+  date: Date,
+  today: Date,
+  location: Location,
+) => {
+  // 미래일 경우는 컨크롤러에서 처리
+  if (today.toISOString().split('T')[0] === date.toISOString().split('T')[0]) {
+    return await getCurrentWeather(location.latitude, location.longitude);
+  } else {
+    return await getPastWeather(date, location.code);
+  }
 };
 
 export const getCurrentWeather = async (
@@ -59,9 +74,44 @@ export const getCurrentWeather = async (
   );
 
   return {
+    status: 'sun',
     temperature: res.data.main.temp,
     lowestTemperature: res.data.main.temp_min,
     highestTemperature: res.data.main.temp_max,
     humidity: res.data.main.humidity,
+    isForecast: true,
+  };
+};
+
+export const getPastWeather = async (
+  date: Date,
+  code: number,
+): Promise<RawWeather> => {
+  const dateString = date.toISOString().split('T')[0].replaceAll('-', '');
+
+  const res = await axios.get(
+    `http://apis.data.go.kr/1360000/AsosDalyInfoService/getWthrDataList?dataCd=ASOS&dateCd=DAY&dataType=JSON&serviceKey=${process.env.DAILY_KEY}&startDt=${dateString}&endDt=${dateString}&stnIds=${code}`,
+  );
+
+  if (res.data.response.body.items == undefined) {
+    return {
+      status: 'sun',
+      temperature: 0,
+      lowestTemperature: 0,
+      highestTemperature: 0,
+      humidity: 0,
+      isForecast: true,
+    };
+  }
+
+  const item = res.data.response.body.items.item[0];
+
+  return {
+    status: item.sumRn > 0 ? 'rain' : 'sun',
+    temperature: +item.avgTa,
+    lowestTemperature: +item.minTa,
+    highestTemperature: +item.maxTa,
+    humidity: +(+item.avgRhm).toFixed(),
+    isForecast: false,
   };
 };

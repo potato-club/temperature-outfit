@@ -36,7 +36,7 @@ export default async function handler(
     return res.status(400);
   }
 
-  let result = await updateWeather(date, location, today);
+  let result = await updateWeather(date, today, location);
 
   res.status(200).json(convertWeatherResponse(result));
 }
