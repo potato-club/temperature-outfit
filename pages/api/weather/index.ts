@@ -12,7 +12,10 @@ export default async function handler(
 
   if (!query.date || !query.locationId) {
     // 필수 쿼리
-    return res.status(400);
+    return res.status(400).json({
+      code: 400,
+      message: '요청 오류',
+    });
   }
 
   const date = new Date(query.date);
@@ -28,12 +31,18 @@ export default async function handler(
     date.getDate > today.getDate
   ) {
     // 미래 날짜 오류
-    return res.status(400);
+    return res.status(400).json({
+      code: 400,
+      message: '요청 오류 (미래 시간)',
+    });
   }
 
   if (!location) {
     // 지역 없음
-    return res.status(400);
+    return res.status(400).json({
+      code: 400,
+      message: '요청 오류 (지역 없음)',
+    });
   }
 
   let result = await updateWeather(date, location, today);

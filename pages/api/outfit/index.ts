@@ -6,6 +6,7 @@ import {
   OutfitGetRequest,
   OutfitPostRequest,
   OutfitResponse,
+  Response,
 } from '../../../types';
 import { convertOutfitToResponse } from '../../../utilities/api/converter';
 import { authenticateHandler } from '../../../utilities/api/middlewares/auth';
@@ -17,7 +18,10 @@ export const config = {
   },
 };
 
-const handler = nextConnect<ApiRequest, NextApiResponse<OutfitResponse[]>>();
+const handler = nextConnect<
+  ApiRequest,
+  NextApiResponse<OutfitResponse[] | Response>
+>();
 
 handler.use(authenticateHandler);
 
@@ -49,7 +53,10 @@ handler.post(filesParser, async (req, res) => {
   const body = req.body as OutfitPostRequest;
 
   if (!body.date || !body.locationId) {
-    return res.status(400);
+    return res.status(400).json({
+      code: 400,
+      message: '요청 오류',
+    });
   }
 
   const outfit = await prisma.outfit.create({

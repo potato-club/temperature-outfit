@@ -10,17 +10,24 @@ export type ApiRequest = NextApiRequest & {
   filePath?: FilePath;
 };
 
+export type Response = {
+  code: number;
+  message: string;
+};
+
 export type UserLocationPostRequest = {
   locationId?: number;
 };
 
-export type LocationResponse = { id: number; name: string };
+export type LocationResponse = Response | { id: number; name: string };
 
-export type CategoryResponse = {
-  id: string;
-  name: string;
-  children?: { id: string; name: string }[];
-};
+export type CategoryResponse =
+  | Response
+  | {
+      id: string;
+      name: string;
+      children?: { id: string; name: string }[];
+    };
 
 export type ProductGetRequest = {
   query?: string;
@@ -42,22 +49,26 @@ export type ProductPutRequest = {
   color?: string;
 };
 
-export type ProductDetailResponse = {
-  id: string;
-  name: string;
-  categoryId: string;
-  color: string;
-  imageUrl?: string;
-  createdAt: string;
-  updatedAt: string;
-};
+export type ProductDetailResponse =
+  | Response
+  | {
+      id: string;
+      name: string;
+      categoryId: string;
+      color: string;
+      imageUrl?: string;
+      createdAt: string;
+      updatedAt: string;
+    };
 
-export type ProductResponse = {
-  page?: number;
-  limit?: number;
-  lastPage?: number;
-  products: ProductDetailResponse[];
-};
+export type ProductResponse =
+  | Response
+  | {
+      page?: number;
+      limit?: number;
+      lastPage?: number;
+      products: ProductDetailResponse[];
+    };
 
 export type OutfitGetRequest = {
   startDate?: string;
@@ -79,35 +90,39 @@ export type OutfitPutRequest = {
   rating?: string;
 };
 
-export type OutfitResponse = {
-  id: string;
-  date: string;
-  locationId: number;
-  weather?: WeatherResponse;
-  imageUrl?: string;
-  products: ProductDetailResponse[];
-  comment?: string;
-  rating: number;
-  createdAt: string;
-  updatedAt: string;
-};
+export type OutfitResponse =
+  | Response
+  | {
+      id: string;
+      date: string;
+      locationId: number;
+      weather?: WeatherResponse;
+      imageUrl?: string;
+      products: ProductDetailResponse[];
+      comment?: string;
+      rating: number;
+      createdAt: string;
+      updatedAt: string;
+    };
 
 export type WeatherGetRequest = {
   date?: string;
   locationId?: string;
 };
 
-export type WeatherResponse = {
-  date: string;
-  locationId: number;
-  status: WeatherStatus;
-  temperature: string;
-  lowestTemperature: string;
-  highestTemperature: string;
-  isForecast: boolean;
-  createdAt: string;
-  updatedAt: string;
-};
+export type WeatherResponse =
+  | Response
+  | {
+      date: string;
+      locationId: number;
+      status: WeatherStatus;
+      temperature: string;
+      lowestTemperature: string;
+      highestTemperature: string;
+      isForecast: boolean;
+      createdAt: string;
+      updatedAt: string;
+    };
 
 export type SuggestionGetRequest = {
   temperature?: string;
@@ -120,6 +135,8 @@ export type SuggestionOutfit = {
   temperature: string;
 };
 
-export type SuggestionResponse = {
-  outfits: SuggestionOutfit[];
-};
+export type SuggestionResponse =
+  | Response
+  | {
+      outfits: SuggestionOutfit[];
+    };
