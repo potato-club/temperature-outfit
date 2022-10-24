@@ -74,7 +74,10 @@ export const getCurrentWeather = async (
   );
 
   return {
-    status: 'sun',
+    status: getWeatherStatus(
+      (res.data.clouds.all ?? 0) / 10,
+      res.data.rain['1h'] ?? 0,
+    ),
     temperature: res.data.main.temp,
     lowestTemperature: res.data.main.temp_min,
     highestTemperature: res.data.main.temp_max,
@@ -107,11 +110,25 @@ export const getPastWeather = async (
   const item = res.data.response.body.items.item[0];
 
   return {
-    status: item.sumRn > 0 ? 'rain' : 'sun',
+    status: getWeatherStatus(item.avgTca, item.sumRn),
     temperature: +item.avgTa,
     lowestTemperature: +item.minTa,
     highestTemperature: +item.maxTa,
     humidity: +(+item.avgRhm).toFixed(),
     isForecast: false,
   };
+};
+
+// 눈 추가해야 함
+const getWeatherStatus = (
+  cloudiness: number,
+  precipitation: number,
+): WeatherStatus => {
+  if (precipitation) {
+    return 'rain';
+  } else if (cloudiness > 8.5) {
+    return 'cloud';
+  } else {
+    return 'sun';
+  }
 };
