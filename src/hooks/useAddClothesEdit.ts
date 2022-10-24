@@ -1,8 +1,9 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { productApi } from '../api/productApi';
-import { infoModal } from 'utils/interactionModal';
-import { ProductDetailResponse } from 'types';
+
 import { RecoilState, useRecoilState } from 'recoil';
+import { infoModal } from 'utils/interactionModal';
+import { ProductDetailResponse } from '../../types';
 
 export default function useAddClothesEdit(recoil: RecoilState<ProductDetailResponse[]>) {
   const [clothesData, setClothesData] = useRecoilState(recoil);

@@ -88,12 +88,14 @@ export function ReviewBox({
         <CustomButton
           customType="white"
           text="삭제하기"
+          type="button" // Todo rest ? button ?
           sidePadding="20"
           onClick={deleteModal}
         />
         <CustomButton
           customType="colorful"
           text="수정하기"
+          type="button"
           sidePadding="20"
           onClick={handlePut}
         />

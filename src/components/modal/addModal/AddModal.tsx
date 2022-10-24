@@ -1,8 +1,6 @@
 import React, { useEffect } from 'react';
 import Modal from 'react-modal';
 import styled from '@emotion/styled';
-import { CustomButton, TypoGraphy } from 'components/common';
-import { IoMdImage } from 'react-icons/io';
 import { customColor } from 'constants/index';
 import { useRecoilState } from 'recoil';
 import { addModal } from 'recoil/atom';
@@ -15,6 +13,7 @@ import {
   MainSubSelectBoxForm,
   NameInput,
 } from './components';
+import { CustomButton, TypoGraphy } from 'components/common';
 
 export const AddModal = () => {
   const [addModalState, setAddModalState] = useRecoilState(addModal);

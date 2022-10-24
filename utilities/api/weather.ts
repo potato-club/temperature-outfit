@@ -1,6 +1,6 @@
 import { Location, Weather } from '@prisma/client';
 import axios from 'axios';
-import { prisma } from 'db';
+import { prisma } from '../../db';
 
 type RawWeather = {
   temperature: number;

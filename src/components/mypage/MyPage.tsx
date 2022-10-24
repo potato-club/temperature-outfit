@@ -1,12 +1,12 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import { TypoGraphy, LocationSelectBox } from 'components/common';
 import { customColor } from 'constants/index';
 import { GrLocation } from 'react-icons/Gr';
 import { signOut } from 'next-auth/react';
 import { useRecoilValue, useRecoilState } from 'recoil';
 import { locations, userState } from 'recoil/atom';
 import { userApi } from 'api';
+import { LocationSelectBox, TypoGraphy } from "components/common";
 
 export const MyPage: React.FC = () => {
   const [{ name, locationId }, setUser] = useRecoilState(userState);

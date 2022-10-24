@@ -4,7 +4,7 @@ import Image from 'next/image';
 import googleLogo from 'assets/img/googleNormal.png';
 import { signIn } from 'next-auth/react';
 import { useSession } from 'next-auth/react';
-import { userState, locations } from 'recoil/atom/';
+import { userState, locations } from 'recoil/atom';
 import { useSetRecoilState } from 'recoil';
 import { userApi } from 'api';
 import { useRouter } from 'next/router';

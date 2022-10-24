@@ -4,7 +4,8 @@ import { TypoGraphy } from 'components/common';
 import { DressRoom, ReviewBox, Title } from './components';
 import { useRouter } from 'next/router';
 import { todayCodyApi } from 'api';
-import { clothesSubCategory, clothesMainCategory } from 'constants/index';
+import { clothesMainCategory } from "constants/index";
+import { clothesSubCategory } from 'constants/clothesSubCategory';
 
 type totalTemperatureType = {
   highestTemperature: string;

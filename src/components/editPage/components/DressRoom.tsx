@@ -5,7 +5,7 @@ import { AiOutlinePlus } from 'react-icons/ai';
 import { RecoilState, useRecoilState, useSetRecoilState } from 'recoil';
 import { ClothesBox } from 'components/common';
 import { chooseModal } from 'recoil/atom';
-import { ProductDetailResponse } from 'types';
+import { ProductDetailResponse } from '../../../../types';
 type Props = {
   category: string;
   recoil: RecoilState<ProductDetailResponse[]>;

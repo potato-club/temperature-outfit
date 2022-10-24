@@ -1,4 +1,4 @@
-import { infoModal } from 'utils/interactionModal';
+import { infoModal } from '../utils/interactionModal';
 import api from './common';
 
 export const productApi = {

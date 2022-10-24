@@ -5,8 +5,8 @@ import React, { useState } from 'react';
 import { TypoGraphy } from 'components/common';
 import { RecoilState, useSetRecoilState } from 'recoil';
 import { chooseModal } from 'recoil/atom';
-import { ProductDetailResponse } from 'types';
 import useAddClothesEdit from 'hooks/useAddClothesEdit';
+import { ProductDetailResponse } from '../../../types';
 
 type Props = {
   url: string;

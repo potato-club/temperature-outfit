@@ -1,11 +1,11 @@
-import { prisma } from 'db';
+import { prisma } from '../../db';
 import type { NextApiRequest, NextApiResponse } from 'next';
 import {
   SuggestionGetRequest,
   SuggestionOutfit,
   SuggestionResponse,
-} from 'types';
-import { updateWeather } from 'utilities/api/weather';
+} from '../../types';
+import { updateWeather } from '../../utilities/api/weather';
 
 export default async function handler(
   req: NextApiRequest,
