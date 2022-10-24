@@ -1,25 +1,18 @@
 import styled from '@emotion/styled';
 import React from 'react';
 import { ThreeModel, LocationInfo, TodayClothes } from './index';
+import { WeatherStatusType } from 'types';
 
 interface Props {
-  weatherStatus: any;
-  locationId: any;
+  weatherStatus: WeatherStatusType;
   temperature: string;
 }
 
-export function TodayInfo({
-  weatherStatus,
-  locationId,
-  temperature,
-}: Props) {
+export function TodayInfo({ weatherStatus, temperature }: Props) {
   return (
     <Container>
       <ThreeModel weatherStatus={weatherStatus} />
-      <LocationInfo
-        locationId={locationId}
-        temperature={temperature}
-      />
+      <LocationInfo temperature={temperature} />
       {/* <TodayClothes {...props} /> */}
     </Container>
   );
