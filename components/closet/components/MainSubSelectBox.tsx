@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import { CategoryDetail } from 'constants/types';
+import { CategoryDetail } from 'constants/tempTypes';
 import { useState } from 'react';
 import { clothesMainCategory } from 'constants/index';
 import { MenuItem, Select } from '@mui/material';
@@ -23,7 +23,7 @@ export const MainSubSelectBox = () => {
         </Select>
       </Wrapper>
       <Wrapper>
-        <SubSelectBox mainCategory={mainCategory}/>
+        <SubSelectBox mainCategory={mainCategory} />
       </Wrapper>
     </>
   );

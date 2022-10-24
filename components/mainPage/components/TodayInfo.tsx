@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import React from 'react';
 import { ThreeModel, LocationInfo, TodayClothes } from './index';
-import { WeatherStatusType } from 'types';
+import { WeatherStatusType } from 'types/mainPage';
 
 interface Props {
   weatherStatus: WeatherStatusType;

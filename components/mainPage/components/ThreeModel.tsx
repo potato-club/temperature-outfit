@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import { Canvas } from '@react-three/fiber';
 import React from 'react';
 import { LightController, Model } from './index';
-import { WeatherStatusType } from 'types';
+import { WeatherStatusType } from 'types/mainPage';
 
 interface Prop {
   weatherStatus: WeatherStatusType;
