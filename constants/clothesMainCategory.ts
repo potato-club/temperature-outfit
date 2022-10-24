@@ -1,5 +1,4 @@
-import { CategoryDetail } from 'types';
-
+import { CategoryDetail } from 'types/categoryDetail.type';
 
 export const clothesMainCategory: CategoryDetail[] = [
   {

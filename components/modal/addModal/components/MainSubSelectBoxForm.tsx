@@ -5,11 +5,11 @@ import {
   FieldValues,
   UseFormSetValue,
 } from 'react-hook-form';
-import { CategoryDetail } from 'constants/types';
 import { useState } from 'react';
 import { clothesMainCategory } from 'constants/index';
 import { MenuItem, Select } from '@mui/material';
 import { SubSelectBoxForm } from './SubSelectBoxForm';
+import { CategoryDetail } from 'types/categoryDetail.type';
 
 type Props = {
   setValue: UseFormSetValue<FieldValues>;

@@ -1,5 +1,5 @@
 import { MenuItem, Select } from '@mui/material';
-import { CategoryDetail, clothesSubCategory } from 'constants/index';
+import { clothesSubCategory } from 'constants/index';
 import React, { useEffect, useMemo } from 'react';
 import {
   Control,
@@ -7,6 +7,7 @@ import {
   FieldValues,
   UseFormSetValue,
 } from 'react-hook-form';
+import { CategoryDetail } from 'types/categoryDetail.type';
 type Props = {
   setValue: UseFormSetValue<FieldValues>;
   control: Control<FieldValues>;
