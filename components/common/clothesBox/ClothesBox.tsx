@@ -4,6 +4,8 @@ import Image from 'next/image';
 import React, { useState } from 'react';
 import { TypoGraphy } from 'components/common';
 import { FiX } from 'react-icons/fi';
+import { MemoClothesImg } from './ClothesImg';
+import { MemoTypoGraphy } from './TypoGraphyTest';
 
 type Props = {
   url: string;
@@ -22,11 +24,11 @@ export function ClothesBox({ url, name, id, deleteImage, type }: Props) {
       type={type}
       onMouseOver={() => setShowName(true)}
       onMouseOut={() => setShowName(false)}>
-      <Image width={120} height={type === 'edit' ? 80 : 120} alt="clothes" src={url} />
+      <MemoClothesImg type={type} url={url} />
       <ClothesName showName={showName}>
-        <TypoGraphy type="sm1" color={customColor.white}>
+        <MemoTypoGraphy type="sm1" color={customColor.white}>
           {name}
-        </TypoGraphy>
+        </MemoTypoGraphy>
       </ClothesName>
       {deleteImage && id !== undefined && (
         <RemoveWrapper

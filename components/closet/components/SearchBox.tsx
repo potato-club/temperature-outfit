@@ -1,11 +1,11 @@
 import styled from '@emotion/styled';
 import { customColor } from 'constants/index';
 import { AiOutlineSearch } from 'react-icons/ai';
-type Props = {
-  name: string;
-  setName: React.Dispatch<React.SetStateAction<string>>;
-};
-export const SearchBox = ({name, setName}: Props) => {
+import { useRecoilState } from "recoil";
+import { nameFilter } from 'recoil/atom/filtering';
+
+export const SearchBox = () => {
+  const [name, setName] = useRecoilState(nameFilter);
   return (
     <Wrapper>
       <SearchInput

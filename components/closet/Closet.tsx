@@ -1,71 +1,15 @@
 import styled from '@emotion/styled';
 import { CustomButton, TypoGraphy } from 'components/common';
 import { AddModal } from 'components/modal';
-import {
-  customColor,
-} from 'constants/index';
-import useGetFilter from 'hooks/useGetFilter';
-import { useEffect, useState, useMemo } from "react";
+import { customColor } from 'constants/index';
 import { useSetRecoilState } from 'recoil';
 import { addModal } from 'recoil/atom';
-import { filterType } from 'types/editPage/filter.type';
 import { ClothesContainer, ColorRadio, SearchBox } from './components';
-import CategoryFilterBox from './components/CategoryFilterBox';
 import { CustomPagination } from './components/CustomPagination';
+import { MainSubSelectBox } from './components/MainSubSelectBox';
 
 export const Closet: React.FC = () => {
   const setAddModalState = useSetRecoilState(addModal);
-
-  const [mainCategory, setMainCategory] = useState('all');
-  const [subCategory, setSubCategory] = useState('all');
-  const [color, setColor] = useState<string>('');
-  const [name, setName] = useState<string>('');
-  const [activePage, setActivePage] = useState<number>(1);
-  const countPerPage = 20;
-
-  const {filterItem, lastPage, getFilter} = useGetFilter();
-
-
-  let filter:filterType = useMemo(() => {
-    let filtering: filterType = {};
-    if (subCategory === 'all') {
-      if (mainCategory === 'all') {
-        filtering.categoryId = '';
-      } else {
-        filtering.categoryId = mainCategory;
-      }
-    } else {
-      // (subCategory !== 'all')
-      filtering.categoryId = subCategory;
-    }
-
-    if (color) {
-      filtering.color = color;
-    }
-
-    if (name) {
-      filtering.query = name;
-    }
-    
-    filtering.limit = countPerPage;
-    filtering.page = activePage;
-    
-    return filtering;
-  }, [mainCategory, subCategory, color, name, activePage]);
-
-  useEffect(() => {
-    setActivePage(1);
-  }, [mainCategory, subCategory, color, name]);
-
-  useEffect(() => {
-    getFilter(filter);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [filter]);
-
-
-  useEffect(() => {
-    setColor('');
-  }, [mainCategory, subCategory]);
 
   return (
     <Container>
@@ -75,32 +19,21 @@ export const Closet: React.FC = () => {
         </TypoGraphy>
         <FilterWrapper>
           <section style={{ display: 'flex', flexWrap: 'wrap', gap: '20px' }}>
-            <CategoryFilterBox
-              mainCategory={mainCategory}
-              subCategory={subCategory}
-              setMainCategory={setMainCategory}
-              setSubCategory={setSubCategory}
-            />
-            <ColorRadio setColor={setColor} color={color} filter />
+            <MainSubSelectBox />
+            <ColorRadio />
           </section>
-          <SearchBox name={name} setName={setName} />
+          <SearchBox />
         </FilterWrapper>
 
         <Line />
 
-        <ClothesContainer clothesData={filterItem} />
+        <ClothesContainer />
       </div>
       <Footer>
-        <CustomPagination
-          activePage={activePage}
-          itemsCountPerPage={countPerPage}
-          totalItemsCount={lastPage * countPerPage}
-          onChange={(e) => {
-            setActivePage(e);
-          }}
-        />
+        <CustomPagination />
         <ButtonWrapper>
           <CustomButton
+            type="button"
             customType="colorful"
             text="추가"
             sidePadding="20"

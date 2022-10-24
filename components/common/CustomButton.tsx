@@ -9,6 +9,7 @@ type ButtonProps = {
   sidePadding?: string;
   height?: number;
   onClick?: () => void;
+  type: 'submit' | 'reset' | 'button' | undefined;
 };
 
 type ButtonStyledProps = {
@@ -24,12 +25,14 @@ export const CustomButton: React.FC<ButtonProps> = ({
   onClick,
   sidePadding,
   height,
+  type
 }) => {
   return (
     <Button
       customType={customType}
       onClick={onClick}
       sidePadding={sidePadding}
+      type={type}
       height={height}>
       <TypoGraphy
         color={customType === 'white' ? customColor.black : customColor.white}

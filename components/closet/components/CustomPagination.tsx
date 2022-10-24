@@ -2,18 +2,27 @@ import styled from '@emotion/styled';
 import { customColor } from 'constants/index';
 import React from 'react';
 import Pagination from 'react-js-pagination';
-import { ReactJsPaginationProps } from 'react-js-pagination';
+import { useRecoilState, useRecoilValue } from "recoil";
+import { lastPage, pageFilter } from 'recoil/atom/filtering';
 
-export function CustomPagination(props: ReactJsPaginationProps) {
+export function CustomPagination() {
+  const [page, setPage] = useRecoilState(pageFilter);
+  const last = useRecoilValue(lastPage);
+  const countPerPage = 20;
+
   return (
     <PaginationWrapper>
       <Pagination
-        {...props}
+        activePage={page}
+        totalItemsCount={countPerPage * last} // Todo: 마지막페이지 가져와야함 (임시로 20페이지로 설정)
+        itemsCountPerPage={countPerPage} // 몇개 보여줄건지
+        onChange={(e) => setPage(e)}
         prevPageText="<"
         nextPageText=">"
         firstPageText="<<"
         lastPageText=">>"
-        pageRangeDisplayed={1} />
+        pageRangeDisplayed={1}
+      />
     </PaginationWrapper>
   );
 }
