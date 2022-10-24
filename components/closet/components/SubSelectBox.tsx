@@ -3,7 +3,7 @@ import { clothesSubCategory } from 'constants/index';
 import React, { useEffect, useMemo } from 'react';
 import { useRecoilState } from 'recoil';
 import { categoryFilter } from 'recoil/atom/filtering';
-import { CategoryDetail } from 'types/categoryDetail.type';
+import { CategoryDetail } from 'types/temp/categoryDetail.type';
 
 type Props = {
   mainCategory: string;

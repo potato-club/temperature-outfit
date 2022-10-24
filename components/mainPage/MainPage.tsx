@@ -5,9 +5,9 @@ import { suggestionApi, weatherApi } from 'api';
 import { useRecoilValue } from 'recoil';
 import { userState } from 'recoil/atom';
 import { todayString } from 'constants/index';
-import { WeatherStatusType } from 'types';
+import { WeatherStatusType } from 'types/mainPage';
 import { useQueries } from 'react-query';
-import { Suggestions } from 'types';
+import { Suggestions } from 'types/mainPage';
 
 export function MainPage() {
   const { locationId } = useRecoilValue(userState);

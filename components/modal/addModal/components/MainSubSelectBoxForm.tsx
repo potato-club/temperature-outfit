@@ -9,7 +9,7 @@ import { useState } from 'react';
 import { clothesMainCategory } from 'constants/index';
 import { MenuItem, Select } from '@mui/material';
 import { SubSelectBoxForm } from './SubSelectBoxForm';
-import { CategoryDetail } from 'types/categoryDetail.type';
+import { CategoryDetail } from 'types/temp/categoryDetail.type';
 
 type Props = {
   setValue: UseFormSetValue<FieldValues>;
@@ -21,7 +21,9 @@ export const MainSubSelectBoxForm = ({ setValue, control }: Props) => {
   return (
     <>
       <Wrapper>
-        <Select onChange={(e) => setMainCategory(e.target.value as string)} value={mainCategory}>
+        <Select
+          onChange={(e) => setMainCategory(e.target.value as string)}
+          value={mainCategory}>
           {clothesMainCategory.slice(1).map((data: CategoryDetail) => (
             <MenuItem value={data.id} key={data.id}>
               {data.name}

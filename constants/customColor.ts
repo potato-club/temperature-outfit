@@ -1,4 +1,4 @@
-import { radioBtnType } from 'types/radioBtn.type';
+import { RadioBtnType } from 'types/temp/radioBtn.type';
 
 export const customColor = {
   brandColor1: '#55B9F2',
@@ -12,7 +12,7 @@ export const customColor = {
   black: 'black',
 };
 
-export const radioBtnColor: radioBtnType = {
+export const radioBtnColor: RadioBtnType = {
   red: '#f44336',
   orange: '#ff9800',
   yellow: '#ffeb3b',

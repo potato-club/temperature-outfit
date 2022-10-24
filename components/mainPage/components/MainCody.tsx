@@ -2,7 +2,7 @@ import React from 'react';
 import styled from '@emotion/styled';
 import { customColor } from 'constants/index';
 import Image from 'next/image';
-import { Suggestions } from 'types';
+import { Suggestions } from 'types/mainPage';
 
 const nullImage = '/codyDummy/Person_icon.png';
 

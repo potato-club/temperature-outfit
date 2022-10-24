@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { clothesMainCategory } from 'constants/index';
 import { MenuItem, Select } from '@mui/material';
 import { SubSelectBox } from './SubSelectBox';
-import { CategoryDetail } from 'types/categoryDetail.type';
+import { CategoryDetail } from 'types/temp/categoryDetail.type';
 
 export const MainSubSelectBox = () => {
   const [mainCategory, setMainCategory] = useState('all');
@@ -23,7 +23,7 @@ export const MainSubSelectBox = () => {
         </Select>
       </Wrapper>
       <Wrapper>
-        <SubSelectBox mainCategory={mainCategory}/>
+        <SubSelectBox mainCategory={mainCategory} />
       </Wrapper>
     </>
   );
