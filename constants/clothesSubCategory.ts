@@ -1,13 +1,11 @@
-import { CategoryDetail } from 'constants/types';
+import { CategoryDetail } from 'types';
 
 interface Clothes {
   [key: string]: CategoryDetail[];
 }
 
 export const clothesSubCategory: Clothes = {
-  all : [
-    { name : '전체', id : 'all'}
-  ],
+  all: [{ name: '전체', id: 'all' }],
   top: [
     { name: '전체', id: 'top' },
     { name: '민소매', id: 'sleeveless' },
