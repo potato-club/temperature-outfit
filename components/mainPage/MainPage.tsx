@@ -1,6 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import styled from '@emotion/styled';
-import { mainDummy } from 'dummy/MainDummy';
 import { MainCody, RegisterBtn, TodayInfo } from './components';
 import { suggestionApi, weatherApi } from 'api';
 import { useRecoilValue } from 'recoil';
@@ -46,11 +45,7 @@ export function MainPage() {
 
   return (
     <Container>
-      <TodayInfo
-        weatherStatus={weatherStatus}
-        locationId={locationId}
-        temperature={temperature}
-      />
+      <TodayInfo weatherStatus={weatherStatus} temperature={temperature} />
       <MainCody suggestions={suggestions} />
       <RegisterBtn />
     </Container>

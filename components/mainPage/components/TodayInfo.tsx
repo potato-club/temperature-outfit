@@ -4,20 +4,17 @@ import { ThreeModel, LocationInfo, TodayClothes } from './index';
 
 interface Props {
   weatherStatus: any;
-  locationId: any;
   temperature: string;
 }
 
 export function TodayInfo({
   weatherStatus,
-  locationId,
   temperature,
 }: Props) {
   return (
     <Container>
       <ThreeModel weatherStatus={weatherStatus} />
       <LocationInfo
-        locationId={locationId}
         temperature={temperature}
       />
       {/* <TodayClothes {...props} /> */}

@@ -1,24 +1,22 @@
+import React from 'react';
 import styled from '@emotion/styled';
 import { TypoGraphy } from 'components/common';
 import { customColor } from 'constants/index';
-import React from 'react';
 import { IoLocationOutline } from 'react-icons/io5';
-import { BsArrowDown, BsArrowUp } from 'react-icons/bs';
-import { locations } from 'recoil/atom';
+import { locations, userState } from 'recoil/atom';
 import { useRecoilValue } from 'recoil';
 
 interface LocationInfoProps {
-  locationId: number;
   temperature: string;
 }
 
-export const LocationInfo = ({
-  locationId,
-  temperature,
-}: LocationInfoProps) => {
+export const LocationInfo = ({ temperature }: LocationInfoProps) => {
   const allLocations = useRecoilValue(locations);
-  const userLocation = allLocations.find((data) => data.id === locationId);
-
+  const { locationId } = useRecoilValue(userState);
+  const userLocation = allLocations.find(
+    (location) => location.id === locationId,
+  );
+  
   return (
     <Container>
       <Location>
