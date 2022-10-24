@@ -1,54 +1,26 @@
 import styled from '@emotion/styled';
-import { mainDummyType } from 'dummy/MainDummy';
-import React, { useCallback, useEffect, useState } from 'react';
+import React from 'react';
 import { ThreeModel, LocationInfo, TodayClothes } from './index';
-import { weatherApi } from 'api';
-import { useRecoilValue } from 'recoil';
-import { userState } from 'recoil/atom';
 
-type weatherStatusType = 'sun' | 'cloud' | 'rain' | 'snow';
-type totalTemperatureType = {
-  highestTemperature: number;
-  temperature: number;
-  lowestTemperature: number;
-};
+interface Props {
+  weatherStatus: any;
+  locationId: any;
+  temperature: string;
+}
 
-export function TodayInfo(props: mainDummyType) {
-  const todayStr = new Date().toISOString().replace(/T.*$/, '');
-
-  const { locationId } = useRecoilValue(userState);
-  const [weatherStatus, setWeatherStatus] = useState<weatherStatusType>('sun');
-  const [totalTemperature, setTotalTemperature] =
-    useState<totalTemperatureType>({});
-
-  const getTodayWeather = useCallback(async () => {
-    try {
-      const {
-        data: { status, highestTemperature, lowestTemperature, temperature },
-      } = await weatherApi.getWeather(todayStr, locationId);
-      setWeatherStatus(status);
-      setTotalTemperature({
-        highestTemperature,
-        temperature,
-        lowestTemperature,
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  }, [locationId, todayStr]);
-
-  useEffect(() => {
-    getTodayWeather();
-  }, [getTodayWeather]);
-
+export function TodayInfo({
+  weatherStatus,
+  locationId,
+  temperature,
+}: Props) {
   return (
     <Container>
       <ThreeModel weatherStatus={weatherStatus} />
       <LocationInfo
         locationId={locationId}
-        totalTemperature={totalTemperature}
+        temperature={temperature}
       />
-      <TodayClothes {...props} />
+      {/* <TodayClothes {...props} /> */}
     </Container>
   );
 }

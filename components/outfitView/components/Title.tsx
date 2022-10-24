@@ -1,8 +1,15 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import { TypoGraphy } from 'components/common';
-import { editDummyType } from 'dummy/newEditDummy';
-export function Title({ average, max, min, day }: editDummyType) {
+
+type TitleProps = {
+  average: string;
+  max: string;
+  min: string;
+  day: string;
+};
+
+export function Title({ average, max, min, day }: TitleProps) {
   const dayQuery = new Date(day);
   const month = dayQuery.getMonth() + 1;
   const date = dayQuery.getDate();

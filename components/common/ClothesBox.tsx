@@ -82,6 +82,7 @@ const RemoveWrapper = styled.button<RemoveProps>`
   background-color: pink;
   outline: none;
   opacity: ${({ showRemove }) => (showRemove ? 1 : 0)};
+  z-index: 0;
   :hover {
     transform: scale(1.1);
   }

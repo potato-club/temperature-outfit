@@ -1,6 +1,5 @@
 import { atom, useResetRecoilState } from 'recoil';
 import { ProductDetailResponse } from 'types';
-import { imageStateType } from 'types/editPage/imageStateType';
 
 export const topState = atom<ProductDetailResponse[]>({
   key: 'topImages',

@@ -5,10 +5,8 @@ import React, { useState } from 'react';
 import { TypoGraphy } from 'components/common';
 import { RecoilState, useSetRecoilState } from 'recoil';
 import { chooseModal } from 'recoil/atom';
-import { useRecoilState } from "recoil";
-import { frontApi } from 'api/productApi';
-import { imageStateType } from 'types/editPage/imageStateType';
 import { ProductDetailResponse } from 'types';
+import useAddClothesEdit from 'hooks/useAddClothesEdit';
 
 type Props = {
   url: string;
@@ -20,10 +18,10 @@ type Props = {
 export function ModalClothesBox({ url, name, id, recoil }: Props) {
   const [showName, setShowName] = useState<boolean>(false);
   const setChooseModalState = useSetRecoilState(chooseModal);
-  const [clothesData, setClothesData] = useRecoilState(recoil);
+  const { addClothesEdit } = useAddClothesEdit(recoil);
 
   const addImage = () => {
-    frontApi.getClothesEdit(id, clothesData, setClothesData);
+    addClothesEdit(id);
     setChooseModalState(false);
   };
 
