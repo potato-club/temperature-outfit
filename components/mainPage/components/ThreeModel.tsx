@@ -2,9 +2,13 @@ import styled from '@emotion/styled';
 import { Canvas } from '@react-three/fiber';
 import React from 'react';
 import { LightController, Model } from './index';
-import { WeatherStatus } from 'types';
+import { WeatherStatusType } from 'types';
 
-export const ThreeModel = ({ weatherStatus }: WeatherStatus) => {
+interface Prop {
+  weatherStatus: WeatherStatusType;
+}
+
+export const ThreeModel = ({ weatherStatus }: Prop) => {
   return (
     <Container>
       <Canvas>

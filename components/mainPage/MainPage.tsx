@@ -5,13 +5,11 @@ import { suggestionApi, weatherApi } from 'api';
 import { useRecoilValue } from 'recoil';
 import { userState } from 'recoil/atom';
 import { todayString } from 'constants/index';
-
-type weatherStatusType = 'sun' | 'cloud' | 'rain' | 'snow';
+import { WeatherStatusType } from 'types';
 
 export function MainPage() {
-
   const { locationId } = useRecoilValue(userState);
-  const [weatherStatus, setWeatherStatus] = useState<weatherStatusType>('sun');
+  const [weatherStatus, setWeatherStatus] = useState<WeatherStatusType>('sun');
   const [suggestions, setSuggestions] = useState([]);
   const [temperature, setTemperature] = useState('');
 
