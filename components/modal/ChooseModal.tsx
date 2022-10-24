@@ -1,26 +1,23 @@
 import React, { useCallback, useEffect, useMemo } from 'react';
 import Modal from 'react-modal';
 import styled from '@emotion/styled';
-import { useState, useRef } from 'react';
+import { useState } from 'react';
 import { CustomButton, TypoGraphy } from 'components/common';
 import { customColor, clothesSubCategory } from 'constants/index';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { chooseModal } from 'recoil/atom';
 import { ModalClothesContainer } from './ModalClothesContainer';
 import useGetFilter from 'hooks/useGetFilter';
 import { CustomPagination } from 'components/closet/components/CustomPagination';
 import { filterType } from 'types/editPage/filter.type';
-type Props = {
-  categoryLabel: string;
-};
-// 1. 옷 선택하기에서 data를 props로 받아오기
-//
+import { modalCategory } from "recoil/atom/chooseModal";
 
-export const ChooseModal = ({ categoryLabel }: Props) => {
+export const ChooseModal = () => {
   const [chooseModalState, setChooseModalState] = useRecoilState(chooseModal);
   const [loading, setLoading] = useState<boolean>(true);
   const { filterItem, lastPage, getFilter } = useGetFilter();
   const countPerPage = 10;
+  const categoryLabel = useRecoilValue(modalCategory);
 
   const mainCategory = useMemo(() => {
     switch (categoryLabel) {

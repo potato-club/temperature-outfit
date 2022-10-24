@@ -6,15 +6,16 @@ import { RecoilState, useRecoilState, useSetRecoilState } from 'recoil';
 import { ClothesBox } from 'components/common';
 import { chooseModal } from 'recoil/atom';
 import { ProductDetailResponse } from 'types';
+import { modalCategory } from 'recoil/atom/chooseModal';
 type Props = {
   category: string;
   recoil: RecoilState<ProductDetailResponse[]>;
-  setModalCategory: React.Dispatch<React.SetStateAction<string>>;
 };
 
-export function DressRoom({ category, recoil, setModalCategory }: Props) {
+export function DressRoom({ category, recoil }: Props) {
   const [images, setImages] = useRecoilState(recoil);
   const setChooseModalState = useSetRecoilState(chooseModal);
+  const setModalCategory = useSetRecoilState(modalCategory);
 
   const handleModal = () => {
     setChooseModalState((cur) => !cur);

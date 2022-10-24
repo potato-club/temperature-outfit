@@ -17,7 +17,6 @@ import { useSetRecoilState } from 'recoil';
 import { clothesSubCategory } from 'constants/index';
 
 export default function EditPage() {
-  const [modalCategory, setModalCategory] = useState('');
   const router = useRouter();
   const dayQuery = router.query.day as string;
   const tempDay = '2222-22-22';
@@ -94,7 +93,6 @@ export default function EditPage() {
               <DressRoom
                 category={data.title}
                 recoil={data.recoil}
-                setModalCategory={setModalCategory}
               />
             </Category>
           ))}
@@ -106,7 +104,7 @@ export default function EditPage() {
           putComment={putComment}
         />
       </Contents>
-      <ChooseModal categoryLabel={modalCategory} />
+      <ChooseModal />
     </Container>
   );
 }
