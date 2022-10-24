@@ -4,11 +4,11 @@ import { MainCody, RegisterBtn, TodayInfo } from './components';
 import { suggestionApi, weatherApi } from 'api';
 import { useRecoilValue } from 'recoil';
 import { userState } from 'recoil/atom';
+import { todayString } from 'constants/index';
 
 type weatherStatusType = 'sun' | 'cloud' | 'rain' | 'snow';
 
 export function MainPage() {
-  const todayStr = new Date().toISOString().replace(/T.*$/, '');
 
   const { locationId } = useRecoilValue(userState);
   const [weatherStatus, setWeatherStatus] = useState<weatherStatusType>('sun');
@@ -19,13 +19,13 @@ export function MainPage() {
     try {
       const {
         data: { status, temperature },
-      } = await weatherApi.getWeather(todayStr, locationId);
+      } = await weatherApi.getWeather(todayString, locationId);
       setWeatherStatus(status);
       setTemperature(temperature);
     } catch (error) {
       console.log(error);
     }
-  }, [locationId, todayStr]);
+  }, [locationId]);
 
   useEffect(() => {
     getTodayWeather();

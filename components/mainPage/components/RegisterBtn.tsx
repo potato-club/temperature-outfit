@@ -1,18 +1,17 @@
 import styled from '@emotion/styled';
 import { TypoGraphy } from 'components/common';
-import { customColor } from 'constants/index';
+import { customColor, todayString } from 'constants/index';
 import { useRouter } from 'next/router';
 import React from 'react';
 
 export function RegisterBtn() {
   const router = useRouter();
-  const todayStr = new Date().toISOString().replace(/T.*$/, '');
 
   const onClick = () => {
     router.push({
       pathname: `/edit`,
       query: {
-        day: todayStr,
+        day: todayString,
       },
     });
   };
