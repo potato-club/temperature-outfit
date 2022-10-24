@@ -6,40 +6,32 @@ import { useRecoilValue } from 'recoil';
 import { userState } from 'recoil/atom';
 import { todayString } from 'constants/index';
 import { WeatherStatusType } from 'types';
+import { useQueries } from 'react-query';
+import { Suggestions } from 'types';
 
 export function MainPage() {
   const { locationId } = useRecoilValue(userState);
   const [weatherStatus, setWeatherStatus] = useState<WeatherStatusType>('sun');
-  const [suggestions, setSuggestions] = useState([]);
+  const [suggestions, setSuggestions] = useState<Suggestions[]>([]);
   const [temperature, setTemperature] = useState('');
 
-  const getTodayWeather = useCallback(async () => {
-    try {
-      const {
-        data: { status, temperature },
-      } = await weatherApi.getWeather(todayString, locationId);
-      setWeatherStatus(status);
-      setTemperature(temperature);
-    } catch (error) {
-      console.log(error);
-    }
-  }, [locationId]);
-
-  useEffect(() => {
-    getTodayWeather();
-  }, [getTodayWeather]);
-
-  const getSuggestion = useCallback(async () => {
-    const {
-      data: { outfits },
-    } = await suggestionApi.suggestion(temperature);
-
-    setSuggestions(outfits);
-  }, [temperature]);
-
-  useEffect(() => {
-    getSuggestion();
-  }, [getSuggestion]);
+  useQueries([
+    {
+      queryKey: ['getWeather'],
+      queryFn: () => weatherApi.getWeather(todayString, locationId),
+      onSuccess: ({ data: { status, temperature } }: any) => {
+        setWeatherStatus(status);
+        setTemperature(temperature);
+      },
+    },
+    {
+      queryKey: ['getSuggestion'],
+      queryFn: () => suggestionApi.suggestion(temperature),
+      onSuccess: ({ data: { outfits } }: any) => {
+        setSuggestions(outfits);
+      },
+    },
+  ]);
 
   return (
     <Container>

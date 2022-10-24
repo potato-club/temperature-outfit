@@ -2,28 +2,23 @@ import React from 'react';
 import styled from '@emotion/styled';
 import { customColor } from 'constants/index';
 import Image from 'next/image';
+import { Suggestions } from 'types';
 
 const nullImage = '/codyDummy/Person_icon.png';
 
 interface Props {
   suggestions: Suggestions[];
 }
-interface Suggestions {
-  id: string;
-  imageUrl: string;
-  rating: number;
-  temperature: number;
-}
 
 export function MainCody({ suggestions }: Props) {
   return (
     <Container>
-      {suggestions.map((data) => (
-        <ImageWrapper key={data.id}>
+      {suggestions.map((suggestion) => (
+        <ImageWrapper key={suggestion.id}>
           <Image
             width={160}
             height={250}
-            src={data.imageUrl ?? nullImage}
+            src={suggestion.imageUrl ?? nullImage}
             alt="cody"
             objectFit="fill"
           />

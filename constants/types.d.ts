@@ -5,4 +5,11 @@ declare module 'types' {
     name: string;
     id: string;
   }
+
+  export interface Suggestions {
+    id: string;
+    imageUrl: string;
+    rating: number;
+    temperature: number;
+  }
 }
