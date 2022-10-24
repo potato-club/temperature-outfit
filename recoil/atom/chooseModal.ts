@@ -5,7 +5,7 @@ export const chooseModal = atom({
   default: false,
 });
 
-export const modalCategory = atom({
-  key: 'modalCategory',
+export const categoryLabel = atom({
+  key: 'CategoryLabel',
   default: '',
-})
+});
