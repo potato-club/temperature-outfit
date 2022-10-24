@@ -1,102 +1,36 @@
 import * as React from 'react';
 import Radio from '@mui/material/Radio';
-import {
-  red,
-  orange,
-  yellow,
-  green,
-  cyan,
-  blue,
-  purple,
-  grey,
-} from '@mui/material/colors';
 import styled from '@emotion/styled';
+import { radioBtnColor } from 'constants/customColor';
 import { HiOutlineX } from 'react-icons/hi';
-type Props = {
-  setColor: React.Dispatch<React.SetStateAction<string>>;
-  filter? : boolean;
-  color: string;
-};
-export const ColorRadio = ({ setColor, filter, color }: Props) => {
-
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setColor && setColor(event.target.value);
-  };
-
-  const noFilter = () => {
-    setColor && setColor('');
-  };
-
-  const controlProps = (item: string) => ({
-    checked: color === item,
-    onChange: handleChange,
-    value: item,
-    name: 'color-radio-button-demo',
-    inputProps: { 'aria-label': item },
-  });
-
-  const colorName = [
-    'red',
-    'orange',
-    'yellow',
-    'green',
-    'cyan',
-    'blue',
-    'purple',
-    'gray',
-    'black',
-  ];
-  const colors = [red, orange, yellow, green, cyan, blue, purple, grey];
-
+import { useRecoilState } from "recoil";
+import { colorFilter } from 'recoil/atom/filtering';
+export const ColorRadio = () => {
+  const [color, setColor] = useRecoilState(colorFilter);
   return (
     <Wrapper>
-      {colors.map((data, i) => (
-        <Radio
-          key={i}
-          {...controlProps(colorName[i])}
-          sx={{
-            color: data[500],
-            '&.Mui-checked': {
-              color: data[500],
-            },
-            '& .MuiSvgIcon-root': {
-              fontSize: 28,
-            },
-          }}
-        />
-      ))}
-      <Radio
-        {...controlProps('black')}
-        sx={{
-          color: grey[900],
-          '&.Mui-checked': {
-            color: grey[900],
-          },
-          '& .MuiSvgIcon-root': {
-            fontSize: 28,
-          },
-        }}
-      />
-      <Radio
-        {...controlProps('white')}
-        sx={{
-          color: grey[100],
-          '&.Mui-checked': {
-            color: grey[100],
-          },
-          '& .MuiSvgIcon-root': {
-            fontSize: 28,
-          },
-        }}
-      />
-      {filter && (
+      <>
+        {Object.keys(radioBtnColor).map((colorKey) => (
+          <Radio
+            onChange={(e) => setColor(e.target.value)}
+            value={colorKey}
+            key={colorKey}
+            checked={colorKey === color}
+            sx={{
+              color: radioBtnColor[colorKey],
+              '&.Mui-checked': {
+                color: radioBtnColor[colorKey],
+              },
+            }}
+          />
+        ))}
         <IconWrapper
           onClick={() => {
-            noFilter();
+            setColor('')
           }}>
           <HiOutlineX size={30} />
         </IconWrapper>
-      )}
+      </>
     </Wrapper>
   );
 };
