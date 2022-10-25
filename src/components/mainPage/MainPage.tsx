@@ -17,7 +17,7 @@ export function MainPage() {
 
   useQueries([
     {
-      queryKey: ['getWeather'],
+      queryKey: ['getWeather', locationId],
       queryFn: () => weatherApi.getWeather(todayString, locationId),
       onSuccess: ({ data: { status, temperature } }: any) => {
         setWeatherStatus(status);
