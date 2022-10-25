@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { prisma } from '../../../db';
+import { prisma } from '../../../db/index';
 import { WeatherGetRequest, WeatherResponse } from '../../../types';
 import { updateWeather } from '../../../utilities/api/weather';
 import { convertWeatherResponse } from '../../../utilities/api/converter';
