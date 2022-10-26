@@ -4,7 +4,7 @@ import { MainCody, RegisterBtn, TodayInfo } from './components';
 import { suggestionApi, weatherApi } from 'api';
 import { useRecoilValue } from 'recoil';
 import { userState } from 'recoil/atom';
-import { todayString } from 'constants/index';
+import { totalToday } from 'constants/index';
 import { WeatherStatusType } from 'types/mainPage';
 import { useQueries } from 'react-query';
 import { Suggestions } from 'types/mainPage';
@@ -18,7 +18,7 @@ export function MainPage() {
   useQueries([
     {
       queryKey: ['getWeather', locationId],
-      queryFn: () => weatherApi.getWeather(todayString, locationId),
+      queryFn: () => weatherApi.getWeather(totalToday, locationId),
       onSuccess: ({ data: { status, temperature } }: any) => {
         setWeatherStatus(status);
         setTemperature(temperature);

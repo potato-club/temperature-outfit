@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import { TypoGraphy } from 'components/common';
-import { customColor, todayString } from 'constants/index';
+import { customColor, totalToday } from 'constants/index';
 import { useRouter } from 'next/router';
 import React from 'react';
 
@@ -11,7 +11,7 @@ export function RegisterBtn() {
     router.push({
       pathname: `/edit`,
       query: {
-        day: todayString,
+        day: totalToday,
       },
     });
   };

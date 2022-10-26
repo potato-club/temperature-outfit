@@ -11,11 +11,11 @@ import { EventInput } from '@fullcalendar/react';
 import { todayCodyApi } from 'api';
 import { useRouter } from 'next/router';
 import { DateItem } from './DateItem';
+import { today } from 'constants/index';
 
 export const Calendar = () => {
   const [myOutfit, setMyOutfit] = useState<EventInput[]>([]);
   const router = useRouter();
-  const today = new Date().getDate();
 
   const getMyOutfit = async (start: string, end: string) => {
     try {
@@ -50,20 +50,19 @@ export const Calendar = () => {
 
   const handleDateSelect = (selectInfo: DateSelectArg) => {
     const selectedItem = selectInfo.startStr;
-    const selectDate = new Date(selectedItem).getDate();
+    const selectDate = new Date(selectedItem);
     if (myOutfit.map((item) => item.start).includes(selectedItem)) {
       return null;
-    }
-
-    if (selectDate > today) {
+    } else if (selectDate > today) {
       return null;
+    } else {
+      router.push({
+        pathname: `/edit`,
+        query: {
+          day: selectedItem,
+        },
+      });
     }
-    router.push({
-      pathname: `/edit`,
-      query: {
-        day: selectedItem,
-      },
-    });
   };
 
   const moveToOutfit = (clickInfo: EventClickArg) => {
