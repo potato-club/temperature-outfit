@@ -2,8 +2,8 @@ import styled from '@emotion/styled';
 import { customColor } from 'constants/index';
 import React, { useState } from 'react';
 import { MemoClothesImg } from './ClothesImg';
-import { MemoTypoGraphy } from '../TypoGraphyTest';
 import { MemoRemoveButton } from './components/RemoveButton';
+import { MemoTypoGraphy } from "components/common/TypoGraphyTest";
 
 type Props = {
   url: string;

@@ -206,6 +206,7 @@ export function ReviewBox({
             customType="colorful"
             text="기본 이미지로 설정"
             sidePadding="20"
+            type='button'
             onClick={() => {
               setReviewThumbnail('');
               setReviewImage(null);
@@ -245,11 +246,13 @@ export function ReviewBox({
           customType="white"
           text="취소"
           sidePadding="40"
+          type='button'
           onClick={handleCancel}
         />
         <CustomButton
           customType="colorful"
           text="등록"
+          type='button'
           sidePadding="40"
           onClick={confirmBtn}
         />

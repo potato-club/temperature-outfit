@@ -5,7 +5,7 @@ import { useRecoilValue } from 'recoil';
 import { categoryLabel } from 'recoil/atom/chooseModal';
 import { ModalClothesBox } from './ModalClothesBox';
 import { useEffect, useMemo } from 'react';
-import useGetFilter from 'hooks/useGetFilter';
+import useGetItem from 'hooks/useGetItem';
 
 export const ModalClothesContainer = () => {
   const category = useRecoilValue(categoryLabel);
@@ -17,11 +17,11 @@ export const ModalClothesContainer = () => {
 
 
   const { filter } = useFilter(10);
-  const { filterItem, getFilter } = useGetFilter();
+  const { filterItem, getItem } = useGetItem();
   console.log(filter)
 
   useEffect(() => {
-    getFilter(filter);
+    getItem(filter);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filter]);
 

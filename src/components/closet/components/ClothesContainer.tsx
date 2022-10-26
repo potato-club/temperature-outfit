@@ -1,16 +1,16 @@
 import styled from '@emotion/styled';
 import { ClothesBox } from 'components/common';
 import useFilter from 'hooks/useFilter';
-import useGetFilter from 'hooks/useGetFilter';
+import useGetItem from 'hooks/useGetItem';
 import { useEffect } from 'react';
 
 export const ClothesContainer = () => {
   const { filter } = useFilter(20);
 
-  const { filterItem, getFilter } = useGetFilter();
+  const { filterItem, getItem } = useGetItem();
 
   useEffect(() => {
-    getFilter(filter);
+    getItem(filter);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filter]);
 
