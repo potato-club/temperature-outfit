@@ -12,31 +12,36 @@ import { todayCodyApi } from 'api';
 import { useRouter } from 'next/router';
 import { DateItem } from './DateItem';
 import { today } from 'constants/index';
+import { useQuery } from 'react-query';
 
 export const Calendar = () => {
   const [myOutfit, setMyOutfit] = useState<EventInput[]>([]);
+  const [startDay, setStartDay] = useState('');
+  const [endDay, setEndDay] = useState('');
   const router = useRouter();
-
-  const getMyOutfit = async (start: string, end: string) => {
-    try {
-      const { data } = await todayCodyApi.getManyOutfit(start, end);
-      console.log(data);
-      const realData: EventInput[] = data.map(
-        (item: EventInput): EventInput => {
-          return {
-            id: item.id,
-            start: item.date,
-            rating: item.rating,
-            weatherStatus: item.weather.status,
-            temperature: item.weather.temperature,
-          };
-        },
-      );
-      setMyOutfit(realData);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  useQuery(
+    ['getMtOutfits', startDay, endDay],
+    () => todayCodyApi.getManyOutfit(startDay, endDay),
+    {
+      onSuccess: ({ data }) => {
+        const realData: EventInput[] = data.map(
+          (item: EventInput): EventInput => {
+            return {
+              id: item.id,
+              start: item.date,
+              rating: item.rating,
+              weatherStatus: item.weather.status,
+              temperature: item.weather.temperature,
+            };
+          },
+        );
+        setMyOutfit(realData);
+      },
+      onError: (error) => {
+        console.log(error);
+      },
+    },
+  );
 
   function renderEventContent(eventContent: EventContentArg) {
     return (
@@ -72,9 +77,8 @@ export const Calendar = () => {
   };
 
   const dateSet = (arg: any) => {
-    const startArgDay = new Date(arg.start).toISOString().replace(/T.*$/, '');
-    const endArgDay = new Date(arg.end).toISOString().replace(/T.*$/, '');
-    getMyOutfit(startArgDay, endArgDay);
+    setStartDay(arg.startStr.replace(/T.*$/, ''));
+    setEndDay(arg.endStr.replace(/T.*$/, ''));
   };
 
   return (
