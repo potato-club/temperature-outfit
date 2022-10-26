@@ -15,6 +15,7 @@ import {
 } from 'recoil/atom';
 import { useSetRecoilState } from 'recoil';
 import { clothesSubCategory } from 'constants/index';
+import { useForm } from 'react-hook-form';
 
 export default function EditPage() {
   const router = useRouter();
@@ -28,6 +29,8 @@ export default function EditPage() {
   const setEtcValue = useSetRecoilState(etcState);
   const setOuterValue = useSetRecoilState(outerState);
   const setShoesValue = useSetRecoilState(shoesState);
+
+  const { register, handleSubmit, setValue, control, reset, formState: { errors } }  = useForm();
 
   const filterSubCategory = (category: string, categoryId: string): boolean => {
     return clothesSubCategory[category]
@@ -99,6 +102,10 @@ export default function EditPage() {
           putImageUrl={putImageUrl}
           putRating={putRating}
           putComment={putComment}
+          register={register}
+          errors={errors}
+          setValue={setValue}
+          control={control}
         />
       </Contents>
       <ChooseModal />

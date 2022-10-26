@@ -18,11 +18,25 @@ import { IoMdImage } from 'react-icons/io';
 import { confirmModal, infoModal } from 'utils/interactionModal';
 import { useRouter } from 'next/router';
 import Swal from 'sweetalert2';
+import {
+  Control,
+  FieldErrorsImpl,
+  FieldValues,
+  UseFormRegister,
+  UseFormSetValue,
+} from 'react-hook-form';
+import { ImageInput } from './ImageInput';
+import { ReviewInput } from './ReviewInput';
+import { RatingInput } from './RatingInput';
 interface ReviewBoxProps {
   day: string;
   putImageUrl?: string;
   putRating?: string;
   putComment?: string;
+  register: UseFormRegister<FieldValues>;
+  errors: Partial<FieldErrorsImpl>;
+  setValue: UseFormSetValue<FieldValues>;
+  control: Control<FieldValues>;
 }
 
 export function ReviewBox({
@@ -30,6 +44,10 @@ export function ReviewBox({
   putImageUrl = '',
   putRating = '0',
   putComment = '',
+  register,
+  errors,
+  setValue,
+  control,
 }: ReviewBoxProps) {
   const router = useRouter();
 
@@ -124,8 +142,6 @@ export function ReviewBox({
     );
   };
 
-  const codyRef = useRef<HTMLInputElement>(null);
-
   const resetTop = useResetRecoilState(topState);
   const resetOuter = useResetRecoilState(outerState);
   const resetBottom = useResetRecoilState(bottomState);
@@ -134,7 +150,7 @@ export function ReviewBox({
 
   // * null 일때는 삭제, undefined 는 기존
   const [reviewImage, setReviewImage] = useState<File | null>();
-  const [reviewThumbnail, setReviewThumbnail] = useState<string>('');
+  // const [reviewThumbnail, setReviewThumbnail] = useState<string>('');
   const [reviewText, setReviewText] = useState<string>('');
   const [rating, setRating] = useState<string>('0');
 
@@ -145,7 +161,8 @@ export function ReviewBox({
   const etcImage = useRecoilValue(etcState);
 
   useEffect(() => {
-    putImageUrl && setReviewThumbnail(putImageUrl);
+    // Todo : Put 할때 query 로 보내온값이 있을때 props 로 받아오면 세팅해주는 로직인듯함 => react hook form 쓰게되면 수정해야하는 코드
+    // putImageUrl && setReviewThumbnail(putImageUrl);
     putRating && setRating(putRating);
     putComment && setReviewText(putComment);
   }, [putImageUrl, putRating, putComment]);
@@ -156,103 +173,34 @@ export function ReviewBox({
     resetBottom();
     resetShoes();
     resetEtc();
-    setReviewThumbnail('');
+    // setReviewThumbnail('');
     setReviewImage(null);
     setReviewText('');
     setRating('0');
-    router.back();
+    // router.back();
   };
 
   const handleRating = (rate: number) => {
     setRating(rate + '');
   };
 
-  const addReviewImage = (e: ChangeEvent<HTMLInputElement>) => {
-    e.preventDefault();
-
-    if (e.target.value[0]) {
-      const fileReader = new FileReader();
-      // Todo : 필요하다면 나중에 replaceAll에 확장자명을 추가해야함.
-      fileReader.readAsDataURL(e.target.files![0]);
-      fileReader.onload = () => {
-        setReviewThumbnail(String(fileReader.result!));
-      };
-      setReviewImage(e.target.files![0]);
-      infoModal('코디 사진 변경완료!', 'success');
-      e.target.value = '';
-    }
-  };
-
   return (
     <Container>
-      <BoxWrapper>
-        <AddButton
-          id="codyImage"
-          ref={codyRef}
-          type="file"
-          accept="image/*"
-          onChange={addReviewImage}
-        />
-        <ImageWrapper>
-          <Image
-            src={reviewThumbnail || '/cody.jpg'}
-            alt="review"
-            layout="fill"
-            onClick={() => codyRef.current && codyRef.current.click()}
-          />
-        </ImageWrapper>
-        <ButtonWrapper>
-          <CustomButton
-            customType="colorful"
-            text="기본 이미지로 설정"
-            sidePadding="20"
-            type='button'
-            onClick={() => {
-              setReviewThumbnail('');
-              setReviewImage(null);
-            }}
-          />
-        </ButtonWrapper>
-      </BoxWrapper>
-      <BoxWrapper>
-        <TypoGraphy type="Title" fontWeight="bold">
-          후기
-        </TypoGraphy>
-        <TextArea
-          value={reviewText}
-          onChange={(e) => {
-            setReviewText(e.target.value);
-          }}
-        />
-      </BoxWrapper>
-      <BoxWrapper>
-        <TypoGraphy type="Title" fontWeight="bold">
-          만족도
-        </TypoGraphy>
-        <StarWrapper>
-          <Rating
-            onClick={handleRating}
-            ratingValue={Number.isNaN(parseInt(rating)) ? 0 : parseInt(rating)}
-            size={40}
-            allowHalfIcon
-            transition
-            fillColor="orange"
-            emptyColor="gray"
-          />
-        </StarWrapper>
-      </BoxWrapper>
+      <ImageInput register={register} errors={errors} setValue={setValue} />
+      <ReviewInput register={register} errors={errors} />
+      <RatingInput control={control} errors={errors} />
       <ButtonContainer>
         <CustomButton
           customType="white"
           text="취소"
           sidePadding="40"
-          type='button'
+          type="button"
           onClick={handleCancel}
         />
         <CustomButton
           customType="colorful"
           text="등록"
-          type='button'
+          type="button"
           sidePadding="40"
           onClick={confirmBtn}
         />
@@ -268,43 +216,6 @@ const Container = styled.section`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-`;
-
-const AddButton = styled.input`
-  display: none;
-`;
-
-const ImageWrapper = styled.section`
-  position: relative;
-  width: 100%;
-  /* width: 360px; */
-  height: 240px;
-  border-radius: 10px;
-  overflow: hidden;
-`;
-
-const TextArea = styled.textarea`
-  width: 100%;
-  height: 80px;
-  border-radius: 10px;
-  resize: none;
-  padding: 8px;
-  box-sizing: border-box;
-  outline: none;
-  ::-webkit-scrollbar {
-    opacity: 0;
-    height: 12px;
-  }
-  ::-webkit-scrollbar-thumb {
-    background-color: rgb(179, 226, 255, 0.8);
-    border-radius: 24px;
-  }
-  ::-webkit-scrollbar-track {
-    border-radius: 10px;
-  }
-`;
-const ButtonWrapper = styled.section`
-  align-self: flex-end;
 `;
 
 const StarWrapper = styled.section`
@@ -324,12 +235,6 @@ const ButtonContainer = styled.section`
     flex-direction: column;
     gap: 12px 0;
   }
-`;
-
-const BoxWrapper = styled.section`
-  display: flex;
-  flex-direction: column;
-  gap: 12px 0;
 `;
 
 const InitialImage = styled(IoMdImage)`

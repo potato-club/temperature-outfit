@@ -5,6 +5,5 @@ export { outerState } from './editState';
 export { bottomState } from './editState';
 export { shoesState } from './editState';
 export { etcState } from './editState';
-export { reviewImageState } from './editState';
 export { userState } from './user';
 export { locations } from './locations';
