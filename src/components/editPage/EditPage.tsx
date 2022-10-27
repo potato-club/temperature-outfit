@@ -22,7 +22,7 @@ export default function EditPage() {
   const dayQuery = router.query.day as string;
   const tempDay = '2222-22-22';
 
-  const submitTest = (data:any) => {
+  const submitTest = (data: any) => {
     console.log(data);
   };
 
@@ -110,7 +110,6 @@ export default function EditPage() {
                   category={data.label}
                   id={data.id}
                   recoil={data.recoil}
-                  register={register}
                 />
               </Category>
             ))}

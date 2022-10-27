@@ -4,15 +4,38 @@ import { CustomButton } from 'components/common';
 import { clothesSubCategory } from 'constants/index';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { categoryFilter } from 'recoil/atom/filtering';
+import { categoryLabel } from 'recoil/atom/chooseModal';
 
 export const CategoryBox = () => {
   const setCategory = useSetRecoilState(categoryFilter);
-  const category = useRecoilValue(categoryFilter);
+  const category = useRecoilValue(categoryLabel);
+
+  const mainCategory = useMemo(() => {
+    switch (category) {
+      case '상의':
+        return 'top';
+
+      case '아우터':
+        return 'outer';
+
+      case '하의':
+        return 'bottom';
+
+      case '신발':
+        return 'shoes';
+
+      case '기타':
+        return 'mainETC';
+
+      default:
+        return '없는 카테고리입니다.';
+    }
+  }, [category]);
 
   return (
     <Container>
-      {clothesSubCategory[category] &&
-        clothesSubCategory[category].map((item, index) => (
+      {clothesSubCategory[mainCategory] &&
+        clothesSubCategory[mainCategory].map((item, index) => (
           <CustomButton
             type="button"
             onClick={() => {
