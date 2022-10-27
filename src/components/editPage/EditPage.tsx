@@ -22,6 +22,10 @@ export default function EditPage() {
   const dayQuery = router.query.day as string;
   const tempDay = '2222-22-22';
 
+  const submitTest = (data:any) => {
+    console.log(data);
+  };
+
   const day = new Date(dayQuery ?? tempDay).toISOString().replace(/T.*$/, '');
 
   const setTopValue = useSetRecoilState(topState);
@@ -30,7 +34,14 @@ export default function EditPage() {
   const setOuterValue = useSetRecoilState(outerState);
   const setShoesValue = useSetRecoilState(shoesState);
 
-  const { register, handleSubmit, setValue, control, reset, formState: { errors } }  = useForm();
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    control,
+    reset,
+    formState: { errors },
+  } = useForm();
 
   const filterSubCategory = (category: string, categoryId: string): boolean => {
     return clothesSubCategory[category]
@@ -78,6 +89,7 @@ export default function EditPage() {
         });
       })();
   }, [filterProduct, router.query.outfitData]);
+
   return (
     <Container>
       <Title
@@ -86,29 +98,35 @@ export default function EditPage() {
         min={editDummy.min}
         day={day}
       />
-      <Contents>
-        <CodyBox>
-          {categories.map((data, index) => (
-            <Category key={index}>
-              <TypoGraphy type="Title" fontWeight="bold">
-                {data.title}
-              </TypoGraphy>
-              <DressRoom category={data.title} recoil={data.recoil} />
-            </Category>
-          ))}
-        </CodyBox>
-        <ReviewBox
-          day={day}
-          putImageUrl={putImageUrl}
-          putRating={putRating}
-          putComment={putComment}
-          register={register}
-          errors={errors}
-          setValue={setValue}
-          control={control}
-        />
-      </Contents>
-      <ChooseModal />
+      <form style={{ width: '100%' }} onSubmit={handleSubmit(submitTest)}>
+        <Contents>
+          <CodyBox>
+            {categories.map((data, index) => (
+              <Category key={index}>
+                <TypoGraphy type="Title" fontWeight="bold">
+                  {data.label}
+                </TypoGraphy>
+                <DressRoom
+                  category={data.label}
+                  id={data.id}
+                  recoil={data.recoil}
+                />
+              </Category>
+            ))}
+          </CodyBox>
+          <ReviewBox
+            day={day}
+            putImageUrl={putImageUrl}
+            putRating={putRating}
+            putComment={putComment}
+            register={register}
+            errors={errors}
+            setValue={setValue}
+            control={control}
+          />
+          <ChooseModal />
+        </Contents>
+      </form>
     </Container>
   );
 }

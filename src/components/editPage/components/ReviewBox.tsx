@@ -61,128 +61,128 @@ export function ReviewBox({
     }
   };
 
-  const onPut = async () => {
-    const frm = new FormData();
-    let productsIdString = '';
-    topImage.forEach((data) => (productsIdString += data.id + ','));
-    outerImage.forEach((data) => (productsIdString += data.id + ','));
-    bottomImage.forEach((data) => (productsIdString += data.id + ','));
-    shoesImage.forEach((data) => (productsIdString += data.id + ','));
-    etcImage.forEach((data) => (productsIdString += data.id + ','));
-    productsIdString = productsIdString.slice(0, -1); // 반점 제거
+  // const onPut = async () => {
+  //   const frm = new FormData();
+  //   let productsIdString = '';
+  //   topImage.forEach((data) => (productsIdString += data.id + ','));
+  //   outerImage.forEach((data) => (productsIdString += data.id + ','));
+  //   bottomImage.forEach((data) => (productsIdString += data.id + ','));
+  //   shoesImage.forEach((data) => (productsIdString += data.id + ','));
+  //   etcImage.forEach((data) => (productsIdString += data.id + ','));
+  //   productsIdString = productsIdString.slice(0, -1); // 반점 제거
 
-    if (!productsIdString) {
-      infoModal('확인 해주세요!', 'error', '옷을 하나 이상 등록 해주세요!');
-      return;
-    }
+  //   if (!productsIdString) {
+  //     infoModal('확인 해주세요!', 'error', '옷을 하나 이상 등록 해주세요!');
+  //     return;
+  //   }
 
-    try {
-      frm.append('date', `${day}`);
-      frm.append('image', reviewImage!);
-      console.log('리뷰이미지!', reviewImage);
-      frm.append('productsId', productsIdString);
-      frm.append('comment', reviewText);
-      frm.append('rating', rating);
+  //   try {
+  //     frm.append('date', `${day}`);
+  //     frm.append('image', reviewImage!);
+  //     console.log('리뷰이미지!', reviewImage);
+  //     frm.append('productsId', productsIdString);
+  //     frm.append('comment', reviewText);
+  //     frm.append('rating', rating);
 
-      console.log(reviewImage);
+  //     console.log(reviewImage);
 
-      const data = await todayCodyApi.putOutfit(
-        router.query.outfitId as string,
-        frm,
-      );
+  //     const data = await todayCodyApi.putOutfit(
+  //       router.query.outfitId as string,
+  //       frm,
+  //     );
 
-      console.log(data);
+  //     console.log(data);
 
-      Swal.fire({ title: '완료 되었습니다.', icon: 'success' }).then(() =>
-        window.location.assign('/calendar'),
-      );
-    } catch (e) {
-      console.log(e);
-    }
-  };
+  //     Swal.fire({ title: '완료 되었습니다.', icon: 'success' }).then(() =>
+  //       window.location.assign('/calendar'),
+  //     );
+  //   } catch (e) {
+  //     console.log(e);
+  //   }
+  // };
 
-  const onSave = async () => {
-    await getWeather();
-    const frm = new FormData();
-    let productsIdString = '';
-    topImage.forEach((data) => (productsIdString += data.id + ','));
-    outerImage.forEach((data) => (productsIdString += data.id + ','));
-    bottomImage.forEach((data) => (productsIdString += data.id + ','));
-    shoesImage.forEach((data) => (productsIdString += data.id + ','));
-    etcImage.forEach((data) => (productsIdString += data.id + ','));
-    productsIdString = productsIdString.slice(0, -1); // 반점 제거
+  // const onSave = async () => {
+  //   await getWeather();
+  //   const frm = new FormData();
+  //   let productsIdString = '';
+  //   topImage.forEach((data) => (productsIdString += data.id + ','));
+  //   outerImage.forEach((data) => (productsIdString += data.id + ','));
+  //   bottomImage.forEach((data) => (productsIdString += data.id + ','));
+  //   shoesImage.forEach((data) => (productsIdString += data.id + ','));
+  //   etcImage.forEach((data) => (productsIdString += data.id + ','));
+  //   productsIdString = productsIdString.slice(0, -1); // 반점 제거
 
-    if (!productsIdString) {
-      infoModal('확인 해주세요!', 'error', '옷을 하나 이상 등록 해주세요!');
-      return;
-    }
+  //   if (!productsIdString) {
+  //     infoModal('확인 해주세요!', 'error', '옷을 하나 이상 등록 해주세요!');
+  //     return;
+  //   }
 
-    try {
-      frm.append('date', `${day}`);
-      frm.append('image', reviewImage!);
-      frm.append('productsId', productsIdString);
-      frm.append('comment', reviewText);
-      frm.append('rating', rating);
-      frm.append('locationId', user.locationId.toString());
+  //   try {
+  //     frm.append('date', `${day}`);
+  //     frm.append('image', reviewImage!);
+  //     frm.append('productsId', productsIdString);
+  //     frm.append('comment', reviewText);
+  //     frm.append('rating', rating);
+  //     frm.append('locationId', user.locationId.toString());
 
-      const data = await todayCodyApi.addProduct(frm);
-      console.log(data);
-      Swal.fire({ title: '완료 되었습니다.', icon: 'success' }).then(() =>
-        window.location.assign('/calendar'),
-      );
-    } catch (e) {
-      console.log(e);
-    }
-  };
+  //     const data = await todayCodyApi.addProduct(frm);
+  //     console.log(data);
+  //     Swal.fire({ title: '완료 되었습니다.', icon: 'success' }).then(() =>
+  //       window.location.assign('/calendar'),
+  //     );
+  //   } catch (e) {
+  //     console.log(e);
+  //   }
+  // };
 
-  const confirmBtn = () => {
-    confirmModal(
-      '등록 하시겠습니까?',
-      (router.query.outfitId as string) ? onPut : onSave,
-    );
-  };
+  // const confirmBtn = () => {
+  //   confirmModal(
+  //     '등록 하시겠습니까?',
+  //     (router.query.outfitId as string) ? onPut : onSave,
+  //   );
+  // };
 
-  const resetTop = useResetRecoilState(topState);
-  const resetOuter = useResetRecoilState(outerState);
-  const resetBottom = useResetRecoilState(bottomState);
-  const resetShoes = useResetRecoilState(shoesState);
-  const resetEtc = useResetRecoilState(etcState);
+  // const resetTop = useResetRecoilState(topState);
+  // const resetOuter = useResetRecoilState(outerState);
+  // const resetBottom = useResetRecoilState(bottomState);
+  // const resetShoes = useResetRecoilState(shoesState);
+  // const resetEtc = useResetRecoilState(etcState);
 
-  // * null 일때는 삭제, undefined 는 기존
-  const [reviewImage, setReviewImage] = useState<File | null>();
-  // const [reviewThumbnail, setReviewThumbnail] = useState<string>('');
-  const [reviewText, setReviewText] = useState<string>('');
-  const [rating, setRating] = useState<string>('0');
+  // // * null 일때는 삭제, undefined 는 기존
+  // const [reviewImage, setReviewImage] = useState<File | null>();
+  // // const [reviewThumbnail, setReviewThumbnail] = useState<string>('');
+  // const [reviewText, setReviewText] = useState<string>('');
+  // const [rating, setRating] = useState<string>('0');
 
-  const topImage = useRecoilValue(topState);
-  const outerImage = useRecoilValue(outerState);
-  const bottomImage = useRecoilValue(bottomState);
-  const shoesImage = useRecoilValue(shoesState);
-  const etcImage = useRecoilValue(etcState);
+  // const topImage = useRecoilValue(topState);
+  // const outerImage = useRecoilValue(outerState);
+  // const bottomImage = useRecoilValue(bottomState);
+  // const shoesImage = useRecoilValue(shoesState);
+  // const etcImage = useRecoilValue(etcState);
 
-  useEffect(() => {
-    // Todo : Put 할때 query 로 보내온값이 있을때 props 로 받아오면 세팅해주는 로직인듯함 => react hook form 쓰게되면 수정해야하는 코드
-    // putImageUrl && setReviewThumbnail(putImageUrl);
-    putRating && setRating(putRating);
-    putComment && setReviewText(putComment);
-  }, [putImageUrl, putRating, putComment]);
+  // useEffect(() => {
+  //   // Todo : Put 할때 query 로 보내온값이 있을때 props 로 받아오면 세팅해주는 로직인듯함 => react hook form 쓰게되면 수정해야하는 코드
+  //   // putImageUrl && setReviewThumbnail(putImageUrl);
+  //   putRating && setRating(putRating);
+  //   putComment && setReviewText(putComment);
+  // }, [putImageUrl, putRating, putComment]);
 
-  const handleCancel = () => {
-    resetTop();
-    resetOuter();
-    resetBottom();
-    resetShoes();
-    resetEtc();
-    // setReviewThumbnail('');
-    setReviewImage(null);
-    setReviewText('');
-    setRating('0');
-    // router.back();
-  };
+  // const handleCancel = () => {
+  //   resetTop();
+  //   resetOuter();
+  //   resetBottom();
+  //   resetShoes();
+  //   resetEtc();
+  //   // setReviewThumbnail('');
+  //   setReviewImage(null);
+  //   setReviewText('');
+  //   setRating('0');
+  //   // router.back();
+  // };
 
-  const handleRating = (rate: number) => {
-    setRating(rate + '');
-  };
+  // const handleRating = (rate: number) => {
+  //   setRating(rate + '');
+  // };
 
   return (
     <Container>
@@ -195,14 +195,13 @@ export function ReviewBox({
           text="취소"
           sidePadding="40"
           type="button"
-          onClick={handleCancel}
+          // onClick={handleCancel}
         />
         <CustomButton
           customType="colorful"
           text="등록"
-          type="button"
           sidePadding="40"
-          onClick={confirmBtn}
+          type="submit"
         />
       </ButtonContainer>
     </Container>

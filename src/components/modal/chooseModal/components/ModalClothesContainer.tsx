@@ -11,7 +11,7 @@ export const ModalClothesContainer = () => {
   const category = useRecoilValue(categoryLabel);
 
   const recoil = useMemo(() => {
-    const index = categories.findIndex((data) => data.title === category);
+    const index = categories.findIndex((data) => data.label === category);
     return categories[index].recoil;
   }, [category]);
 

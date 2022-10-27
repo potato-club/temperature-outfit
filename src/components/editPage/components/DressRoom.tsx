@@ -8,43 +8,23 @@ import { chooseModal } from 'recoil/atom';
 import { categoryLabel } from 'recoil/atom/chooseModal';
 import { ProductDetailResponse } from '../../../../types';
 import { categoryFilter } from 'recoil/atom/filtering';
+import { FieldValues, UseFormRegister } from 'react-hook-form';
 type Props = {
   category: string;
+  id: string;
   recoil: RecoilState<ProductDetailResponse[]>;
 };
 
-export function DressRoom({ category, recoil }: Props) {
+export function DressRoom({ category, id, recoil }: Props) {
   const [images, setImages] = useRecoilState(recoil);
   const setChooseModalState = useSetRecoilState(chooseModal);
   const setCategoryLabel = useSetRecoilState(categoryLabel);
   const setCategoryFilter = useSetRecoilState(categoryFilter);
-  
-  const mainCategory = useMemo(() => {
-    switch (category) {
-      case '상의':
-        return 'top';
-
-      case '아우터':
-        return 'outer';
-
-      case '하의':
-        return 'bottom';
-
-      case '신발':
-        return 'shoes';
-
-      case '기타':
-        return 'mainETC';
-
-      default:
-        return '없는 카테고리입니다.';
-    }
-  }, [category]);
 
   const handleModal = () => {
     setChooseModalState((cur) => !cur);
     setCategoryLabel(category);
-    setCategoryFilter(mainCategory);
+    setCategoryFilter(id);
   };
 
   const deleteImage = (id: string) => {
