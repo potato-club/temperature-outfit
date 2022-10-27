@@ -14,18 +14,14 @@ import {
   shoesState,
   userState,
 } from 'recoil/atom';
-import {
-  useRecoilState,
-  useRecoilValue,
-  useResetRecoilState,
-  useSetRecoilState,
-} from 'recoil';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { clothesSubCategory } from 'constants/index';
 import { FieldValues, useForm } from 'react-hook-form';
 import { codyThumbnail } from 'recoil/atom/editState';
 import { todayCodyApi, weatherApi } from 'api';
 import { infoModal } from 'utils/interactionModal';
 import Swal from 'sweetalert2';
+import useGetAllEditProductsId from './hooks/useGetAllEditProductsId';
 
 export default function EditPage() {
   const router = useRouter();
@@ -33,33 +29,31 @@ export default function EditPage() {
   const tempDay = '2222-22-22';
 
   const submitTest = async (data: FieldValues) => {
-    const productsId = getAllEditProductsId();
+    // const productsId = getAllEditProductsId();
+    const productsId = '';
+    // 등록된옷이 하나도 없을때
     if (!productsId) {
-      // 등록된옷이 하나도 없을때
       infoModal('확인 해주세요!', 'error', '옷을 하나 이상 등록 해주세요!');
       return;
     }
     const frm = formDataAppend(data, productsId);
 
+    // 수정일때
     if (router.query.outfitId as string) {
-      // 수정일때
-
       try {
         const res = await todayCodyApi.putOutfit(
           router.query.outfitId as string,
           frm,
         );
-
         console.log(res);
-
         Swal.fire({ title: '완료 되었습니다.', icon: 'success' }).then(() =>
           window.location.assign('/calendar'),
         );
       } catch (e) {
         console.log(e);
       }
-    } else {
       // 등록일때
+    } else {
       await getWeather();
       frm.append('locationId', user.locationId.toString());
 
@@ -77,16 +71,17 @@ export default function EditPage() {
 
   const day = new Date(dayQuery ?? tempDay).toISOString().replace(/T.*$/, '');
 
-  const [topImages, setTopImages] = useRecoilState(topState);
-  const [outerImages, setOuterImages] = useRecoilState(outerState);
-  const [bottomImages, setBottomImages] = useRecoilState(bottomState);
-  const [shoesImages, setShoesImages] = useRecoilState(shoesState);
-  const [etcImages, setEtcImages] = useRecoilState(etcState);
-  // const setTopImages = useSetRecoilState(topState);
-  // const setOuterImages = useSetRecoilState(outerState);
-  // const setBottomImages = useSetRecoilState(bottomState);
-  // const setShoesImages = useSetRecoilState(shoesState);
-  // const setEtcImages = useSetRecoilState(etcState);
+  // const [topImages, setTopImages] = useRecoilState(topState);
+  // const [outerImages, setOuterImages] = useRecoilState(outerState);
+  // const [bottomImages, setBottomImages] = useRecoilState(bottomState);
+  // const [shoesImages, setShoesImages] = useRecoilState(shoesState);
+  // const [etcImages, setEtcImages] = useRecoilState(etcState);
+  const setTopImages = useSetRecoilState(topState);
+  const setOuterImages = useSetRecoilState(outerState);
+  const setBottomImages = useSetRecoilState(bottomState);
+  const setShoesImages = useSetRecoilState(shoesState);
+  const setEtcImages = useSetRecoilState(etcState);
+  const { productsId, getAllEditProductsId } = useGetAllEditProductsId();
 
   const setCodyThumbnail = useSetRecoilState(codyThumbnail);
 
@@ -100,16 +95,16 @@ export default function EditPage() {
     }
   };
 
-  const getAllEditProductsId = useCallback(() => {
-    let productsIdString = '';
-    topImages.forEach((data) => (productsIdString += data.id + ','));
-    outerImages.forEach((data) => (productsIdString += data.id + ','));
-    bottomImages.forEach((data) => (productsIdString += data.id + ','));
-    shoesImages.forEach((data) => (productsIdString += data.id + ','));
-    etcImages.forEach((data) => (productsIdString += data.id + ','));
-    productsIdString = productsIdString.slice(0, -1); // 반점 제거
-    return productsIdString;
-  }, [topImages, outerImages, bottomImages, shoesImages, etcImages]);
+  // const getAllEditProductsId = useCallback(() => {
+  //   let productsIdString = '';
+  //   topImages.forEach((data) => (productsIdString += data.id + ','));
+  //   outerImages.forEach((data) => (productsIdString += data.id + ','));
+  //   bottomImages.forEach((data) => (productsIdString += data.id + ','));
+  //   shoesImages.forEach((data) => (productsIdString += data.id + ','));
+  //   etcImages.forEach((data) => (productsIdString += data.id + ','));
+  //   productsIdString = productsIdString.slice(0, -1); // 반점 제거
+  //   return productsIdString;
+  // }, [topImages, outerImages, bottomImages, shoesImages, etcImages]);
 
   const filterProduct = useCallback(
     (product: any): void => {
