@@ -110,6 +110,7 @@ export default function EditPage() {
                   category={data.label}
                   id={data.id}
                   recoil={data.recoil}
+                  register={register}
                 />
               </Category>
             ))}

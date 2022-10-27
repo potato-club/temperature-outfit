@@ -2,10 +2,10 @@ import React, { useMemo } from 'react';
 import styled from '@emotion/styled';
 import { customColor } from 'constants/index';
 import { AiOutlinePlus } from 'react-icons/ai';
-import { RecoilState, useRecoilState, useSetRecoilState } from 'recoil';
+import { RecoilState, useRecoilState, useResetRecoilState, useSetRecoilState } from 'recoil';
 import { ClothesBox } from 'components/common';
 import { chooseModal } from 'recoil/atom';
-import { categoryLabel } from 'recoil/atom/chooseModal';
+import { categoryLabel, modalRegister } from 'recoil/atom/chooseModal';
 import { ProductDetailResponse } from '../../../../types';
 import { categoryFilter } from 'recoil/atom/filtering';
 import { FieldValues, UseFormRegister } from 'react-hook-form';
@@ -13,18 +13,22 @@ type Props = {
   category: string;
   id: string;
   recoil: RecoilState<ProductDetailResponse[]>;
+  register: UseFormRegister<FieldValues>;
 };
 
-export function DressRoom({ category, id, recoil }: Props) {
+export function DressRoom({ category, id, recoil, register }: Props) {
   const [images, setImages] = useRecoilState(recoil);
   const setChooseModalState = useSetRecoilState(chooseModal);
   const setCategoryLabel = useSetRecoilState(categoryLabel);
   const setCategoryFilter = useSetRecoilState(categoryFilter);
 
+  const setModalRegister = useSetRecoilState(modalRegister);
+
   const handleModal = () => {
     setChooseModalState((cur) => !cur);
     setCategoryLabel(category);
     setCategoryFilter(id);
+    setModalRegister(register(id));
   };
 
   const deleteImage = (id: string) => {
