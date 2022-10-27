@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import styled from '@emotion/styled';
 import { customColor } from 'constants/index';
 import { AiOutlinePlus } from 'react-icons/ai';

@@ -25,3 +25,8 @@ export const etcState = atom<ProductDetailResponse[]>({
   key: 'etcImages',
   default: [],
 });
+
+export const codyThumbnail = atom<string>({
+  key: 'codyThumbnail',
+  default: undefined,
+});

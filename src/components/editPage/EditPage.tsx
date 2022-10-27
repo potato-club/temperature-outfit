@@ -12,27 +12,149 @@ import {
   etcState,
   outerState,
   shoesState,
+  userState,
 } from 'recoil/atom';
-import { useSetRecoilState } from 'recoil';
+import {
+  useRecoilState,
+  useRecoilValue,
+  useResetRecoilState,
+  useSetRecoilState,
+} from 'recoil';
 import { clothesSubCategory } from 'constants/index';
-import { useForm } from 'react-hook-form';
+import { FieldValues, useForm } from 'react-hook-form';
+import { codyThumbnail } from 'recoil/atom/editState';
+import { todayCodyApi, weatherApi } from 'api';
+import { infoModal } from 'utils/interactionModal';
+import Swal from 'sweetalert2';
 
 export default function EditPage() {
   const router = useRouter();
   const dayQuery = router.query.day as string;
   const tempDay = '2222-22-22';
 
-  const submitTest = (data: any) => {
-    console.log(data);
+  const submitTest = async (data: FieldValues) => {
+    const productsId = getAllEditProductsId();
+    if (!productsId) {
+      // 등록된옷이 하나도 없을때
+      infoModal('확인 해주세요!', 'error', '옷을 하나 이상 등록 해주세요!');
+      return;
+    }
+    const frm = formDataAppend(data, productsId);
+
+    if (router.query.outfitId as string) {
+      // 수정일때
+
+      try {
+        const res = await todayCodyApi.putOutfit(
+          router.query.outfitId as string,
+          frm,
+        );
+
+        console.log(res);
+
+        Swal.fire({ title: '완료 되었습니다.', icon: 'success' }).then(() =>
+          window.location.assign('/calendar'),
+        );
+      } catch (e) {
+        console.log(e);
+      }
+    } else {
+      // 등록일때
+      await getWeather();
+      frm.append('locationId', user.locationId.toString());
+
+      try {
+        const res = await todayCodyApi.addProduct(frm);
+        console.log(res);
+        Swal.fire({ title: '완료 되었습니다.', icon: 'success' }).then(() =>
+          window.location.assign('/calendar'),
+        );
+      } catch (e) {
+        console.log(e);
+      }
+    }
   };
 
   const day = new Date(dayQuery ?? tempDay).toISOString().replace(/T.*$/, '');
 
-  const setTopValue = useSetRecoilState(topState);
-  const setBottomValue = useSetRecoilState(bottomState);
-  const setEtcValue = useSetRecoilState(etcState);
-  const setOuterValue = useSetRecoilState(outerState);
-  const setShoesValue = useSetRecoilState(shoesState);
+  const [topImages, setTopImages] = useRecoilState(topState);
+  const [outerImages, setOuterImages] = useRecoilState(outerState);
+  const [bottomImages, setBottomImages] = useRecoilState(bottomState);
+  const [shoesImages, setShoesImages] = useRecoilState(shoesState);
+  const [etcImages, setEtcImages] = useRecoilState(etcState);
+  // const setTopImages = useSetRecoilState(topState);
+  // const setOuterImages = useSetRecoilState(outerState);
+  // const setBottomImages = useSetRecoilState(bottomState);
+  // const setShoesImages = useSetRecoilState(shoesState);
+  // const setEtcImages = useSetRecoilState(etcState);
+
+  const setCodyThumbnail = useSetRecoilState(codyThumbnail);
+
+  const user = useRecoilValue(userState);
+
+  const getWeather = async () => {
+    try {
+      await weatherApi.getWeather(day, user.locationId);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const getAllEditProductsId = useCallback(() => {
+    let productsIdString = '';
+    topImages.forEach((data) => (productsIdString += data.id + ','));
+    outerImages.forEach((data) => (productsIdString += data.id + ','));
+    bottomImages.forEach((data) => (productsIdString += data.id + ','));
+    shoesImages.forEach((data) => (productsIdString += data.id + ','));
+    etcImages.forEach((data) => (productsIdString += data.id + ','));
+    productsIdString = productsIdString.slice(0, -1); // 반점 제거
+    return productsIdString;
+  }, [topImages, outerImages, bottomImages, shoesImages, etcImages]);
+
+  const filterProduct = useCallback(
+    (product: any): void => {
+      if (filterSubCategory('top', product.categoryId)) {
+        setTopImages((prev) => [...prev, product]);
+      }
+      if (filterSubCategory('outer', product.categoryId)) {
+        setOuterImages((prev) => [...prev, product]);
+      }
+      if (filterSubCategory('bottom', product.categoryId)) {
+        setBottomImages((prev) => [...prev, product]);
+      }
+      if (filterSubCategory('shoes', product.categoryId)) {
+        setShoesImages((prev) => [...prev, product]);
+      }
+      if (filterSubCategory('mainETC', product.categoryId)) {
+        setEtcImages((prev) => [...prev, product]);
+      }
+    },
+    [
+      setTopImages,
+      setOuterImages,
+      setBottomImages,
+      setShoesImages,
+      setEtcImages,
+    ],
+  );
+
+  const filterSubCategory = (category: string, categoryId: string): boolean => {
+    return clothesSubCategory[category]
+      .map((item: any) => item.id)
+      .includes(categoryId);
+  };
+
+  const formDataAppend = (data: FieldValues, productsId: string) => {
+    const frm = new FormData();
+    frm.append('date', `${day}`);
+    frm.append('image', data.image[0]);
+    frm.append('productsId', productsId);
+    frm.append('comment', data.comment);
+    frm.append('rating', data.rating);
+    return frm;
+    // * put 이 아닌 post 인 경우 아래 코드도 따로 해줘야함
+    // frm.append('locationId', user.locationId.toString());
+  };
 
   const {
     register,
@@ -43,52 +165,21 @@ export default function EditPage() {
     formState: { errors },
   } = useForm();
 
-  const filterSubCategory = (category: string, categoryId: string): boolean => {
-    return clothesSubCategory[category]
-      .map((item: any) => item.id)
-      .includes(categoryId);
-  };
-
-  const filterProduct = useCallback(
-    (product: any): void => {
-      if (filterSubCategory('top', product.categoryId)) {
-        setTopValue((prev) => [...prev, product]);
-      }
-      if (filterSubCategory('outer', product.categoryId)) {
-        setOuterValue((prev) => [...prev, product]);
-      }
-      if (filterSubCategory('bottom', product.categoryId)) {
-        setBottomValue((prev) => [...prev, product]);
-      }
-      if (filterSubCategory('shoes', product.categoryId)) {
-        setShoesValue((prev) => [...prev, product]);
-      }
-      if (filterSubCategory('mainETC', product.categoryId)) {
-        setEtcValue((prev) => [...prev, product]);
-      }
-    },
-    [setBottomValue, setEtcValue, setOuterValue, setShoesValue, setTopValue],
-  );
-
-  const [putImageUrl, setPutImageUrl] = useState('');
-  const [putRating, setPutRating] = useState('');
-  const [putComment, setPutComment] = useState('');
-
   useEffect(() => {
     router.query.outfitData &&
       (() => {
         const { imageUrl, rating, products, comment } = JSON.parse(
           router.query.outfitData as string,
         );
+        setCodyThumbnail(imageUrl);
+        setValue('rating', rating);
+        setValue('comment', comment);
 
-        setPutImageUrl(imageUrl);
-        setPutRating(rating);
-        setPutComment(comment);
         products.forEach((product: any) => {
           filterProduct(product);
         });
       })();
-  }, [filterProduct, router.query.outfitData]);
+  }, [filterProduct, router.query.outfitData, setCodyThumbnail, setValue]);
 
   return (
     <Container>
@@ -116,9 +207,6 @@ export default function EditPage() {
           </CodyBox>
           <ReviewBox
             day={day}
-            putImageUrl={putImageUrl}
-            putRating={putRating}
-            putComment={putComment}
             register={register}
             errors={errors}
             setValue={setValue}

@@ -1,7 +1,7 @@
 // AddModal 에 유사한코드 있음
 // Todo : 재사용할수있는 로직이다 싶으면 재사용할것.
 
-import React, { useState, ChangeEvent, useRef } from 'react';
+import React, { ChangeEvent, useRef } from 'react';
 import styled from '@emotion/styled';
 import { CustomButton, TypoGraphy } from 'components/common';
 import Image from 'next/image';
@@ -13,6 +13,8 @@ import {
 } from 'react-hook-form';
 import { ErrorMessage } from '@hookform/error-message';
 import { infoModal } from 'utils/interactionModal';
+import { useRecoilState } from 'recoil';
+import { codyThumbnail } from 'recoil/atom/editState';
 type Props = {
   register: UseFormRegister<FieldValues>;
   errors: Partial<FieldErrorsImpl>;
@@ -24,7 +26,7 @@ export const ImageInput = ({ register, errors, setValue }: Props) => {
   });
   const clothesInputRef = useRef<HTMLInputElement | null>(null);
 
-  const [thumbnail, setThumbnail] = useState<string>('');
+  const [thumbnail, setThumbnail] = useRecoilState(codyThumbnail);
 
   const addImage = (e: ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();

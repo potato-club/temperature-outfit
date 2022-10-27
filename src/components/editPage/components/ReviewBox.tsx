@@ -1,23 +1,12 @@
-import React, { useState, ChangeEvent, useRef, useEffect } from 'react';
+import React from 'react';
 import styled from '@emotion/styled';
-import { CustomButton, TypoGraphy } from 'components/common';
+import { CustomButton } from 'components/common';
 import { customColor } from 'constants/index';
-import Image from 'next/image';
-import { Rating } from 'react-simple-star-rating';
-import { useResetRecoilState, useRecoilValue } from 'recoil';
-import {
-  bottomState,
-  etcState,
-  outerState,
-  shoesState,
-  topState,
-  userState,
-} from 'recoil/atom';
+import { useRecoilValue } from 'recoil';
+import { userState } from 'recoil/atom';
 import { todayCodyApi, weatherApi } from 'api';
 import { IoMdImage } from 'react-icons/io';
-import { confirmModal, infoModal } from 'utils/interactionModal';
 import { useRouter } from 'next/router';
-import Swal from 'sweetalert2';
 import {
   Control,
   FieldErrorsImpl,
@@ -25,14 +14,9 @@ import {
   UseFormRegister,
   UseFormSetValue,
 } from 'react-hook-form';
-import { ImageInput } from './ImageInput';
-import { ReviewInput } from './ReviewInput';
-import { RatingInput } from './RatingInput';
+import { ImageInput, RatingInput, CommentInput } from './index';
 interface ReviewBoxProps {
   day: string;
-  putImageUrl?: string;
-  putRating?: string;
-  putComment?: string;
   register: UseFormRegister<FieldValues>;
   errors: Partial<FieldErrorsImpl>;
   setValue: UseFormSetValue<FieldValues>;
@@ -41,24 +25,46 @@ interface ReviewBoxProps {
 
 export function ReviewBox({
   day,
-  putImageUrl = '',
-  putRating = '0',
-  putComment = '',
   register,
   errors,
   setValue,
   control,
 }: ReviewBoxProps) {
-  const router = useRouter();
+  // const router = useRouter();
 
-  const user = useRecoilValue(userState);
+  // const user = useRecoilValue(userState);
 
-  const getWeather = async () => {
-    try {
-      await weatherApi.getWeather(day, user.locationId);
-    } catch (error) {
-      console.log(error);
-    }
+  // const getWeather = async () => {
+  //   try {
+  //     await weatherApi.getWeather(day, user.locationId);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
+
+  const combineEditProducts = () => {
+    // let productsIdString = '';
+    // topImage.forEach((data) => (productsIdString += data.id + ','));
+    // outerImage.forEach((data) => (productsIdString += data.id + ','));
+    // bottomImage.forEach((data) => (productsIdString += data.id + ','));
+    // shoesImage.forEach((data) => (productsIdString += data.id + ','));
+    // etcImage.forEach((data) => (productsIdString += data.id + ','));
+    // productsIdString = productsIdString.slice(0, -1); // 반점 제거
+    // if (!productsIdString) { // * 이 검사는 return 으로 받은 값이 빈문자열일때 해도 괜찮아보임
+    // infoModal('확인 해주세요!', 'error', '옷을 하나 이상 등록 해주세요!');
+    // return;
+    // }
+          
+  };
+
+  const formDataAppend = () => {
+    // frm.append('date', `${day}`);
+    // frm.append('image', reviewImage!);
+    // frm.append('productsId', productsIdString);
+    // frm.append('comment', reviewText);
+    // frm.append('rating', rating);
+    // * put 이 아닌 post 인 경우 아래 코드도 따로 해줘야함
+    // frm.append('locationId', user.locationId.toString());
   };
 
   // const onPut = async () => {
@@ -83,8 +89,6 @@ export function ReviewBox({
   //     frm.append('productsId', productsIdString);
   //     frm.append('comment', reviewText);
   //     frm.append('rating', rating);
-
-  //     console.log(reviewImage);
 
   //     const data = await todayCodyApi.putOutfit(
   //       router.query.outfitId as string,
@@ -125,6 +129,7 @@ export function ReviewBox({
   //     frm.append('rating', rating);
   //     frm.append('locationId', user.locationId.toString());
 
+
   //     const data = await todayCodyApi.addProduct(frm);
   //     console.log(data);
   //     Swal.fire({ title: '완료 되었습니다.', icon: 'success' }).then(() =>
@@ -160,41 +165,17 @@ export function ReviewBox({
   // const shoesImage = useRecoilValue(shoesState);
   // const etcImage = useRecoilValue(etcState);
 
-  // useEffect(() => {
-  //   // Todo : Put 할때 query 로 보내온값이 있을때 props 로 받아오면 세팅해주는 로직인듯함 => react hook form 쓰게되면 수정해야하는 코드
-  //   // putImageUrl && setReviewThumbnail(putImageUrl);
-  //   putRating && setRating(putRating);
-  //   putComment && setReviewText(putComment);
-  // }, [putImageUrl, putRating, putComment]);
-
-  // const handleCancel = () => {
-  //   resetTop();
-  //   resetOuter();
-  //   resetBottom();
-  //   resetShoes();
-  //   resetEtc();
-  //   // setReviewThumbnail('');
-  //   setReviewImage(null);
-  //   setReviewText('');
-  //   setRating('0');
-  //   // router.back();
-  // };
-
-  // const handleRating = (rate: number) => {
-  //   setRating(rate + '');
-  // };
-
   return (
     <Container>
       <ImageInput register={register} errors={errors} setValue={setValue} />
-      <ReviewInput register={register} errors={errors} />
+      <CommentInput register={register} errors={errors} />
       <RatingInput control={control} errors={errors} />
       <ButtonContainer>
         <CustomButton
           customType="white"
           text="취소"
           sidePadding="40"
-          type="button"
+          type="reset"
           // onClick={handleCancel}
         />
         <CustomButton
