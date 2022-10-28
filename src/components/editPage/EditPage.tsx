@@ -72,11 +72,6 @@ export default function EditPage() {
   const [bottomImages, setBottomImages] = useRecoilState(bottomState);
   const [shoesImages, setShoesImages] = useRecoilState(shoesState);
   const [etcImages, setEtcImages] = useRecoilState(etcState);
-  // const setTopImages = useSetRecoilState(topState);
-  // const setOuterImages = useSetRecoilState(outerState);
-  // const setBottomImages = useSetRecoilState(bottomState);
-  // const setShoesImages = useSetRecoilState(shoesState);
-  // const setEtcImages = useSetRecoilState(etcState);
 
   const setCodyThumbnail = useSetRecoilState(codyThumbnail);
 
@@ -137,14 +132,36 @@ export default function EditPage() {
   const formDataAppend = (data: FieldValues, productsId: string) => {
     const frm = new FormData();
     frm.append('date', `${day}`);
-    frm.append('image', data.image[0]);
+
+    // * data.image null 일때 삭제
+    // * data.image undefined 일때 기존
+    // * data.image 값 있으면 새로 추가
+    if (data.image) {
+      frm.append('image', data.image[0]);
+    } else {
+      frm.append('image', data.image);
+    }
+
     frm.append('productsId', productsId);
     frm.append('comment', data.comment);
     frm.append('rating', data.rating);
     return frm;
-    // * put 이 아닌 post 인 경우 아래 코드도 따로 해줘야함
-    // frm.append('locationId', user.locationId.toString());
   };
+
+  const resetRecoil = useCallback(() => {
+    setTopImages([]);
+    setOuterImages([]);
+    setBottomImages([]);
+    setShoesImages([]);
+    setEtcImages([]);
+    setCodyThumbnail('');
+  }, [setTopImages, setOuterImages, setBottomImages, setShoesImages, setEtcImages, setCodyThumbnail]);
+
+  useEffect(() => {
+    return () => {
+      resetRecoil();
+    };
+  }, [resetRecoil]);
 
   const {
     register,
@@ -199,37 +216,4 @@ const Container = styled.section`
   justify-content: center;
   align-items: center;
   flex-direction: column;
-`;
-
-const Contents = styled.section`
-  width: 100%;
-  height: 70vh;
-  display: flex;
-  gap: 0 28px;
-`;
-
-const Category = styled.section`
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-`;
-
-const CodyBox = styled.section`
-  width: 60%;
-  max-width: 800px;
-  display: flex;
-  flex-direction: column;
-  padding: 12px;
-  border-radius: 10px;
-  background-color: #c4c4c450;
-  overflow-y: auto;
-  ::-webkit-scrollbar {
-    opacity: 0;
-    width: 12px;
-  }
-  ::-webkit-scrollbar-thumb {
-    background-color: rgb(150, 137, 235, 0.6);
-    border-radius: 24px;
-  }
 `;

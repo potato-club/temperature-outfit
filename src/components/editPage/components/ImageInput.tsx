@@ -17,13 +17,10 @@ import { useRecoilState } from 'recoil';
 import { codyThumbnail } from 'recoil/atom/editState';
 type Props = {
   register: UseFormRegister<FieldValues>;
-  errors: Partial<FieldErrorsImpl>;
   setValue: UseFormSetValue<FieldValues>;
 };
-export const ImageInput = ({ register, errors, setValue }: Props) => {
-  const { ref, onChange, ...rest } = register('image', {
-    required: '이미지를 선택해주세요',
-  });
+export const ImageInput = ({ register, setValue }: Props) => {
+  const { ref, onChange, ...rest } = register('image');
   const clothesInputRef = useRef<HTMLInputElement | null>(null);
 
   const [thumbnail, setThumbnail] = useRecoilState(codyThumbnail);
@@ -68,7 +65,7 @@ export const ImageInput = ({ register, errors, setValue }: Props) => {
           }
         />
       </ImageWrapper>
-      <ErrorMessage
+      {/* <ErrorMessage
         name="image"
         errors={errors}
         render={({ message }) => (
@@ -76,7 +73,7 @@ export const ImageInput = ({ register, errors, setValue }: Props) => {
             <TypoGraphy color="red">{message}</TypoGraphy>
           </section>
         )}
-      />
+      /> */}
       <ButtonWrapper>
         <CustomButton
           customType="colorful"
