@@ -44,7 +44,7 @@ export function DressRoom({ category, id, recoil }: Props) {
           </ClothesWrapper>
         ))}
       <AddButton onClick={() => handleModal()}>
-        <AiOutlinePlus size={40} />
+        <MemoPlusIcon size={40} />
       </AddButton>
     </Container>
   );
@@ -91,3 +91,5 @@ const AddButton = styled.label`
 const ClothesWrapper = styled.section`
   position: relative;
 `;
+
+const MemoPlusIcon = React.memo(AiOutlinePlus);

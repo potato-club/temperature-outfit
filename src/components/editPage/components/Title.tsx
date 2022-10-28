@@ -55,3 +55,5 @@ const ReviewTitle = styled.section`
   display: flex;
   align-items: flex-end;
 `;
+
+export const MemoTitle = React.memo(Title);

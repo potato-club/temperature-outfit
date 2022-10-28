@@ -29,7 +29,7 @@ export default function useGetAllEditProductsId() {
     productsIdString = productsIdString.slice(0, -1); // 반점 제거
     setProductsId(productsIdString);
   };
-
+  
   return {
     productsId,
     getAllEditProductsId,
