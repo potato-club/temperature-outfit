@@ -1,13 +1,12 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import { ErrorMessage } from '@hookform/error-message';
 import { TypoGraphy } from 'components/common';
 import { FieldErrorsImpl, FieldValues, UseFormRegister } from 'react-hook-form';
 type Props = {
   register: UseFormRegister<FieldValues>;
   errors: Partial<FieldErrorsImpl>;
 };
-export const CommentInput = ({ register, errors }: Props) => {
+export const CommentInput = ({ register }: Props) => {
   return (
     <Container>
       <TypoGraphy type="Title" fontWeight="bold">
@@ -15,16 +14,7 @@ export const CommentInput = ({ register, errors }: Props) => {
       </TypoGraphy>
       <TextArea
         placeholder="후기를 입력해주세요"
-        {...register('comment', { required: '후기를 입력해주세요' })}
-      />
-      <ErrorMessage
-        errors={errors}
-        name="comment"
-        render={({ message }) => (
-          <section className="errorWrapper">
-            <TypoGraphy color="red">{message}</TypoGraphy>
-          </section>
-        )}
+        {...register('comment')}
       />
     </Container>
   );
