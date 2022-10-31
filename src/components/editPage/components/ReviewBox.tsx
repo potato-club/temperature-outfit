@@ -2,7 +2,7 @@ import React from 'react';
 import styled from '@emotion/styled';
 import { CustomButton } from 'components/common';
 import { customColor } from 'constants/index';
-import { useRecoilValue } from 'recoil';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { userState } from 'recoil/atom';
 import { todayCodyApi, weatherApi } from 'api';
 import { IoMdImage } from 'react-icons/io';
@@ -15,6 +15,8 @@ import {
   UseFormSetValue,
 } from 'react-hook-form';
 import { ImageInput, RatingInput, CommentInput } from './index';
+import { codyThumbnail } from 'recoil/atom/editState';
+import useEditResetRecoil from 'hooks/useEditResetRecoil';
 interface ReviewBoxProps {
   day: string;
   register: UseFormRegister<FieldValues>;
@@ -30,6 +32,18 @@ export function ReviewBox({
   setValue,
   control,
 }: ReviewBoxProps) {
+  const setCodyThumbnail = useSetRecoilState(codyThumbnail);
+  const { resetRecoilState } = useEditResetRecoil();
+  // const router = useRouter();
+
+  const handleCancel = () => {
+    setCodyThumbnail('');
+    setValue('rating', 0);
+    setValue('image', null);
+    resetRecoilState();
+    // router.back();
+  };
+
   return (
     <Container>
       <ImageInput register={register} setValue={setValue} />
@@ -41,6 +55,7 @@ export function ReviewBox({
           text="취소"
           sidePadding="40"
           type="reset"
+          onClick={handleCancel}
         />
         <CustomButton
           customType="colorful"

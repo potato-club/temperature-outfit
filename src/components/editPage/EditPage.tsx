@@ -19,6 +19,7 @@ import { MemoTitle } from './components/Title';
 import { MemoContents } from './components/Contents';
 import { infoModal } from 'utils/interactionModal';
 import Swal from 'sweetalert2';
+import useEditResetRecoil from 'hooks/useEditResetRecoil';
 
 export default function EditPage() {
   const router = useRouter();
@@ -72,6 +73,7 @@ export default function EditPage() {
   const [bottomImages, setBottomImages] = useRecoilState(bottomState);
   const [shoesImages, setShoesImages] = useRecoilState(shoesState);
   const [etcImages, setEtcImages] = useRecoilState(etcState);
+  const { resetRecoilState } = useEditResetRecoil();
 
   const setCodyThumbnail = useSetRecoilState(codyThumbnail);
 
@@ -148,20 +150,11 @@ export default function EditPage() {
     return frm;
   };
 
-  const resetRecoil = useCallback(() => {
-    setTopImages([]);
-    setOuterImages([]);
-    setBottomImages([]);
-    setShoesImages([]);
-    setEtcImages([]);
-    setCodyThumbnail('');
-  }, [setTopImages, setOuterImages, setBottomImages, setShoesImages, setEtcImages, setCodyThumbnail]);
-
   useEffect(() => {
     return () => {
-      resetRecoil();
+      resetRecoilState();
     };
-  }, [resetRecoil]);
+  }, [resetRecoilState]);
 
   const {
     register,
