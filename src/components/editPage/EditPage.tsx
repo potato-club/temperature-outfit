@@ -25,9 +25,8 @@ export default function EditPage() {
   const router = useRouter();
 
   const dayQuery = useMemo(() => {
-    if (!router.isReady) return;
     return router.query.day as string;
-  }, [router.isReady, router.query.day]);
+  }, [router.query.day]);
 
   const submitTest = async (data: FieldValues) => {
     const productsId = getAllEditProductsId();
@@ -69,7 +68,9 @@ export default function EditPage() {
     }
   };
 
-  const day = dayQuery ? new Date(dayQuery).toISOString().replace(/T.*$/, '') : '';
+  const day = dayQuery
+    ? new Date(dayQuery).toISOString().replace(/T.*$/, '')
+    : '';
 
   const [topImages, setTopImages] = useRecoilState(topState);
   const [outerImages, setOuterImages] = useRecoilState(outerState);
@@ -186,19 +187,21 @@ export default function EditPage() {
   }, [filterProduct, router.query.outfitData, setCodyThumbnail, setValue]);
 
   return (
-    <Container>
-      <MemoTitle
-        day={day}
-      />
-      <form style={{ width: '100%' }} onSubmit={handleSubmit(submitTest)}>
-        <MemoContents
-          register={register}
-          errors={errors}
-          setValue={setValue}
-          control={control}
-        />
-      </form>
-    </Container>
+    <>
+      {router.isReady && (
+        <Container>
+          <MemoTitle day={day} />
+          <form style={{ width: '100%' }} onSubmit={handleSubmit(submitTest)}>
+            <MemoContents
+              register={register}
+              errors={errors}
+              setValue={setValue}
+              control={control}
+            />
+          </form>
+        </Container>
+      )}
+    </>
   );
 }
 
