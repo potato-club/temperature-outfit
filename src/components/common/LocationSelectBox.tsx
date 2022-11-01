@@ -6,7 +6,7 @@ import InputLabel from '@mui/material/InputLabel';
 type Props = {
   allLocations: any;
   myLocation: string;
-  changeUserLocations: (data: number) => Promise<void>;
+  changeUserLocations: (data: number) => void;
 };
 
 export const LocationSelectBox: React.FC<Props> = ({

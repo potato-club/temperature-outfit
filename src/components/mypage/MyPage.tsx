@@ -6,20 +6,28 @@ import { signOut } from 'next-auth/react';
 import { useRecoilValue, useRecoilState } from 'recoil';
 import { locations, userState } from 'recoil/atom';
 import { userApi } from 'api';
-import { LocationSelectBox, TypoGraphy } from "components/common";
+import { LocationSelectBox, TypoGraphy } from 'components/common';
+import { useMutation } from 'react-query';
 
 export const MyPage: React.FC = () => {
   const [{ name, locationId }, setUser] = useRecoilState(userState);
   const allLocations = useRecoilValue(locations);
 
-  const changeUserLocations = async (data: number) => {
-    try {
-      await userApi.changeUserLocation({ locationId: data });
-      setUser({ name, locationId: data });
-    } catch (error) {
-      console.log(error);
-    }
+  const changeUserLocations = (data: number): void => {
+    mutate(data);
   };
+
+  const { mutate } = useMutation(
+    (data: number) => userApi.changeUserLocation({ locationId: data }),
+    {
+      onError: (error) => {
+        console.log(error);
+      },
+      onSuccess: ({ data: { name, id } }) => {
+        setUser({ name, locationId: id });
+      },
+    },
+  );
 
   return (
     <Container>
