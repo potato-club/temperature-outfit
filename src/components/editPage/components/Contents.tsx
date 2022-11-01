@@ -6,14 +6,12 @@ import { categories } from 'constants/categories';
 import { ChooseModal } from 'components/modal';
 import { Control, FieldErrorsImpl, FieldValues, UseFormRegister, UseFormSetValue } from 'react-hook-form';
 type Props = {
-  day: string;
   register: UseFormRegister<FieldValues>;
   errors: Partial<FieldErrorsImpl>;
   setValue: UseFormSetValue<FieldValues>;
   control: Control<FieldValues>;
 };
 export const Contents = ({
-  day,
   register,
   errors,
   setValue,
@@ -36,7 +34,6 @@ export const Contents = ({
         ))}
       </CodyBox>
       <ReviewBox
-        day={day}
         register={register}
         errors={errors}
         setValue={setValue}

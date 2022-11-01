@@ -18,7 +18,6 @@ import { ImageInput, RatingInput, CommentInput } from './index';
 import { codyThumbnail } from 'recoil/atom/editState';
 import useEditResetRecoil from 'hooks/useEditResetRecoil';
 interface ReviewBoxProps {
-  day: string;
   register: UseFormRegister<FieldValues>;
   errors: Partial<FieldErrorsImpl>;
   setValue: UseFormSetValue<FieldValues>;
@@ -26,7 +25,6 @@ interface ReviewBoxProps {
 }
 
 export function ReviewBox({
-  day,
   register,
   errors,
   setValue,

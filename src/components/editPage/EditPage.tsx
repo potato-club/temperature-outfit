@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback, useEffect, useMemo } from 'react';
 import styled from '@emotion/styled';
 import { editDummy } from 'dummy/newEditDummy';
 import { useRouter } from 'next/router';
@@ -10,7 +10,7 @@ import {
   shoesState,
   userState,
 } from 'recoil/atom';
-import { useRecoilValue, useSetRecoilState, useRecoilState } from "recoil";
+import { useRecoilValue, useSetRecoilState, useRecoilState } from 'recoil';
 import { clothesSubCategory } from 'constants/index';
 import { FieldValues, useForm } from 'react-hook-form';
 import { codyThumbnail } from 'recoil/atom/editState';
@@ -23,8 +23,11 @@ import useEditResetRecoil from 'hooks/useEditResetRecoil';
 
 export default function EditPage() {
   const router = useRouter();
-  const dayQuery = router.query.day as string;
-  const tempDay = '2222-22-22';
+
+  const dayQuery = useMemo(() => {
+    if (!router.isReady) return;
+    return router.query.day as string;
+  }, [router.isReady, router.query.day]);
 
   const submitTest = async (data: FieldValues) => {
     const productsId = getAllEditProductsId();
@@ -66,7 +69,7 @@ export default function EditPage() {
     }
   };
 
-  const day = new Date(dayQuery ?? tempDay).toISOString().replace(/T.*$/, '');
+  const day = dayQuery ? new Date(dayQuery).toISOString().replace(/T.*$/, '') : '';
 
   const [topImages, setTopImages] = useRecoilState(topState);
   const [outerImages, setOuterImages] = useRecoilState(outerState);
@@ -79,13 +82,14 @@ export default function EditPage() {
 
   const user = useRecoilValue(userState);
 
-  const getWeather = async () => {
+  const getWeather = useCallback(async () => {
+    if (!day) return;
     try {
       await weatherApi.getWeather(day, user.locationId);
     } catch (error) {
       console.log(error);
     }
-  };
+  }, [day, user.locationId]);
 
   const getAllEditProductsId = useCallback(() => {
     let productsIdString = '';
@@ -184,14 +188,10 @@ export default function EditPage() {
   return (
     <Container>
       <MemoTitle
-        average={editDummy.average}
-        max={editDummy.max}
-        min={editDummy.min}
         day={day}
       />
       <form style={{ width: '100%' }} onSubmit={handleSubmit(submitTest)}>
         <MemoContents
-          day={day}
           register={register}
           errors={errors}
           setValue={setValue}

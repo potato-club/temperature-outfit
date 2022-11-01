@@ -1,9 +1,11 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import { TypoGraphy } from 'components/common';
-import { editDummyType } from 'dummy/newEditDummy';
-export function Title({ average, max, min, day }: editDummyType) {
-  const dayQuery = new Date(day);
+type Props = {
+  day : string;
+}
+export function Title({ day }: Props) {
+  const dayQuery = day ? new Date(day) : new Date();
   const month = dayQuery.getMonth() + 1;
   const date = dayQuery.getDate();
 
