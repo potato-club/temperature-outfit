@@ -2,23 +2,28 @@ import { topState, outerState, bottomState, shoesState, etcState } from "recoil/
 
 export const categories = [
   {
-    title: '상의',
+    label: '상의',
+    id: 'top',
     recoil: topState,
   },
   {
-    title: '아우터',
+    label: '아우터',
+    id: 'outer',
     recoil: outerState,
   },
   {
-    title: '하의',
+    label: '하의',
+    id: 'bottom',
     recoil: bottomState,
   },
   {
-    title: '신발',
+    label: '신발',
+    id: 'shoes',
     recoil: shoesState,
   },
   {
-    title: '기타',
+    label: '기타',
+    id: 'mainETC',
     recoil: etcState,
   },
 ];

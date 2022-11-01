@@ -5,11 +5,11 @@ import { filterType } from 'types/editPage/filter.type';
 import { useSetRecoilState } from "recoil";
 import { lastPage } from 'recoil/atom/filtering';
 
-export default function useGetFilter() {
+export default function useGetItem() {
   const [filterItem, setFilterItem] = useState<Array<productType>>([]);
   const setLastPage = useSetRecoilState(lastPage);
 
-  const getFilter = async (filter: filterType) => {
+  const getItem = async (filter: filterType) => {
     try {
       const { data } = await productApi.getFilter({ params: filter });
       setFilterItem(data.products);
@@ -21,6 +21,6 @@ export default function useGetFilter() {
 
   return {
     filterItem,
-    getFilter,
+    getItem,
   };
 }

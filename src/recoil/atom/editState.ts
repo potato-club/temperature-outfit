@@ -1,5 +1,5 @@
 import { atom, useResetRecoilState } from 'recoil';
-import { ProductDetailResponse } from 'types';
+import { ProductDetailResponse } from '../../../types';
 
 export const topState = atom<ProductDetailResponse[]>({
   key: 'topImages',
@@ -24,4 +24,9 @@ export const shoesState = atom<ProductDetailResponse[]>({
 export const etcState = atom<ProductDetailResponse[]>({
   key: 'etcImages',
   default: [],
+});
+
+export const codyThumbnail = atom<string>({
+  key: 'codyThumbnail',
+  default: undefined,
 });
