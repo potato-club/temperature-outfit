@@ -43,7 +43,7 @@ handler.get(async (req, res) => {
     owner: { email: req?.session?.user?.email },
     name: { contains: query.query },
     category: { id: { in: childrenCategoryId } },
-    color: { equals: query.color },
+    color: { equals: query.color !== '' ? query.color : undefined },
   };
 
   const [count, products] = await prisma.$transaction([
