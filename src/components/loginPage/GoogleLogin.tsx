@@ -29,7 +29,7 @@ export const GoogleLogin: React.FC = () => {
         name: session!.user!.name ?? '사용자 이름',
         locationId: data.id,
       });
-      router.push('/');
+      router.push('/main');
     },
   });
 

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import styled from '@emotion/styled';
 import { customColor } from 'constants/index';
 import { GrLocation } from 'react-icons/Gr';
@@ -8,10 +8,12 @@ import { locations, userState } from 'recoil/atom';
 import { userApi } from 'api';
 import { LocationSelectBox, TypoGraphy } from 'components/common';
 import { useMutation } from 'react-query';
+import { useRouter } from 'next/router';
 
 export const MyPage: React.FC = () => {
   const [{ name, locationId }, setUser] = useRecoilState(userState);
   const allLocations = useRecoilValue(locations);
+  const router = useRouter();
 
   const changeUserLocations = (data: number): void => {
     mutate(data);
@@ -28,6 +30,15 @@ export const MyPage: React.FC = () => {
       },
     },
   );
+
+  const handleLogout = useCallback(async () => {
+    try {
+      await signOut();
+      router.push('/closet');
+    } catch(e) {
+      console.log(e);
+    }
+  }, [router]);
 
   return (
     <Container>
@@ -49,7 +60,7 @@ export const MyPage: React.FC = () => {
       </LocationWrapper>
       <TypoGraphy type="sm1">사는 지역을 선택해주세요</TypoGraphy>
       <Footer>
-        <LogOut onClick={() => signOut()}>
+        <LogOut onClick={handleLogout}>
           <TypoGraphy
             type="body1"
             color={customColor.brandColor5}
