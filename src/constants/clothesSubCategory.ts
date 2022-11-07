@@ -1,4 +1,4 @@
-import { CategoryDetail } from 'types/temp/categoryDetail.type';
+import { CategoryDetail } from 'types/common/categoryDetail.type';
 interface Clothes {
   [key: string]: CategoryDetail[];
 }

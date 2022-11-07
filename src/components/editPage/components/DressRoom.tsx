@@ -6,7 +6,7 @@ import { RecoilState, useRecoilState, useSetRecoilState } from 'recoil';
 import { ClothesBox } from 'components/common';
 import { chooseModal } from 'recoil/atom';
 import { categoryLabel } from 'recoil/atom/chooseModal';
-import { ProductDetailResponse } from '../../../../types';
+import { ProductDetailResponse } from '../../../types';
 import { categoryFilter } from 'recoil/atom/filtering';
 type Props = {
   category: string;

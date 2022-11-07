@@ -5,7 +5,7 @@ import { TypoGraphy } from 'components/common';
 import { customColor } from 'constants/index';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { chooseModal } from 'recoil/atom';
-import { CustomPagination } from 'components/closet/components/CustomPagination';
+import { CustomPagination } from 'components/closetPage/components/CustomPagination';
 import { categoryLabel } from 'recoil/atom/chooseModal';
 import { CategoryBox, ModalClothesContainer } from './components';
 

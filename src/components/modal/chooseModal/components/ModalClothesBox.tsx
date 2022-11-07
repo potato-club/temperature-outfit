@@ -5,9 +5,9 @@ import React, { useState } from 'react';
 import { RecoilState, useSetRecoilState } from 'recoil';
 import { chooseModal } from 'recoil/atom';
 import useAddClothesEdit from 'hooks/useAddClothesEdit';
-import { MemoTypoGraphy } from 'components/common/TypoGraphyTest';
+import { MemoTypoGraphy } from 'components/common/TypoGraphy';
 import { MemoClothesImg } from 'components/common/clothesBox/ClothesImg';
-import { ProductDetailResponse } from '../../../../../types';
+import { ProductDetailResponse } from '../../../../types';
 
 type Props = {
   url: string;

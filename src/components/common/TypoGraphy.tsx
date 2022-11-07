@@ -18,6 +18,7 @@ type TypoGraphyProps = {
   fontWeight?: string;
   fontHeight?: string;
   fontHidden?: boolean;
+  children?: React.ReactNode;
 };
 
 type StyledTypoGraphyProps = {

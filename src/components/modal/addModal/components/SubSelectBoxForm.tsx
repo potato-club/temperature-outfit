@@ -7,7 +7,7 @@ import {
   FieldValues,
   UseFormSetValue,
 } from 'react-hook-form';
-import { CategoryDetail } from 'types/temp/categoryDetail.type';
+import { CategoryDetail } from 'types/common/categoryDetail.type';
 type Props = {
   setValue: UseFormSetValue<FieldValues>;
   control: Control<FieldValues>;

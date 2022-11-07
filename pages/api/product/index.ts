@@ -1,16 +1,19 @@
+import { prisma } from 'db';
 import type { NextApiResponse } from 'next';
 import nextConnect from 'next-connect';
-import { prisma } from '../../../db';
+
 import {
   ProductDetailResponse,
   ProductGetRequest,
   ApiRequest,
   ProductPostRequest,
   ProductResponse,
-} from '../../../types';
-import { authenticateHandler } from '../../../utilities/api/middlewares/auth';
-import { convertProductToResponse } from './../../../utilities/api/converter';
-import { filesParser } from './../../../utilities/api/middlewares/fileParser';
+} from '../../../src/types';
+import {
+  authenticateHandler,
+} from 'utilities/api/middlewares/auth';
+import { convertProductToResponse } from 'utilities/api/converter';
+import { filesParser } from 'utilities/api/middlewares/fileParser';
 
 export const config = {
   api: {

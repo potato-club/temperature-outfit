@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import React from 'react';
-import { ThreeModel, LocationInfo, TodayClothes } from './index';
+import { ThreeModel, LocationInfo } from './index';
 import { WeatherStatusType } from 'types/mainPage';
 
 interface Props {
@@ -13,7 +13,6 @@ export function TodayInfo({ weatherStatus, temperature }: Props) {
     <Container>
       <ThreeModel weatherStatus={weatherStatus} />
       <LocationInfo temperature={temperature} />
-      {/* <TodayClothes {...props} /> */}
     </Container>
   );
 }

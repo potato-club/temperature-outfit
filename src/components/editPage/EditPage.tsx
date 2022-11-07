@@ -1,6 +1,5 @@
 import React, { useCallback, useEffect, useMemo } from 'react';
 import styled from '@emotion/styled';
-import { editDummy } from 'dummy/newEditDummy';
 import { useRouter } from 'next/router';
 import {
   topState,
