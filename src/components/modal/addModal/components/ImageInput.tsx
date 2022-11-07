@@ -4,11 +4,7 @@ import { TypoGraphy } from 'components/common';
 import Image from 'next/image';
 import { IoMdImage } from 'react-icons/io';
 import { customColor } from 'constants/index';
-import {
-  FieldErrorsImpl,
-  FieldValues,
-  UseFormRegister,
-} from 'react-hook-form';
+import { FieldErrorsImpl, FieldValues, UseFormRegister } from 'react-hook-form';
 import { ErrorMessage } from '@hookform/error-message';
 import { infoModal } from 'utils/interactionModal';
 type Props = {
@@ -16,13 +12,16 @@ type Props = {
   errors: Partial<FieldErrorsImpl>;
 };
 export const ImageInput = ({ register, errors }: Props) => {
-  const { ref, onChange, ...rest } = register('image', {required: '이미지를 선택해주세요'});
+  const { ref, onChange, ...rest } = register('image', {
+    required: '이미지를 선택해주세요',
+  });
   const clothesInputRef = useRef<HTMLInputElement | null>(null);
 
   const [thumbnail, setThumbnail] = useState<string>('');
 
   const addImage = (e: ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
+    setThumbnail(''); // 취소했을때 썸네일도 지워야함
 
     if (e.target.value[0]) {
       const fileReader = new FileReader();
