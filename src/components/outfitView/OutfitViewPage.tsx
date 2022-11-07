@@ -13,7 +13,7 @@ type totalTemperatureType = {
   lowestTemperature: string;
 };
 
-export default function EditPage() {
+export default function OutfitView() {
   const router = useRouter();
   const [outfitData, setOutfitData] = useState({
     date: '2022-08-11',
