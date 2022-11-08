@@ -1,11 +1,9 @@
+import { prisma } from 'db';
 import type { NextApiResponse } from 'next';
 import nextConnect from 'next-connect';
-import { prisma } from '../../../db';
-import { LocationResponse, UserLocationPostRequest } from '../../../types';
-import {
-  authenticateHandler,
-  NextApiRequestWithSession,
-} from '../../../utilities/api/middlewares/auth';
+
+import { LocationResponse, UserLocationPostRequest } from '../../../src/types';
+import { authenticateHandler, NextApiRequestWithSession } from 'utilities/api/middlewares/auth';
 
 const handler = nextConnect<
   NextApiRequestWithSession,

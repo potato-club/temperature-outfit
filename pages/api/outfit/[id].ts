@@ -1,13 +1,10 @@
 import type { NextApiResponse } from 'next';
 import nextConnect from 'next-connect';
-import { prisma } from '../../../db';
-import { OutfitPutRequest, OutfitResponse } from '../../../types';
-import {
-  authenticateHandler,
-  NextApiRequestWithSession,
-} from '../../../utilities/api/middlewares/auth';
-import { convertOutfitToResponse } from './../../../utilities/api/converter';
-import { filesParser } from './../../../utilities/api/middlewares/fileParser';
+import { prisma } from 'db';
+import { OutfitPutRequest, OutfitResponse } from '../../../src/types';
+import { authenticateHandler, NextApiRequestWithSession } from 'utilities/api/middlewares/auth';
+import { convertOutfitToResponse } from 'utilities/api/converter';
+import { filesParser } from 'utilities/api/middlewares/fileParser';
 
 export const config = {
   api: {

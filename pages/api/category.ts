@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { prisma } from '../../db';
-import { CategoryResponse } from '../../types';
+import { prisma } from 'db';
+import { CategoryResponse } from '../../src/types';
 
 export default async function handler(
   req: NextApiRequest,

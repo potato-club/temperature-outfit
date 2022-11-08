@@ -1,8 +1,9 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { prisma } from '../../../db';
-import { WeatherGetRequest, WeatherResponse } from '../../../types';
-import { updateWeather } from '../../../utilities/api/weather';
-import { convertWeatherResponse } from '../../../utilities/api/converter';
+
+import { WeatherGetRequest, WeatherResponse } from '../../../src/types';
+import { convertWeatherResponse } from 'utilities/api/converter';
+import { prisma } from 'db';
+import { updateWeather } from 'utilities/api/weather';
 
 export default async function handler(
   req: NextApiRequest,
