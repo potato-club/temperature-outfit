@@ -75,8 +75,8 @@ export const getCurrentWeather = async (
 
   return {
     status: getWeatherStatus(
-      (res.data.clouds.all ?? 0) / 10,
-      res.data.rain['1h'] ?? 0,
+      (res.data?.clouds?.all ?? 0) / 10,
+      typeof res.data?.rain !== 'undefined' ? res.data?.rain['1h'] ?? 0 : 0,
     ),
     temperature: res.data.main.temp,
     lowestTemperature: res.data.main.temp_min,
