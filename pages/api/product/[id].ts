@@ -23,7 +23,10 @@ handler.get(async (req, res) => {
   const { id } = req.query;
 
   if (Array.isArray(id)) {
-    return res.status(400);
+    return res.status(400).json({
+      code: 400,
+      message: '요청 오류',
+    });
   }
 
   const product = await prisma.product.findUnique({
@@ -32,7 +35,10 @@ handler.get(async (req, res) => {
   });
 
   if (!product || req.session?.user?.email !== product.owner.email) {
-    return res.status(404);
+    return res.status(404).json({
+      code: 404,
+      message: '데이터 없음',
+    });
   }
 
   res.status(200).json(convertProductToResponse(product));
@@ -43,7 +49,10 @@ handler.put(filesParser, async (req, res) => {
   const body = req.body as ProductPutRequest;
 
   if (Array.isArray(id)) {
-    return res.status(400);
+    return res.status(400).json({
+      code: 400,
+      message: '요청 오류',
+    });
   }
 
   if (
@@ -54,7 +63,10 @@ handler.put(filesParser, async (req, res) => {
       })
     )?.owner.email !== req.session.user?.email
   ) {
-    return res.status(404);
+    return res.status(404).json({
+      code: 404,
+      message: '데이터 없음',
+    });
   }
 
   const product = await prisma.product.update({
@@ -74,7 +86,10 @@ handler.delete(async (req, res) => {
   const { id } = req.query;
 
   if (Array.isArray(id)) {
-    return res.status(400);
+    return res.status(400).json({
+      code: 400,
+      message: '요청 오류',
+    });
   }
 
   if (
@@ -85,7 +100,10 @@ handler.delete(async (req, res) => {
       })
     )?.owner.email !== req.session.user?.email
   ) {
-    return res.status(404);
+    return res.status(404).json({
+      code: 404,
+      message: '데이터 없음',
+    });
   }
 
   const product = await prisma.product.delete({

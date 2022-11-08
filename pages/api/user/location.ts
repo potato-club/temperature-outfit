@@ -19,7 +19,10 @@ handler.get(async (req, res) => {
   });
 
   if (!user) {
-    return res.status(403);
+    return res.status(403).json({
+      code: 403,
+      message: '인증 오류',
+    });
   }
 
   res.status(200).json(user.location);
@@ -29,7 +32,10 @@ handler.post(async (req, res) => {
   const body = req.body as UserLocationPostRequest;
 
   if (!body.locationId) {
-    return res.status(400);
+    return res.status(400).json({
+      code: 400,
+      message: '요청 오류',
+    });
   }
 
   const user = await prisma.user.update({
@@ -41,7 +47,10 @@ handler.post(async (req, res) => {
   });
 
   if (!user) {
-    return res.status(403);
+    return res.status(403).json({
+      code: 403,
+      message: '인증 오류',
+    });
   }
 
   res.status(200).json(user.location);
