@@ -8,12 +8,10 @@ import { locations, userState } from 'recoil/atom';
 import { userApi } from 'api';
 import { LocationSelectBox, TypoGraphy } from 'components/common';
 import { useMutation } from 'react-query';
-import { useRouter } from 'next/router';
 
 export const MyPage: React.FC = () => {
   const [{ name, locationId }, setUser] = useRecoilState(userState);
   const allLocations = useRecoilValue(locations);
-  const router = useRouter();
 
   const changeUserLocations = (data: number): void => {
     mutate(data);
@@ -31,14 +29,9 @@ export const MyPage: React.FC = () => {
     },
   );
 
-  const handleLogout = useCallback(async () => {
-    try {
-      await signOut();
-      router.push('/closet');
-    } catch(e) {
-      console.log(e);
-    }
-  }, [router]);
+  const handleLogout = useCallback(() => {
+    signOut({ callbackUrl: '/' });
+  }, []);
 
   return (
     <Container>
