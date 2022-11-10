@@ -7,13 +7,13 @@ import { chooseModal } from 'recoil/atom';
 import useAddClothesEdit from 'hooks/useAddClothesEdit';
 import { MemoTypoGraphy } from 'components/common/TypoGraphy';
 import { MemoClothesImg } from 'components/common/clothesBox/ClothesImg';
-import { ProductDetailResponse } from '../../../../types';
+import { productType } from 'types/editPage/product.type';
 
 type Props = {
   url: string;
   name: string;
   id: string;
-  recoil: RecoilState<ProductDetailResponse[]>;
+  recoil: RecoilState<productType[]>;
 };
 
 export function ModalClothesBox({ url, name, id, recoil }: Props) {

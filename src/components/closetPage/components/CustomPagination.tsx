@@ -14,7 +14,7 @@ export function CustomPagination() {
     <PaginationWrapper>
       <Pagination
         activePage={page}
-        totalItemsCount={countPerPage * last} // Todo: 마지막페이지 가져와야함 (임시로 20페이지로 설정)
+        totalItemsCount={countPerPage * last}
         itemsCountPerPage={countPerPage} // 몇개 보여줄건지
         onChange={(e) => setPage(e)}
         prevPageText="<"

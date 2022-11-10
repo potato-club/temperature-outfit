@@ -2,9 +2,9 @@ import { productApi } from '../api/productApi';
 
 import { RecoilState, useRecoilState } from 'recoil';
 import { infoModal } from 'utils/interactionModal';
-import { ProductDetailResponse } from '../types';
+import { productType } from 'types/editPage/product.type';
 
-export default function useAddClothesEdit(recoil: RecoilState<ProductDetailResponse[]>) {
+export default function useAddClothesEdit(recoil: RecoilState<productType[]>) {
   const [clothesData, setClothesData] = useRecoilState(recoil);
 
   const addClothesEdit = async (id: any) => {
