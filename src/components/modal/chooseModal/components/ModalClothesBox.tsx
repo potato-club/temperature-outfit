@@ -19,10 +19,10 @@ type Props = {
 export function ModalClothesBox({ url, name, id, recoil }: Props) {
   const [showName, setShowName] = useState<boolean>(false);
   const setChooseModalState = useSetRecoilState(chooseModal);
-  const { addClothesEdit } = useAddClothesEdit(recoil);
+  const { addClothesEdit } = useAddClothesEdit(recoil, id);
 
-  const addImage = () => {
-    addClothesEdit(id);
+  const addImage = async() => {
+    await addClothesEdit();
     setChooseModalState(false);
   };
 
