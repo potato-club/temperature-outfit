@@ -19,6 +19,8 @@ import { MemoContents } from './components/Contents';
 import { infoModal } from 'utils/interactionModal';
 import Swal from 'sweetalert2';
 import useEditResetRecoil from 'hooks/useEditResetRecoil';
+import { useMutation } from 'react-query';
+import { mutateParamType } from 'types/editPage/mutateParam.type';
 
 export default function EditPage() {
   const router = useRouter();
@@ -27,7 +29,25 @@ export default function EditPage() {
     return router.query.day as string;
   }, [router.query.day]);
 
-  const submitTest = async (data: FieldValues) => {
+  const { mutate } = useMutation(
+    ({ frm, outfitId }: mutateParamType) =>
+      outfitId
+        ? todayCodyApi.putOutfit(outfitId, frm)
+        : todayCodyApi.addProduct(frm),
+    {
+      onSuccess: (data) => {
+        console.log(data);
+        Swal.fire({ title: '완료 되었습니다.', icon: 'success' }).then(() =>
+          window.location.assign('/calendar'),
+        );
+      },
+      onError: (error) => {
+        console.log(error);
+      },
+    },
+  );
+
+  const submit = async (data: FieldValues) => {
     const productsId = getAllEditProductsId();
     // 등록된옷이 하나도 없을때
     if (!productsId) {
@@ -35,35 +55,15 @@ export default function EditPage() {
       return;
     }
     const frm = formDataAppend(data, productsId);
-
     // 수정일때
     if (router.query.outfitId as string) {
-      try {
-        const res = await todayCodyApi.putOutfit(
-          router.query.outfitId as string,
-          frm,
-        );
-        console.log(res);
-        Swal.fire({ title: '완료 되었습니다.', icon: 'success' }).then(() =>
-          window.location.assign('/calendar'),
-        );
-      } catch (e) {
-        console.log(e);
-      }
+      const outfitId = router.query.outfitId as string;
+      mutate({ frm, outfitId });
       // 등록일때
     } else {
       await getWeather();
       frm.append('locationId', user.locationId.toString());
-
-      try {
-        const res = await todayCodyApi.addProduct(frm);
-        console.log(res);
-        Swal.fire({ title: '완료 되었습니다.', icon: 'success' }).then(() =>
-          window.location.assign('/calendar'),
-        );
-      } catch (e) {
-        console.log(e);
-      }
+      mutate({ frm });
     }
   };
 
@@ -165,7 +165,6 @@ export default function EditPage() {
     handleSubmit,
     setValue,
     control,
-    reset,
     formState: { errors },
   } = useForm();
 
@@ -190,7 +189,7 @@ export default function EditPage() {
       {router.isReady && (
         <Container>
           <MemoTitle day={day} />
-          <form style={{ width: '100%' }} onSubmit={handleSubmit(submitTest)}>
+          <form style={{ width: '100%' }} onSubmit={handleSubmit(submit)}>
             <MemoContents
               register={register}
               errors={errors}
