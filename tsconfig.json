@@ -14,14 +14,14 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "incremental": true,
-    "baseUrl": "."
+    "baseUrl": "./src"
   },
   "include": [
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
     "constants/color.js",
-    "components/calendarPage/components/Cal.jsx"
-  ],
+    "src/components/calendarPage/components/Cal.jsx"
+, "constants/index.js"  ],
   "exclude": ["node_modules"]
 }
