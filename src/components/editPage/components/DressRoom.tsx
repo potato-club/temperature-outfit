@@ -6,12 +6,12 @@ import { RecoilState, useRecoilState, useSetRecoilState } from 'recoil';
 import { ClothesBox } from 'components/common';
 import { chooseModal } from 'recoil/atom';
 import { categoryLabel } from 'recoil/atom/chooseModal';
-import { ProductDetailResponse } from '../../../types';
 import { categoryFilter } from 'recoil/atom/filtering';
+import { productType } from 'types/editPage/product.type';
 type Props = {
   category: string;
   id: string;
-  recoil: RecoilState<ProductDetailResponse[]>;
+  recoil: RecoilState<productType[]>;
 };
 
 export function DressRoom({ category, id, recoil }: Props) {

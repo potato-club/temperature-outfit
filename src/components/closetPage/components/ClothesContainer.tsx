@@ -7,12 +7,12 @@ import { useEffect } from 'react';
 export const ClothesContainer = () => {
   const { filter } = useFilter(20);
 
-  const { filterItem, getItem } = useGetItem();
+  const { filterItem } = useGetItem(filter);
 
-  useEffect(() => {
-    getItem(filter);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [filter]);
+  // useEffect(() => {
+  //   getItem(filter);
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [filter]);
 
   return (
     <Wrapper>

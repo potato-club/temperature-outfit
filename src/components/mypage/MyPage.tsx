@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
 import styled from '@emotion/styled';
 import { customColor } from 'constants/index';
-import { GrLocation } from 'react-icons/Gr';
+import { GrLocation } from 'react-icons/gr';
 import { signOut } from 'next-auth/react';
 import { useRecoilValue, useRecoilState } from 'recoil';
 import { locations, userState } from 'recoil/atom';
