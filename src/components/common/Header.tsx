@@ -16,8 +16,9 @@ export const Header: React.FC = () => {
   };
   return (
     <Wrapper>
+      
       <Div>
-        <Link href="/" passHref>
+        <Link href="/main" passHref>
           <Logo>
             <TypoGraphy color={customColor.white}>
               Write down today&apos;s outfit.
