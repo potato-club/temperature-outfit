@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import styled from '@emotion/styled';
 import { customColor } from 'constants/index';
 import { TypoGraphy } from './index';
-import { MyPage } from 'components/myPage';
 import { FaRegCalendarAlt } from 'react-icons/fa';
 import { IoFileTrayStackedSharp } from 'react-icons/io5';
 import { CgProfile } from 'react-icons/cg';
 import Link from 'next/link';
+import { MyPage } from 'components/mypage/MyPage';
 
 export const Header: React.FC = () => {
   const [myPageToggle, setMyPageToggle] = useState(false);

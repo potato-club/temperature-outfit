@@ -17,13 +17,13 @@ export const ModalClothesContainer = () => {
 
 
   const { filter } = useFilter(10);
-  const { filterItem, getItem } = useGetItem();
+  const { filterItem } = useGetItem(filter);
   console.log(filter)
 
-  useEffect(() => {
-    getItem(filter);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [filter]);
+  // useEffect(() => {
+  //   getItem(filter);
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [filter]);
 
   return (
     <ItemContainer>
