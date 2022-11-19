@@ -1,11 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import styled from '@emotion/styled';
 import { TypoGraphy } from 'components/common';
 import { DressRoom, ReviewBox, Title } from './components';
 import { useRouter } from 'next/router';
 import { todayCodyApi } from 'api';
-import { clothesMainCategory } from "constants/index";
+import { clothesMainCategory } from 'constants/index';
 import { clothesSubCategory } from 'constants/clothesSubCategory';
+import { useQuery } from 'react-query';
 
 type totalTemperatureType = {
   highestTemperature: string;
@@ -15,53 +16,57 @@ type totalTemperatureType = {
 
 export default function OutfitView() {
   const router = useRouter();
+
+  const tempImage =
+    'https://almurgynzlwuwereyhzx.supabase.co/storage/v1/object/public/image/cl77i2kby000040wkau565l4t';
+
   const [outfitData, setOutfitData] = useState({
-    date: '2022-08-11',
-    imageUrl: '/codyDummy/cody5',
+    date: '',
+    imageUrl: tempImage,
     rating: 0,
     products: [],
-    comment: '초기 Comment',
+    comment: '',
   });
+
   const [weather, setWeather] = useState<totalTemperatureType>({
     temperature: '0',
     lowestTemperature: '0',
     highestTemperature: '0',
   });
 
-  useEffect(() => {
-    router.query.id &&
-      (async () => {
-        try {
-          const {
-            data: {
-              date,
-              imageUrl,
-              rating,
-              products,
-              comment,
-              weather: { temperature, lowestTemperature, highestTemperature },
-            },
-          } = await todayCodyApi.getOutfit(router.query.id as string);
+  useQuery(
+    'getOutfit',
+    () => todayCodyApi.getOutfit(router.query.id as string),
+    {
+      enabled: router.isReady,
+      onSuccess: ({ data }) => {
+        const {
+          date,
+          imageUrl,
+          rating,
+          products,
+          comment,
+          weather: { temperature, lowestTemperature, highestTemperature },
+        } = data;
 
-          setWeather({ temperature, lowestTemperature, highestTemperature });
-          setOutfitData({
-            date,
-            imageUrl,
-            rating,
-            products,
-            comment,
-          });
-        } catch (error) {
-          console.log(error);
-        }
-      })();
-  }, [router.query.id]);
+        setWeather({ temperature, lowestTemperature, highestTemperature });
 
-  if (!router.query.id) {
-    return <div>페이지가 없습니다</div>;
-  }
+        setOutfitData({
+          date,
+          imageUrl,
+          rating,
+          products,
+          comment,
+        });
+      },
+      onError: (error) => {
+        console.log(error);
+      },
+    },
+  );
 
   const categories = clothesMainCategory.filter((cate) => cate.id !== 'all');
+
   const categoryFilter = (id: string): any => {
     const subCategories = clothesSubCategory[id].map((item: any) => item.id);
     return outfitData.products.filter((product: any) => {
