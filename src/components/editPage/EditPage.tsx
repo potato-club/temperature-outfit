@@ -16,8 +16,7 @@ import { codyThumbnail } from 'recoil/atom/editState';
 import { todayCodyApi, weatherApi } from 'api';
 import { MemoTitle } from './components/Title';
 import { MemoContents } from './components/Contents';
-import { infoModal } from 'utils/interactionModal';
-import Swal from 'sweetalert2';
+import { completeCheckModal, infoModal } from 'utils/interactionModal';
 import useEditResetRecoil from 'hooks/useEditResetRecoil';
 import { useMutation } from 'react-query';
 import { mutateParamType } from 'types/editPage/mutateParam.type';
@@ -36,10 +35,7 @@ export default function EditPage() {
         : todayCodyApi.addProduct(frm),
     {
       onSuccess: (data) => {
-        console.log(data);
-        Swal.fire({ title: '완료 되었습니다.', icon: 'success' }).then(() =>
-          window.location.assign('/calendar'),
-        );
+        completeCheckModal(() => router.push('/calendar'));
       },
       onError: (error) => {
         console.log(error);
