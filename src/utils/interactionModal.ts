@@ -21,10 +21,23 @@ export const confirmModal = (
   });
 };
 
-export const infoModal = (title: string, iconType: SweetAlertIcon, text? : string) => {
+export const infoModal = (
+  title: string,
+  iconType: SweetAlertIcon,
+  text?: string,
+) => {
   Swal.fire({
     title,
     text,
     icon: iconType,
+  });
+};
+
+export const completeCheckModal = (fn: () => void) => {
+  Swal.fire({
+    title: '완료되었습니다.',
+    icon: 'success',
+  }).then(() => {
+    fn();
   });
 };

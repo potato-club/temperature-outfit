@@ -5,9 +5,8 @@ import { customColor } from 'constants/index';
 import Image from 'next/image';
 import { Rating } from 'react-simple-star-rating';
 import { useRouter } from 'next/router';
-import { confirmModal } from 'utils/interactionModal';
+import { completeCheckModal, confirmModal } from 'utils/interactionModal';
 import { todayCodyApi } from 'api';
-import Swal from 'sweetalert2';
 
 interface ReviewBoxProps {
   comment: string;
@@ -43,10 +42,7 @@ export function ReviewBox({
   const handleDelete = async () => {
     try {
       await todayCodyApi.deleteOutfit(router.query.id as string);
-
-      Swal.fire({ title: '완료 되었습니다.', icon: 'success' }).then(() =>
-        window.location.assign('/calendar'),
-      );
+      completeCheckModal(() => router.push('/calendar'));
     } catch (error) {
       console.log(error);
     }
