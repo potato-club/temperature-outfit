@@ -1,16 +1,19 @@
+import { prisma } from 'db';
 import type { NextApiResponse } from 'next';
 import nextConnect from 'next-connect';
-import { prisma } from '../../../db';
+
 import {
   ProductDetailResponse,
   ProductGetRequest,
   ApiRequest,
   ProductPostRequest,
   ProductResponse,
-} from '../../../types';
-import { authenticateHandler } from '../../../utilities/api/middlewares/auth';
-import { convertProductToResponse } from './../../../utilities/api/converter';
-import { filesParser } from './../../../utilities/api/middlewares/fileParser';
+} from '../../../src/types';
+import {
+  authenticateHandler,
+} from 'utilities/api/middlewares/auth';
+import { convertProductToResponse } from 'utilities/api/converter';
+import { filesParser } from 'utilities/api/middlewares/fileParser';
 
 export const config = {
   api: {
@@ -43,7 +46,7 @@ handler.get(async (req, res) => {
     owner: { email: req?.session?.user?.email },
     name: { contains: query.query },
     category: { id: { in: childrenCategoryId } },
-    color: { equals: query.color },
+    color: { equals: query.color !== '' ? query.color : undefined },
   };
 
   const [count, products] = await prisma.$transaction([

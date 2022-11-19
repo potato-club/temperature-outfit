@@ -1,11 +1,10 @@
-import { prisma } from '../../db';
+import { prisma } from 'db';
 import type { NextApiRequest, NextApiResponse } from 'next';
 import {
   SuggestionGetRequest,
   SuggestionOutfit,
   SuggestionResponse,
-} from '../../types';
-import { updateWeather } from '../../utilities/api/weather';
+} from '../../src/types';
 
 export default async function handler(
   req: NextApiRequest,
@@ -16,7 +15,10 @@ export default async function handler(
   const temperature = Number(query.temperature);
 
   if (isNaN(temperature)) {
-    return res.status(400);
+    return res.status(400).json({
+      code: 400,
+      message: '요청 오류',
+    });
   }
 
   //   const today = new Date();

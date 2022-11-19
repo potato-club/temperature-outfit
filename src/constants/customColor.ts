@@ -1,4 +1,4 @@
-import { RadioBtnType } from 'types/temp/radioBtn.type';
+import { RadioBtnType } from 'types/common/radioBtn.type';
 
 export const customColor = {
   brandColor1: '#55B9F2',

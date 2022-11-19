@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import styled from '@emotion/styled';
 import { customColor } from 'constants/index';
-import { GrLocation } from 'react-icons/Gr';
+import { GrLocation } from 'react-icons/gr';
 import { signOut } from 'next-auth/react';
 import { useRecoilValue, useRecoilState } from 'recoil';
 import { locations, userState } from 'recoil/atom';
@@ -29,6 +29,10 @@ export const MyPage: React.FC = () => {
     },
   );
 
+  const handleLogout = useCallback(() => {
+    signOut({ callbackUrl: '/' });
+  }, []);
+
   return (
     <Container>
       <NameInfo>
@@ -49,7 +53,7 @@ export const MyPage: React.FC = () => {
       </LocationWrapper>
       <TypoGraphy type="sm1">사는 지역을 선택해주세요</TypoGraphy>
       <Footer>
-        <LogOut onClick={() => signOut()}>
+        <LogOut onClick={handleLogout}>
           <TypoGraphy
             type="body1"
             color={customColor.brandColor5}

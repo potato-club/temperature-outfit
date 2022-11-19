@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { clothesMainCategory } from 'constants/index';
 import { MenuItem, Select } from '@mui/material';
 import { SubSelectBox } from './SubSelectBox';
-import { CategoryDetail } from 'types/temp/categoryDetail.type';
+import { CategoryDetail } from 'types/common/categoryDetail.type';
 
 export const MainSubSelectBox = () => {
   const [mainCategory, setMainCategory] = useState('all');

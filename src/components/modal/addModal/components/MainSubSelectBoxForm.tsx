@@ -9,7 +9,7 @@ import { useState } from 'react';
 import { clothesMainCategory } from 'constants/index';
 import { MenuItem, Select } from '@mui/material';
 import { SubSelectBoxForm } from './SubSelectBoxForm';
-import { CategoryDetail } from 'types/temp/categoryDetail.type';
+import { CategoryDetail } from 'types/common/categoryDetail.type';
 
 type Props = {
   setValue: UseFormSetValue<FieldValues>;

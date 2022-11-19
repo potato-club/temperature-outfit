@@ -14,7 +14,7 @@ import { DateItem } from './DateItem';
 import { today } from 'constants/index';
 import { useQuery } from 'react-query';
 
-export const Calendar = () => {
+const Calendar = () => {
   const [myOutfit, setMyOutfit] = useState<EventInput[]>([]);
   const [startDay, setStartDay] = useState('');
   const [endDay, setEndDay] = useState('');
@@ -119,3 +119,5 @@ const Wrapper = styled.section`
   margin-top: 58px;
   margin-bottom: 12px;
 `;
+
+export default Calendar;

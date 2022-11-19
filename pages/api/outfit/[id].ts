@@ -1,13 +1,10 @@
 import type { NextApiResponse } from 'next';
 import nextConnect from 'next-connect';
-import { prisma } from '../../../db';
-import { OutfitPutRequest, OutfitResponse } from '../../../types';
-import {
-  authenticateHandler,
-  NextApiRequestWithSession,
-} from '../../../utilities/api/middlewares/auth';
-import { convertOutfitToResponse } from './../../../utilities/api/converter';
-import { filesParser } from './../../../utilities/api/middlewares/fileParser';
+import { prisma } from 'db';
+import { OutfitPutRequest, OutfitResponse } from '../../../src/types';
+import { authenticateHandler, NextApiRequestWithSession } from 'utilities/api/middlewares/auth';
+import { convertOutfitToResponse } from 'utilities/api/converter';
+import { filesParser } from 'utilities/api/middlewares/fileParser';
 
 export const config = {
   api: {
@@ -26,7 +23,10 @@ handler.get(async (req, res) => {
   const { id } = req.query;
 
   if (Array.isArray(id)) {
-    return res.status(400);
+    return res.status(400).json({
+      code: 400,
+      message: '요청 오류',
+    });
   }
 
   const outfit = await prisma.outfit.findUnique({
@@ -35,7 +35,10 @@ handler.get(async (req, res) => {
   });
 
   if (!outfit) {
-    return res.status(404);
+    return res.status(404).json({
+      code: 404,
+      message: '데이터 없음',
+    });
   }
 
   res.status(200).json(convertOutfitToResponse(outfit));
@@ -46,7 +49,10 @@ handler.put(filesParser, async (req, res) => {
   const body = req.body as OutfitPutRequest;
 
   if (Array.isArray(id)) {
-    return res.status(400);
+    return res.status(400).json({
+      code: 400,
+      message: '요청 오류',
+    });
   }
 
   if (
@@ -57,7 +63,10 @@ handler.put(filesParser, async (req, res) => {
       })
     )?.owner.email !== req.session.user?.email
   ) {
-    return res.status(404);
+    return res.status(404).json({
+      code: 404,
+      message: '데이터 없음',
+    });
   }
 
   const outfit = await prisma.outfit.update({
@@ -84,7 +93,10 @@ handler.delete(async (req, res) => {
   const { id } = req.query;
 
   if (Array.isArray(id)) {
-    return res.status(400);
+    return res.status(400).json({
+      code: 400,
+      message: '요청 오류',
+    });
   }
 
   if (
@@ -95,7 +107,10 @@ handler.delete(async (req, res) => {
       })
     )?.owner.email !== req.session.user?.email
   ) {
-    return res.status(404);
+    return res.status(404).json({
+      code: 404,
+      message: '데이터 없음',
+    });
   }
 
   const outfit = await prisma.outfit.delete({

@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import styled from '@emotion/styled';
 import { MainCody, RegisterBtn, TodayInfo } from './components';
 import { suggestionApi, weatherApi } from 'api';

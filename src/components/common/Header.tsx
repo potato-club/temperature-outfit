@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import styled from '@emotion/styled';
 import { customColor } from 'constants/index';
 import { TypoGraphy } from './index';
-import { MyPage } from 'components/mypage';
 import { FaRegCalendarAlt } from 'react-icons/fa';
 import { IoFileTrayStackedSharp } from 'react-icons/io5';
 import { CgProfile } from 'react-icons/cg';
 import Link from 'next/link';
+import { MyPage } from 'components/mypage/MyPage';
 
 export const Header: React.FC = () => {
   const [myPageToggle, setMyPageToggle] = useState(false);
@@ -16,8 +16,9 @@ export const Header: React.FC = () => {
   };
   return (
     <Wrapper>
+      
       <Div>
-        <Link href="/" passHref>
+        <Link href="/main" passHref>
           <Logo>
             <TypoGraphy color={customColor.white}>
               Write down today&apos;s outfit.

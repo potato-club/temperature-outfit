@@ -1,8 +1,9 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { prisma } from '../../../db/index';
-import { WeatherGetRequest, WeatherResponse } from '../../../types';
-import { updateWeather } from '../../../utilities/api/weather';
-import { convertWeatherResponse } from '../../../utilities/api/converter';
+
+import { WeatherGetRequest, WeatherResponse } from '../../../src/types';
+import { convertWeatherResponse } from 'utilities/api/converter';
+import { prisma } from 'db';
+import { updateWeather } from 'utilities/api/weather';
 
 export default async function handler(
   req: NextApiRequest,
@@ -12,7 +13,10 @@ export default async function handler(
 
   if (!query.date || !query.locationId) {
     // 필수 쿼리
-    return res.status(400);
+    return res.status(400).json({
+      code: 400,
+      message: '요청 오류',
+    });
   }
 
   const date = new Date(query.date);
@@ -28,15 +32,21 @@ export default async function handler(
     date.getDate > today.getDate
   ) {
     // 미래 날짜 오류
-    return res.status(400);
+    return res.status(400).json({
+      code: 400,
+      message: '요청 오류 (미래 시간)',
+    });
   }
 
   if (!location) {
     // 지역 없음
-    return res.status(400);
+    return res.status(400).json({
+      code: 400,
+      message: '요청 오류 (지역 없음)',
+    });
   }
 
-  let result = await updateWeather(date, location, today);
+  let result = await updateWeather(date, today, location);
 
   res.status(200).json(convertWeatherResponse(result));
 }

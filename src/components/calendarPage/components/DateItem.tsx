@@ -55,7 +55,6 @@ const Date = styled.section`
   justify-content: center;
   cursor: pointer;
   border-radius: 16px;
-  height: 88px;
 `;
 
 const WeatherIcon = styled.article`

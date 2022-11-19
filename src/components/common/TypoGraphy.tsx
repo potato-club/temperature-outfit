@@ -18,6 +18,7 @@ type TypoGraphyProps = {
   fontWeight?: string;
   fontHeight?: string;
   fontHidden?: boolean;
+  children?: React.ReactNode;
 };
 
 type StyledTypoGraphyProps = {
@@ -100,3 +101,5 @@ const TypoGraphyText = styled.section<StyledTypoGraphyProps>`
   ${(props) =>
     props.fontHidden ? 'overflow: hidden;text-overflow: ellipsis;' : ''}
 `;
+
+export const MemoTypoGraphy = React.memo(TypoGraphy);
