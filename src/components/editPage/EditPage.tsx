@@ -34,7 +34,7 @@ export default function EditPage() {
         ? todayCodyApi.putOutfit(outfitId, frm)
         : todayCodyApi.addProduct(frm),
     {
-      onSuccess: (data) => {
+      onSuccess: () => {
         completeCheckModal(() => router.push('/calendar'));
       },
       onError: (error) => {
