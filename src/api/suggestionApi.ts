@@ -1,6 +1,6 @@
 import api from './common';
 
 export const suggestionApi = {
-  suggestion: async (temperature: string) =>
+  suggestion:  (temperature: string) =>
     api.get(`suggestion?temperature=${temperature}`),
 };

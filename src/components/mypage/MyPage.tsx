@@ -20,11 +20,11 @@ export const MyPage: React.FC = () => {
   const { mutate } = useMutation(
     (data: number) => userApi.changeUserLocation({ locationId: data }),
     {
+      onSuccess: ({ data: { id } }) => {
+        setUser({ name: name, locationId: id });
+      },
       onError: (error) => {
         console.log(error);
-      },
-      onSuccess: ({ data: { name, id } }) => {
-        setUser({ name, locationId: id });
       },
     },
   );

@@ -1,4 +1,4 @@
-import React, { useState, ChangeEvent, useRef, RefObject } from 'react';
+import React from 'react';
 import styled from '@emotion/styled';
 import { CustomButton, TypoGraphy } from 'components/common';
 import { customColor } from 'constants/index';
@@ -7,6 +7,7 @@ import { Rating } from 'react-simple-star-rating';
 import { useRouter } from 'next/router';
 import { completeCheckModal, confirmModal } from 'utils/interactionModal';
 import { todayCodyApi } from 'api';
+import { useMutation } from 'react-query';
 
 interface ReviewBoxProps {
   comment: string;
@@ -34,18 +35,17 @@ export function ReviewBox({
       'put',
     );
   };
+  const { mutate } = useMutation(
+    () => todayCodyApi.deleteOutfit(router.query.id as string),
+    {
+      onSuccess: () => {
+        completeCheckModal(() => router.push('/calendar'));
+      },
+    },
+  );
 
   const deleteModal = () => {
-    confirmModal('삭제하시겠습니까?', handleDelete);
-  };
-
-  const handleDelete = async () => {
-    try {
-      await todayCodyApi.deleteOutfit(router.query.id as string);
-      completeCheckModal(() => router.push('/calendar'));
-    } catch (error) {
-      console.log(error);
-    }
+    confirmModal('삭제하시겠습니까?', mutate);
   };
 
   return (
