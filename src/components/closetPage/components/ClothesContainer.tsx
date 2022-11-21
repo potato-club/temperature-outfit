@@ -1,13 +1,19 @@
 import styled from '@emotion/styled';
+import { productApi } from 'api';
 import { ClothesBox } from 'components/common';
 import useFilter from 'hooks/useFilter';
 import useGetItem from 'hooks/useGetItem';
-import { useEffect } from 'react';
 
 export const ClothesContainer = () => {
   const { filter } = useFilter(20);
 
   const { filterItem } = useGetItem(filter);
+
+  const removeItem = async(id: string) => {
+    const { data } = await productApi.deleteProduct(id);
+    console.log(data);
+  }
+
 
   // useEffect(() => {
   //   getItem(filter);
@@ -22,6 +28,8 @@ export const ClothesContainer = () => {
           url={data.imageUrl}
           key={data.id}
           type="closet"
+          id={data.id}
+          deleteFn={removeItem}
         />
       ))}
     </Wrapper>

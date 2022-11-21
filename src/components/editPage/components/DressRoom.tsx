@@ -39,7 +39,7 @@ export function DressRoom({ category, id, recoil }: Props) {
               id={data.id}
               type="edit"
               name={data.name}
-              deleteImage={deleteImage}
+              deleteFn={deleteImage}
             />
           </ClothesWrapper>
         ))}

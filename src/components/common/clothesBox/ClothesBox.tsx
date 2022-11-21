@@ -10,10 +10,10 @@ type Props = {
   name: string;
   type: 'edit' | 'closet';
   id?: string;
-  deleteImage?: (id: string) => void;
+  deleteFn?: (id: string) => void;
 };
 
-export function ClothesBox({ url, name, id, deleteImage, type }: Props) {
+export function ClothesBox({ url, name, id, deleteFn, type }: Props) {
   const [showName, setShowName] = useState<boolean>(false);
 
   return (
@@ -27,8 +27,8 @@ export function ClothesBox({ url, name, id, deleteImage, type }: Props) {
           {name}
         </MemoTypoGraphy>
       </ClothesName>
-      {deleteImage && id !== undefined && (
-        <MemoRemoveButton id={id} deleteImage={deleteImage} />
+      {deleteFn && id !== undefined && (
+        <MemoRemoveButton id={id} deleteFn={deleteFn} />
       )}
     </Container>
   );
