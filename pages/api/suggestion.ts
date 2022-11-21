@@ -1,5 +1,5 @@
 import { prisma } from 'db';
-import type { NextApiRequest, NextApiResponse } from 'next';
+import type { NextApiResponse } from 'next';
 import nextConnect from 'next-connect';
 import { authenticateHandler } from 'utilities/api/middlewares/auth';
 import {
