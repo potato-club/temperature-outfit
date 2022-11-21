@@ -33,15 +33,14 @@ export function DressRoom({ category, id, recoil }: Props) {
     <Container>
       {images &&
         images.map((data) => (
-          <ClothesWrapper key={data.id}>
             <ClothesBox
               url={data.imageUrl!}
               id={data.id}
+              key={data.id}
               type="edit"
               name={data.name}
               deleteFn={deleteImage}
             />
-          </ClothesWrapper>
         ))}
       <AddButton onClick={() => handleModal()}>
         <MemoPlusIcon size={40} />
