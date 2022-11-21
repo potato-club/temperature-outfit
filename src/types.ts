@@ -11,8 +11,8 @@ export type ApiRequest = NextApiRequest & {
 };
 
 export type Response = {
-  code: number;
-  message: string;
+  code?: number;
+  message?: string;
 };
 
 export type UserLocationPostRequest = {
