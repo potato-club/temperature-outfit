@@ -36,7 +36,7 @@ export const MyPage: React.FC = () => {
   return (
     <Container>
       <NameInfo>
-        <TypoGraphy type="h2" color={customColor.brandColor3} fontWeight="bold">
+        <TypoGraphy type="h2" color={customColor.brandColor3} fontWeight="bold" textAlign='center'>
           {name}
         </TypoGraphy>
         <TypoGraphy type="h4" color={customColor.brandColor4} fontWeight="bold">
@@ -75,16 +75,16 @@ export const MyPage: React.FC = () => {
 };
 
 const Container = styled.section`
-  width: 176px;
-  height: 154px;
+  min-width: 176px;
   border: 2px solid ${customColor.gray};
   border-radius: 0 0 28px 28px;
   background-color: ${customColor.white};
-
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
+  gap: 12px 0;
+  padding: 8px;
 `;
 
 const NameInfo = styled.section`
@@ -93,6 +93,7 @@ const NameInfo = styled.section`
   justify-content: space-between;
   align-items: center;
   gap: 4px;
+  margin: 4px;
 `;
 const LocationWrapper = styled.section`
   display: flex;
