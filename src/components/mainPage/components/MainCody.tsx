@@ -38,7 +38,7 @@ export function MainCody({ suggestions }: Props) {
 
 const Container = styled.section`
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   width: 100%;
   max-width: 1178px;
 `;
