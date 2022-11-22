@@ -8,16 +8,18 @@ import { locations, userState } from 'recoil/atom';
 import { userApi } from 'api';
 import { LocationSelectBox, TypoGraphy } from 'components/common';
 import { useMutation } from 'react-query';
+import { useRouter } from 'next/router';
+import { completeCheckModal, confirmModal } from 'utils/interactionModal';
 
 export const MyPage: React.FC = () => {
   const [{ name, locationId }, setUser] = useRecoilState(userState);
   const allLocations = useRecoilValue(locations);
 
   const changeUserLocations = (data: number): void => {
-    mutate(data);
+    handleChangeLocation(data);
   };
 
-  const { mutate } = useMutation(
+  const { mutate: handleChangeLocation } = useMutation(
     (data: number) => userApi.changeUserLocation({ locationId: data }),
     {
       onSuccess: ({ data: { id } }) => {
@@ -32,6 +34,19 @@ export const MyPage: React.FC = () => {
   const handleLogout = useCallback(() => {
     signOut({ callbackUrl: '/' });
   }, []);
+
+  const router = useRouter();
+  const { mutate: handleDelete } = useMutation(() => userApi.deleteAuth(), {
+    onSuccess: () => {
+      completeCheckModal(() => router.push('/'));
+    },
+    onError: (error) => {
+      console.log(error);
+    },
+  });
+  const userDeleteModal = () => {
+    confirmModal('계정을 삭제하시겠습니까?', handleDelete);
+  };
 
   return (
     <Container>
@@ -61,7 +76,7 @@ export const MyPage: React.FC = () => {
             로그아웃
           </TypoGraphy>{' '}
         </LogOut>
-        <AccountDeletion>
+        <AccountDeletion onClick={userDeleteModal}>
           <TypoGraphy
             type="body1"
             color={customColor.brandColor5}
