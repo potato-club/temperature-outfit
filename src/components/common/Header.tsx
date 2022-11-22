@@ -7,6 +7,8 @@ import { IoFileTrayStackedSharp } from 'react-icons/io5';
 import { CgProfile } from 'react-icons/cg';
 import Link from 'next/link';
 import { MyPage } from 'components/mypage/MyPage';
+import { Router } from 'react-router';
+import { useRouter } from 'next/router';
 
 export const Header: React.FC = () => {
   const [myPageToggle, setMyPageToggle] = useState(false);
@@ -14,34 +16,40 @@ export const Header: React.FC = () => {
   const onClick = () => {
     setMyPageToggle((current) => !current);
   };
+
+  const router = useRouter();
+
   return (
     <Wrapper>
-      
-      <Div>
-        <Link href="/main" passHref>
-          <Logo>
-            <TypoGraphy color={customColor.white}>
-              Write down today&apos;s outfit.
-            </TypoGraphy>
-          </Logo>
-        </Link>
-        <ButtonBox>
-          <Link href="/calendar" passHref>
+      {router.pathname !== '/' ? (
+        <Div>
+          <Link href="/main" passHref>
             <Logo>
-              <FaRegCalendarAlt size="20px" />
+              <TypoGraphy color={customColor.white}>
+                Write down today&apos;s outfit.
+              </TypoGraphy>
             </Logo>
           </Link>
-          <Link href="/closet" passHref>
-            <Logo>
-              <IoFileTrayStackedSharp size="20px" />
+          <ButtonBox>
+            <Link href="/calendar" passHref>
+              <Logo>
+                <FaRegCalendarAlt size="20px" />
+              </Logo>
+            </Link>
+            <Link href="/closet" passHref>
+              <Logo>
+                <IoFileTrayStackedSharp size="20px" />
+              </Logo>
+            </Link>
+            <Logo className="benchMark">
+              <CgProfile size="20px" onClick={onClick} />
             </Logo>
-          </Link>
-          <Logo className="benchMark">
-            <CgProfile size="20px" onClick={onClick} />
-          </Logo>
-          <MyPageDiv> {myPageToggle ? <MyPage /> : null}</MyPageDiv>
-        </ButtonBox>
-      </Div>
+            <MyPageDiv> {myPageToggle ? <MyPage /> : null}</MyPageDiv>
+          </ButtonBox>
+        </Div>
+      ) : (
+        <></>
+      )}
     </Wrapper>
   );
 };
