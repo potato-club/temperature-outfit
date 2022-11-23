@@ -8,7 +8,6 @@ import { locations, userState } from 'recoil/atom';
 import { userApi } from 'api';
 import { LocationSelectBox, TypoGraphy } from 'components/common';
 import { useMutation } from 'react-query';
-import { useRouter } from 'next/router';
 import { completeCheckModal, confirmModal } from 'utils/interactionModal';
 
 export const MyPage: React.FC = () => {
@@ -35,10 +34,9 @@ export const MyPage: React.FC = () => {
     signOut({ callbackUrl: '/' });
   }, []);
 
-  const router = useRouter();
   const { mutate: handleDelete } = useMutation(() => userApi.deleteAuth(), {
     onSuccess: () => {
-      completeCheckModal(() => router.push('/'));
+      completeCheckModal(() => handleLogout());
     },
     onError: (error) => {
       console.log(error);
@@ -51,7 +49,11 @@ export const MyPage: React.FC = () => {
   return (
     <Container>
       <NameInfo>
-        <TypoGraphy type="h2" color={customColor.brandColor3} fontWeight="bold" textAlign='center'>
+        <TypoGraphy
+          type="h2"
+          color={customColor.brandColor3}
+          fontWeight="bold"
+          textAlign="center">
           {name}
         </TypoGraphy>
         <TypoGraphy type="h4" color={customColor.brandColor4} fontWeight="bold">

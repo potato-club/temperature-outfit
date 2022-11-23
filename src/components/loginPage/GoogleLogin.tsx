@@ -17,6 +17,7 @@ export const GoogleLogin: React.FC = () => {
   const setAllLocations = useSetRecoilState(locations);
 
   useQuery('getAllLocations', userApi.getAllLocations, {
+    enabled: !!session,
     onSuccess: ({ data }) => {
       setAllLocations(data);
     },
