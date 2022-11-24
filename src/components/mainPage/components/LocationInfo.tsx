@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 import { TypoGraphy } from 'components/common';
 import { customColor } from 'constants/index';
@@ -13,16 +13,21 @@ interface LocationInfoProps {
 export const LocationInfo = ({ temperature }: LocationInfoProps) => {
   const allLocations = useRecoilValue(locations);
   const { locationId } = useRecoilValue(userState);
-  const userLocation = allLocations.find(
-    (location) => location.id === locationId,
-  );
-  
+  const [myLocationName, setMyLocationName] = useState('');
+
+  useEffect(() => {
+    const findLocation = allLocations.find(
+      (location) => location.id === locationId,
+    );
+    findLocation && setMyLocationName(findLocation.name);
+  }, [myLocationName, locationId, allLocations]);
+
   return (
     <Container>
       <Location>
         <IoLocationOutline size={40} />
         <TypoGraphy type="h3" color={customColor.brandColor5} fontWeight="bold">
-          {userLocation!.name}
+          {myLocationName}
         </TypoGraphy>
       </Location>
       <TypoGraphy type="Title" color={customColor.brandColor5}>
