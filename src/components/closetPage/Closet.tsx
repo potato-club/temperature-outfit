@@ -51,7 +51,7 @@ const Container = styled.section`
   width: 70%;
   max-width: 1178px;
   height: 90%;
-  max-height: 956px;
+  min-height: 720px;
   margin-top: 20px;
   padding: 60px 64px;
   background-color: white;
