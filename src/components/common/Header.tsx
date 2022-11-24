@@ -63,6 +63,7 @@ const Wrapper = styled.nav`
   justify-content: center;
   position: absolute;
   top: 0;
+  z-index: 99;
 `;
 
 const Div = styled.article`
