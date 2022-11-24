@@ -20,7 +20,7 @@ export const ClothesContainer = () => {
   });
 
   const removeCheck = (id: string) => {
-    confirmModal('삭제 하시겠습니까?', () => mutate(id));
+    confirmModal('삭제 하시겠습니까?', () => mutate(id), '예', '아니오', '주의! 등록되어있는 코디에서 옷이 사라집니다');
     
   };
 
