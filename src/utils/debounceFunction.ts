@@ -5,7 +5,7 @@ type Props = {
   delay: number;
 };
 
-export const debouncePromise = ({ timer, setTimer, fn, delay }: Props) => {
+export const debounceFunction = ({ timer, setTimer, fn, delay }: Props) => {
   if (timer) {
     clearTimeout(timer);
   }
