@@ -32,7 +32,6 @@ export function ReviewBox({
           outfitId: router.query.id,
         },
       },
-      'put',
     );
   };
   const { mutate } = useMutation(

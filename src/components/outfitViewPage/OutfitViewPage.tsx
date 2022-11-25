@@ -7,6 +7,7 @@ import { todayCodyApi } from 'api';
 import { clothesMainCategory } from 'constants/index';
 import { clothesSubCategory } from 'constants/clothesSubCategory';
 import { useQuery } from 'react-query';
+import { outfitDataType } from 'types/outfitViewPage/outfitData.type';
 
 type totalTemperatureType = {
   highestTemperature: string;
@@ -14,25 +15,14 @@ type totalTemperatureType = {
   lowestTemperature: string;
 };
 
+
+
 export default function OutfitView() {
   const router = useRouter();
 
-  const tempImage =
-    'https://almurgynzlwuwereyhzx.supabase.co/storage/v1/object/public/image/cl77i2kby000040wkau565l4t';
+  const [outfitData, setOutfitData] = useState<outfitDataType>();
 
-  const [outfitData, setOutfitData] = useState({
-    date: '',
-    imageUrl: tempImage,
-    rating: 0,
-    products: [],
-    comment: '',
-  });
-
-  const [weather, setWeather] = useState<totalTemperatureType>({
-    temperature: '0',
-    lowestTemperature: '0',
-    highestTemperature: '0',
-  });
+  const [weather, setWeather] = useState<totalTemperatureType>();
 
   useQuery(
     'getOutfit',
@@ -69,6 +59,7 @@ export default function OutfitView() {
 
   const categoryFilter = (id: string): any => {
     const subCategories = clothesSubCategory[id].map((item: any) => item.id);
+    if (!outfitData) return;
     return outfitData.products.filter((product: any) => {
       return subCategories.includes(product.categoryId);
     });
@@ -76,30 +67,34 @@ export default function OutfitView() {
 
   return (
     <Container>
-      <Title
-        average={weather.temperature}
-        max={weather.highestTemperature}
-        min={weather.lowestTemperature}
-        day={outfitData.date}
-      />
-      <Contents>
-        <CodyBox>
-          {categories.map(({ name, id }) => (
-            <Category key={id}>
-              <TypoGraphy type="Title" fontWeight="bold">
-                {name}
-              </TypoGraphy>
-              <DressRoom products={categoryFilter(id)} />
-            </Category>
-          ))}
-        </CodyBox>
-        <ReviewBox
-          outfitData={outfitData}
-          comment={outfitData.comment}
-          rating={outfitData.rating}
-          outFitImageUrl={outfitData.imageUrl}
-        />
-      </Contents>
+      {outfitData && weather && (
+        <>
+          <Title
+            average={weather.temperature}
+            max={weather.highestTemperature}
+            min={weather.lowestTemperature}
+            day={outfitData.date}
+          />
+          <Contents>
+            <CodyBox>
+              {categories.map(({ name, id }) => (
+                <Category key={id}>
+                  <TypoGraphy type="Title" fontWeight="bold">
+                    {name}
+                  </TypoGraphy>
+                  <DressRoom products={categoryFilter(id)} />
+                </Category>
+              ))}
+            </CodyBox>
+            <ReviewBox
+              outfitData={outfitData}
+              comment={outfitData.comment}
+              rating={outfitData.rating}
+              outFitImageUrl={outfitData.imageUrl}
+            />
+          </Contents>
+        </>
+      )}
     </Container>
   );
 }
