@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Modal from 'react-modal';
 import styled from '@emotion/styled';
 import { customColor } from 'constants/index';
@@ -15,6 +15,7 @@ import {
 } from './components';
 import { CustomButton, TypoGraphy } from 'components/common';
 import { useMutation, useQueryClient } from 'react-query';
+import { debounceFunction } from 'utils/debounceFunction';
 
 export const AddModal = () => {
   const [addModalState, setAddModalState] = useRecoilState(addModal);
@@ -26,6 +27,7 @@ export const AddModal = () => {
     reset,
     formState: { errors },
   } = useForm();
+  const [submitTimer, setSubmitTimer] = useState<NodeJS.Timer>();
 
   const queryClient = useQueryClient();
 
@@ -45,13 +47,20 @@ export const AddModal = () => {
   );
 
   const addClothesItem = async (data: FieldValues) => {
-    const frm = new FormData();
-    frm.append('image', data.image[0]);
-    frm.append('name', data.name);
-    frm.append('categoryId', data.categoryId);
-    frm.append('color', data.color);
-    console.log(frm);
-    mutate(frm);
+    debounceFunction({
+      timer: submitTimer,
+      setTimer: setSubmitTimer,
+      fn: async () => {
+        const frm = new FormData();
+        frm.append('image', data.image[0]);
+        frm.append('name', data.name);
+        frm.append('categoryId', data.categoryId);
+        frm.append('color', data.color);
+        console.log(frm);
+        mutate(frm);
+      },
+      delay: 1000,
+    });
   };
 
   useEffect(() => {
