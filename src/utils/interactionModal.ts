@@ -5,6 +5,7 @@ export const confirmModal = (
   fn: () => void,
   yesText = '예',
   noText = '아니오',
+  text?: string,
 ) => {
   Swal.fire({
     title,
@@ -14,6 +15,7 @@ export const confirmModal = (
     cancelButtonColor: '#d33',
     confirmButtonText: yesText,
     cancelButtonText: noText,
+    text,
   }).then((result) => {
     if (result.isConfirmed) {
       fn();

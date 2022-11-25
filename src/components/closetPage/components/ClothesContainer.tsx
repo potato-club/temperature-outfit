@@ -1,13 +1,29 @@
 import styled from '@emotion/styled';
+import { productApi } from 'api';
 import { ClothesBox } from 'components/common';
 import useFilter from 'hooks/useFilter';
 import useGetItem from 'hooks/useGetItem';
-import { useEffect } from 'react';
+import { useMutation, useQueryClient } from 'react-query';
+import { confirmModal, infoModal } from 'utils/interactionModal';
 
 export const ClothesContainer = () => {
   const { filter } = useFilter(20);
-
   const { filterItem } = useGetItem(filter);
+  const queryClient = useQueryClient();
+
+  const { mutate } = useMutation((id: string) => productApi.deleteProduct(id), {
+    onSuccess: () => {
+      infoModal('옷 삭제 완료!', 'success');
+      queryClient.invalidateQueries('getItem');
+    },
+    onError: (error) => {
+      console.log(error);
+    }
+  });
+
+  const removeCheck = (id: string) => {
+    confirmModal('삭제 하시겠습니까?', () => mutate(id), '예', '아니오', '주의! 등록되어있는 코디에서 옷이 사라집니다');
+  };
 
   // useEffect(() => {
   //   getItem(filter);
@@ -22,6 +38,8 @@ export const ClothesContainer = () => {
           url={data.imageUrl}
           key={data.id}
           type="closet"
+          id={data.id}
+          deleteFn={removeCheck}
         />
       ))}
     </Wrapper>

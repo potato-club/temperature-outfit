@@ -14,7 +14,7 @@ import {
   NameInput,
 } from './components';
 import { CustomButton, TypoGraphy } from 'components/common';
-import { useMutation } from "react-query";
+import { useMutation, useQueryClient } from 'react-query';
 
 export const AddModal = () => {
   const [addModalState, setAddModalState] = useRecoilState(addModal);
@@ -26,18 +26,23 @@ export const AddModal = () => {
     reset,
     formState: { errors },
   } = useForm();
-  // };
 
-  const { mutate } = useMutation((frm: FormData) => productApi.addProduct(frm),{
-    onSuccess: (data) => {
-      console.log(data);
-      infoModal('서버에 옷 등록 완료!', 'success');
-      setAddModalState((cur) => !cur);
+  const queryClient = useQueryClient();
+
+  const { mutate } = useMutation(
+    (frm: FormData) => productApi.addProduct(frm),
+    {
+      onSuccess: (data) => {
+        console.log(data);
+        infoModal('서버에 옷 등록 완료!', 'success');
+        setAddModalState((cur) => !cur);
+        queryClient.invalidateQueries('getItem');
+      },
+      onError: (error) => {
+        console.log(error);
+      },
     },
-    onError: (error) => {
-      console.log(error);
-    }
-  })
+  );
 
   const addClothesItem = async (data: FieldValues) => {
     const frm = new FormData();
