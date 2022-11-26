@@ -21,7 +21,7 @@ export const Header: React.FC = () => {
 
   return (
     <Wrapper>
-      {router.pathname !== '/' ? (
+      {router.pathname !== '/' && (
         <Div>
           <Link href="/main" passHref>
             <Logo>
@@ -47,8 +47,6 @@ export const Header: React.FC = () => {
             <MyPageDiv> {myPageToggle ? <MyPage /> : null}</MyPageDiv>
           </ButtonBox>
         </Div>
-      ) : (
-        <></>
       )}
     </Wrapper>
   );
