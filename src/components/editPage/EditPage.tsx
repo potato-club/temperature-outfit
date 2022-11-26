@@ -20,7 +20,7 @@ import { completeCheckModal, infoModal } from 'utils/interactionModal';
 import useEditResetRecoil from 'hooks/useEditResetRecoil';
 import { useMutation } from 'react-query';
 import { mutateParamType } from 'types/editPage/mutateParam.type';
-import { debouncePromise } from 'utils/debouncePromise';
+import { debounceFunction } from 'utils/debounceFunction';
 
 export default function EditPage() {
   const router = useRouter();
@@ -46,27 +46,28 @@ export default function EditPage() {
   );
 
   const submit = async (data: FieldValues) => {
-    debouncePromise({
+    debounceFunction({
       timer: submitTimer,
       setTimer: setSubmitTimer,
       fn: async () => {
         const productsId = getAllEditProductsId();
-      // 등록된옷이 하나도 없을때
-      if (!productsId) {
-        infoModal('확인 해주세요!', 'error', '옷을 하나 이상 등록 해주세요!');
-        return;
-      }
-      const frm = formDataAppend(data, productsId);
-      // 수정일때
-      if (router.query.outfitId as string) {
-        const outfitId = router.query.outfitId as string;
-        mutate({ frm, outfitId });
-        // 등록일때
-      } else {
-        await getWeather();
-        frm.append('locationId', user.locationId.toString());
-        mutate({ frm });
-      }},
+        // 등록된옷이 하나도 없을때
+        if (!productsId) {
+          infoModal('확인 해주세요!', 'error', '옷을 하나 이상 등록 해주세요!');
+          return;
+        }
+        const frm = formDataAppend(data, productsId);
+        // 수정일때
+        if (router.query.outfitId as string) {
+          const outfitId = router.query.outfitId as string;
+          mutate({ frm, outfitId });
+          // 등록일때
+        } else {
+          await getWeather();
+          frm.append('locationId', user.locationId.toString());
+          mutate({ frm });
+        }
+      },
       delay: 1000,
     });
   };
