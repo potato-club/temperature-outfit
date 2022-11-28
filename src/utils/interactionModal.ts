@@ -1,3 +1,4 @@
+import { stringify } from 'querystring';
 import Swal, { SweetAlertIcon } from 'sweetalert2';
 
 export const confirmModal = (
@@ -41,5 +42,18 @@ export const completeCheckModal = (fn: () => void) => {
     icon: 'success',
   }).then(() => {
     fn();
+  });
+};
+
+export const errorModal = (title: string, text?: string, fn?: () => void) => {
+  Swal.fire({
+    title,
+    text,
+    icon: 'error',
+    timer: 1500,
+    position: 'top-end',
+    showConfirmButton: false,
+  }).then(() => {
+    fn && fn();
   });
 };

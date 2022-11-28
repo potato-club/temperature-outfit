@@ -16,7 +16,7 @@ import { codyThumbnail } from 'recoil/atom/editState';
 import { todayCodyApi, weatherApi } from 'api';
 import { MemoTitle } from './components/Title';
 import { MemoContents } from './components/Contents';
-import { completeCheckModal, infoModal } from 'utils/interactionModal';
+import { completeCheckModal, errorModal, infoModal } from 'utils/interactionModal';
 import useEditResetRecoil from 'hooks/useEditResetRecoil';
 import { useMutation } from 'react-query';
 import { mutateParamType } from 'types/editPage/mutateParam.type';
@@ -54,6 +54,7 @@ export default function EditPage() {
         // 등록된옷이 하나도 없을때
         if (!productsId) {
           infoModal('확인 해주세요!', 'error', '옷을 하나 이상 등록 해주세요!');
+          // errorModal('확인해주세요!', '옷을 하나 이상 등록 해주세요!')
           return;
         }
         const frm = formDataAppend(data, productsId);
