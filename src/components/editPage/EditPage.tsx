@@ -68,7 +68,6 @@ export default function EditPage() {
           mutate({ frm });
         }
       },
-      delay: 1000,
     });
   };
 

@@ -59,7 +59,6 @@ export const AddModal = () => {
         console.log(frm);
         mutate(frm);
       },
-      delay: 1000,
     });
   };
 
