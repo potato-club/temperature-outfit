@@ -9,9 +9,7 @@ import {
   ProductPostRequest,
   ProductResponse,
 } from '../../../src/types';
-import {
-  authenticateHandler,
-} from 'utilities/api/middlewares/auth';
+import { authenticateHandler } from 'utilities/api/middlewares/auth';
 import { convertProductToResponse } from 'utilities/api/converter';
 import { filesParser } from 'utilities/api/middlewares/fileParser';
 
@@ -21,11 +19,44 @@ export const config = {
   },
 };
 
+const createDefaultProduct = async (email: string) => {
+  const user = await prisma.user.findUnique({ where: { email } });
+
+  if (!user || user.init) {
+    return;
+  }
+
+  const defaultProducts = await prisma.defaultProduct.findMany();
+
+  const creates = defaultProducts.map((product) =>
+    prisma.product.create({
+      data: {
+        owner: { connect: { id: user.id } },
+        name: product.name,
+        category: { connect: { id: product.categoryId } },
+        color: product.color,
+        imageUrl: product.imageUrl,
+      },
+    }),
+  );
+
+  await prisma.$transaction([
+    ...creates,
+    prisma.user.update({
+      where: { id: user.id },
+      data: { init: true },
+    }),
+  ]);
+};
+
 const handler = nextConnect<ApiRequest, NextApiResponse<ProductResponse>>();
 
 handler.use(authenticateHandler);
 
 handler.get(async (req, res) => {
+  // TODO: 임시 구현
+  await createDefaultProduct(req.session?.user?.email!);
+
   const query = req.query as ProductGetRequest;
 
   const page = +(query.page ?? '1');
