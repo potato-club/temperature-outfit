@@ -8,6 +8,7 @@ import { koreaToday } from 'constants/index';
 import { WeatherStatusType } from 'types/mainPage';
 import { useQueries } from 'react-query';
 import { Suggestions } from 'types/mainPage';
+import { errorModal } from 'utils/interactionModal';
 
 export function MainPage() {
   const { locationId } = useRecoilValue(userState);
@@ -23,12 +24,18 @@ export function MainPage() {
         setWeatherStatus(status);
         setTemperature(temperature);
       },
+      onError: (err: unknown) => {
+        errorModal('알 수 없는 오류', '서버의 상태가 이상합니다.');
+      },
     },
     {
       queryKey: ['getSuggestion'],
       queryFn: () => suggestionApi.suggestion(temperature),
       onSuccess: ({ data: { outfits } }: any) => {
         setSuggestions(outfits);
+      },
+      onError: (err: unknown) => {
+        errorModal('알 수 없는 오류', '서버의 상태가 이상합니다.');
       },
     },
   ]);

@@ -4,7 +4,7 @@ import { ClothesBox } from 'components/common';
 import useFilter from 'hooks/useFilter';
 import useGetItem from 'hooks/useGetItem';
 import { useMutation, useQueryClient } from 'react-query';
-import { confirmModal, infoModal } from 'utils/interactionModal';
+import { confirmModal, errorModal, infoModal } from 'utils/interactionModal';
 
 export const ClothesContainer = () => {
   const { filter } = useFilter(20);
@@ -16,9 +16,9 @@ export const ClothesContainer = () => {
       infoModal('옷 삭제 완료!', 'success');
       queryClient.invalidateQueries('getItem');
     },
-    onError: (error) => {
-      console.log(error);
-    }
+    onError: (err: unknown) => {
+      errorModal('알 수 없는 오류', '서버의 상태가 이상합니다.');
+    },
   });
 
   const removeCheck = (id: string) => {

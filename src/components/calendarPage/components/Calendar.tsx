@@ -13,6 +13,7 @@ import { useRouter } from 'next/router';
 import { DateItem } from './DateItem';
 import { today } from 'constants/index';
 import { useQuery } from 'react-query';
+import { errorModal } from 'utils/interactionModal';
 
 const Calendar = () => {
   const [myOutfit, setMyOutfit] = useState<EventInput[]>([]);
@@ -37,8 +38,8 @@ const Calendar = () => {
         );
         setMyOutfit(realData);
       },
-      onError: (error) => {
-        console.log(error);
+      onError: (err: unknown) => {
+        errorModal('알 수 없는 오류', '서버의 상태가 이상합니다.');
       },
     },
   );
