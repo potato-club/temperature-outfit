@@ -8,7 +8,11 @@ import { locations, userState } from 'recoil/atom';
 import { userApi } from 'api';
 import { LocationSelectBox, TypoGraphy } from 'components/common';
 import { useMutation } from 'react-query';
-import { completeCheckModal, confirmModal } from 'utils/interactionModal';
+import {
+  completeCheckModal,
+  confirmModal,
+  errorModal,
+} from 'utils/interactionModal';
 
 export const MyPage: React.FC = () => {
   const [{ name, locationId }, setUser] = useRecoilState(userState);
@@ -24,8 +28,8 @@ export const MyPage: React.FC = () => {
       onSuccess: ({ data: { id } }) => {
         setUser({ name: name, locationId: id });
       },
-      onError: (error) => {
-        console.log(error);
+      onError: (err: unknown) => {
+        errorModal('알 수 없는 오류', '서버의 상태가 이상합니다.');
       },
     },
   );
@@ -38,8 +42,8 @@ export const MyPage: React.FC = () => {
     onSuccess: () => {
       completeCheckModal(() => handleLogout());
     },
-    onError: (error) => {
-      console.log(error);
+    onError: (err: unknown) => {
+      errorModal('알 수 없는 오류', '서버의 상태가 이상합니다.');
     },
   });
   const userDeleteModal = () => {

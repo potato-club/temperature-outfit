@@ -54,6 +54,6 @@ export const errorModal = (title: string, text?: string, fn?: () => void) => {
     position: 'top-end',
     showConfirmButton: false,
   }).then(() => {
-    fn && fn();
+    fn?.();
   });
 };
