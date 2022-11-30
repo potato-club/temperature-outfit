@@ -1,5 +1,4 @@
 import { productApi } from '../api/productApi';
-
 import { RecoilState, useRecoilState } from 'recoil';
 import { errorModal, infoModal } from 'utils/interactionModal';
 import { productType } from 'types/editPage/product.type';
@@ -43,8 +42,8 @@ export default function useAddClothesEdit(
         setClothesData(clothesData.concat(data));
         infoModal('등록 성공!', 'success');
       },
-      onError: (error) => {
-        console.log(error);
+      onError: (err: unknown) => {
+        errorModal('알 수 없는 오류', '서버의 상태가 이상합니다.');
       },
     },
   );

@@ -39,8 +39,8 @@ export default function EditPage() {
       onSuccess: () => {
         completeCheckModal(() => router.push('/calendar'));
       },
-      onError: (error) => {
-        console.log(error);
+      onError: (err: unknown) => {
+        errorModal('알 수 없는 오류', '서버의 상태가 이상합니다.');
       },
     },
   );
