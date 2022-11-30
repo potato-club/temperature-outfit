@@ -8,14 +8,13 @@ import { clothesMainCategory } from 'constants/index';
 import { clothesSubCategory } from 'constants/clothesSubCategory';
 import { useQuery } from 'react-query';
 import { outfitDataType } from 'types/outfitViewPage/outfitData.type';
+import { errorModal } from 'utils/interactionModal';
 
 type totalTemperatureType = {
   highestTemperature: string;
   temperature: string;
   lowestTemperature: string;
 };
-
-
 
 export default function OutfitView() {
   const router = useRouter();
@@ -49,8 +48,8 @@ export default function OutfitView() {
           comment,
         });
       },
-      onError: (error) => {
-        console.log(error);
+      onError: (err: unknown) => {
+        errorModal('알 수 없는 오류', '서버의 상태가 이상합니다.');
       },
     },
   );

@@ -5,7 +5,7 @@ import { customColor } from 'constants/index';
 import Image from 'next/image';
 import { Rating } from 'react-simple-star-rating';
 import { useRouter } from 'next/router';
-import { completeCheckModal, confirmModal } from 'utils/interactionModal';
+import { completeCheckModal, confirmModal, errorModal } from 'utils/interactionModal';
 import { todayCodyApi } from 'api';
 import { useMutation } from 'react-query';
 
@@ -39,6 +39,9 @@ export function ReviewBox({
     {
       onSuccess: () => {
         completeCheckModal(() => router.push('/calendar'));
+      },
+      onError: (err: unknown) => {
+        errorModal('알 수 없는 오류', '서버의 상태가 이상합니다.');
       },
     },
   );
