@@ -4,7 +4,7 @@ import styled from '@emotion/styled';
 import { customColor } from 'constants/index';
 import { useRecoilState } from 'recoil';
 import { addModal } from 'recoil/atom';
-import { infoModal } from 'utils/interactionModal';
+import { errorModal, infoModal } from 'utils/interactionModal';
 import { FieldValues, useForm } from 'react-hook-form';
 import { productApi } from 'api';
 import {
@@ -40,8 +40,8 @@ export const AddModal = () => {
         setAddModalState((cur) => !cur);
         queryClient.invalidateQueries('getItem');
       },
-      onError: (error) => {
-        console.log(error);
+      onError: (err: unknown) => {
+        errorModal('알 수 없는 오류', '서버의 상태가 이상합니다.');
       },
     },
   );
