@@ -56,10 +56,10 @@ export default function OutfitView() {
 
   const categories = clothesMainCategory.filter((cate) => cate.id !== 'all');
 
-  const categoryFilter = (id: string): any => {
-    const subCategories = clothesSubCategory[id].map((item: any) => item.id);
+  const categoryFilter = (id: string) => {
+    const subCategories = clothesSubCategory[id].map((item) => item.id);
     if (!outfitData) return;
-    return outfitData.products.filter((product: any) => {
+    return outfitData.products.filter((product) => {
       return subCategories.includes(product.categoryId);
     });
   };
