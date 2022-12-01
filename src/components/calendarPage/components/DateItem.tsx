@@ -15,9 +15,7 @@ export const DateItem = ({
   temperature,
   rating,
 }: DateItemProps) => {
-  // weather값(정해진 4개)에 따라 기후 icon 4가지 중에 하나 보여줘야 함
-  // 비(우산), 눈(눈 결정), 해, 구름
-  const iconSelect = (weather: string): any => {
+  const iconSelect = (weather: string) => {
     switch (weather) {
       case 'sun':
         return <BsSunFill />;
@@ -34,7 +32,6 @@ export const DateItem = ({
   return (
     <Date>
       <WeatherIcon>{iconSelect(weatherStatus)}</WeatherIcon>
-
       <DateInfo>
         <TypoGraphy color="white">
           온도 <Bold>{temperature}°C</Bold>
