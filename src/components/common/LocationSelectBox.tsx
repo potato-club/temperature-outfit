@@ -2,9 +2,10 @@ import MenuItem from '@mui/material/MenuItem';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
+import { locationType } from 'types/common';
 
 type Props = {
-  allLocations: any;
+  allLocations: locationType[];
   myLocation: string;
   changeUserLocations: (data: number) => void;
 };
@@ -27,7 +28,7 @@ export const LocationSelectBox: React.FC<Props> = ({
         value={myLocation}
         onChange={handleChange}
         label="지역">
-        {allLocations.map(({ id, name }: any) => (
+        {allLocations.map(({ id, name }) => (
           <MenuItem value={id} key={id}>
             {name}
           </MenuItem>
