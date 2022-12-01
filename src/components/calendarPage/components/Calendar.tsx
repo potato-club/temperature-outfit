@@ -57,6 +57,7 @@ const Calendar = () => {
   const handleDateSelect = (selectInfo: DateSelectArg) => {
     const selectedItem = selectInfo.startStr;
     const selectDate = new Date(selectedItem);
+    selectDate.setHours(selectDate.getHours() - 9);
     if (myOutfit.map((item) => item.start).includes(selectedItem)) {
       return null;
     } else if (selectDate > today) {
