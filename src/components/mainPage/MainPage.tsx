@@ -51,9 +51,10 @@ export function MainPage() {
 
 const Container = styled.section`
   width: 100%;
+  height: 100vh;
+  overflow-y: hidden;
   display: flex;
-  align-items: center;
-  justify-content: center;
   flex-direction: column;
-  gap: 80px;
+  align-items: center;
+  justify-content: space-evenly;
 `;
