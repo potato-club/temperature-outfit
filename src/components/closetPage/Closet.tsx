@@ -12,45 +12,50 @@ export const Closet: React.FC = () => {
   const setAddModalState = useSetRecoilState(addModal);
 
   return (
-    <Container>
-      <div>
-        <TypoGraphy type="Title" fontWeight="bold">
-          옷장
-        </TypoGraphy>
-        <FilterWrapper>
-          <section style={{ display: 'flex', flexWrap: 'wrap', gap: '20px' }}>
-            <MainSubSelectBox />
-            <ColorRadio />
-          </section>
-          <SearchBox />
-        </FilterWrapper>
+    <Temp>
+      <Container>
+        <div>
+          <TypoGraphy type="Title" fontWeight="bold">
+            옷장
+          </TypoGraphy>
+          <FilterWrapper>
+            <section style={{ display: 'flex', flexWrap: 'wrap', gap: '20px' }}>
+              <MainSubSelectBox />
+              <ColorRadio />
+            </section>
+            <SearchBox />
+          </FilterWrapper>
 
-        <Line />
+          <Line />
 
-        <ClothesContainer />
-      </div>
-      <Footer>
-        <CustomPagination />
-        <ButtonWrapper>
-          <CustomButton
-            type="button"
-            customType="colorful"
-            text="추가"
-            sidePadding="20"
-            height={40}
-            onClick={() => setAddModalState((cur) => !cur)}
-          />
-          <AddModal />
-        </ButtonWrapper>
-      </Footer>
-    </Container>
+          <ClothesContainer />
+        </div>
+        <Footer>
+          <CustomPagination />
+          <ButtonWrapper>
+            <CustomButton
+              type="button"
+              customType="colorful"
+              text="추가"
+              sidePadding="20"
+              height={40}
+              onClick={() => setAddModalState((cur) => !cur)}
+            />
+            <AddModal />
+          </ButtonWrapper>
+        </Footer>
+      </Container>
+    </Temp>
   );
 };
 
-const Container = styled.section`
+const Temp = styled.section`
   width: 70%;
-  max-width: 1178px;
   height: 90%;
+  margin: 40px 0px;
+`;
+const Container = styled.section`
+  max-width: 1178px;
   min-height: 720px;
   margin-top: 20px;
   padding: 60px 64px;
@@ -71,7 +76,7 @@ const Container = styled.section`
   }
 `;
 
-const FilterWrapper = styled.section`
+const FilterWrapper = styled.article`
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
@@ -92,7 +97,7 @@ const Footer = styled.section`
   flex-direction: column;
 `;
 
-const ButtonWrapper = styled.section`
+const ButtonWrapper = styled.article`
   margin-top: 12px;
   display: flex;
   justify-content: end;
