@@ -12,8 +12,8 @@ export const Closet: React.FC = () => {
   const setAddModalState = useSetRecoilState(addModal);
 
   return (
-    <Temp>
-      <Container>
+    <Container>
+      <Wrapper>
         <div>
           <TypoGraphy type="Title" fontWeight="bold">
             옷장
@@ -44,17 +44,17 @@ export const Closet: React.FC = () => {
             <AddModal />
           </ButtonWrapper>
         </Footer>
-      </Container>
-    </Temp>
+      </Wrapper>
+    </Container>
   );
 };
 
-const Temp = styled.section`
+const Container = styled.section`
   width: 70%;
   height: 90%;
   margin: 40px 0px;
 `;
-const Container = styled.section`
+const Wrapper = styled.section`
   max-width: 1178px;
   min-height: 720px;
   margin-top: 20px;
