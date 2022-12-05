@@ -90,13 +90,31 @@ export const getPastWeather = async (
   date: Date,
   code: number,
 ): Promise<RawWeather> => {
-  const dateString = date.toISOString().split('T')[0].replaceAll('-', '');
+  const dateString = date
+    .toLocaleDateString('ko', {
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+    })
+    .replaceAll('.', '')
+    .replaceAll(' ', '');
 
-  const res = await axios.get(
-    `http://apis.data.go.kr/1360000/AsosDalyInfoService/getWthrDataList?dataCd=ASOS&dateCd=DAY&dataType=JSON&serviceKey=${process.env.DAILY_KEY}&startDt=${dateString}&endDt=${dateString}&stnIds=${code}`,
-  );
+  try {
+    const res = await axios.get(
+      `http://apis.data.go.kr/1360000/AsosDalyInfoService/getWthrDataList?dataCd=ASOS&dateCd=DAY&dataType=JSON&serviceKey=${process.env.DAILY_KEY}&startDt=${dateString}&endDt=${dateString}&stnIds=${code}`,
+    );
 
-  if (res.data.response.body.items == undefined) {
+    const item = res.data.response.body.items.item[0];
+
+    return {
+      status: getWeatherStatus(item.avgTca, item.sumRn),
+      temperature: +item.avgTa,
+      lowestTemperature: +item.minTa,
+      highestTemperature: +item.maxTa,
+      humidity: +(+item.avgRhm).toFixed(),
+      isForecast: false,
+    };
+  } catch (error) {
     return {
       status: 'sun',
       temperature: 0,
@@ -106,17 +124,6 @@ export const getPastWeather = async (
       isForecast: true,
     };
   }
-
-  const item = res.data.response.body.items.item[0];
-
-  return {
-    status: getWeatherStatus(item.avgTca, item.sumRn),
-    temperature: +item.avgTa,
-    lowestTemperature: +item.minTa,
-    highestTemperature: +item.maxTa,
-    humidity: +(+item.avgRhm).toFixed(),
-    isForecast: false,
-  };
 };
 
 // 눈 추가해야 함
