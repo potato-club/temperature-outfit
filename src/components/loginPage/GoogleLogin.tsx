@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import Image from 'next/image';
-import googleLogo from 'assets/img/googleNormal.png';
 import { signIn } from 'next-auth/react';
 import { useSession } from 'next-auth/react';
 import { userState, locations } from 'recoil/atom';
@@ -44,7 +43,7 @@ export const GoogleLogin: React.FC = () => {
   return (
     <Button>
       <Img onClick={() => signIn('google')}>
-        <Image src={googleLogo} alt="구글 로고" />
+        <Image src={'/googleNormal.png'} width={382} height={92} alt="구글 로고" />
       </Img>
     </Button>
   );

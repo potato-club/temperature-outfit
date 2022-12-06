@@ -7,7 +7,6 @@ import { IoFileTrayStackedSharp } from 'react-icons/io5';
 import { CgProfile } from 'react-icons/cg';
 import Link from 'next/link';
 import { MyPage } from 'components/mypage/MyPage';
-import { Router } from 'react-router';
 import { useRouter } from 'next/router';
 
 export const Header: React.FC = () => {

@@ -2,7 +2,6 @@ import React from 'react';
 import styled from '@emotion/styled';
 import { GoogleLogin } from './GoogleLogin';
 import Image from 'next/image';
-import fountainPen from 'assets/img/fountainPen.png';
 import { TypoGraphy } from 'components/common';
 
 export const LoginUi: React.FC = () => {
@@ -13,8 +12,8 @@ export const LoginUi: React.FC = () => {
           <Title>
             &quot;Would you like to join us?&quot;
             <Image
-              src={fountainPen}
-              alt="fountainPen"
+              src={'/fountainPen.png'}
+              alt="펜 사진"
               height="120px"
               width="120px"
             />
