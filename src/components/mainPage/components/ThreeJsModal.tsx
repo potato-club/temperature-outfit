@@ -45,7 +45,7 @@ export const ThreeJsModal = ({
         </TypoGraphy>
         <TypoGraphy type="sm1" color={customColor.darkSky}>
           <span
-            onClick={() => copyClipBoard('alsldl0580@naver.com')}
+            onClick={() => copyClipBoard('alsldl0580@naver.com', '이메일')}
             style={{ cursor: 'pointer' }}>
             (alsldl0580@naver.com)
           </span>
