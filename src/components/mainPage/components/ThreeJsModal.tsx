@@ -4,21 +4,27 @@ import useModal from 'hooks/useModal';
 import React, { useEffect } from 'react';
 import Modal from 'react-modal';
 import { LightController } from './LightController';
-import { Canvas } from "@react-three/fiber";
+import { Canvas } from '@react-three/fiber';
 import { Model } from './Model';
 import { WeatherStatusType } from 'types/mainPage';
 import { OrbitControls, Stats } from '@react-three/drei';
 import { TypoGraphy } from 'components/common';
+import { copyClipBoard } from 'utils/copyClipBoard';
 
 type Props = {
   isOpen: boolean;
   handleClosetModal: () => void;
   weatherStatus: WeatherStatusType;
 };
-export const ThreeJsModal = ({ isOpen, handleClosetModal, weatherStatus }: Props) => {
+export const ThreeJsModal = ({
+  isOpen,
+  handleClosetModal,
+  weatherStatus,
+}: Props) => {
   useEffect(() => {
     console.log(isOpen);
-  }, [isOpen])
+  }, [isOpen]);
+
   return (
     <Container
       isOpen={isOpen}
@@ -33,12 +39,16 @@ export const ThreeJsModal = ({ isOpen, handleClosetModal, weatherStatus }: Props
         <LightController />
       </Canvas>
       <BottomBar>
-          <TypoGraphy type="body1">디자이너 :&nbsp;</TypoGraphy>
-          <TypoGraphy type="body1" color={customColor.darkSky}>
-            양뽀코님
-          </TypoGraphy>
+        <TypoGraphy type="body1">디자이너 :&nbsp;</TypoGraphy>
+        <TypoGraphy type="body1" color={customColor.darkSky}>
+          양뽀코님
+        </TypoGraphy>
         <TypoGraphy type="sm1" color={customColor.darkSky}>
-          (alsldl0580@naver.com)
+          <span
+            onClick={() => copyClipBoard('alsldl0580@naver.com')}
+            style={{ cursor: 'pointer' }}>
+            (alsldl0580@naver.com)
+          </span>
         </TypoGraphy>
       </BottomBar>
     </Container>
@@ -64,4 +74,10 @@ const BottomBar = styled.section`
   display: flex;
   justify-content: flex-end;
   align-items: center;
+
+  // 드래그방지
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 `;
