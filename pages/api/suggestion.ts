@@ -46,7 +46,7 @@ handler.get(async (req, res) => {
   }
 
   const result: SuggestionOutfit[] = await prisma.$queryRawUnsafe(
-    `SELECT a.id, a."imageUrl", a.rating, b.temperature FROM "Outfit" as a JOIN "Weather" as b ON (a.date = b.date AND a."locationId" = b."locationId") WHERE a."ownerId" = '${user.id}' ORDER BY abs(${temperature} - b.temperature) LIMIT 5`,
+    `SELECT a.id, a."imageUrl", a.rating, b.temperature FROM "Outfit" as a JOIN "Weather" as b ON (a.date = b.date AND a."locationId" = b."locationId") WHERE a."ownerId" = '${user.id}' AND date(a.date) < date(now()) ORDER BY abs(${temperature} - b.temperature) LIMIT 5`,
   );
 
   result.sort((a, b) => b.rating - a.rating);
