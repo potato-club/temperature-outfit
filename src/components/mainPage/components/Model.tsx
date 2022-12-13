@@ -1,14 +1,15 @@
 import { useRef, useState } from 'react';
 import { GLTF, GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import { ObjectMap, useFrame, useLoader } from '@react-three/fiber';
+import { WeatherStatusType } from 'types/mainPage';
+
 type Props = {
-  weatherStatus: 'sun' | 'cloud' | 'rain' | 'snow';
+  weatherStatus: WeatherStatusType;
 };
 
 export const Model = ({ weatherStatus }: Props) => {
   const modelRef = useRef<THREE.Mesh>(null);
   const frameCount = useRef(0);
-
   const [animate, setAnimate] = useState<boolean>(true);
 
   const wait = (delay: number) =>
@@ -38,8 +39,8 @@ export const Model = ({ weatherStatus }: Props) => {
   });
 
   return (
-    <mesh position={[0, 0, 0]} ref={modelRef}>
-      <primitive object={gltf!.scene} scale={1} />
-    </mesh>
+      <mesh ref={modelRef} onDoubleClick={() => setAnimate((cur) => !cur)}>
+        <primitive object={gltf!.scene} scale={1} />
+      </mesh>
   );
 };

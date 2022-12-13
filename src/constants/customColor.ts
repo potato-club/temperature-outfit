@@ -10,6 +10,7 @@ export const customColor = {
   gray: '#CCC',
   white: 'white',
   black: 'black',
+  darkSky: '#7BA4DB',
 };
 
 export const radioBtnColor: RadioBtnType = {
