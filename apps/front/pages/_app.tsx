@@ -1,7 +1,7 @@
 import React from 'react';
 import '../styles/globals.css';
 import type { AppProps } from 'next/app';
-import { LayoutContainer, Header } from 'components/common';
+import { LayoutContainer, Header } from 'front/components/common';
 import { RecoilRoot } from 'recoil';
 import { SessionProvider } from 'next-auth/react';
 import Head from 'next/head';
