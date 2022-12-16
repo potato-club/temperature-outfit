@@ -3,17 +3,14 @@ import { setting } from 'constants/setting';
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {
-  get: async (url: string) => await axios.get(setting.baseUrl + url),
+  get: (url: string) => axios.get(setting.baseUrl + url),
 
+  getWithParams: (url: string, params: any) =>
+    axios.get(setting.baseUrl + url, params),
 
-  getWithParams: async (url: string, params: any) =>
-    await axios.get(setting.baseUrl + url, params),
+  post: (url: string, params: any) => axios.post(setting.baseUrl + url, params),
 
-  post: async (url: string, params: any) =>
-    await axios.post(setting.baseUrl + url, params),
+  delete: (url: string) => axios.delete(setting.baseUrl + url),
 
-  delete: async (url: string) => await axios.delete(setting.baseUrl + url),
-
-  put: async (url: string, params: any) =>
-    await axios.put(setting.baseUrl + url, params),
+  put: (url: string, params: any) => axios.put(setting.baseUrl + url, params),
 };

@@ -2,9 +2,7 @@ import React from 'react';
 import styled from '@emotion/styled';
 import { CustomButton } from 'components/common';
 import { customColor } from 'constants/index';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
-import { userState } from 'recoil/atom';
-import { todayCodyApi, weatherApi } from 'api';
+import { useSetRecoilState } from 'recoil';
 import { IoMdImage } from 'react-icons/io';
 import { useRouter } from 'next/router';
 import {
@@ -32,14 +30,14 @@ export function ReviewBox({
 }: ReviewBoxProps) {
   const setCodyThumbnail = useSetRecoilState(codyThumbnail);
   const { resetRecoilState } = useEditResetRecoil();
-  // const router = useRouter();
+  const router = useRouter();
 
   const handleCancel = () => {
     setCodyThumbnail('');
     setValue('rating', 10);
     setValue('image', null);
     resetRecoilState();
-    // router.back(); // Todo : 취소버튼 눌렀을때 값을 다시 입력하게 할건지, 이전페이지로 보낼건지 회의해봐야할듯
+    router.back();
   };
 
   return (

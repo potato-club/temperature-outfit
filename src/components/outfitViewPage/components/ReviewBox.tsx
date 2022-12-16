@@ -1,13 +1,13 @@
-import React, { useState, ChangeEvent, useRef, RefObject } from 'react';
+import React from 'react';
 import styled from '@emotion/styled';
 import { CustomButton, TypoGraphy } from 'components/common';
 import { customColor } from 'constants/index';
 import Image from 'next/image';
 import { Rating } from 'react-simple-star-rating';
 import { useRouter } from 'next/router';
-import { confirmModal } from 'utils/interactionModal';
+import { completeCheckModal, confirmModal, errorModal } from 'utils/interactionModal';
 import { todayCodyApi } from 'api';
-import Swal from 'sweetalert2';
+import { useMutation } from 'react-query';
 
 interface ReviewBoxProps {
   comment: string;
@@ -32,24 +32,22 @@ export function ReviewBox({
           outfitId: router.query.id,
         },
       },
-      'put',
     );
   };
+  const { mutate } = useMutation(
+    () => todayCodyApi.deleteOutfit(router.query.id as string),
+    {
+      onSuccess: () => {
+        completeCheckModal(() => router.push('/calendar'));
+      },
+      onError: (err: unknown) => {
+        errorModal('알 수 없는 오류', '서버의 상태가 이상합니다.');
+      },
+    },
+  );
 
   const deleteModal = () => {
-    confirmModal('삭제하시겠습니까?', handleDelete);
-  };
-
-  const handleDelete = async () => {
-    try {
-      await todayCodyApi.deleteOutfit(router.query.id as string);
-
-      Swal.fire({ title: '완료 되었습니다.', icon: 'success' }).then(() =>
-        window.location.assign('/calendar'),
-      );
-    } catch (error) {
-      console.log(error);
-    }
+    confirmModal('삭제하시겠습니까?', mutate);
   };
 
   return (

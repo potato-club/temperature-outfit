@@ -9,6 +9,7 @@ import { useSetRecoilState } from 'recoil';
 import { userApi } from 'api';
 import { useRouter } from 'next/router';
 import { useQuery } from 'react-query';
+import { errorModal } from 'utils/interactionModal';
 
 export const GoogleLogin: React.FC = () => {
   const router = useRouter();
@@ -17,8 +18,12 @@ export const GoogleLogin: React.FC = () => {
   const setAllLocations = useSetRecoilState(locations);
 
   useQuery('getAllLocations', userApi.getAllLocations, {
+    enabled: !!session,
     onSuccess: ({ data }) => {
       setAllLocations(data);
+    },
+    onError: (err: unknown) => {
+      errorModal('알 수 없는 오류', '서버의 상태가 이상합니다.');
     },
   });
 
@@ -30,6 +35,9 @@ export const GoogleLogin: React.FC = () => {
         locationId: data.id,
       });
       router.push('/main');
+    },
+    onError: (err: unknown) => {
+      errorModal('알 수 없는 오류', '서버의 상태가 이상합니다.');
     },
   });
 

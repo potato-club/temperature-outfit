@@ -4,13 +4,13 @@ import React, { useState } from 'react';
 import { FiX } from 'react-icons/fi';
 type Props = {
   id: string;
-  deleteImage: (id: string) => void;
+  deleteFn: (id: string) => void;
 };
-const RemoveButton = ({ id, deleteImage }: Props) => {
+const RemoveButton = ({ id, deleteFn }: Props) => {
   const [showRemove, setShowRemove] = useState<boolean>(false);
   return (
     <Wrapper
-      onClick={() => deleteImage(id)}
+      onClick={() => deleteFn(id)}
       showRemove={showRemove}
       onMouseOver={() => setShowRemove(true)}
       onMouseOut={() => setShowRemove(false)}>

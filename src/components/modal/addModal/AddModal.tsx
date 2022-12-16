@@ -1,10 +1,10 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Modal from 'react-modal';
 import styled from '@emotion/styled';
 import { customColor } from 'constants/index';
 import { useRecoilState } from 'recoil';
 import { addModal } from 'recoil/atom';
-import { infoModal } from 'utils/interactionModal';
+import { errorModal, infoModal } from 'utils/interactionModal';
 import { FieldValues, useForm } from 'react-hook-form';
 import { productApi } from 'api';
 import {
@@ -14,7 +14,8 @@ import {
   NameInput,
 } from './components';
 import { CustomButton, TypoGraphy } from 'components/common';
-import { useMutation } from "react-query";
+import { useMutation, useQueryClient } from 'react-query';
+import { debounceFunction } from 'utils/debounceFunction';
 
 export const AddModal = () => {
   const [addModalState, setAddModalState] = useRecoilState(addModal);
@@ -26,27 +27,39 @@ export const AddModal = () => {
     reset,
     formState: { errors },
   } = useForm();
-  // };
+  const [submitTimer, setSubmitTimer] = useState<NodeJS.Timer>();
 
-  const { mutate } = useMutation((frm: FormData) => productApi.addProduct(frm),{
-    onSuccess: (data) => {
-      console.log(data);
-      infoModal('서버에 옷 등록 완료!', 'success');
-      setAddModalState((cur) => !cur);
+  const queryClient = useQueryClient();
+
+  const { mutate } = useMutation(
+    (frm: FormData) => productApi.addProduct(frm),
+    {
+      onSuccess: (data) => {
+        console.log(data);
+        infoModal('서버에 옷 등록 완료!', 'success');
+        setAddModalState((cur) => !cur);
+        queryClient.invalidateQueries('getItem');
+      },
+      onError: (err: unknown) => {
+        errorModal('알 수 없는 오류', '서버의 상태가 이상합니다.');
+      },
     },
-    onError: (error) => {
-      console.log(error);
-    }
-  })
+  );
 
   const addClothesItem = async (data: FieldValues) => {
-    const frm = new FormData();
-    frm.append('image', data.image[0]);
-    frm.append('name', data.name);
-    frm.append('categoryId', data.categoryId);
-    frm.append('color', data.color);
-    console.log(frm);
-    mutate(frm);
+    debounceFunction({
+      timer: submitTimer,
+      setTimer: setSubmitTimer,
+      fn: async () => {
+        const frm = new FormData();
+        frm.append('image', data.image[0]);
+        frm.append('name', data.name);
+        frm.append('categoryId', data.categoryId);
+        frm.append('color', data.color);
+        console.log(frm);
+        mutate(frm);
+      },
+    });
   };
 
   useEffect(() => {

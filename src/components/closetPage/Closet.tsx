@@ -13,45 +13,50 @@ export const Closet: React.FC = () => {
 
   return (
     <Container>
-      <div>
-        <TypoGraphy type="Title" fontWeight="bold">
-          옷장
-        </TypoGraphy>
-        <FilterWrapper>
-          <section style={{ display: 'flex', flexWrap: 'wrap', gap: '20px' }}>
-            <MainSubSelectBox />
-            <ColorRadio />
-          </section>
-          <SearchBox />
-        </FilterWrapper>
+      <Wrapper>
+        <div>
+          <TypoGraphy type="Title" fontWeight="bold">
+            옷장
+          </TypoGraphy>
+          <FilterWrapper>
+            <section style={{ display: 'flex', flexWrap: 'wrap', gap: '20px' }}>
+              <MainSubSelectBox />
+              <ColorRadio />
+            </section>
+            <SearchBox />
+          </FilterWrapper>
 
-        <Line />
+          <Line />
 
-        <ClothesContainer />
-      </div>
-      <Footer>
-        <CustomPagination />
-        <ButtonWrapper>
-          <CustomButton
-            type="button"
-            customType="colorful"
-            text="추가"
-            sidePadding="20"
-            height={40}
-            onClick={() => setAddModalState((cur) => !cur)}
-          />
-          <AddModal />
-        </ButtonWrapper>
-      </Footer>
+          <ClothesContainer />
+        </div>
+        <Footer>
+          <CustomPagination />
+          <ButtonWrapper>
+            <CustomButton
+              type="button"
+              customType="colorful"
+              text="추가"
+              sidePadding="20"
+              height={40}
+              onClick={() => setAddModalState((cur) => !cur)}
+            />
+            <AddModal />
+          </ButtonWrapper>
+        </Footer>
+      </Wrapper>
     </Container>
   );
 };
 
 const Container = styled.section`
   width: 70%;
-  max-width: 1178px;
   height: 90%;
-  max-height: 956px;
+  margin: 40px 0px;
+`;
+const Wrapper = styled.section`
+  max-width: 1178px;
+  min-height: 720px;
   margin-top: 20px;
   padding: 60px 64px;
   background-color: white;
@@ -71,7 +76,7 @@ const Container = styled.section`
   }
 `;
 
-const FilterWrapper = styled.section`
+const FilterWrapper = styled.article`
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
@@ -92,7 +97,7 @@ const Footer = styled.section`
   flex-direction: column;
 `;
 
-const ButtonWrapper = styled.section`
+const ButtonWrapper = styled.article`
   margin-top: 12px;
   display: flex;
   justify-content: end;

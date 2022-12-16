@@ -1,10 +1,11 @@
 import { atom } from 'recoil';
-interface locationsTypes {
-  id: number;
-  name: string;
-}
+import { recoilPersist } from 'recoil-persist';
+import { locationType } from 'types/common';
 
-export const locations = atom<locationsTypes[]>({
+const { persistAtom } = recoilPersist();
+
+export const locations = atom<locationType[]>({
   key: 'locationsKey',
   default: [{ id: 1, name: '서울' }],
+  effects_UNSTABLE: [persistAtom],
 });

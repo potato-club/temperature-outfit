@@ -5,8 +5,9 @@ import { filterType } from 'types/editPage/filter.type';
 import { useSetRecoilState } from 'recoil';
 import { lastPage } from 'recoil/atom/filtering';
 import { useQuery } from 'react-query';
+import { errorModal } from 'utils/interactionModal';
 
-export default function useGetItem(filter:filterType) {
+export default function useGetItem(filter: filterType) {
   const [filterItem, setFilterItem] = useState<Array<productType>>([]);
   const setLastPage = useSetRecoilState(lastPage);
 
@@ -31,18 +32,20 @@ export default function useGetItem(filter:filterType) {
   //     },
   //   });
   // }
-  
-  
-    useQuery(['getItem', filter], () => productApi.getFilter({params : filter}), {
+
+  useQuery(
+    ['getItem', filter],
+    () => productApi.getFilter({ params: filter }),
+    {
       onSuccess: ({ data }) => {
         setFilterItem(data.products);
         setLastPage(data.lastPage);
       },
-      onError: (error) => {
-        console.log(error);
+      onError: (err: unknown) => {
+        errorModal('알 수 없는 오류', '서버의 상태가 이상합니다.');
       },
-    });
-  
+    },
+  );
 
   return {
     filterItem,

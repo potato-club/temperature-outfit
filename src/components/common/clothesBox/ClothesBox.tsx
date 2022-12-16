@@ -10,26 +10,28 @@ type Props = {
   name: string;
   type: 'edit' | 'closet';
   id?: string;
-  deleteImage?: (id: string) => void;
+  deleteFn?: (id: string) => void;
 };
 
-export function ClothesBox({ url, name, id, deleteImage, type }: Props) {
+export function ClothesBox({ url, name, id, deleteFn, type }: Props) {
   const [showName, setShowName] = useState<boolean>(false);
 
   return (
-    <Container
-      type={type}
-      onMouseOver={() => setShowName(true)}
-      onMouseOut={() => setShowName(false)}>
-      <MemoClothesImg type={type} url={url} />
-      <ClothesName showName={showName}>
-        <MemoTypoGraphy type="sm1" color={customColor.white}>
-          {name}
-        </MemoTypoGraphy>
-      </ClothesName>
-      {deleteImage && id !== undefined && (
-        <MemoRemoveButton id={id} deleteImage={deleteImage} />
-      )}
+    <Container>
+      <Wrapper
+        type={type}
+        onMouseOver={() => setShowName(true)}
+        onMouseOut={() => setShowName(false)}>
+        <MemoClothesImg type={type} url={url} />
+        <ClothesName showName={showName}>
+          <MemoTypoGraphy type="sm1" color={customColor.white}>
+            {name}
+          </MemoTypoGraphy>
+        </ClothesName>
+        {deleteFn && id !== undefined && (
+          <MemoRemoveButton id={id} deleteFn={deleteFn} />
+        )}
+      </Wrapper>
     </Container>
   );
 }
@@ -37,10 +39,12 @@ export function ClothesBox({ url, name, id, deleteImage, type }: Props) {
 type StyleProps = {
   type: 'edit' | 'closet';
 };
+const Container = styled.section`
+  position: relative;
+`;
 
-const Container = styled.section<StyleProps>`
+const Wrapper = styled.section<StyleProps>`
   display: flex;
-  position: ${({ type }) => type === 'closet' && 'relative'};
   margin: 0;
   border: 4px solid ${customColor.brandColor1};
   border-radius: 24px;

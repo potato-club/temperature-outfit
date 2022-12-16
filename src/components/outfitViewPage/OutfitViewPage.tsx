@@ -1,11 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import styled from '@emotion/styled';
 import { TypoGraphy } from 'components/common';
 import { DressRoom, ReviewBox, Title } from './components';
 import { useRouter } from 'next/router';
 import { todayCodyApi } from 'api';
-import { clothesMainCategory } from "constants/index";
+import { clothesMainCategory } from 'constants/index';
 import { clothesSubCategory } from 'constants/clothesSubCategory';
+import { useQuery } from 'react-query';
+import { outfitDataType } from 'types/outfitViewPage/outfitData.type';
+import { errorModal } from 'utils/interactionModal';
 
 type totalTemperatureType = {
   highestTemperature: string;
@@ -15,86 +18,82 @@ type totalTemperatureType = {
 
 export default function OutfitView() {
   const router = useRouter();
-  const [outfitData, setOutfitData] = useState({
-    date: '2022-08-11',
-    imageUrl: '/codyDummy/cody5',
-    rating: 0,
-    products: [],
-    comment: '초기 Comment',
-  });
-  const [weather, setWeather] = useState<totalTemperatureType>({
-    temperature: '0',
-    lowestTemperature: '0',
-    highestTemperature: '0',
-  });
 
-  useEffect(() => {
-    router.query.id &&
-      (async () => {
-        try {
-          const {
-            data: {
-              date,
-              imageUrl,
-              rating,
-              products,
-              comment,
-              weather: { temperature, lowestTemperature, highestTemperature },
-            },
-          } = await todayCodyApi.getOutfit(router.query.id as string);
+  const [outfitData, setOutfitData] = useState<outfitDataType>();
 
-          setWeather({ temperature, lowestTemperature, highestTemperature });
-          setOutfitData({
-            date,
-            imageUrl,
-            rating,
-            products,
-            comment,
-          });
-        } catch (error) {
-          console.log(error);
-        }
-      })();
-  }, [router.query.id]);
+  const [weather, setWeather] = useState<totalTemperatureType>();
 
-  if (!router.query.id) {
-    return <div>페이지가 없습니다</div>;
-  }
+  useQuery(
+    'getOutfit',
+    () => todayCodyApi.getOutfit(router.query.id as string),
+    {
+      enabled: router.isReady,
+      onSuccess: ({ data }) => {
+        const {
+          date,
+          imageUrl,
+          rating,
+          products,
+          comment,
+          weather: { temperature, lowestTemperature, highestTemperature },
+        } = data;
+
+        setWeather({ temperature, lowestTemperature, highestTemperature });
+
+        setOutfitData({
+          date,
+          imageUrl,
+          rating,
+          products,
+          comment,
+        });
+      },
+      onError: (err: unknown) => {
+        errorModal('알 수 없는 오류', '서버의 상태가 이상합니다.');
+      },
+    },
+  );
 
   const categories = clothesMainCategory.filter((cate) => cate.id !== 'all');
-  const categoryFilter = (id: string): any => {
-    const subCategories = clothesSubCategory[id].map((item: any) => item.id);
-    return outfitData.products.filter((product: any) => {
+
+  const categoryFilter = (id: string) => {
+    const subCategories = clothesSubCategory[id].map((item) => item.id);
+    if (!outfitData) return;
+    return outfitData.products.filter((product) => {
       return subCategories.includes(product.categoryId);
     });
   };
 
   return (
     <Container>
-      <Title
-        average={weather.temperature}
-        max={weather.highestTemperature}
-        min={weather.lowestTemperature}
-        day={outfitData.date}
-      />
-      <Contents>
-        <CodyBox>
-          {categories.map(({ name, id }) => (
-            <Category key={id}>
-              <TypoGraphy type="Title" fontWeight="bold">
-                {name}
-              </TypoGraphy>
-              <DressRoom products={categoryFilter(id)} />
-            </Category>
-          ))}
-        </CodyBox>
-        <ReviewBox
-          outfitData={outfitData}
-          comment={outfitData.comment}
-          rating={outfitData.rating}
-          outFitImageUrl={outfitData.imageUrl}
-        />
-      </Contents>
+      {outfitData && weather && (
+        <>
+          <Title
+            average={weather.temperature}
+            max={weather.highestTemperature}
+            min={weather.lowestTemperature}
+            day={outfitData.date}
+          />
+          <Contents>
+            <CodyBox>
+              {categories.map(({ name, id }) => (
+                <Category key={id}>
+                  <TypoGraphy type="Title" fontWeight="bold">
+                    {name}
+                  </TypoGraphy>
+                  <DressRoom products={categoryFilter(id)} />
+                </Category>
+              ))}
+            </CodyBox>
+            <ReviewBox
+              outfitData={outfitData}
+              comment={outfitData.comment}
+              rating={outfitData.rating}
+              outFitImageUrl={outfitData.imageUrl}
+            />
+          </Contents>
+        </>
+      )}
     </Container>
   );
 }

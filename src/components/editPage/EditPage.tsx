@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import styled from '@emotion/styled';
 import { useRouter } from 'next/router';
 import {
@@ -16,14 +16,15 @@ import { codyThumbnail } from 'recoil/atom/editState';
 import { todayCodyApi, weatherApi } from 'api';
 import { MemoTitle } from './components/Title';
 import { MemoContents } from './components/Contents';
-import { infoModal } from 'utils/interactionModal';
-import Swal from 'sweetalert2';
+import { completeCheckModal, errorModal, infoModal } from 'utils/interactionModal';
 import useEditResetRecoil from 'hooks/useEditResetRecoil';
 import { useMutation } from 'react-query';
 import { mutateParamType } from 'types/editPage/mutateParam.type';
+import { debounceFunction } from 'utils/debounceFunction';
 
 export default function EditPage() {
   const router = useRouter();
+  const [submitTimer, setSubmitTimer] = useState<NodeJS.Timer>();
 
   const dayQuery = useMemo(() => {
     return router.query.day as string;
@@ -35,36 +36,40 @@ export default function EditPage() {
         ? todayCodyApi.putOutfit(outfitId, frm)
         : todayCodyApi.addProduct(frm),
     {
-      onSuccess: (data) => {
-        console.log(data);
-        Swal.fire({ title: '완료 되었습니다.', icon: 'success' }).then(() =>
-          window.location.assign('/calendar'),
-        );
+      onSuccess: () => {
+        completeCheckModal(() => router.push('/calendar'));
       },
-      onError: (error) => {
-        console.log(error);
+      onError: (err: unknown) => {
+        errorModal('알 수 없는 오류', '서버의 상태가 이상합니다.');
       },
     },
   );
 
   const submit = async (data: FieldValues) => {
-    const productsId = getAllEditProductsId();
-    // 등록된옷이 하나도 없을때
-    if (!productsId) {
-      infoModal('확인 해주세요!', 'error', '옷을 하나 이상 등록 해주세요!');
-      return;
-    }
-    const frm = formDataAppend(data, productsId);
-    // 수정일때
-    if (router.query.outfitId as string) {
-      const outfitId = router.query.outfitId as string;
-      mutate({ frm, outfitId });
-      // 등록일때
-    } else {
-      await getWeather();
-      frm.append('locationId', user.locationId.toString());
-      mutate({ frm });
-    }
+    debounceFunction({
+      timer: submitTimer,
+      setTimer: setSubmitTimer,
+      fn: async () => {
+        const productsId = getAllEditProductsId();
+        // 등록된옷이 하나도 없을때
+        if (!productsId) {
+          infoModal('확인 해주세요!', 'error', '옷을 하나 이상 등록 해주세요!');
+          // errorModal('확인해주세요!', '옷을 하나 이상 등록 해주세요!')
+          return;
+        }
+        const frm = formDataAppend(data, productsId);
+        // 수정일때
+        if (router.query.outfitId as string) {
+          const outfitId = router.query.outfitId as string;
+          mutate({ frm, outfitId });
+          // 등록일때
+        } else {
+          await getWeather();
+          frm.append('locationId', user.locationId.toString());
+          mutate({ frm });
+        }
+      },
+    });
   };
 
   const day = dayQuery

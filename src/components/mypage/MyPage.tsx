@@ -8,42 +8,56 @@ import { locations, userState } from 'recoil/atom';
 import { userApi } from 'api';
 import { LocationSelectBox, TypoGraphy } from 'components/common';
 import { useMutation } from 'react-query';
-import { useRouter } from 'next/router';
+import {
+  completeCheckModal,
+  confirmModal,
+  errorModal,
+} from 'utils/interactionModal';
 
 export const MyPage: React.FC = () => {
   const [{ name, locationId }, setUser] = useRecoilState(userState);
   const allLocations = useRecoilValue(locations);
-  const router = useRouter();
 
   const changeUserLocations = (data: number): void => {
-    mutate(data);
+    handleChangeLocation(data);
   };
 
-  const { mutate } = useMutation(
+  const { mutate: handleChangeLocation } = useMutation(
     (data: number) => userApi.changeUserLocation({ locationId: data }),
     {
-      onError: (error) => {
-        console.log(error);
+      onSuccess: ({ data: { id } }) => {
+        setUser({ name: name, locationId: id });
       },
-      onSuccess: ({ data: { name, id } }) => {
-        setUser({ name, locationId: id });
+      onError: (err: unknown) => {
+        errorModal('알 수 없는 오류', '서버의 상태가 이상합니다.');
       },
     },
   );
 
-  const handleLogout = useCallback(async () => {
-    try {
-      await signOut();
-      router.push('/closet');
-    } catch(e) {
-      console.log(e);
-    }
-  }, [router]);
+  const handleLogout = useCallback(() => {
+    signOut({ callbackUrl: '/' });
+  }, []);
+
+  const { mutate: handleDelete } = useMutation(() => userApi.deleteAuth(), {
+    onSuccess: () => {
+      completeCheckModal(() => handleLogout());
+    },
+    onError: (err: unknown) => {
+      errorModal('알 수 없는 오류', '서버의 상태가 이상합니다.');
+    },
+  });
+  const userDeleteModal = () => {
+    confirmModal('계정을 삭제하시겠습니까?', handleDelete);
+  };
 
   return (
     <Container>
       <NameInfo>
-        <TypoGraphy type="h2" color={customColor.brandColor3} fontWeight="bold">
+        <TypoGraphy
+          type="h2"
+          color={customColor.brandColor3}
+          fontWeight="bold"
+          textAlign="center">
           {name}
         </TypoGraphy>
         <TypoGraphy type="h4" color={customColor.brandColor4} fontWeight="bold">
@@ -68,7 +82,7 @@ export const MyPage: React.FC = () => {
             로그아웃
           </TypoGraphy>{' '}
         </LogOut>
-        <AccountDeletion>
+        <AccountDeletion onClick={userDeleteModal}>
           <TypoGraphy
             type="body1"
             color={customColor.brandColor5}
@@ -82,16 +96,16 @@ export const MyPage: React.FC = () => {
 };
 
 const Container = styled.section`
-  width: 176px;
-  height: 154px;
+  min-width: 176px;
   border: 2px solid ${customColor.gray};
   border-radius: 0 0 28px 28px;
   background-color: ${customColor.white};
-
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
+  gap: 12px 0;
+  padding: 8px;
 `;
 
 const NameInfo = styled.section`
@@ -100,6 +114,7 @@ const NameInfo = styled.section`
   justify-content: space-between;
   align-items: center;
   gap: 4px;
+  margin: 4px;
 `;
 const LocationWrapper = styled.section`
   display: flex;
