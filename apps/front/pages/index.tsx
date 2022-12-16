@@ -1,4 +1,4 @@
-import { LoginUi } from 'components/loginPage';
+import { LoginUi } from '../src/components/loginPage';
 // import { MainPage } from 'components/mainPage/MainPage';
 import type { NextPage } from 'next';
 

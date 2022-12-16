@@ -15,7 +15,6 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "front/*": ["apps/front/src/*"],
       "@temperature-outfit/core": ["libs/core/src/index.ts"]
     }
   },
