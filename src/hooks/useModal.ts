@@ -6,7 +6,7 @@ export function useModal() {
   const handleOpenModal = () => {
     setIsOpen(true);
   };
-  const handleClosetModal = () => {
+  const handleCloseModal = () => {
     setIsOpen(false);
   };
 
@@ -17,7 +17,7 @@ export function useModal() {
   return {
     isOpen,
     handleOpenModal,
-    handleClosetModal,
+    handleCloseModal,
     handleModal,
   };
 }

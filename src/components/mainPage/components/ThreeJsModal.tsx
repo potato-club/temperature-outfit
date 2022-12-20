@@ -13,12 +13,12 @@ import { copyClipBoard } from 'utils/copyClipBoard';
 
 type Props = {
   isOpen: boolean;
-  handleClosetModal: () => void;
+  handleCloseModal: () => void;
   weatherStatus: WeatherStatusType;
 };
 export const ThreeJsModal = ({
   isOpen,
-  handleClosetModal,
+  handleCloseModal,
   weatherStatus,
 }: Props) => {
   useEffect(() => {
@@ -29,7 +29,7 @@ export const ThreeJsModal = ({
     <Container
       isOpen={isOpen}
       onRequestClose={() => {
-        handleClosetModal();
+        handleCloseModal();
       }}
       ariaHideApp={false}
       contentLabel="ThreeJsModal">
