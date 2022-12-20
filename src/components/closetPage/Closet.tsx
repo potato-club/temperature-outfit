@@ -50,14 +50,17 @@ export const Closet: React.FC = () => {
 };
 
 const Container = styled.section`
-  width: 70%;
+  width: 100%;
   height: 90%;
   margin: 40px 0px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 const Wrapper = styled.section`
+  width: 70%;
   max-width: 1178px;
   min-height: 720px;
-  margin-top: 20px;
   padding: 60px 64px;
   background-color: white;
   border-radius: 10px;
