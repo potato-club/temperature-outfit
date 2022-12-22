@@ -20,7 +20,7 @@ export const LocationSelectBox: React.FC<Props> = ({
   };
 
   return (
-    <FormControl sx={{ minWidth: '80px' }} size="small">
+    <FormControl sx={{ minWidth: '100%' }} size="small">
       <InputLabel id="demo-simple-select-autowidth-label">지역</InputLabel>
       <Select
         labelId="demo-simple-select-autowidth-label"

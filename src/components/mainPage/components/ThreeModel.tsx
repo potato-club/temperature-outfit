@@ -42,6 +42,7 @@ export const ThreeModel = ({ weatherStatus }: Prop) => {
 };
 
 const Container = styled.section`
-  width: 14%;
+  width: 16%;
   text-align: center;
+  margin-right: 4px;
 `;

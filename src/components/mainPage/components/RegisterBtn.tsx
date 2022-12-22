@@ -72,10 +72,16 @@ const Wrapper = styled.section`
   border-radius: 10px;
   background-color: ${customColor.white};
   background-color: ${customColor.darkSky};
-  box-shadow: 1px 2px 3px 0px #aaa;
+  box-shadow: 2px 3px 1px 0px #aaa;
+  animation: changeBtnR 0.3s ease;
   cursor: pointer;
+  &:hover {
+    background-color: #4978b6;
+    animation: changeBtn 0.3s ease;
+  }
   &:active {
     box-shadow: none;
+    transform: translate(2px, 3px);
   }
 `;
 // const Wrapper2 = styled.section`

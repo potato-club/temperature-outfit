@@ -71,9 +71,13 @@ const Container = styled.section`
   background: #ffffff37;
   border-radius: 12px;
   box-shadow: 2px 2px 5px -1px #aaaaaa2f;
-  width: 100%;
-  max-width: 680px;
-  height: 220px;
+  width: 620px;
+  height: 200px;
+`;
+const WeatherContent = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 `;
 const WhiteSpan = styled.span`
   color: ${customColor.white};

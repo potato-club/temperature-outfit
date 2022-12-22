@@ -4,7 +4,7 @@ import { customColor } from 'constants/index';
 import { TypoGraphy } from './index';
 import { FaRegCalendarAlt } from 'react-icons/fa';
 import { IoFileTrayStackedSharp } from 'react-icons/io5';
-import { CgProfile } from 'react-icons/cg';
+import { IoPersonCircleOutline, IoPersonCircle } from 'react-icons/io5';
 import Link from 'next/link';
 import { MyPage } from 'components/mypage/MyPage';
 import { useRouter } from 'next/router';
@@ -41,9 +41,16 @@ export const Header: React.FC = () => {
               </Logo>
             </Link>
             <Logo className="benchMark">
-              <CgProfile size="20px" onClick={onClick} />
+              {myPageToggle ? (
+                <IoPersonCircle size="24px" onClick={onClick} />
+              ) : (
+                <IoPersonCircleOutline size="24px" onClick={onClick} />
+              )}
             </Logo>
-            <MyPageDiv> {myPageToggle ? <MyPage /> : null}</MyPageDiv>
+            <MyPageDiv>
+              {' '}
+              {myPageToggle ? <MyPage myPageToggle={myPageToggle} /> : null}
+            </MyPageDiv>
           </ButtonBox>
         </Div>
       )}
@@ -61,7 +68,7 @@ const Wrapper = styled.nav`
   position: absolute;
   top: 0;
   z-index: 99;
-  box-shadow: 0px 1px 10px -4px #aaa;
+  box-shadow: 0px 1px 10px -4px #bbb;
 `;
 
 const Div = styled.article`
@@ -70,13 +77,15 @@ const Div = styled.article`
   flex-direction: row;
   align-items: center;
   width: 1178px;
-  height: 42px;
+  height: 44px;
+  align-items: center;
 `;
 
 const ButtonBox = styled.section`
   display: flex;
   gap: 16px;
   position: relative;
+  align-items: center;
 `;
 const Logo = styled.section`
   cursor: pointer;
@@ -85,6 +94,7 @@ const Logo = styled.section`
 
 const MyPageDiv = styled.section`
   position: absolute;
-  left: 75%;
+  right: 0%;
   top: 34px;
+  transform: translate(0, 0);
 `;

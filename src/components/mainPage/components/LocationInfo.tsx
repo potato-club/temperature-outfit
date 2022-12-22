@@ -25,18 +25,18 @@ export const LocationInfo = ({ temperature }: LocationInfoProps) => {
   return (
     <Container>
       <Location>
-        <IoLocationSharp size={22} color={customColor.brandColor4} />
+        <IoLocationSharp size={18} color={customColor.brandColor4} />
         <Span>
           <TypoGraphy
-            type="body1"
+            type="body2"
             color={customColor.brandColor4}
             fontWeight="bold">
             {myLocationName}
           </TypoGraphy>
         </Span>
       </Location>
-      <TypoGraphy type="h2" color={customColor.brandColor4} fontWeight="bold">
-        현재 {temperature}°C
+      <TypoGraphy type="h4" color={customColor.brandColor4} fontWeight="bold">
+        현재 <Bold>{temperature}°C</Bold>
       </TypoGraphy>
     </Container>
   );
@@ -54,6 +54,7 @@ const Container = styled.section`
 const Location = styled.section`
   display: flex;
   align-items: center;
+  margin-bottom: 4px;
 `;
 
 const Temperatures = styled.section`
@@ -95,4 +96,7 @@ const SmallSpan = styled.span`
 `;
 const Span = styled.span`
   margin-top: 4px;
+`;
+const Bold = styled.span`
+  font-size: 22px;
 `;
