@@ -5,6 +5,8 @@ import cloth1 from 'assets/img/cloth/1.jpg';
 import cloth2 from 'assets/img/cloth/2.jpg';
 import cloth3 from 'assets/img/cloth/3.jpg';
 
+// Todo : 들어갈 사진 8개 선정
+
 interface InnerProps {
   deg: number;
 }

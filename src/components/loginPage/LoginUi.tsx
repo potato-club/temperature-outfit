@@ -5,6 +5,7 @@ import Image from 'next/image';
 import border from 'assets/img/border.png';
 import { LeftSpin, TypoGraphy } from 'components/common';
 import { customColor } from 'constants/index';
+import TypeIt from 'typeit-react';
 
 export const LoginUi: React.FC = () => {
   const loginComment: string = '날씨에 따라 당신의 코디를 기록하세요';
@@ -18,13 +19,15 @@ export const LoginUi: React.FC = () => {
         <InWrap>
           <Title>&quot;Would you like to join us?&quot;</Title>
           <SubTitle>
-            <TypoGraphy
-              type="h3"
-              color={customColor.brandColor2}
-              fontWeight={'bold'}>
-              {loginComment.split('').map((item: string, index) => {
-                return <Bounce key={index}>{item}</Bounce>;
-              })}
+            <TypoGraphy type="h2">
+              <TypeIt
+                options={{
+                  strings: [loginComment],
+                  speed: 120,
+                  waitUntilVisible: true,
+                  loop: true,
+                  loopDelay: 5000,
+                }}></TypeIt>
             </TypoGraphy>
           </SubTitle>
         </InWrap>
