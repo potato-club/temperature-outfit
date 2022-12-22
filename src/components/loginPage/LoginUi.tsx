@@ -4,7 +4,6 @@ import { GoogleLogin } from './GoogleLogin';
 import Image from 'next/image';
 import border from 'assets/img/border.png';
 import { LeftSpin, TypoGraphy } from 'components/common';
-import { customColor } from 'constants/index';
 import TypeIt from 'typeit-react';
 
 export const LoginUi: React.FC = () => {
@@ -80,10 +79,6 @@ const Title = styled.article`
 
 const SubTitle = styled.article`
   margin-top: 20px;
-`;
-
-const Bounce = styled.span`
-  font-size: 20px;
 `;
 
 const Footer = styled.article`
