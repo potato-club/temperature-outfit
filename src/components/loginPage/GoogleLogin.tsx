@@ -59,4 +59,5 @@ const Button = styled.button`
   border: none;
   outline: none;
   background-color: transparent;
+  width: 240px;
 `;

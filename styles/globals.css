@@ -103,6 +103,7 @@ section {
 }
 body {
   line-height: 1;
+  font-family: 'LeferiPoint-WhiteObliqueA';
 }
 ol,
 ul {
@@ -128,4 +129,25 @@ table {
   display: flex;
   justify-content: flex-end;
   width: 100%;
+}
+@font-face {
+  font-family: 'LeferiPoint-WhiteObliqueA';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2201-2@1.0/LeferiPoint-WhiteObliqueA.woff')
+    format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+/* 실례합니다 -금주- */
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(180deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+@keyframes bounce {
 }

@@ -2,33 +2,35 @@ import React from 'react';
 import styled from '@emotion/styled';
 import { GoogleLogin } from './GoogleLogin';
 import Image from 'next/image';
-import fountainPen from 'assets/img/fountainPen.png';
-import { TypoGraphy } from 'components/common';
+import border from 'assets/img/border.png';
+import { LeftSpin, TypoGraphy } from 'components/common';
+import { customColor } from 'constants/index';
 
 export const LoginUi: React.FC = () => {
+  const loginComment: string = '날씨에 따라 당신의 코디를 기록하세요';
   return (
     <Wrap>
+      <LeftSpin />
       <OutWrap>
+        <TopBorder>
+          <Image src={border} alt="border" width="280px" height="280px" />
+        </TopBorder>
         <InWrap>
-          <Title>
-            &quot;Would you like to join us?&quot;
-            <Image
-              src={fountainPen}
-              alt="fountainPen"
-              height="120px"
-              width="120px"
-            />
-          </Title>
+          <Title>&quot;Would you like to join us?&quot;</Title>
           <SubTitle>
-            <TypoGraphy type="Title" color={'gray'}>
-              날씨에 따라 당신의 코디를 기록하세요
+            <TypoGraphy
+              type="h3"
+              color={customColor.brandColor2}
+              fontWeight={'bold'}>
+              {loginComment.split('').map((item: string, index) => {
+                return <Bounce key={index}>{item}</Bounce>;
+              })}
             </TypoGraphy>
           </SubTitle>
-
-          <GoogleLogin />
-          <Footer>From.ChocoStick</Footer>
         </InWrap>
+        <GoogleLogin />
       </OutWrap>
+      <Footer>From. ChocoStick</Footer>
     </Wrap>
   );
 };
@@ -39,40 +41,53 @@ const Wrap = styled.section`
 `;
 
 const OutWrap = styled.section`
-  border: 4px solid black;
-  width: 80vw;
-  height: 80vh;
+  height: 30vh;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  justify-content: space-between;
   align-items: center;
+  position: relative;
 `;
 
 const InWrap = styled.section`
-  width: calc(80vw - 10px);
-  height: calc(80vh - 10px);
-  border: 2px solid;
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
+  justify-content: center;
   align-items: center;
-  position: relative;
+  margin-top: 10px;
+`;
+
+const TopBorder = styled.div`
+  position: absolute;
+  top: 0;
+  transform: translate(0, calc(-50% - 40px));
 `;
 
 const Title = styled.article`
   display: flex;
   text-align: center;
-  font-size: 60px;
-  font-family: serif;
+  font-size: 28px;
+  font-style: italic;
+  font-weight: 100;
+  color: #222;
   align-items: flex-end;
+  letter-spacing: -1.2px;
+  font-family: sans-serif;
 `;
 
-const SubTitle = styled.article``;
+const SubTitle = styled.article`
+  margin-top: 20px;
+`;
+
+const Bounce = styled.span`
+  font-size: 20px;
+`;
 
 const Footer = styled.article`
-  font-size: 20px;
-  font-family: serif;
-  align-self: flex-end;
+  display: flex;
   position: absolute;
-  bottom: 28px;
-  right: 28px;
+  font-size: 17px;
+  font-weight: 500;
+  color: gray;
+  bottom: 24px;
 `;
