@@ -106,7 +106,7 @@ const Calendar = () => {
         dayMaxEvents={true}
         weekends={true}
         eventStartEditable={false}
-        contentHeight={800}
+        contentHeight={720}
         eventContent={renderEventContent}
       />
     </Wrapper>
@@ -116,10 +116,12 @@ const Calendar = () => {
 const Wrapper = styled.section`
   width: 1178px;
   max-width: 1178px;
-  padding: 20px;
+  padding: 24px;
   background-color: white;
   margin-top: 58px;
   margin-bottom: 12px;
+  border-radius: 16px;
+  box-shadow: 2px 2px 5px -1px #bbb;
 `;
 
 export default Calendar;
