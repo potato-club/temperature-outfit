@@ -73,7 +73,12 @@ const Wrapper = styled.section`
   background-color: ${customColor.white};
   background-color: ${customColor.darkSky};
   box-shadow: 1px 2px 3px 0px #aaa;
+  animation: changeBtnR 0.3s ease;
   cursor: pointer;
+  &:hover {
+    background-color: #4978b6;
+    animation: changeBtn 0.3s ease;
+  }
   &:active {
     box-shadow: none;
   }
