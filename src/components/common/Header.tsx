@@ -7,7 +7,6 @@ import { IoFileTrayStackedSharp } from 'react-icons/io5';
 import { CgProfile } from 'react-icons/cg';
 import Link from 'next/link';
 import { MyPage } from 'components/mypage/MyPage';
-import { Router } from 'react-router';
 import { useRouter } from 'next/router';
 
 export const Header: React.FC = () => {
@@ -25,7 +24,7 @@ export const Header: React.FC = () => {
         <Div>
           <Link href="/main" passHref>
             <Logo>
-              <TypoGraphy color={customColor.white}>
+              <TypoGraphy color={customColor.brandColor3} fontWeight={'bold'}>
                 Write down today&apos;s outfit.
               </TypoGraphy>
             </Logo>
@@ -56,12 +55,13 @@ export default Header;
 
 const Wrapper = styled.nav`
   width: 100%;
-  background-color: ${customColor.brandColor5};
+  background-color: ${customColor.white};
   display: flex;
   justify-content: center;
   position: absolute;
   top: 0;
   z-index: 99;
+  box-shadow: 0px 1px 10px -4px #aaa;
 `;
 
 const Div = styled.article`
@@ -70,7 +70,7 @@ const Div = styled.article`
   flex-direction: row;
   align-items: center;
   width: 1178px;
-  height: 46px;
+  height: 42px;
 `;
 
 const ButtonBox = styled.section`
@@ -80,7 +80,7 @@ const ButtonBox = styled.section`
 `;
 const Logo = styled.section`
   cursor: pointer;
-  color: ${customColor.white};
+  color: ${customColor.brandColor3};
 `;
 
 const MyPageDiv = styled.section`

@@ -23,8 +23,8 @@ export function MainCody({ suggestions }: Props) {
       {suggestions.map((suggestion) => (
         <ImageWrapper key={suggestion.id}>
           <Image
-            width={160}
-            height={250}
+            width={180}
+            height={320}
             src={suggestion.imageUrl ?? nullImage}
             alt="cody"
             objectFit="fill"
@@ -45,7 +45,9 @@ const Container = styled.section`
 
 const ImageWrapper = styled.section`
   cursor: pointer;
-  border: 2px solid ${customColor.gray};
   border-radius: 4px;
   background-color: ${customColor.white};
+  height: 320px;
+  border-radius: 4px;
+  overflow: hidden;
 `;

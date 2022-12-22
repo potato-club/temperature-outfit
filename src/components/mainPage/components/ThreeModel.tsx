@@ -13,10 +13,16 @@ interface Prop {
 }
 
 export const ThreeModel = ({ weatherStatus }: Prop) => {
-  const {isOpen, handleOpenModal, handleClosetModal} = useModal();
+  const { isOpen, handleOpenModal, handleCloseModal } = useModal();
   const modalConfirm = useCallback(() => {
-    confirmModal('날씨 3D 모델링 파일을 보시겠습니까?', () => handleOpenModal(), '예', '아니오', '3D 모델링 파일은 확대/축소가 가능합니다');
-  }, [handleOpenModal])
+    confirmModal(
+      '날씨 3D 모델링 파일을 보시겠습니까?',
+      () => handleOpenModal(),
+      '예',
+      '아니오',
+      '3D 모델링 파일은 확대/축소가 가능합니다',
+    );
+  }, [handleOpenModal]);
   return (
     <Container>
       <Image
@@ -28,7 +34,7 @@ export const ThreeModel = ({ weatherStatus }: Prop) => {
       />
       <ThreeJsModal
         isOpen={isOpen}
-        handleClosetModal={handleClosetModal}
+        handleCloseModal={handleCloseModal}
         weatherStatus={weatherStatus}
       />
     </Container>
@@ -36,6 +42,6 @@ export const ThreeModel = ({ weatherStatus }: Prop) => {
 };
 
 const Container = styled.section`
-  width: 20%;
+  width: 14%;
   text-align: center;
 `;

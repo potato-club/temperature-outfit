@@ -20,6 +20,8 @@ const Container = styled.section`
     ),
     #ffffff;
   min-height: 100vh;
+  background: #b5e3fd;
+  background: linear-gradient(#a2ddff, 75%, #fff);
   display: flex;
   flex-direction: column;
   align-items: center;

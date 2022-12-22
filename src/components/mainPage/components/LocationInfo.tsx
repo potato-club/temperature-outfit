@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 import { TypoGraphy } from 'components/common';
 import { customColor } from 'constants/index';
-import { IoLocationOutline } from 'react-icons/io5';
+import { IoLocationSharp } from 'react-icons/io5';
 import { locations, userState } from 'recoil/atom';
 import { useRecoilValue } from 'recoil';
 
@@ -25,12 +25,17 @@ export const LocationInfo = ({ temperature }: LocationInfoProps) => {
   return (
     <Container>
       <Location>
-        <IoLocationOutline size={40} />
-        <TypoGraphy type="h3" color={customColor.brandColor5} fontWeight="bold">
-          {myLocationName}
-        </TypoGraphy>
+        <IoLocationSharp size={22} color={customColor.brandColor4} />
+        <Span>
+          <TypoGraphy
+            type="body1"
+            color={customColor.brandColor4}
+            fontWeight="bold">
+            {myLocationName}
+          </TypoGraphy>
+        </Span>
       </Location>
-      <TypoGraphy type="Title" color={customColor.brandColor5}>
+      <TypoGraphy type="h2" color={customColor.brandColor4} fontWeight="bold">
         현재 {temperature}°C
       </TypoGraphy>
     </Container>
@@ -40,8 +45,10 @@ export const LocationInfo = ({ temperature }: LocationInfoProps) => {
 const Container = styled.section`
   display: flex;
   flex-direction: column;
-  gap: 16px 0;
-  width: 30%;
+  gap: 10px 0;
+  width: 20%;
+  margin-right: 20px;
+  align-items: flex-end;
 `;
 
 const Location = styled.section`
@@ -68,7 +75,7 @@ const TodayBestBox = styled.section`
   justify-content: center;
   background-color: ${customColor.white};
   border: 3px solid ${customColor.brandColor5};
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  box-shadow: 0px 4px 4px #aaaaaa;
   border-radius: 10px;
   height: 80px;
   max-width: 320px;
@@ -78,9 +85,14 @@ const RankingWrapper = styled.section`
   display: flex;
   gap: 0px 8px;
 `;
-
 const TextWrapper = styled.section`
   div {
     padding-right: 10%;
   }
+`;
+const SmallSpan = styled.span`
+  font-size: 20px;
+`;
+const Span = styled.span`
+  margin-top: 4px;
 `;

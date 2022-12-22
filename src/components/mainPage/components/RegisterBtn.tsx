@@ -46,7 +46,7 @@ export function RegisterBtn() {
   return (
     <Container>
       <Wrapper onClick={onClick}>
-        <TypoGraphy type="h1" color="#7b61ff" fontWeight="bold">
+        <TypoGraphy type="h4" color="#fff" fontWeight="bold">
           코디 등록
         </TypoGraphy>
       </Wrapper>
@@ -62,12 +62,31 @@ const Container = styled.section`
 
 const Wrapper = styled.section`
   display: flex;
+  position: absolute;
+  z-index: 10;
   align-items: center;
   justify-content: center;
-  width: 160px;
-  height: 60px;
-  border: 3px solid #7b61ff;
+  width: 120px;
+  height: 50px;
+  /* border: 2px solid #7b61ff; */
   border-radius: 10px;
   background-color: ${customColor.white};
+  background-color: ${customColor.darkSky};
+  box-shadow: 1px 2px 3px 0px #aaa;
   cursor: pointer;
+  &:active {
+    box-shadow: none;
+  }
 `;
+// const Wrapper2 = styled.section`
+//   display: flex;
+//   position: absolute;
+//   align-items: center;
+//   justify-content: center;
+//   width: 120px;
+//   height: 50px;
+//   border-radius: 25px;
+//   background-color: #6791c9;
+//   transform: translate(0, 6px);
+//   cursor: pointer;
+// `;
