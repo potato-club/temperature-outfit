@@ -10,27 +10,32 @@ import cloth3 from 'assets/img/cloth/3.jpg';
 interface InnerProps {
   deg: number;
 }
-export const LeftSpin: React.FC = () => {
+
+interface Right {
+  right?: boolean;
+}
+
+export const SpinIMG: React.FC = () => {
   const temp = Array(8).fill(0);
-  const len = temp.length;
+
   return (
     <Wrapper>
       {temp.map((_, i) => {
         return (
-          <RightSection key={i}>
+          <Section key={i}>
             <Inner deg={45 * i}>
-              <Image width="400px" height="484px" alt="clothes" src={cloth2} />
+              <Image width="400px" height="484px" alt="clothes" src={cloth1} />
             </Inner>
-          </RightSection>
+          </Section>
         );
       })}
       {temp.map((_, i) => {
         return (
-          <LeftSection key={i}>
+          <Section key={i} right>
             <Inner deg={45 * i}>
-              <Image width="400px" height="484px" alt="clothes" src={cloth1} />
+              <Image width="400px" height="484px" alt="clothes" src={cloth2} />
             </Inner>
-          </LeftSection>
+          </Section>
         );
       })}
     </Wrapper>
@@ -44,16 +49,9 @@ const Wrapper = styled.div`
   position: absolute;
 `;
 
-const RightSection = styled.section`
-  top: -10vh;
-  left: 100vw;
-  transform: translate(-50%, -50%);
-  position: absolute;
-  animation: spin 130s linear infinite;
-`;
-const LeftSection = styled.section`
-  top: 70vh;
-  right: 100vw;
+const Section = styled.section<Right>`
+  top: ${(props) => (props.right ? '-10vh' : '70vh')};
+  right: ${(props) => (props.right ? '-30vh' : '200vh')};
   transform: translate(-50%, -50%);
   position: absolute;
   animation: spin 130s linear infinite;
@@ -66,8 +64,8 @@ const Inner = styled.article<InnerProps>`
   height: 40vh;
   background: #63c4d1;
   border-radius: 10px;
-  box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.1);
-  opacity: 0.6;
+  box-shadow: -10px 10px 20px rgba(0, 0, 0, 0.3);
+  /* opacity: 0.6; */
   transition: opacity 1s, transform 1s;
   transform: ${(props) => `rotate(${props.deg}deg) translateY(-150%)`};
 `;

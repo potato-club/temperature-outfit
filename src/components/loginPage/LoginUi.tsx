@@ -3,14 +3,14 @@ import styled from '@emotion/styled';
 import { GoogleLogin } from './GoogleLogin';
 import Image from 'next/image';
 import border from 'assets/img/border.png';
-import { LeftSpin, TypoGraphy } from 'components/common';
+import { SpinIMG, TypoGraphy } from 'components/common';
 import TypeIt from 'typeit-react';
 
 export const LoginUi: React.FC = () => {
   const loginComment: string = '날씨에 따라 당신의 코디를 기록하세요';
   return (
     <Wrap>
-      <LeftSpin />
+      <SpinIMG />
       <OutWrap>
         <TopBorder>
           <Image src={border} alt="border" width="280px" height="280px" />
