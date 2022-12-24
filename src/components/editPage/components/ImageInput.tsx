@@ -59,7 +59,9 @@ export const ImageInput = ({ register, setValue }: Props) => {
         <Image
           src={thumbnail || '/cody.jpg'}
           alt="clothes"
-          layout="fill"
+          // layout="fill"
+          width="225px"
+          height="400px"
           onClick={() =>
             clothesInputRef.current && clothesInputRef.current.click()
           }
@@ -92,6 +94,7 @@ export const ImageInput = ({ register, setValue }: Props) => {
 
 const Container = styled.section`
   display: flex;
+  position: relative;
   flex-direction: column;
   gap: 12px 0;
 `;
@@ -102,12 +105,19 @@ const InputButton = styled.input`
 
 const ImageWrapper = styled.section`
   position: relative;
-  width: 100%;
-  height: 240px;
+  width: 350px;
+  height: 320px;
   border-radius: 10px;
   overflow: hidden;
+  padding: 0 85px;
+  background-color: #c4c4c450;
+  box-shadow: 1px 1px 5px -1px #bbb;
 `;
 
 const ButtonWrapper = styled.section`
-  align-self: flex-end;
+  position: absolute;
+  right: 0;
+  top: -52px;
+  border-radius: 50px;
+  box-shadow: 1px 1px 5px -1px #bbb;
 `;

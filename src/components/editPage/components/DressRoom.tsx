@@ -33,17 +33,17 @@ export function DressRoom({ category, id, recoil }: Props) {
     <Container>
       {images &&
         images.map((data) => (
-            <ClothesBox
-              url={data.imageUrl!}
-              id={data.id}
-              key={data.id}
-              type="edit"
-              name={data.name}
-              deleteFn={deleteImage}
-            />
+          <ClothesBox
+            url={data.imageUrl!}
+            id={data.id}
+            key={data.id}
+            type="edit"
+            name={data.name}
+            deleteFn={deleteImage}
+          />
         ))}
       <AddButton onClick={() => handleModal()}>
-        <MemoPlusIcon size={40} />
+        <MemoPlusIcon size={30} />
       </AddButton>
     </Container>
   );
@@ -53,17 +53,17 @@ const Container = styled.section`
   display: flex;
   background-color: ${customColor.white};
   padding: 12px;
-  width: 50%;
-  border-radius: 24px;
+  width: calc(100% - 12px);
+  border-radius: 16px;
   overflow-x: auto;
   gap: 0 12px;
   min-height: 80px;
   box-sizing: content-box;
   margin-bottom: 12px;
-  box-shadow: 4px 4px 4px #00000025;
+  box-shadow: 1px 1px 5px -1px #aaa;
   ::-webkit-scrollbar {
     opacity: 0;
-    height: 12px;
+    width: 12px;
   }
   ::-webkit-scrollbar-thumb {
     background-color: rgb(179, 226, 255, 0.8);
@@ -77,14 +77,22 @@ const Container = styled.section`
   }
 `;
 const AddButton = styled.label`
-  border: 1px solid ${customColor.gray};
-  border-radius: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
-  min-width: 100px;
-  height: 80px;
-  border-radius: 24px;
+  min-width: 200px;
+  height: 126px;
+  border-radius: 12px;
+  box-shadow: 1px 1px 6px -1px #aaa;
+  cursor: pointer;
+  &:hover {
+    background-color: #f3f3f3;
+  }
+  &:active {
+    transform: translate(2px, 2px);
+    box-shadow: none;
+    background-color: #f3f3f3;
+  }
 `;
 
 const ClothesWrapper = styled.section`

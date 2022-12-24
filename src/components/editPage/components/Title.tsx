@@ -1,9 +1,13 @@
 import React from 'react';
 import styled from '@emotion/styled';
+import { IoShirt } from 'react-icons/io5';
+import { AiFillPicture } from 'react-icons/ai';
 import { TypoGraphy } from 'components/common';
+import { customColor } from 'constants/index';
 type Props = {
-  day : string;
-}
+  day: string;
+};
+
 export function Title({ day }: Props) {
   const dayQuery = day ? new Date(day) : new Date();
   const month = dayQuery.getMonth() + 1;
@@ -11,18 +15,22 @@ export function Title({ day }: Props) {
 
   return (
     <Container>
-      <TypoGraphy type="Title" fontWeight="bold">
-        {`${month}월 ${date}일`} 코디
-      </TypoGraphy>
       <SubTitle>
         <ClothesTitle>
-          <TypoGraphy type="Title" fontWeight="bold">
-            오늘의 코디
+          <HighLight />
+          <Icon style={{ paddingBottom: '0px' }}>
+            <IoShirt fontSize="24px" />
+          </Icon>
+          <TypoGraphy type="h1" fontWeight="bold">
+            {`${month}월 ${date}일`} 코디
           </TypoGraphy>
         </ClothesTitle>
         <ReviewTitle>
-          <TypoGraphy type="Title" fontWeight="bold">
-            사진 및 후기
+          <Icon>
+            <AiFillPicture fontSize="24px" />
+          </Icon>
+          <TypoGraphy type="h1" fontWeight="bold">
+            사진
           </TypoGraphy>
         </ReviewTitle>
       </SubTitle>
@@ -33,9 +41,9 @@ const Container = styled.section`
   display: flex;
   flex-direction: column;
   width: 100%;
-  height: 20vh;
-  justify-content: space-evenly;
+  justify-content: center;
   align-items: center;
+  margin-bottom: 12px;
 `;
 const SubTitle = styled.section`
   width: 100%;
@@ -44,14 +52,33 @@ const SubTitle = styled.section`
 `;
 
 const ClothesTitle = styled.section`
+  display: flex;
+  position: relative;
+  flex-direction: row;
   width: 60%;
   max-width: 800px;
+  align-items: center;
 `;
 const ReviewTitle = styled.section`
+  display: flex;
+  flex-direction: row;
   width: 40%;
   max-width: 350px;
   display: flex;
-  align-items: flex-end;
+  align-items: center;
+`;
+const Icon = styled.div`
+  margin-right: 6px;
+`;
+const HighLight = styled.div`
+  position: absolute;
+  width: 112px;
+  height: 20px;
+  background-color: ${customColor.darkSky + '60'};
+  top: 50%;
+  left: 30px;
+  transform: translate(0, calc(-50% - 3px)) skewX(-5deg);
+  z-index: 0;
 `;
 
 export const MemoTitle = React.memo(Title);

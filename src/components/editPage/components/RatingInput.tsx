@@ -2,20 +2,30 @@ import { TypoGraphy } from 'components/common';
 import React from 'react';
 import { Rating } from 'react-simple-star-rating';
 import styled from '@emotion/styled';
+import { MdThumbUp } from 'react-icons/md';
 import { customColor } from 'constants/index';
-import { Control, Controller, FieldErrorsImpl, FieldValues } from 'react-hook-form';
+import {
+  Control,
+  Controller,
+  FieldErrorsImpl,
+  FieldValues,
+} from 'react-hook-form';
 import { ErrorMessage } from '@hookform/error-message';
 type Props = {
   control: Control<FieldValues>;
   errors: Partial<FieldErrorsImpl>;
 };
 export const RatingInput = ({ control, errors }: Props) => {
-
   return (
     <Container>
-      <TypoGraphy type="Title" fontWeight="bold">
-        만족도
-      </TypoGraphy>
+      <RaitingTitle>
+        <Icon>
+          <MdThumbUp fontSize="24px" />
+        </Icon>
+        <TypoGraphy type="h1" fontWeight="bold">
+          만족도
+        </TypoGraphy>
+      </RaitingTitle>
       <Wrapper>
         <Controller
           name="rating"
@@ -57,7 +67,16 @@ const Wrapper = styled.section`
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 10px;
+  border-radius: 36px;
   background-color: ${customColor.brandColor5};
-  margin-bottom: 40px;
+  margin-bottom: 16px;
+  box-shadow: 2px 2px 5px -1px #bbb;
+`;
+const RaitingTitle = styled.section`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+`;
+const Icon = styled.div`
+  margin-right: 6px;
 `;
