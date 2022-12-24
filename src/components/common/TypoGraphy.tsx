@@ -91,6 +91,7 @@ export const TypoGraphy: React.FC<TypoGraphyProps> = ({
 };
 
 const TypoGraphyText = styled.section<StyledTypoGraphyProps>`
+  font-family: 'LeferiPoint-WhiteObliqueA';
   font-size: ${(props) => props.type}px;
   color: ${(props) => props.color};
   text-align: ${(props) => props.textAlign};
