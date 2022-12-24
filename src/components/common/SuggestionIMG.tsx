@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from '@emotion/styled';
 import Image from 'next/image';
 import { Rating } from 'react-simple-star-rating';
+import { MoveToBtn } from './MoveToBtn';
 
 interface Props {
   width: number;
@@ -12,6 +13,9 @@ interface Props {
   onClick: () => void;
 }
 
+interface IsHover {
+  isHover: boolean;
+}
 export const SuggestionIMG: React.FC<Props> = ({
   width,
   height,
@@ -22,18 +26,9 @@ export const SuggestionIMG: React.FC<Props> = ({
 }) => {
   // 블러처리
   // hover시에 다른 컴포넌트
+  const [isHover, setIsHover] = useState(false);
   return (
     <ImageWrapper>
-      <Wrapper>
-        <Image
-          width={width}
-          height={height}
-          src={src}
-          alt={alt}
-          objectFit="fill"
-        />
-        <MoveBtn onClick={onClick}>이동하기</MoveBtn>
-      </Wrapper>
       <BinWrapper>
         <StarWrapper>
           <Rating
@@ -45,6 +40,21 @@ export const SuggestionIMG: React.FC<Props> = ({
           />
         </StarWrapper>
       </BinWrapper>
+      <Wrapper
+        onMouseEnter={() => setIsHover(true)}
+        onMouseLeave={() => setIsHover(false)}>
+        <GrayWrapper isHover={isHover} />
+        <Image
+          width={width}
+          height={height}
+          src={src}
+          alt={alt}
+          objectFit="fill"
+        />
+        <MoveBtn onClick={onClick} isHover={isHover}>
+          이동하기
+        </MoveBtn>
+      </Wrapper>
     </ImageWrapper>
   );
 };
@@ -62,10 +72,8 @@ const Wrapper = styled.article`
   transition: 0.4s ease-out;
   border-radius: 4px;
   overflow: hidden;
-  z-index: 1;
   &:hover {
     transform: translateY(-10%);
-
   }
 `;
 const BinWrapper = styled.article`
@@ -77,6 +85,16 @@ const BinWrapper = styled.article`
   background-color: rgba(43, 8, 37, 0.2);
   box-shadow: 0px 7px 20px rgba(43, 8, 37, 0.2);
 `;
+
+const GrayWrapper = styled.article<IsHover>`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(220, 209, 209, 0.5);
+  z-index: ${(props) => (props.isHover ? 1 : 0)};
+`;
 const StarWrapper = styled.div`
   bottom: 0px;
   left: 4px;
@@ -84,14 +102,33 @@ const StarWrapper = styled.div`
   pointer-events: none;
 `;
 
-const MoveBtn = styled.button`
-  width: 100px;
-  height: 30px;
+const MoveBtn = styled.button<IsHover>`
+  display: flex;
+  position: absolute;
   position: absolute;
   top: 50%;
   left: 50%;
+  background-color: #ffffff33;
+  padding: 10px 16px;
+  border-radius: 20px;
+  border: none;
   transform: translate(-50%, -50%);
-  background: #a8dfff;
-  color: white;
-  /* opacity: 0; */
+  font-family: 'LeferiPoint-WhiteObliqueA';
+  font-weight: bold;
+  border: 2px solid #555;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 1px 2px 1px 0px #555;
+  opacity: ${(props) => (props.isHover ? 1 : 0)};
+  z-index: ${(props) => (props.isHover ? 2 : 0)};
+  &:hover {
+    background-color: #e3adad44;
+    color: #fff;
+    animation-timing-function: ease;
+    animation-duration: 0.4s;
+  }
+  &:active {
+    box-shadow: none;
+    transform: translate(1px, 2px);
+  }
 `;
