@@ -2,8 +2,14 @@ import styled from '@emotion/styled';
 import { customColor } from 'constants/index';
 import React from 'react';
 import Pagination from 'react-js-pagination';
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { lastPage, pageFilter } from 'recoil/atom/filtering';
+import {
+  HiChevronDoubleLeft,
+  HiChevronDoubleRight,
+  HiChevronRight,
+  HiChevronLeft,
+} from 'react-icons/hi';
 
 export function CustomPagination() {
   const [page, setPage] = useRecoilState(pageFilter);
@@ -17,10 +23,26 @@ export function CustomPagination() {
         totalItemsCount={countPerPage * last}
         itemsCountPerPage={countPerPage} // 몇개 보여줄건지
         onChange={(e) => setPage(e)}
-        prevPageText="<"
-        nextPageText=">"
-        firstPageText="<<"
-        lastPageText=">>"
+        prevPageText={
+          <PaginationIcon>
+            <HiChevronLeft fontSize={'22px'} />
+          </PaginationIcon>
+        }
+        nextPageText={
+          <PaginationIcon>
+            <HiChevronRight fontSize={'22px'} />
+          </PaginationIcon>
+        }
+        firstPageText={
+          <PaginationIcon>
+            <HiChevronDoubleLeft />
+          </PaginationIcon>
+        }
+        lastPageText={
+          <PaginationIcon>
+            <HiChevronDoubleRight />
+          </PaginationIcon>
+        }
         pageRangeDisplayed={1}
       />
     </PaginationWrapper>
@@ -30,16 +52,18 @@ export function CustomPagination() {
 const PaginationWrapper = styled.section`
   .pagination {
     display: flex;
-    justify-content: center;
-    margin-top: 15px;
-    font-size: 20px;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translate(-50%, 0);
+    font-size: 18px;
   }
   ul {
     list-style: none;
     padding: 0;
   }
   ul.pagination li {
-    width: 25px;
+    width: 28px;
     height: 25px;
     display: flex;
     justify-content: center;
@@ -60,6 +84,13 @@ const PaginationWrapper = styled.section`
 
   ul.pagination li a:hover,
   ul.pagination li.active a {
-    color: ${customColor.brandColor1}
+    color: ${customColor.brandColor1};
+  }
+`;
+const PaginationIcon = styled.div`
+  color: #888;
+  font-size: 20px;
+  &:hover {
+    color: #000;
   }
 `;
