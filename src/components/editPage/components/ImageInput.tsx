@@ -1,18 +1,8 @@
-// AddModal 에 유사한코드 있음
-// Todo : 재사용할수있는 로직이다 싶으면 재사용할것.
-
 import React, { ChangeEvent, useRef } from 'react';
 import styled from '@emotion/styled';
-import { CustomButton, TypoGraphy } from 'components/common';
+import { CustomButton } from 'components/common';
 import Image from 'next/image';
-import {
-  FieldErrorsImpl,
-  FieldValues,
-  UseFormRegister,
-  UseFormSetValue,
-} from 'react-hook-form';
-import { ErrorMessage } from '@hookform/error-message';
-import { infoModal } from 'utils/interactionModal';
+import { FieldValues, UseFormRegister, UseFormSetValue } from 'react-hook-form';
 import { useRecoilState } from 'recoil';
 import { codyThumbnail } from 'recoil/atom/editState';
 type Props = {
@@ -58,23 +48,12 @@ export const ImageInput = ({ register, setValue }: Props) => {
         <Image
           src={thumbnail || '/cody.jpg'}
           alt="clothes"
-          // layout="fill"
-          width="225px"
-          height="400px"
+          layout="fill"
           onClick={() =>
             clothesInputRef.current && clothesInputRef.current.click()
           }
         />
       </ImageWrapper>
-      {/* <ErrorMessage
-        name="image"
-        errors={errors}
-        render={({ message }) => (
-          <section className="errorWrapper">
-            <TypoGraphy color="red">{message}</TypoGraphy>
-          </section>
-        )}
-      /> */}
       <ButtonWrapper>
         <CustomButton
           customType="colorful"
@@ -105,10 +84,8 @@ const InputButton = styled.input`
 const ImageWrapper = styled.section`
   position: relative;
   width: 350px;
-  height: 320px;
+  height: 65vh;
   border-radius: 10px;
-  overflow: hidden;
-  padding: 0 85px;
   background-color: #c4c4c450;
   box-shadow: 1px 1px 5px -1px #bbb;
 `;
@@ -116,7 +93,5 @@ const ImageWrapper = styled.section`
 const ButtonWrapper = styled.section`
   position: absolute;
   right: 0;
-  top: -52px;
-  border-radius: 50px;
-  box-shadow: 1px 1px 5px -1px #bbb;
+  bottom: -50px;
 `;
