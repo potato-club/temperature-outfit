@@ -121,7 +121,7 @@ const Wrapper = styled.section`
   margin-top: 58px;
   margin-bottom: 12px;
   border-radius: 16px;
-  box-shadow: 2px 2px 5px -1px #bbb;
+  box-shadow: 2px 2px 5px -1px #aaa;
 `;
 
 export default Calendar;

@@ -25,10 +25,10 @@ export const Closet: React.FC = () => {
             </TypoGraphy>
           </ClosetTitle>
           <FilterWrapper>
-            <section style={{ display: 'flex', flexWrap: 'wrap', gap: '20px' }}>
+            <FilterWrapSection>
               <MainSubSelectBox />
               <ColorRadio />
-            </section>
+            </FilterWrapSection>
             <SearchBox />
           </FilterWrapper>
 
@@ -67,7 +67,7 @@ const Wrapper = styled.section`
   padding: 48px 62px;
   background-color: white;
   border-radius: 10px;
-  box-shadow: 0 4px 8px 4px gray;
+  box-shadow: 2px 2px 5px -1px #aaa;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -81,6 +81,11 @@ const Wrapper = styled.section`
     border-radius: 24px;
   }
 `;
+const FilterWrapSection = styled.section`
+  display: flex;
+  flexwrap: wrap;
+  gap: 12px;
+`;
 
 const FilterWrapper = styled.article`
   display: flex;
@@ -88,7 +93,7 @@ const FilterWrapper = styled.article`
   justify-content: space-between;
   width: 100%;
   margin-top: 18px;
-  gap: 20px;
+  gap: 12px;
 `;
 
 const Line = styled.hr`

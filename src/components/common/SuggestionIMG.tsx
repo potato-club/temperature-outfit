@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styled from '@emotion/styled';
+import { keyframes } from '@emotion/react';
 import Image from 'next/image';
 import { Rating } from 'react-simple-star-rating';
 import { MoveToBtn } from './MoveToBtn';
@@ -33,9 +34,9 @@ export const SuggestionIMG: React.FC<Props> = ({
         <StarWrapper>
           <Rating
             ratingValue={rating}
-            size={24}
+            size={20}
             transition={false}
-            fillColor="orange"
+            fillColor="#ffe714"
             emptyColor="gray"
           />
         </StarWrapper>
@@ -58,6 +59,30 @@ export const SuggestionIMG: React.FC<Props> = ({
     </ImageWrapper>
   );
 };
+
+const riseup = keyframes`
+0%{
+transform: translate(0,0);
+}
+100%{
+  transform: translate(0, -28px);
+}`;
+const risedown = keyframes`
+0%{
+transform: translate(0,-28px);
+}
+100%{
+  transform: translate(0, 0);
+}`;
+const changeBtn = keyframes`
+  0%{
+    background-color:#fffa;
+    color:#222;
+  }
+  100%{
+    background-color:#222a;
+    color:#fff;
+  }`;
 const ImageWrapper = styled.section`
   position: relative;
   height: 320px;
@@ -70,10 +95,13 @@ const Wrapper = styled.article`
   display: flex;
   align-items: flex-end;
   transition: 0.4s ease-out;
-  border-radius: 4px;
+  border-radius: 8px;
   overflow: hidden;
+  box-shadow: 0px 1px 5px 0px #aaa;
+  animation: ${risedown} 0.4s ease;
   &:hover {
-    transform: translateY(-10%);
+    animation: ${riseup} 0.4s ease;
+    transform: translateY(-28px);
   }
 `;
 const BinWrapper = styled.article`
@@ -82,8 +110,9 @@ const BinWrapper = styled.article`
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(43, 8, 37, 0.2);
-  box-shadow: 0px 7px 20px rgba(43, 8, 37, 0.2);
+  background-color: #fff;
+  box-shadow: 1px 1px 5px 0px #aaa;
+  border-radius: 8px;
 `;
 
 const GrayWrapper = styled.article<IsHover>`
@@ -92,12 +121,13 @@ const GrayWrapper = styled.article<IsHover>`
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(220, 209, 209, 0.5);
+  background-color: #aaa6;
+  border-radius: 8px;
   z-index: ${(props) => (props.isHover ? 1 : 0)};
 `;
 const StarWrapper = styled.div`
   bottom: 0px;
-  left: 4px;
+  left: 8px;
   position: absolute;
   pointer-events: none;
 `;
@@ -106,9 +136,10 @@ const MoveBtn = styled.button<IsHover>`
   display: flex;
   position: absolute;
   position: absolute;
-  top: 50%;
+  color: #222;
+  top: 55%;
   left: 50%;
-  background-color: #ffffff33;
+  background-color: #fffa;
   padding: 10px 16px;
   border-radius: 20px;
   border: none;
@@ -118,17 +149,18 @@ const MoveBtn = styled.button<IsHover>`
   border: 2px solid #555;
   align-items: center;
   justify-content: center;
-  box-shadow: 1px 2px 1px 0px #555;
+  box-shadow: 1px 2px 1px 0px #444;
+  cursor: pointer;
   opacity: ${(props) => (props.isHover ? 1 : 0)};
   z-index: ${(props) => (props.isHover ? 2 : 0)};
-  &:hover {
-    background-color: #e3adad44;
+  &:hover,
+  &:active {
+    background-color: #222a;
     color: #fff;
-    animation-timing-function: ease;
-    animation-duration: 0.4s;
+    animation: ${changeBtn} 0.3s ease;
   }
   &:active {
     box-shadow: none;
-    transform: translate(1px, 2px);
+    transform: translate(calc(-50% + 1px), calc(-50% + 2px));
   }
 `;
