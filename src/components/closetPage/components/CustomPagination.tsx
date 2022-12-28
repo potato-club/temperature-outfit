@@ -53,9 +53,9 @@ const PaginationWrapper = styled.section`
   .pagination {
     display: flex;
     position: absolute;
-    bottom: 0;
+    bottom: 50%;
     left: 50%;
-    transform: translate(-50%, 0);
+    transform: translate(-50%, 50%);
     font-size: 18px;
   }
   ul {

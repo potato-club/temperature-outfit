@@ -64,7 +64,7 @@ const Wrapper = styled.section`
   max-width: 1178px;
   min-height: 720px;
   margin-top: 20px;
-  padding: 48px 62px;
+  padding: 48px 62px 24px;
   background-color: white;
   border-radius: 10px;
   box-shadow: 2px 2px 5px -1px #aaa;
@@ -84,7 +84,7 @@ const Wrapper = styled.section`
 const FilterWrapSection = styled.section`
   display: flex;
   flexwrap: wrap;
-  gap: 12px;
+  gap: 8px;
 `;
 
 const FilterWrapper = styled.article`
@@ -107,12 +107,13 @@ const Footer = styled.section`
   display: flex;
   flex-direction: column;
   position: relative;
+  justify-content: center;
 `;
 
 const ButtonWrapper = styled.article`
-  margin-top: 12px;
   display: flex;
-  justify-content: end;
+  justify-content: flex-end;
+  align-items: center;
 `;
 const ClosetTitle = styled.section`
   display: flex;
