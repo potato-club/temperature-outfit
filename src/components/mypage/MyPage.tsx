@@ -132,10 +132,10 @@ const InnerContainer = styled.div<Props>`
 const NameInfo = styled.section`
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
   align-items: center;
   gap: 4px;
   margin: 4px;
+  margin-bottom: 16px;
 `;
 const LocationWrapper = styled.section`
   display: flex;

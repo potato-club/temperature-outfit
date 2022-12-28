@@ -1,4 +1,5 @@
 import { MenuItem, Select } from '@mui/material';
+import styled from '@emotion/styled';
 import { clothesSubCategory } from 'constants/index';
 import React, { useEffect, useMemo } from 'react';
 import { useRecoilState } from 'recoil';
@@ -26,14 +27,29 @@ export const SubSelectBox = ({ mainCategory }: Props) => {
   }, [category]);
 
   return (
-    <Select
+    <CustomSelect
       value={mainId.includes(category) ? category : ''}
-      onChange={(e) => setCategory(e.target.value)}>
+      onChange={(e) => setCategory(e.target.value as string)}>
       {clothesSubCategory[mainCategory].map((data: CategoryDetail) => (
-        <MenuItem value={data.id} key={data.id}>
+        <CustomMenuItem value={data.id} key={data.id}>
           {data.name}
-        </MenuItem>
+        </CustomMenuItem>
       ))}
-    </Select>
+    </CustomSelect>
   );
 };
+const CustomSelect = styled(Select)`
+  width: 108px;
+  height: 48px;
+  border-radius: 12px;
+  font-family: 'LeferiPoint-WhiteObliqueA';
+  font-size: 15px;
+  font-weight: 700;
+  padding-top: 4px;
+`;
+
+const CustomMenuItem = styled(MenuItem)`
+  font-family: 'LeferiPoint-WhiteObliqueA';
+  font-weight: 700;
+  font-size: 15px;
+`;
