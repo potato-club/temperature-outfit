@@ -44,7 +44,7 @@ export const CustomButton: React.FC<ButtonProps> = ({
 };
 
 const Button = styled.button<ButtonStyledProps>`
-  padding: ${(props) => `0px ${props.sidePadding}px` || '0px 16px'};
+  padding: ${(props) => `4px ${props.sidePadding}px 0px` || '4px 16px 0px'};
   height: ${(props) => props.height || '40'}px;
   background-color: ${(props) =>
     props.customType === 'white' ? customColor.white : customColor.brandColor3};
@@ -61,6 +61,6 @@ const Button = styled.button<ButtonStyledProps>`
 
   &:active {
     opacity: 1;
-    box-shadow: 2px 3px 2px 0px #444 inset;
+    box-shadow: 2px 3px 2px 0px #1118 inset;
   }
 `;
