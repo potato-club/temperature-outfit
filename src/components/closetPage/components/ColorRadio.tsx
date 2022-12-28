@@ -25,6 +25,7 @@ export const ColorRadio = () => {
               '& .MuiSvgIcon-root': {
                 fontSize: '20px',
               },
+              margin: '-2px',
             }}
           />
         ))}
@@ -32,7 +33,7 @@ export const ColorRadio = () => {
           onClick={() => {
             setColor('');
           }}>
-          <HiOutlineX size={30} />
+          <HiOutlineX size={20} />
         </IconWrapper>
       </>
     </Wrapper>
@@ -43,8 +44,9 @@ const Wrapper = styled.section`
   display: flex;
   background-color: ${customColor.darkSky + '55'};
   flex-wrap: wrap;
-  border-radius: 10px;
+  border-radius: 12px;
   padding: 0 8px;
+  margin: 2px 0;
 `;
 
 const IconWrapper = styled.section`
