@@ -7,6 +7,7 @@ import { addModal } from 'recoil/atom';
 import { ClothesContainer, ColorRadio, SearchBox } from './components';
 import { CustomPagination } from './components/CustomPagination';
 import { MainSubSelectBox } from './components/MainSubSelectBox';
+import { BiCloset } from 'react-icons/bi';
 
 export const Closet: React.FC = () => {
   const setAddModalState = useSetRecoilState(addModal);
@@ -15,9 +16,14 @@ export const Closet: React.FC = () => {
     <Container>
       <Wrapper>
         <div>
-          <TypoGraphy type="Title" fontWeight="bold">
-            옷장
-          </TypoGraphy>
+          <ClosetTitle>
+            <Icon>
+              <BiCloset fontSize="24px" />
+            </Icon>
+            <TypoGraphy type="h1" fontWeight="bold">
+              옷장
+            </TypoGraphy>
+          </ClosetTitle>
           <FilterWrapper>
             <section style={{ display: 'flex', flexWrap: 'wrap', gap: '20px' }}>
               <MainSubSelectBox />
@@ -58,7 +64,7 @@ const Wrapper = styled.section`
   max-width: 1178px;
   min-height: 720px;
   margin-top: 20px;
-  padding: 60px 64px;
+  padding: 48px 62px;
   background-color: white;
   border-radius: 10px;
   box-shadow: 0 4px 8px 4px gray;
@@ -81,24 +87,33 @@ const FilterWrapper = styled.article`
   flex-wrap: wrap;
   justify-content: space-between;
   width: 100%;
-  margin-top: 40px;
+  margin-top: 18px;
   gap: 20px;
 `;
 
 const Line = styled.hr`
   border: 1px solid ${customColor.gray};
   border-bottom: 0px;
-  margin: 24px 0 24px 0;
+  margin: 16px 0 24px 0;
 `;
 
 const Footer = styled.section`
   margin-top: 12px;
   display: flex;
   flex-direction: column;
+  position: relative;
 `;
 
 const ButtonWrapper = styled.article`
   margin-top: 12px;
   display: flex;
   justify-content: end;
+`;
+const ClosetTitle = styled.section`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+`;
+const Icon = styled.div`
+  margin-right: 6px;
 `;

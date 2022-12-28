@@ -3,7 +3,7 @@ import { customColor } from 'constants/index';
 import React, { useState } from 'react';
 import { MemoClothesImg } from './ClothesImg';
 import { MemoRemoveButton } from './components/RemoveButton';
-import { MemoTypoGraphy } from "components/common/TypoGraphy";
+import { MemoTypoGraphy } from 'components/common/TypoGraphy';
 
 type Props = {
   url: string;
