@@ -4,9 +4,9 @@ import React, { useCallback, useState } from 'react';
 import { LightController, Model } from './index';
 import { WeatherStatusType } from 'types/mainPage';
 import Image from 'next/image';
-import useModal from 'hooks/useModal';
 import { confirmModal } from 'utils/interactionModal';
 import { ThreeJsModal } from './ThreeJsModal';
+import { useModal } from 'hooks/useModal';
 
 interface Prop {
   weatherStatus: WeatherStatusType;
