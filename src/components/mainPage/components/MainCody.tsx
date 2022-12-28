@@ -4,6 +4,7 @@ import { customColor } from 'constants/index';
 import Image from 'next/image';
 import { Suggestions } from 'types/mainPage';
 import { useRouter } from 'next/router';
+import { SuggestionIMG } from 'components/common';
 
 const nullImage = '/codyDummy/Person_icon.png';
 
@@ -13,7 +14,7 @@ interface Props {
 
 export function MainCody({ suggestions }: Props) {
   const router = useRouter();
-
+  console.log(suggestions);
   const moveToOutfitView = (id: string) => {
     router.push(`/outfitView/${id}`);
   };
@@ -21,16 +22,15 @@ export function MainCody({ suggestions }: Props) {
   return (
     <Container>
       {suggestions.map((suggestion) => (
-        <ImageWrapper key={suggestion.id}>
-          <Image
-            width={180}
-            height={320}
-            src={suggestion.imageUrl ?? nullImage}
-            alt="cody"
-            objectFit="fill"
-            onClick={() => moveToOutfitView(suggestion.id)}
-          />
-        </ImageWrapper>
+        <SuggestionIMG
+          key={suggestion.id}
+          width={180}
+          height={320}
+          src={suggestion.imageUrl ?? nullImage}
+          alt="cody"
+          rating={suggestion.rating}
+          onClick={() => moveToOutfitView(suggestion.id)}
+        />
       ))}
     </Container>
   );
@@ -41,13 +41,4 @@ const Container = styled.section`
   justify-content: space-around;
   width: 100%;
   max-width: 1138px;
-`;
-
-const ImageWrapper = styled.section`
-  cursor: pointer;
-  border-radius: 4px;
-  background-color: ${customColor.white};
-  height: 320px;
-  border-radius: 4px;
-  overflow: hidden;
 `;

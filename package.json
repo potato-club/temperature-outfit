@@ -41,7 +41,8 @@
     "recoil": "^0.7.4",
     "recoil-persist": "^4.2.0",
     "swagger-ui-react": "^4.12.0",
-    "sweetalert2": "^11.4.26"
+    "sweetalert2": "^11.4.26",
+    "typeit-react": "^2.6.1"
   },
   "devDependencies": {
     "@react-three/drei": "^9.14.3",
