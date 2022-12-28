@@ -1,4 +1,4 @@
-import { stringify } from 'querystring';
+import { customColor } from 'constants/index';
 import Swal, { SweetAlertIcon } from 'sweetalert2';
 
 export const confirmModal = (
@@ -12,8 +12,8 @@ export const confirmModal = (
     title,
     icon: 'question',
     showCancelButton: true,
-    confirmButtonColor: '#3085d6',
-    cancelButtonColor: '#d33',
+    confirmButtonColor: `${customColor.brandColor2}`,
+    cancelButtonColor: `${customColor.gray}`,
     confirmButtonText: yesText,
     cancelButtonText: noText,
     text,

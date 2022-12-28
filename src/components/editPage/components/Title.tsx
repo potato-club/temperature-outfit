@@ -18,21 +18,13 @@ export function Title({ day }: Props) {
       <SubTitle>
         <ClothesTitle>
           <HighLight />
-          <Icon style={{ paddingBottom: '0px' }}>
+          <Icon>
             <IoShirt fontSize="24px" />
           </Icon>
           <TypoGraphy type="h1" fontWeight="bold">
             {`${month}월 ${date}일`} 코디
           </TypoGraphy>
         </ClothesTitle>
-        <ReviewTitle>
-          <Icon>
-            <AiFillPicture fontSize="24px" />
-          </Icon>
-          <TypoGraphy type="h1" fontWeight="bold">
-            사진
-          </TypoGraphy>
-        </ReviewTitle>
       </SubTitle>
     </Container>
   );
@@ -59,16 +51,10 @@ const ClothesTitle = styled.section`
   max-width: 800px;
   align-items: center;
 `;
-const ReviewTitle = styled.section`
-  display: flex;
-  flex-direction: row;
-  width: 40%;
-  max-width: 350px;
-  display: flex;
-  align-items: center;
-`;
+
 const Icon = styled.div`
   margin-right: 6px;
+  padding-bottom: 0px;
 `;
 const HighLight = styled.div`
   position: absolute;

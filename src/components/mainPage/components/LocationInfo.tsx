@@ -46,7 +46,7 @@ const Container = styled.section`
   display: flex;
   flex-direction: column;
   gap: 10px 0;
-  width: 20%;
+  width: 22%;
   margin-right: 20px;
   align-items: flex-end;
 `;
