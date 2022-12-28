@@ -35,7 +35,6 @@ export const ImageInput = ({ register, setValue }: Props) => {
       fileReader.onload = () => {
         setThumbnail(String(fileReader.result!));
       };
-      infoModal('옷 사진 등록완료!', 'success');
     }
   };
 

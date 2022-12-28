@@ -36,7 +36,7 @@ export const AddModal = () => {
     {
       onSuccess: (data) => {
         console.log(data);
-        infoModal('서버에 옷 등록 완료!', 'success');
+        infoModal('옷 등록 완료', 'success');
         setAddModalState((cur) => !cur);
         queryClient.invalidateQueries('getItem');
       },

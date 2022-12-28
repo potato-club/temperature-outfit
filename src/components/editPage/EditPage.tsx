@@ -53,7 +53,7 @@ export default function EditPage() {
         const productsId = getAllEditProductsId();
         // 등록된옷이 하나도 없을때
         if (!productsId) {
-          infoModal('확인 해주세요!', 'error', '옷을 하나 이상 등록 해주세요!');
+          infoModal('옷을 하나 이상 등록 해주세요', 'error');
           // errorModal('확인해주세요!', '옷을 하나 이상 등록 해주세요!')
           return;
         }
