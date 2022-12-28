@@ -25,7 +25,7 @@ export const CustomButton: React.FC<ButtonProps> = ({
   onClick,
   sidePadding,
   height,
-  type
+  type,
 }) => {
   return (
     <Button
@@ -59,11 +59,8 @@ const Button = styled.button<ButtonStyledProps>`
   opacity: 0.9;
   white-space: nowrap;
 
-  &:hover {
-    opacity: 1;
-  }
-
   &:active {
-    opacity: 0.9;
+    opacity: 1;
+    box-shadow: 2px 3px 2px 0px #444 inset;
   }
 `;
