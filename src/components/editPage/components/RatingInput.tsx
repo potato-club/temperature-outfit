@@ -18,14 +18,14 @@ type Props = {
 export const RatingInput = ({ control, errors }: Props) => {
   return (
     <Container>
-      <RaitingTitle>
+      <RatingTitle>
         <Icon>
           <MdThumbUp fontSize="24px" />
         </Icon>
         <TypoGraphy type="h1" fontWeight="bold">
           만족도
         </TypoGraphy>
-      </RaitingTitle>
+      </RatingTitle>
       <Wrapper>
         <Controller
           name="rating"
@@ -35,7 +35,7 @@ export const RatingInput = ({ control, errors }: Props) => {
             <Rating
               onClick={onChange}
               ratingValue={value}
-              size={40}
+              size={44}
               allowHalfIcon
               transition
               fillColor="orange"
@@ -64,15 +64,16 @@ const Container = styled.section`
 `;
 
 const Wrapper = styled.section`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 36px;
-  background-color: ${customColor.brandColor5};
+  /* width: 180px; */
+  /* display: flex; */
+  margin-left: 12px;
+  /* justify-content: center; */
+  /* border-radius: 36px; */
+  /* background-color: ${customColor.brandColor5}; */
   margin-bottom: 16px;
-  box-shadow: 2px 2px 5px -1px #bbb;
+  /* box-shadow: 2px 2px 5px -1px #bbb; */
 `;
-const RaitingTitle = styled.section`
+const RatingTitle = styled.section`
   display: flex;
   flex-direction: row;
   align-items: center;
