@@ -91,7 +91,6 @@ const ButtonWrapper = styled.section`
   position: absolute;
   right: 0;
   bottom: -40px;
-  z-index: 1;
 `;
 
 const Btn = styled.div`
