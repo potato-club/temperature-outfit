@@ -24,37 +24,43 @@ export const ChooseModal = () => {
       ariaHideApp={false}
       contentLabel="Add Modal">
       <Wrapper>
-        <TypoGraphy type="Title" fontWeight="bold">
-          {category}
-        </TypoGraphy>
+        <P>{category}</P>
         <ContentBox>
           <CategoryBox />
           <ModalClothesContainer />
         </ContentBox>
+
         <CustomPagination />
       </Wrapper>
     </Container>
   );
 };
+const P = styled.div`
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 2px;
+`;
 
 const Container = styled(Modal)`
   position: absolute;
   top: 50%;
   left: 50%;
   width: 100%;
-  max-width: 800px;
+  max-width: 740px;
   box-sizing: content-box;
-  min-height: 412px;
+  min-height: 400px;
   transform: translate(-50%, -50%);
   background-color: ${customColor.white};
-  padding: 40px;
+  padding: 24px 40px 10px;
   border-radius: 20px;
-  box-shadow: 4px 4px 5px 4px rgba(0, 0, 0, 0.43);
+  box-shadow: 1px 1px 5px -1px #bbb;
 `;
 
 const Wrapper = styled.section`
   display: flex;
   flex-direction: column;
+  margin-top: 12px;
+  padding: 4px 0;
   gap: 10px;
   height: 100%;
   overflow-y: auto;
@@ -72,12 +78,5 @@ const ContentBox = styled.section`
   width: 100%;
   border: 1px solid ${customColor.gray};
   border-radius: 20px;
-  padding: 12px;
-`;
-
-const ButtonBox = styled.section`
-  display: flex;
-  gap: 10px;
-  margin-bottom: 10px;
-  flex-wrap: wrap;
+  padding: 12px 20px 12px;
 `;

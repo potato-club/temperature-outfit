@@ -36,6 +36,7 @@ export const CustomButton: React.FC<ButtonProps> = ({
       height={height}>
       <TypoGraphy
         color={customType === 'white' ? customColor.black : customColor.white}
+        type={'body2'}
         fontWeight={'bold'}>
         {text}
       </TypoGraphy>

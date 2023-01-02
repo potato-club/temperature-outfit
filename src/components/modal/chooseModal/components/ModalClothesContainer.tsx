@@ -4,7 +4,7 @@ import useFilter from 'hooks/useFilter';
 import { useRecoilValue } from 'recoil';
 import { categoryLabel } from 'recoil/atom/chooseModal';
 import { ModalClothesBox } from './ModalClothesBox';
-import { useEffect, useMemo } from 'react';
+import {  useMemo } from 'react';
 import useGetItem from 'hooks/useGetItem';
 
 export const ModalClothesContainer = () => {
@@ -15,15 +15,8 @@ export const ModalClothesContainer = () => {
     return categories[index].recoil;
   }, [category]);
 
-
-  const { filter } = useFilter(10);
+  const { filter } = useFilter(5);
   const { filterItem } = useGetItem(filter);
-  console.log(filter)
-
-  // useEffect(() => {
-  //   getItem(filter);
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [filter]);
 
   return (
     <ItemContainer>
@@ -44,10 +37,9 @@ export const ModalClothesContainer = () => {
 const ItemContainer = styled.section`
   position: relative;
   width: 100%;
-  flex-wrap: wrap;
-  min-height: 244px;
   display: flex;
-  gap: 4px;
-  align-items: flex-start;
-  justify-content: flex-start;
+  flex-wrap: wrap;
+  gap: 16px;
+  min-height: 200px;
+  margin: 16px 0;
 `;

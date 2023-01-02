@@ -16,7 +16,6 @@ export function DressRoom({ products }: Props) {
             <ClothesBox
               url={product.imageUrl!}
               id={product.id}
-              type="edit"
               name={product.name}
             />
           </ClothesWrapper>
