@@ -7,5 +7,6 @@ export { RadioButton } from './RadioButton';
 export { SelectBox } from './SelectBox';
 export { LocationSelectBox } from './LocationSelectBox';
 export { ClothesBox } from './clothesBox/ClothesBox';
+export { DressBox } from './dressBox/DressBox';
 export { SpinIMG } from './SpinIMG';
 export { SuggestionIMG } from './SuggestionIMG';

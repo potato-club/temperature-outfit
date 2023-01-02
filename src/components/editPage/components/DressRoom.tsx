@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 import { customColor } from 'constants/index';
 import { AiOutlinePlus } from 'react-icons/ai';
 import { RecoilState, useRecoilState, useSetRecoilState } from 'recoil';
-import { ClothesBox } from 'components/common';
+import { DressBox } from 'components/common';
 import { chooseModal } from 'recoil/atom';
 import { categoryLabel } from 'recoil/atom/chooseModal';
 import { categoryFilter } from 'recoil/atom/filtering';
@@ -33,11 +33,10 @@ export function DressRoom({ category, id, recoil }: Props) {
     <Container>
       {images &&
         images.map((data) => (
-          <ClothesBox
+          <DressBox
             url={data.imageUrl!}
             id={data.id}
             key={data.id}
-            type="edit"
             name={data.name}
             deleteFn={deleteImage}
           />
@@ -53,7 +52,7 @@ const Container = styled.section`
   display: flex;
   background-color: ${customColor.white};
   padding: 12px;
-  width: calc(100% - 12px);
+  width: calc(100% - 9px);
   border-radius: 16px;
   overflow-x: auto;
   gap: 0 12px;
@@ -63,14 +62,13 @@ const Container = styled.section`
   box-shadow: 1px 1px 5px -1px #aaa;
   ::-webkit-scrollbar {
     opacity: 0;
-    width: 12px;
+    height: 20px;
   }
   ::-webkit-scrollbar-thumb {
     background-color: rgb(179, 226, 255, 0.8);
     border-radius: 24px;
     background-clip: padding-box;
-    border-left: 20px solid transparent;
-    border-right: 20px solid transparent;
+    border: 6px solid transparent;
   }
   ::-webkit-scrollbar-track {
     border-radius: 10px;
