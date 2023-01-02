@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 import { customColor } from 'constants/index';
 import React, { useState } from 'react';
+import { AiTwotoneDelete } from 'react-icons/ai';
 import { FiX } from 'react-icons/fi';
 type Props = {
   id: string;
@@ -23,14 +24,18 @@ type StyledProps = {
   showRemove: boolean;
 };
 const Wrapper = styled.button<StyledProps>`
+  cursor: pointer;
   position: absolute;
-  z-index: 99;
-  top: 0px;
-  right: 0px;
-  border-radius: 10px;
-  border: 1px solid ${customColor.gray};
-  background-color: pink;
+  top: -2px;
+  right: -4px;
+  width: 18px;
+  height: 18px;
+  padding: 0px;
   outline: none;
+  border: none;
+  font-size: 16px;
+  background-color: transparent;
+  color: red;
   opacity: ${({ showRemove }) => (showRemove ? 1 : 0)};
   z-index: 0;
   :hover {

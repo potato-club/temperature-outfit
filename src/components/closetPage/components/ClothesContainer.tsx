@@ -52,6 +52,7 @@ export const ClothesContainer = () => {
   );
 };
 
+// TODO : 그리드 정렬 다시하기
 const Wrapper = styled.section`
   width: 100%;
   display: grid;
