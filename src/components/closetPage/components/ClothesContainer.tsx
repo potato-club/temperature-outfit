@@ -7,7 +7,7 @@ import { useMutation, useQueryClient } from 'react-query';
 import { confirmModal, errorModal, infoModal } from 'utils/interactionModal';
 
 export const ClothesContainer = () => {
-  const { filter } = useFilter(20);
+  const { filter } = useFilter(24);
   const { filterItem } = useGetItem(filter);
   const queryClient = useQueryClient();
 
@@ -31,11 +31,6 @@ export const ClothesContainer = () => {
     );
   };
 
-  // useEffect(() => {
-  //   getItem(filter);
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [filter]);
-
   return (
     <Wrapper>
       {filterItem.map((data) => (
@@ -52,11 +47,10 @@ export const ClothesContainer = () => {
   );
 };
 
-// TODO : 그리드 정렬 다시하기
+// TODO : 반응형 어케할지 고민
 const Wrapper = styled.section`
-  width: 100%;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(140px, 2fr));
-  grid-auto-rows: 140px;
-  justify-items: center;
+  grid-template-columns: repeat(6, 1fr);
+  grid-template-rows: repeat(4, 1fr);
+  gap: 8px;
 `;
