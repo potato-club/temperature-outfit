@@ -1,6 +1,6 @@
 import React, { ChangeEvent, useRef } from 'react';
 import styled from '@emotion/styled';
-import { CustomButton } from 'components/common';
+import { customColor } from 'constants/index';
 import Image from 'next/image';
 import { FieldValues, UseFormRegister, UseFormSetValue } from 'react-hook-form';
 import { useRecoilState } from 'recoil';
@@ -55,16 +55,13 @@ export const ImageInput = ({ register, setValue }: Props) => {
         />
       </ImageWrapper>
       <ButtonWrapper>
-        <CustomButton
-          customType="colorful"
-          text="기본 이미지로 설정"
-          sidePadding="20"
-          type="button"
+        <Btn
           onClick={() => {
             setThumbnail('');
             setValue('image', null);
-          }}
-        />
+          }}>
+          기본 사진
+        </Btn>
       </ButtonWrapper>
     </Container>
   );
@@ -93,5 +90,28 @@ const ImageWrapper = styled.section`
 const ButtonWrapper = styled.section`
   position: absolute;
   right: 0;
-  bottom: -50px;
+  bottom: -40px;
+  z-index: 1;
+`;
+
+const Btn = styled.div`
+  cursor: pointer;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0px 12px;
+  height: 28px;
+  border-radius: 10px;
+  background-color: ${customColor.white};
+  background-color: ${customColor.gray};
+  box-shadow: 2px 3px 1px 0px #aaa;
+  cursor: pointer;
+  &:hover {
+    background-color: #c6c7c9;
+  }
+  &:active {
+    box-shadow: none;
+    transform: translate(2px, 3px);
+  }
 `;
