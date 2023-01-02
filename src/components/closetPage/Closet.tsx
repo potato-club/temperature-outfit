@@ -15,7 +15,7 @@ export const Closet: React.FC = () => {
   return (
     <Container>
       <Wrapper>
-        <div>
+        <Body>
           <ClosetTitle>
             <Icon>
               <BiCloset fontSize="24px" />
@@ -35,7 +35,7 @@ export const Closet: React.FC = () => {
           <Line />
 
           <ClothesContainer />
-        </div>
+        </Body>
         <Footer>
           <CustomPagination />
           <ButtonWrapper>
@@ -56,11 +56,13 @@ export const Closet: React.FC = () => {
 };
 
 const Container = styled.section`
-  width: 70%;
-  height: 90%;
+  display: flex;
+  justify-content: center;
   margin: 40px 0px;
 `;
+
 const Wrapper = styled.section`
+  width: 80vw;
   max-width: 1178px;
   min-height: 720px;
   margin-top: 20px;
@@ -83,9 +85,11 @@ const Wrapper = styled.section`
 `;
 const FilterWrapSection = styled.section`
   display: flex;
-  flexwrap: wrap;
+  flex-wrap: wrap;
   gap: 8px;
 `;
+
+const Body = styled.section``;
 
 const FilterWrapper = styled.article`
   display: flex;
