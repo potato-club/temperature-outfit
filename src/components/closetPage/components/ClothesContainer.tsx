@@ -7,7 +7,7 @@ import { useMutation, useQueryClient } from 'react-query';
 import { confirmModal, errorModal, infoModal } from 'utils/interactionModal';
 
 export const ClothesContainer = () => {
-  const { filter } = useFilter(24);
+  const { filter } = useFilter(14);
   const { filterItem } = useGetItem(filter);
   const queryClient = useQueryClient();
 
@@ -38,7 +38,6 @@ export const ClothesContainer = () => {
           name={data.name}
           url={data.imageUrl}
           key={data.id}
-          type="closet"
           id={data.id}
           deleteFn={removeCheck}
         />
@@ -49,8 +48,7 @@ export const ClothesContainer = () => {
 
 // TODO : 반응형 어케할지 고민
 const Wrapper = styled.section`
-  display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  grid-template-rows: repeat(4, 1fr);
-  gap: 8px;
+  display: flex;
+  gap: 28px;
+  flex-wrap: wrap;
 `;
