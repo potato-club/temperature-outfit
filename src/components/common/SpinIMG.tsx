@@ -1,9 +1,22 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import Image from 'next/image';
-import cloth1 from 'assets/img/cloth/1.jpg';
-import cloth2 from 'assets/img/cloth/2.jpg';
-import cloth3 from 'assets/img/cloth/3.jpg';
+import left1 from 'assets/img/loginSpin/left1.png';
+import left2 from 'assets/img/loginSpin/left2.jpg';
+import left3 from 'assets/img/loginSpin/left3.png';
+import left4 from 'assets/img/loginSpin/left4.png';
+import left5 from 'assets/img/loginSpin/left5.jpg';
+import left6 from 'assets/img/loginSpin/left6.jpg';
+import left7 from 'assets/img/loginSpin/left7.jpg';
+import left8 from 'assets/img/loginSpin/left8.jpg';
+import right1 from 'assets/img/loginSpin/right1.png';
+import right2 from 'assets/img/loginSpin/right2.jpg';
+import right3 from 'assets/img/loginSpin/right3.png';
+import right4 from 'assets/img/loginSpin/right4.jpg';
+import right5 from 'assets/img/loginSpin/right5.png';
+import right6 from 'assets/img/loginSpin/right6.png';
+import right7 from 'assets/img/loginSpin/right7.png';
+import right8 from 'assets/img/loginSpin/right8.jpg';
 
 // Todo : 들어갈 사진 8개 선정
 
@@ -16,24 +29,33 @@ interface Right {
 }
 
 export const SpinIMG: React.FC = () => {
-  const temp = Array(8).fill(0);
-
+  const leftIMG = [left1, left2, left3, left4, left5, left6, left7, left8];
+  const rightIMG = [
+    right1,
+    right2,
+    right3,
+    right4,
+    right5,
+    right6,
+    right7,
+    right8,
+  ];
   return (
     <Wrapper>
-      {temp.map((_, i) => {
+      {leftIMG.map((imgSrc, i) => {
         return (
           <Section key={i}>
             <Inner deg={45 * i}>
-              <Image width="400px" height="484px" alt="clothes" src={cloth1} />
+              <Image width="400px" height="484px" alt="clothes" src={imgSrc} />
             </Inner>
           </Section>
         );
       })}
-      {temp.map((_, i) => {
+      {rightIMG.map((imgSrc, i) => {
         return (
           <Section key={i} right>
             <Inner deg={45 * i}>
-              <Image width="400px" height="484px" alt="clothes" src={cloth2} />
+              <Image width="400px" height="484px" alt="clothes" src={imgSrc} />
             </Inner>
           </Section>
         );
@@ -63,9 +85,10 @@ const Inner = styled.article<InnerProps>`
   width: 16vw;
   height: 40vh;
   background: #63c4d1;
-  border-radius: 10px;
+  border-radius: 12px;
+  overflow: hidden;
   box-shadow: -10px 10px 20px rgba(0, 0, 0, 0.3);
-  /* opacity: 0.6; */
+  /* opacity: 0.8; */
   transition: opacity 1s, transform 1s;
   transform: ${(props) => `rotate(${props.deg}deg) translateY(-150%)`};
 `;
