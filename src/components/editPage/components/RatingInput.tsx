@@ -43,16 +43,14 @@ export const RatingInput = ({ control, errors }: Props) => {
             />
           )}
         />
+        <ErrorMessage
+          errors={errors}
+          name="rating"
+          render={({ message }) => (
+            <CustomErrorMessage>{message}</CustomErrorMessage>
+          )}
+        />
       </Wrapper>
-      <ErrorMessage
-        errors={errors}
-        name="rating"
-        render={({ message }) => (
-          <section className="errorWrapper">
-            <TypoGraphy color="red">{message}</TypoGraphy>
-          </section>
-        )}
-      />
     </Container>
   );
 };
@@ -80,4 +78,12 @@ const RatingTitle = styled.section`
 `;
 const Icon = styled.div`
   margin-right: 6px;
+`;
+
+const CustomErrorMessage = styled.div`
+  font-size: 0.8rem;
+  color: red;
+  position: absolute;
+  margin-top: 6px;
+  margin-left: 6px;
 `;

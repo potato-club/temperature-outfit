@@ -126,10 +126,13 @@ table {
 }
 
 .errorWrapper {
-  display: flex;
-  justify-content: flex-end;
-  width: 100%;
+  position: absolute;
+  margin-top: 0.3vh;
+  font-size: 0.8rem;
+  color: red;
+  left: 2.2vw;
 }
+
 @font-face {
   font-family: 'LeferiPoint-WhiteObliqueA';
   src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2201-2@1.0/LeferiPoint-WhiteObliqueA.woff')

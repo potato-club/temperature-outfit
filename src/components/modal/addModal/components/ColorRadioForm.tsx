@@ -25,7 +25,7 @@ export const ColorRadioForm = ({ control, errors }: Props) => {
           render={({ field: { onChange, value } }) => (
             <>
               {Object.keys(radioBtnColor).map((colorKey) => (
-                <Radio
+                <CustomRadio
                   onChange={onChange}
                   value={colorKey}
                   key={colorKey}
@@ -46,9 +46,7 @@ export const ColorRadioForm = ({ control, errors }: Props) => {
         errors={errors}
         name="color"
         render={({ message }) => (
-          <section className="errorWrapper">
-            <TypoGraphy color="red">{message}</TypoGraphy>
-          </section>
+          <section className="errorWrapper">{message}</section>
         )}
       />
     </section>
@@ -61,4 +59,8 @@ const Wrapper = styled.section`
   flex-wrap: wrap;
   border-radius: 10px;
   padding: 0 8px;
+`;
+
+const CustomRadio = styled(Radio)`
+  width: 2vw;
 `;
