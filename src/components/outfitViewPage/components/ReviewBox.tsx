@@ -5,7 +5,11 @@ import { customColor } from 'constants/index';
 import Image from 'next/image';
 import { Rating } from 'react-simple-star-rating';
 import { useRouter } from 'next/router';
-import { completeCheckModal, confirmModal, errorModal } from 'utils/interactionModal';
+import {
+  completeCheckModal,
+  confirmModal,
+  errorModal,
+} from 'utils/interactionModal';
 import { todayCodyApi } from 'api';
 import { useMutation } from 'react-query';
 
@@ -13,26 +17,20 @@ interface ReviewBoxProps {
   comment: string;
   rating: number;
   outFitImageUrl: string;
-  outfitData: any;
 }
 export function ReviewBox({
   comment,
   rating,
   outFitImageUrl,
-  outfitData,
 }: ReviewBoxProps) {
   const router = useRouter();
   const handlePut = () => {
-    router.push(
-      {
-        pathname: '/edit',
-        query: {
-          day: outfitData.date,
-          outfitData: JSON.stringify(outfitData),
-          outfitId: router.query.id,
-        },
+    router.push({
+      pathname: '/edit',
+      query: {
+        outfitId: router.query.id,
       },
-    );
+    });
   };
   const { mutate } = useMutation(
     () => todayCodyApi.deleteOutfit(router.query.id as string),

@@ -16,19 +16,20 @@ import { codyThumbnail } from 'recoil/atom/editState';
 import { todayCodyApi, weatherApi } from 'api';
 import { MemoTitle } from './components/Title';
 import { MemoContents } from './components/Contents';
-import { completeCheckModal, errorModal, infoModal } from 'utils/interactionModal';
+import {
+  completeCheckModal,
+  errorModal,
+  infoModal,
+} from 'utils/interactionModal';
 import useEditResetRecoil from 'hooks/useEditResetRecoil';
-import { useMutation } from 'react-query';
+import { useMutation, useQuery } from 'react-query';
 import { mutateParamType } from 'types/editPage/mutateParam.type';
 import { debounceFunction } from 'utils/debounceFunction';
 
 export default function EditPage() {
   const router = useRouter();
   const [submitTimer, setSubmitTimer] = useState<NodeJS.Timer>();
-
-  const dayQuery = useMemo(() => {
-    return router.query.day as string;
-  }, [router.query.day]);
+  const [day, setDay] = useState('');
 
   const { mutate } = useMutation(
     ({ frm, outfitId }: mutateParamType) =>
@@ -72,19 +73,13 @@ export default function EditPage() {
     });
   };
 
-  const day = dayQuery
-    ? new Date(dayQuery).toISOString().replace(/T.*$/, '')
-    : '';
-
   const [topImages, setTopImages] = useRecoilState(topState);
   const [outerImages, setOuterImages] = useRecoilState(outerState);
   const [bottomImages, setBottomImages] = useRecoilState(bottomState);
   const [shoesImages, setShoesImages] = useRecoilState(shoesState);
   const [etcImages, setEtcImages] = useRecoilState(etcState);
   const { resetRecoilState } = useEditResetRecoil();
-
   const setCodyThumbnail = useSetRecoilState(codyThumbnail);
-
   const user = useRecoilValue(userState);
 
   const getWeather = useCallback(async () => {
@@ -173,22 +168,28 @@ export default function EditPage() {
     formState: { errors },
   } = useForm();
 
-  useEffect(() => {
-    router.query.outfitData &&
-      (() => {
-        const { imageUrl, rating, products, comment } = JSON.parse(
-          router.query.outfitData as string,
-        );
+  useQuery(
+    'getOutfit',
+    () => todayCodyApi.getOutfit(router.query.outfitId as string),
+    {
+      enabled: router.isReady,
+      onSuccess: ({ data }) => {
+        const { date, imageUrl, rating, products, comment } = data;
+
         setCodyThumbnail(imageUrl);
         setValue('rating', rating);
         setValue('comment', comment);
-
         products.forEach((product: any) => {
           filterProduct(product);
         });
-      })();
-  }, [filterProduct, router.query.outfitData, setCodyThumbnail, setValue]);
 
+        setDay(new Date(date).toISOString().replace(/T.*$/, ''));
+      },
+      onError: (err: unknown) => {
+        errorModal('알 수 없는 오류', '서버의 상태가 이상합니다.');
+      },
+    },
+  );
   return (
     <>
       {router.isReady && (
