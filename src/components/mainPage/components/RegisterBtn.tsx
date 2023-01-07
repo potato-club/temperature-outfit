@@ -63,12 +63,10 @@ const Container = styled.section`
 const Wrapper = styled.section`
   display: flex;
   position: absolute;
-  z-index: 10;
   align-items: center;
   justify-content: center;
   width: 120px;
   height: 50px;
-  /* border: 2px solid #7b61ff; */
   border-radius: 10px;
   background-color: ${customColor.white};
   background-color: ${customColor.darkSky};
@@ -84,15 +82,3 @@ const Wrapper = styled.section`
     transform: translate(2px, 3px);
   }
 `;
-// const Wrapper2 = styled.section`
-//   display: flex;
-//   position: absolute;
-//   align-items: center;
-//   justify-content: center;
-//   width: 120px;
-//   height: 50px;
-//   border-radius: 25px;
-//   background-color: #6791c9;
-//   transform: translate(0, 6px);
-//   cursor: pointer;
-// `;

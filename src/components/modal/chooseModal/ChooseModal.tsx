@@ -22,6 +22,11 @@ export const ChooseModal = () => {
       isOpen={chooseModalState}
       onRequestClose={handleClose}
       ariaHideApp={false}
+      style={{
+        overlay: {
+          background: 'rgba(0,0,0,0.4)',
+        },
+      }}
       contentLabel="Add Modal">
       <Wrapper>
         <P>{category}</P>
@@ -52,8 +57,12 @@ const Container = styled(Modal)`
   transform: translate(-50%, -50%);
   background-color: ${customColor.white};
   padding: 24px 40px 10px;
-  border-radius: 20px;
+  border-radius: 8px;
   box-shadow: 1px 1px 5px -1px #bbb;
+  &:focus {
+    border: none;
+    outline: none;
+  }
 `;
 
 const Wrapper = styled.section`
@@ -77,6 +86,6 @@ const Wrapper = styled.section`
 const ContentBox = styled.section`
   width: 100%;
   border: 1px solid ${customColor.gray};
-  border-radius: 20px;
+  border-radius: 8px;
   padding: 12px 20px 12px;
 `;

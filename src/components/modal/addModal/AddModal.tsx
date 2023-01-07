@@ -73,6 +73,11 @@ export const AddModal = () => {
         setAddModalState((cur) => !cur);
       }}
       ariaHideApp={false}
+      style={{
+        overlay: {
+          background: 'rgba(0,0,0,0.4)',
+        },
+      }}
       contentLabel="Add Modal">
       <Wrapper>
         <TypoGraphy type="h1" fontWeight="bold">
@@ -114,6 +119,10 @@ const Container = styled(Modal)`
   width: 30vw;
   height: 82vh;
   max-height: 700px;
+  &:focus {
+    border: none;
+    outline: none;
+  }
 `;
 
 const Wrapper = styled.section``;
