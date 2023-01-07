@@ -53,16 +53,16 @@ export const ImageInput = ({ register, setValue }: Props) => {
             clothesInputRef.current && clothesInputRef.current.click()
           }
         />
+        <ButtonWrapper>
+          <Btn
+            onClick={() => {
+              setThumbnail('');
+              setValue('image', null);
+            }}>
+            기본 사진
+          </Btn>
+        </ButtonWrapper>
       </ImageWrapper>
-      <ButtonWrapper>
-        <Btn
-          onClick={() => {
-            setThumbnail('');
-            setValue('image', null);
-          }}>
-          기본 사진
-        </Btn>
-      </ButtonWrapper>
     </Container>
   );
 };
@@ -71,6 +71,7 @@ const Container = styled.section`
   display: flex;
   position: relative;
   flex-direction: column;
+  height: 100%;
   gap: 12px 0;
 `;
 
@@ -79,28 +80,30 @@ const InputButton = styled.input`
 `;
 
 const ImageWrapper = styled.section`
+  display: flex;
   position: relative;
-  width: 350px;
-  height: 65vh;
+  height: 100%;
   border-radius: 10px;
   background-color: #c4c4c450;
   box-shadow: 1px 1px 5px -1px #bbb;
+  border-radius: 4px;
 `;
 
 const ButtonWrapper = styled.section`
   position: absolute;
-  right: 0;
-  bottom: -40px;
+  right: 4px;
+  bottom: 6px;
   z-index: 1;
 `;
 
 const Btn = styled.div`
   cursor: pointer;
-  font-size: 14px;
+  font-size: 12px;
+  font-weight: bold;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 0px 12px;
+  padding: 4px 12px 0px;
   height: 28px;
   border-radius: 10px;
   background-color: ${customColor.white};

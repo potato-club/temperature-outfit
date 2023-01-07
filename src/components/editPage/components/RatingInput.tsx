@@ -35,10 +35,10 @@ export const RatingInput = ({ control, errors }: Props) => {
             <Rating
               onClick={onChange}
               ratingValue={value}
-              size={44}
+              size={36}
               allowHalfIcon
               transition
-              fillColor="orange"
+              fillColor="#ffe714"
               emptyColor="gray"
             />
           )}
@@ -65,12 +65,11 @@ const Container = styled.section`
 
 const Wrapper = styled.section`
   /* width: 180px; */
-  /* display: flex; */
-  margin-left: 12px;
-  /* justify-content: center; */
+  display: flex;
+  justify-content: flex-start;
+  padding: 0px 20px;
   /* border-radius: 36px; */
   /* background-color: ${customColor.brandColor5}; */
-  margin-bottom: 16px;
   /* box-shadow: 2px 2px 5px -1px #bbb; */
 `;
 const RatingTitle = styled.section`
