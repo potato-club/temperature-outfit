@@ -27,4 +27,5 @@ const Container = styled.section`
   align-items: center;
   justify-content: center;
   overflow-y: auto;
+  user-select: none;
 `;

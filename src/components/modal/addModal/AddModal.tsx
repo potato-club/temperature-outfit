@@ -105,21 +105,18 @@ const Container = styled(Modal)`
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 100%;
   max-width: 680px;
   transform: translate(-50%, -50%);
   background-color: ${customColor.white};
   padding: 40px;
   border-radius: 20px;
-  box-shadow: 4px 4px 5px 4px rgba(0, 0, 0, 0.43);
+  box-shadow: 1px 1px 5px -1px #bbb;
+  width: 30vw;
+  height: 82vh;
+  max-height: 700px;
 `;
 
-const Wrapper = styled.section`
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  padding: 20px;
-`;
+const Wrapper = styled.section``;
 
 const CategoryWrapper = styled.section`
   display: flex;
@@ -135,6 +132,6 @@ const ButtonWrapper = styled.section`
 const ContentBox = styled.section`
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 1.5vh;
   margin-top: 10px;
 `;

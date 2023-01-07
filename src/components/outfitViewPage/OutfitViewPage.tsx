@@ -18,9 +18,7 @@ type totalTemperatureType = {
 
 export default function OutfitView() {
   const router = useRouter();
-
   const [outfitData, setOutfitData] = useState<outfitDataType>();
-
   const [weather, setWeather] = useState<totalTemperatureType>();
 
   useQuery(
@@ -86,7 +84,6 @@ export default function OutfitView() {
               ))}
             </CodyBox>
             <ReviewBox
-              outfitData={outfitData}
               comment={outfitData.comment}
               rating={outfitData.rating}
               outFitImageUrl={outfitData.imageUrl}

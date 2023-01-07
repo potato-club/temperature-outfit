@@ -1,6 +1,7 @@
 import { MenuItem, Select } from '@mui/material';
 import { clothesSubCategory } from 'constants/index';
 import React, { useEffect, useMemo } from 'react';
+import styled from '@emotion/styled';
 import {
   Control,
   Controller,
@@ -13,7 +14,11 @@ type Props = {
   control: Control<FieldValues>;
   mainCategory: string;
 };
-export const SubSelectBoxForm = ({ control, mainCategory, setValue }: Props) => {
+export const SubSelectBoxForm = ({
+  control,
+  mainCategory,
+  setValue,
+}: Props) => {
   const mainId = useMemo(
     () => clothesSubCategory[mainCategory].slice(1).map((data) => data.id),
     [mainCategory],
@@ -29,19 +34,34 @@ export const SubSelectBoxForm = ({ control, mainCategory, setValue }: Props) => 
         name="categoryId"
         control={control}
         render={({ field: { onChange, value } }) => (
-          <Select
+          <CustomSelect
             value={mainId.includes(value) ? value : ''}
             onChange={onChange}>
             {clothesSubCategory[mainCategory]
               .slice(1)
               .map((data: CategoryDetail) => (
-                <MenuItem value={data.id} key={data.id}>
+                <CustomMenuItem value={data.id} key={data.id}>
                   {data.name}
-                </MenuItem>
+                </CustomMenuItem>
               ))}
-          </Select>
+          </CustomSelect>
         )}
       />
     </>
   );
 };
+const CustomSelect = styled(Select)`
+  width: 100%;
+  height: 4vh;
+  border-radius: 12px;
+  font-family: 'LeferiPoint-WhiteObliqueA';
+  font-size: 15px;
+  font-weight: 700;
+  padding-top: 4px;
+`;
+
+const CustomMenuItem = styled(MenuItem)`
+  font-family: 'LeferiPoint-WhiteObliqueA';
+  font-weight: 700;
+  font-size: 15px;
+`;

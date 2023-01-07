@@ -60,8 +60,8 @@ const Wrapper = styled.section`
   margin: 0;
   border-radius: 12px;
   overflow: hidden;
-  width: 200px;
-  height: 126px;
+  width: 126px;
+  height: 200px;
   box-shadow: 1px 1px 6px -1px #aaa;
 `;
 const ClothesName = styled.section<NameProps>`

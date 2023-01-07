@@ -8,12 +8,11 @@ import { MemoTypoGraphy } from 'components/common/TypoGraphy';
 type Props = {
   url: string;
   name: string;
-  type: 'edit' | 'closet';
   id?: string;
   deleteFn?: (id: string) => void;
 };
 
-export function ClothesBox({ url, name, id, deleteFn, type }: Props) {
+export function ClothesBox({ url, name, id, deleteFn }: Props) {
   const [showName, setShowName] = useState<boolean>(false);
 
   return (
@@ -24,10 +23,9 @@ export function ClothesBox({ url, name, id, deleteFn, type }: Props) {
         </MemoTypoGraphy>
       </ClothesName>
       <ImgWrapper
-        type={type}
         onMouseOver={() => setShowName(true)}
         onMouseOut={() => setShowName(false)}>
-        <MemoClothesImg type={type} url={url} />
+        <MemoClothesImg url={url} />
       </ImgWrapper>
       {deleteFn && id !== undefined && (
         <MemoRemoveButton id={id} deleteFn={deleteFn} />
@@ -36,28 +34,28 @@ export function ClothesBox({ url, name, id, deleteFn, type }: Props) {
   );
 }
 
-type StyleProps = {
-  type: 'edit' | 'closet';
-};
 const Container = styled.section`
   position: relative;
 `;
 
-const ImgWrapper = styled.section<StyleProps>`
+const ImgWrapper = styled.section`
   display: flex;
   margin: 0;
   border: 1px solid ${customColor.gray};
   border-radius: 16px;
   overflow: hidden;
-  width: 120px;
-  height: ${({ type }) => (type === 'edit' ? '80px' : '120px')};
+  width: 126px;
+  height: 200px;
+
   &:hover {
     border: 1px solid ${customColor.brandColor1};
   }
 `;
+
 type NameProps = {
   showName: boolean;
 };
+
 const ClothesName = styled.section<NameProps>`
   user-select: none;
   position: absolute;

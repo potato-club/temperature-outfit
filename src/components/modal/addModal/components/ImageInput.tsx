@@ -6,7 +6,7 @@ import { IoMdImage } from 'react-icons/io';
 import { customColor } from 'constants/index';
 import { FieldErrorsImpl, FieldValues, UseFormRegister } from 'react-hook-form';
 import { ErrorMessage } from '@hookform/error-message';
-import { infoModal } from 'utils/interactionModal';
+
 type Props = {
   register: UseFormRegister<FieldValues>;
   errors: Partial<FieldErrorsImpl>;
@@ -50,18 +50,19 @@ export const ImageInput = ({ register, errors }: Props) => {
       />
       <ImageWrapper>
         {thumbnail ? (
-          <Image
-            width={360}
-            height={360}
-            src={thumbnail}
-            alt="clothes"
-            onClick={() =>
-              clothesInputRef.current && clothesInputRef.current.click()
-            }
-          />
+          <RelativeImg>
+            <Image
+              src={thumbnail}
+              layout={'fill'}
+              alt="clothes"
+              onClick={() =>
+                clothesInputRef.current && clothesInputRef.current.click()
+              }
+            />
+          </RelativeImg>
         ) : (
           <InitialImage
-            size={360}
+            size={240}
             opacity={0.5}
             onClick={() =>
               clothesInputRef.current && clothesInputRef.current.click()
@@ -74,7 +75,7 @@ export const ImageInput = ({ register, errors }: Props) => {
         errors={errors}
         render={({ message }) => (
           <section className="errorWrapper">
-            <TypoGraphy color="red">{message}</TypoGraphy>
+            {message}
           </section>
         )}
       />
@@ -86,16 +87,26 @@ const InputButton = styled.input`
   display: none;
 `;
 
+const RelativeImg = styled.div`
+  position: relative;
+  width: 100%;
+  height: 100%;
+`;
+
 const InitialImage = styled(IoMdImage)`
   width: 100%;
   background-color: ${customColor.gray};
-  border-radius: 40px;
+  height: 40vh;
 `;
 
 const ImageWrapper = styled.section`
+  margin-top: 12px;
   width: 100%;
   height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow: hidden;
+  border-radius: 12px;
+  height: 40vh;
 `;
