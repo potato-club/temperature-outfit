@@ -31,16 +31,18 @@ export function Title({ day }: Props) {
 }
 const Container = styled.section`
   display: flex;
-  flex-direction: column;
-  width: 100%;
+  flex-direction: row;
   justify-content: center;
-  align-items: center;
+  align-self: flex-start;
+  align-items: flex-start;
   margin-bottom: 12px;
+  width: max-content;
 `;
 const SubTitle = styled.section`
-  width: 100%;
   display: flex;
+  justify-content: flex-start;
   gap: 0 28px;
+  width: max-content;
 `;
 
 const ClothesTitle = styled.section`
@@ -50,6 +52,8 @@ const ClothesTitle = styled.section`
   width: 60%;
   max-width: 800px;
   align-items: center;
+  white-space: nowrap;
+  width: max-content;
 `;
 
 const Icon = styled.div`
@@ -58,7 +62,7 @@ const Icon = styled.div`
 `;
 const HighLight = styled.div`
   position: absolute;
-  width: 112px;
+  width: calc(100% - 30px);
   height: 20px;
   background-color: ${customColor.darkSky + '60'};
   top: 50%;

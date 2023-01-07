@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import { customColor } from 'constants/index';
 import React, { useState } from 'react';
-import { FiX } from 'react-icons/fi';
+import { GiCancel } from 'react-icons/gi';
 type Props = {
   id: string;
   deleteFn: (id: string) => void;
@@ -10,7 +10,7 @@ type Props = {
 const RemoveButton = ({ id, deleteFn, showRemove }: Props) => {
   return (
     <Wrapper onClick={() => deleteFn(id)} showRemove={showRemove}>
-      <MemoFix fontSize={'20px'} color={'#eee'} />
+      <MemoGiCancel fontSize={'18px'} color={'#ff4949'} />
     </Wrapper>
   );
 };
@@ -25,25 +25,24 @@ const Wrapper = styled.button<StyledProps>`
   top: 4px;
   right: 4px;
   border-radius: 10px;
-  width: 20px;
-  height: 20px;
+  width: 18px;
+  height: 18px;
   align-items: center;
   justify-content: center;
   border: none;
-  background-color: #c70000;
-  box-shadow: 1px 1px 2px 0px #aaa;
+  background-color: none;
+  margin: 0px;
+  padding: 0px;
   cursor: pointer;
   outline: none;
   opacity: ${({ showRemove }) => (showRemove ? 0.8 : 0)};
   z-index: 0;
-  padding: 3px;
-  margin: 0;
   &:hover,
   &:active {
     opacity: 1;
   }
 `;
 
-const MemoFix = React.memo(FiX);
+const MemoGiCancel = React.memo(GiCancel);
 
 export const MemoRemoveButton = React.memo(RemoveButton);
