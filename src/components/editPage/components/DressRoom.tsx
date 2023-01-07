@@ -78,9 +78,9 @@ const AddButton = styled.label`
   display: flex;
   align-items: center;
   justify-content: center;
-  min-width: 200px;
-  height: 126px;
   border-radius: 12px;
+  min-width: 126px;
+  height: 200px;
   box-shadow: 1px 1px 6px -1px #aaa;
   cursor: pointer;
   &:hover {
@@ -93,8 +93,5 @@ const AddButton = styled.label`
   }
 `;
 
-const ClothesWrapper = styled.section`
-  position: relative;
-`;
 
 const MemoPlusIcon = React.memo(AiOutlinePlus);
