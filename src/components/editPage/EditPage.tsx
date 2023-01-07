@@ -172,7 +172,7 @@ export default function EditPage() {
     'getOutfit',
     () => todayCodyApi.getOutfit(router.query.outfitId as string),
     {
-      enabled: router.isReady,
+      enabled: !!router.query.outfitId,
       onSuccess: ({ data }) => {
         const { date, imageUrl, rating, products, comment } = data;
 
