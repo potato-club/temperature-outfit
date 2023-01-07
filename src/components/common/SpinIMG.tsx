@@ -42,20 +42,26 @@ export const SpinIMG: React.FC = () => {
   ];
   return (
     <Wrapper>
-      {leftIMG.map((imgSrc, i) => {
-        return (
-          <Section key={i}>
-            <Inner deg={45 * i}>
-              <Image width="400px" height="484px" alt="clothes" src={imgSrc} />
-            </Inner>
-          </Section>
-        );
-      })}
+      <RelativeBox>
+        {leftIMG.map((imgSrc, i) => {
+          return (
+            <Section key={i}>
+              <Inner deg={45 * i}>
+                <RelativeBox>
+                  <Image layout="fill" alt="clothes" src={imgSrc} />
+                </RelativeBox>
+              </Inner>
+            </Section>
+          );
+        })}
+      </RelativeBox>
       {rightIMG.map((imgSrc, i) => {
         return (
           <Section key={i} right>
             <Inner deg={45 * i}>
-              <Image width="400px" height="484px" alt="clothes" src={imgSrc} />
+              <RelativeBox>
+                <Image layout="fill" alt="clothes" src={imgSrc} />
+              </RelativeBox>
             </Inner>
           </Section>
         );
@@ -69,6 +75,12 @@ const Wrapper = styled.div`
   height: 100vh;
   overflow: hidden;
   position: absolute;
+`;
+
+const RelativeBox = styled.div`
+  position: relative;
+  width: 100%;
+  height: 100%;
 `;
 
 const Section = styled.section<Right>`
@@ -88,7 +100,6 @@ const Inner = styled.article<InnerProps>`
   border-radius: 12px;
   overflow: hidden;
   box-shadow: -10px 10px 20px rgba(0, 0, 0, 0.3);
-  /* opacity: 0.8; */
   transition: opacity 1s, transform 1s;
   transform: ${(props) => `rotate(${props.deg}deg) translateY(-150%)`};
 `;
