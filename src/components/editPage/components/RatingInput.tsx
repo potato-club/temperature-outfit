@@ -26,11 +26,11 @@ export const RatingInput = ({ control, errors }: Props) => {
           만족도
         </TypoGraphy>
       </RatingTitle>
-      <Wrapper>
+      <RatingWrapper>
         <Controller
           name="rating"
           control={control}
-          rules={{ required: '점수를 매겨주세요' }}
+          rules={{ required: '만족도를 선택해주세요' }}
           render={({ field: { onChange, value } }) => (
             <Rating
               onClick={onChange}
@@ -50,7 +50,7 @@ export const RatingInput = ({ control, errors }: Props) => {
             <CustomErrorMessage>{message}</CustomErrorMessage>
           )}
         />
-      </Wrapper>
+      </RatingWrapper>
     </Container>
   );
 };
@@ -61,14 +61,11 @@ const Container = styled.section`
   gap: 12px 0;
 `;
 
-const Wrapper = styled.section`
-  /* width: 180px; */
+const RatingWrapper = styled.section`
   display: flex;
   justify-content: flex-start;
   padding: 0px 20px;
-  /* border-radius: 36px; */
-  /* background-color: ${customColor.brandColor5}; */
-  /* box-shadow: 2px 2px 5px -1px #bbb; */
+  position: relative;
 `;
 const RatingTitle = styled.section`
   display: flex;
@@ -81,8 +78,10 @@ const Icon = styled.div`
 
 const CustomErrorMessage = styled.div`
   font-size: 0.8rem;
+  font-family: 'LeferiPoint-WhiteObliqueA';
   color: red;
+  font-weight: bold;
   position: absolute;
-  margin-top: 6px;
-  margin-left: 6px;
+  bottom: -14px;
+  left: 24px;
 `;
