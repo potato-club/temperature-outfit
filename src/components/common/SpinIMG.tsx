@@ -18,8 +18,6 @@ import right6 from 'assets/img/loginSpin/right6.png';
 import right7 from 'assets/img/loginSpin/right7.png';
 import right8 from 'assets/img/loginSpin/right8.jpg';
 
-// Todo : 들어갈 사진 8개 선정
-
 interface InnerProps {
   deg: number;
 }

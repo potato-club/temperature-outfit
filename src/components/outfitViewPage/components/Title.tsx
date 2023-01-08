@@ -11,11 +11,11 @@ type TitleProps = {
   day: string;
 };
 
-// TODO : 온도 관련 꾸며야함
 export function Title({ average, max, min, day }: TitleProps) {
   const dayQuery = new Date(day);
   const month = dayQuery.getMonth() + 1;
   const date = dayQuery.getDate();
+
   return (
     <Container>
       <SubTitle>
@@ -30,11 +30,8 @@ export function Title({ average, max, min, day }: TitleProps) {
         </ClothesTitle>
         <Temperatures>
           <TypoGraphy type="body1" fontWeight="bold">
-            평균 온도 : {average}°C
-            <br />
-            최고 온도 : {max}°C
-            <br />
-            최저 온도 : {min}°C
+            최고 <Red>{max}°C </Red> 최저 <Blue>{min}°C</Blue>
+            &nbsp; 평균 {average}°C
           </TypoGraphy>
         </Temperatures>
       </SubTitle>
@@ -55,11 +52,6 @@ const SubTitle = styled.section`
   justify-content: flex-start;
   gap: 0 28px;
   width: max-content;
-`;
-
-const Temperatures = styled.section`
-  width: 60%;
-  max-width: 800px;
 `;
 
 const ClothesTitle = styled.section`
@@ -86,4 +78,15 @@ const HighLight = styled.div`
   left: 30px;
   transform: translate(0, calc(-50% - 3px)) skewX(-5deg);
   z-index: 0;
+`;
+
+const Temperatures = styled.section`
+  margin-top: 8px;
+`;
+
+const Blue = styled.span`
+  color: #57bceb;
+`;
+const Red = styled.span`
+  color: #ee8a49;
 `;
