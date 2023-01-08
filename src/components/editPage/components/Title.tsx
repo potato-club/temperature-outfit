@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import { IoShirt } from 'react-icons/io5';
-import { AiFillPicture } from 'react-icons/ai';
 import { TypoGraphy } from 'components/common';
 import { customColor } from 'constants/index';
 type Props = {

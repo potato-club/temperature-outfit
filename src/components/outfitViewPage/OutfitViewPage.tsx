@@ -76,9 +76,11 @@ export default function OutfitView() {
             <CodyBox>
               {categories.map(({ name, id }) => (
                 <Category key={id}>
-                  <TypoGraphy type="Title" fontWeight="bold">
-                    {name}
-                  </TypoGraphy>
+                  <Label>
+                    <TypoGraphy type="h3" fontWeight="bold">
+                      {name}
+                    </TypoGraphy>
+                  </Label>
                   <DressRoom products={categoryFilter(id)} />
                 </Category>
               ))}
@@ -104,6 +106,10 @@ const Container = styled.section`
   flex-direction: column;
 `;
 
+const Label = styled.div`
+  margin-bottom: 4px;
+`;
+
 const Contents = styled.section`
   width: 100%;
   height: 70vh;
@@ -123,16 +129,19 @@ const CodyBox = styled.section`
   max-width: 800px;
   display: flex;
   flex-direction: column;
-  padding: 12px;
-  border-radius: 10px;
+  padding: 24px 24px 0px;
+  border-radius: 12px;
   background-color: #c4c4c450;
+  box-shadow: 1px 1px 5px -1px #bbb;
   overflow-y: auto;
   ::-webkit-scrollbar {
     opacity: 0;
-    width: 12px;
+    width: 26px;
   }
   ::-webkit-scrollbar-thumb {
-    background-color: rgb(150, 137, 235, 0.6);
+    background-color: #1b3a4d66;
     border-radius: 24px;
+    background-clip: padding-box;
+    border: 8px solid transparent;
   }
 `;

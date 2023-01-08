@@ -56,7 +56,6 @@ const Container = styled.section`
   border-radius: 16px;
   overflow-x: auto;
   gap: 0 12px;
-  min-height: 80px;
   box-sizing: content-box;
   margin-bottom: 12px;
   box-shadow: 1px 1px 5px -1px #aaa;
