@@ -17,6 +17,7 @@ import right5 from 'assets/img/loginSpin/right5.png';
 import right6 from 'assets/img/loginSpin/right6.png';
 import right7 from 'assets/img/loginSpin/right7.png';
 import right8 from 'assets/img/loginSpin/right8.jpg';
+import { keyframes } from '@emotion/react';
 
 interface InnerProps {
   deg: number;
@@ -40,7 +41,7 @@ export const SpinIMG: React.FC = () => {
   ];
   return (
     <Wrapper>
-      <RelativeBox>
+      <WrapperInner>
         {leftIMG.map((imgSrc, i) => {
           return (
             <Section key={i}>
@@ -52,52 +53,108 @@ export const SpinIMG: React.FC = () => {
             </Section>
           );
         })}
-      </RelativeBox>
-      {rightIMG.map((imgSrc, i) => {
-        return (
-          <Section key={i} right>
-            <Inner deg={45 * i}>
-              <RelativeBox>
-                <Image layout="fill" alt="clothes" src={imgSrc} />
-              </RelativeBox>
-            </Inner>
-          </Section>
-        );
-      })}
+        {rightIMG.map((imgSrc, i) => {
+          return (
+            <Section key={i} right>
+              <Inner deg={45 * i}>
+                <RelativeBox>
+                  <Image layout="fill" alt="clothes" src={imgSrc} />
+                </RelativeBox>
+              </Inner>
+            </Section>
+          );
+        })}
+        <Circle />
+      </WrapperInner>
     </Wrapper>
   );
 };
 
+const spin = keyframes`
+  0% {
+    transform:translate(-50%, -50%) rotate(0deg);
+  }
+  50% {
+    transform:translate(-50%, -50%) rotate(180deg);
+  }
+  100% {
+    transform:translate(-50%, -50%) rotate(360deg);
+  }
+`;
+const spin2 = keyframes`
+  0% {
+    transform:translate(-63%, 63%) rotate(0deg);
+  }
+  50% {
+    transform:translate(-63%, 63%) rotate(180deg);
+  }
+  100% {
+    transform:translate(-63%, 63%) rotate(360deg);
+  }
+`;
 const Wrapper = styled.div`
-  width: 100vw;
-  height: 100vh;
-  overflow: hidden;
+  display: flex;
+  width: 100%;
+  height: 100%;
   position: absolute;
+  overflow: hidden;
+`;
+const WrapperInner = styled.div`
+  display: flex;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
 `;
 
 const RelativeBox = styled.div`
+  display: flex;
   position: relative;
   width: 100%;
   height: 100%;
 `;
 
 const Section = styled.section<Right>`
-  top: ${(props) => (props.right ? '-10vh' : '70vh')};
-  right: ${(props) => (props.right ? '-30vh' : '200vh')};
-  transform: translate(-50%, -50%);
+  display: flex;
   position: absolute;
-  animation: spin 130s linear infinite;
+  left: ${(props) => (props.right ? 'calc(100% + 160px)' : '-160px')};
+  top: ${(props) => (props.right ? '40px' : 'calc(100% - 40px)')};
+  animation: ${spin} 130s linear infinite;
+  width: 14%;
+  min-width: 200px;
+  max-width: 360px;
+  aspect-ratio: 9/16;
+  @media screen and (max-width: 767px) {
+    display: ${(props) => (props.right ? 'none' : 'flex')};
+  }
 `;
 
 const Inner = styled.article<InnerProps>`
   top: 50%;
   left: 50%;
-  width: 16vw;
-  height: 40vh;
+  width: 100%;
+  height: 100%;
   background: #63c4d1;
   border-radius: 12px;
   overflow: hidden;
-  box-shadow: -10px 10px 20px rgba(0, 0, 0, 0.3);
+  box-shadow: 5px 5px 20px -2px #999;
   transition: opacity 1s, transform 1s;
-  transform: ${(props) => `rotate(${props.deg}deg) translateY(-150%)`};
+  transform: ${(props) => `rotate(${props.deg}deg) translateY(-114%)`};
+  opacity: 0.85;
+`;
+
+const Circle = styled.div`
+  display: flex;
+  position: absolute;
+  width: 100%;
+  min-width: 1200px;
+  max-width: 1800px;
+  aspect-ratio: 1/1;
+  background: none;
+  border-radius: 50%;
+  border: 3px dotted #fff;
+  bottom: calc(-13% - 36px);
+  left: calc(37% - 36px);
+  animation: ${spin2} 60s linear infinite;
+  opacity: 0.85;
 `;
