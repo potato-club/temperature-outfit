@@ -165,6 +165,7 @@ export default function EditPage() {
     handleSubmit,
     setValue,
     control,
+    watch,
     formState: { errors },
   } = useForm();
 
@@ -201,6 +202,7 @@ export default function EditPage() {
               errors={errors}
               setValue={setValue}
               control={control}
+              watch={watch}
             />
           </form>
         </Container>
