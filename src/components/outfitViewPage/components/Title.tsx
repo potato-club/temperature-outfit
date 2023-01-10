@@ -31,7 +31,7 @@ export function Title({ average, max, min, day }: TitleProps) {
         <Temperatures>
           <TypoGraphy type="body1" fontWeight="bold">
             최고 <Red>{max}°C </Red> 최저 <Blue>{min}°C</Blue>
-            &nbsp; 평균 {average}°C
+            &nbsp; 평균 <Gray>{average}°C</Gray>
           </TypoGraphy>
         </Temperatures>
       </SubTitle>
@@ -89,4 +89,7 @@ const Blue = styled.span`
 `;
 const Red = styled.span`
   color: #ee8a49;
+`;
+const Gray = styled.span`
+  color: #777;
 `;
