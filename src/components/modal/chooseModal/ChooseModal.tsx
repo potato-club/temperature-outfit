@@ -25,6 +25,7 @@ export const ChooseModal = () => {
       style={{
         overlay: {
           background: 'rgba(0,0,0,0.4)',
+          zIndex: 100,
         },
       }}
       contentLabel="Add Modal">
