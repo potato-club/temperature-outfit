@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { FieldValues, UseFormRegister, UseFormSetValue } from 'react-hook-form';
 import { useRecoilState } from 'recoil';
 import { codyThumbnail } from 'recoil/atom/editState';
+import { InitPhotoButton } from './InitPhotoButton';
 type Props = {
   register: UseFormRegister<FieldValues>;
   setValue: UseFormSetValue<FieldValues>;
@@ -53,15 +54,12 @@ export const ImageInput = ({ register, setValue }: Props) => {
             clothesInputRef.current && clothesInputRef.current.click()
           }
         />
-        <ButtonWrapper>
-          <Btn
-            onClick={() => {
-              setThumbnail('');
-              setValue('image', null);
-            }}>
-            기본 사진
-          </Btn>
-        </ButtonWrapper>
+        <InitPhotoButton
+          onClick={() => {
+            setThumbnail('');
+            setValue('image', null);
+          }}
+        />
       </ImageWrapper>
     </Container>
   );
@@ -87,34 +85,4 @@ const ImageWrapper = styled.section`
   background-color: #c4c4c450;
   box-shadow: 1px 1px 5px -1px #bbb;
   border-radius: 4px;
-`;
-
-const ButtonWrapper = styled.section`
-  position: absolute;
-  right: 4px;
-  bottom: 6px;
-  z-index: 1;
-`;
-
-const Btn = styled.div`
-  cursor: pointer;
-  font-size: 12px;
-  font-weight: bold;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 4px 12px 0px;
-  height: 28px;
-  border-radius: 10px;
-  background-color: ${customColor.white};
-  background-color: ${customColor.gray};
-  box-shadow: 2px 3px 1px 0px #aaa;
-  cursor: pointer;
-  &:hover {
-    background-color: #c6c7c9;
-  }
-  &:active {
-    box-shadow: none;
-    transform: translate(2px, 3px);
-  }
 `;
