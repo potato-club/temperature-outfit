@@ -65,10 +65,10 @@ const Wrapper = styled.nav`
   background-color: ${customColor.white};
   display: flex;
   justify-content: center;
-  position: absolute;
+  position: fixed;
   top: 0;
-  z-index: 99;
   box-shadow: 0px 1px 10px -4px #bbb;
+  z-index: 10;
 `;
 
 const Div = styled.article`

@@ -19,7 +19,7 @@ const Container = styled.section`
       rgba(97, 0, 255, 0.13) 64.06%
     ),
     #ffffff;
-  min-height: 100vh;
+  min-height: calc(100vh - 44px);
   background: #b5e3fd;
   background: linear-gradient(#a2ddff, 75%, #fff);
   display: flex;
