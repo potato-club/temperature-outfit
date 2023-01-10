@@ -52,12 +52,12 @@ const Container = styled(Modal)`
   top: 50%;
   left: 50%;
   width: 100%;
-  max-width: 740px;
+  max-width: 684px;
   box-sizing: content-box;
   min-height: 400px;
   transform: translate(-50%, -50%);
   background-color: ${customColor.white};
-  padding: 24px 40px 10px;
+  padding: 24px 28px 10px;
   border-radius: 8px;
   box-shadow: 1px 1px 5px -1px #bbb;
   &:focus {
@@ -71,7 +71,7 @@ const Wrapper = styled.section`
   flex-direction: column;
   margin-top: 12px;
   padding: 4px 0;
-  gap: 10px;
+  gap: 8px;
   height: 100%;
   overflow-y: auto;
   ::-webkit-scrollbar {
@@ -88,5 +88,5 @@ const ContentBox = styled.section`
   width: 100%;
   border: 1px solid ${customColor.gray};
   border-radius: 8px;
-  padding: 12px 20px 12px;
+  padding: 8px;
 `;
