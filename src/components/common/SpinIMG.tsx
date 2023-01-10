@@ -64,7 +64,6 @@ export const SpinIMG: React.FC = () => {
             </Section>
           );
         })}
-        <Circle />
       </WrapperInner>
     </Wrapper>
   );
@@ -140,21 +139,5 @@ const Inner = styled.article<InnerProps>`
   box-shadow: 5px 5px 20px -2px #999;
   transition: opacity 1s, transform 1s;
   transform: ${(props) => `rotate(${props.deg}deg) translateY(-114%)`};
-  opacity: 0.85;
-`;
-
-const Circle = styled.div`
-  display: flex;
-  position: absolute;
-  width: 100%;
-  min-width: 1200px;
-  max-width: 1800px;
-  aspect-ratio: 1/1;
-  background: none;
-  border-radius: 50%;
-  border: 3px dotted #fff;
-  bottom: calc(-13% - 36px);
-  left: calc(37% - 36px);
-  animation: ${spin2} 60s linear infinite;
   opacity: 0.85;
 `;
