@@ -46,7 +46,8 @@ export const CustomButton: React.FC<ButtonProps> = ({
 
 const Button = styled.button<ButtonStyledProps>`
   padding: ${(props) => `4px ${props.sidePadding}px 0px` || '4px 16px 0px'};
-  height: ${(props) => props.height || '40'}px;
+  height: ${(props) => props.height || '36'}px;
+  min-width:60px;
   background-color: ${(props) =>
     props.customType === 'white' ? customColor.white : customColor.brandColor3};
   cursor: pointer;
