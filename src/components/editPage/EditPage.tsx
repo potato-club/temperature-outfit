@@ -218,4 +218,5 @@ const Container = styled.section`
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  padding:12px;
 `;

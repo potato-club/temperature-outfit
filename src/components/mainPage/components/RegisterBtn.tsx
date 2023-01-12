@@ -1,11 +1,19 @@
 import styled from '@emotion/styled';
+import { keyframes } from '@emotion/react';
 import { TypoGraphy } from 'components/common';
 import { customColor, koreaToday } from 'constants/index';
 import { useRouter } from 'next/router';
-import React from 'react';
+import React, { useState } from 'react';
 import { useQuery } from 'react-query';
 import { todayCodyApi } from 'api';
 import { confirmModal } from 'utils/interactionModal';
+import Image from 'next/image';
+import hanger from 'assets/img/decoration/hanger.png';
+
+interface ButtonStyle {
+  isHover: boolean;
+  isActive?: boolean;
+}
 
 export function RegisterBtn() {
   const router = useRouter();
@@ -43,42 +51,121 @@ export function RegisterBtn() {
     refetch();
   };
 
+  const [isHover, setIsHover] = useState(false);
+  const [isActive, setIsActive] = useState(false);
   return (
-    <Container>
-      <Wrapper onClick={onClick}>
-        <TypoGraphy type="h4" color="#fff" fontWeight="bold">
-          코디 등록
-        </TypoGraphy>
-      </Wrapper>
-    </Container>
+    <ButtonWrapper>
+      <ButtonInner
+        onClick={onClick}
+        onMouseEnter={() => {
+          setIsHover(true);
+        }}
+        onMouseLeave={() => {
+          setIsHover(false);
+          setIsActive(false);
+        }}
+        onMouseDown={() => {
+          setIsActive(true);
+        }}
+        onMouseUp={() => {
+          setIsActive(false);
+        }}>
+        <ButtonShdow isHover={isHover} isActive={isActive} />
+        <ButtonBody />
+        <ButtonContent isHover={isHover} isActive={isActive}>
+          오늘의 코디등록
+          <Hanger isHover={isHover} isActive={isActive}>
+            <Image src={hanger} alt="hanger" width="44px" height="44px" />
+          </Hanger>
+        </ButtonContent>
+      </ButtonInner>
+    </ButtonWrapper>
   );
 }
-const Container = styled.section`
-  display: flex;
-  justify-content: flex-end;
-  width: 100%;
-  max-width: 1178px;
-`;
 
-const Wrapper = styled.section`
+const ButtonWrapper = styled.section`
   display: flex;
   position: absolute;
+  right: 16px;
+  bottom: 32px;
+  width: 124px;
+  height: 58px;
+  padding-top: 5px;
+  align-items: flex-start;
+  justify-content: center;
+`;
+const ButtonInner = styled.button`
+  display: flex;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border: none;
+  background: none;
   align-items: center;
   justify-content: center;
-  width: 120px;
-  height: 50px;
-  border-radius: 10px;
-  background-color: ${customColor.white};
-  background-color: ${customColor.darkSky};
-  box-shadow: 2px 3px 1px 0px #aaa;
-  animation: changeBtnR 0.3s ease;
+  font-family: 'LeferiPoint-WhiteObliqueA';
   cursor: pointer;
-  &:hover {
-    background-color: #4978b6;
-    animation: changeBtn 0.3s ease;
-  }
-  &:active {
-    box-shadow: none;
-    transform: translate(2px, 3px);
-  }
+`;
+const ButtonContent = styled.p<ButtonStyle>`
+  display: flex;
+  position: absolute;
+  z-index: 5;
+  white-space: nowrap;
+  background: #fff;
+  border: 2px solid ${customColor.darkSky};
+  color: ${customColor.darkSky};
+  border-radius: 16px;
+  width: 100%;
+  height: 100%;
+  font-size: 14px;
+  font-weight: bold;
+  letter-spacing: -0.5px;
+  padding-top: 4px;
+  align-items: center;
+  justify-content: center;
+  transform: rotateX(20deg);
+  transition: top 0.1s ease, padding 0.3s ease, background 0.3s ease;
+  overflow: hidden;
+  top: -5px;
+  ${(props) => props.isHover && 'padding-top: 32px;'}
+  ${(props) => props.isHover && 'color:#000;'}
+  ${(props) => props.isHover && 'background:#e7f1ff;'}
+  ${(props) => props.isHover && 'top:-7px;'}
+  ${(props) => props.isActive && 'top:-2px;'}
+`;
+
+const Hanger = styled.div<ButtonStyle>`
+  display: flex;
+  position: absolute;
+  transform: translate(0, -40px);
+  ${(props) => props.isHover && 'transform:translate(0, -4px);'}
+  top: 0px;
+  transition: transform 0.5s ease;
+`;
+
+const ButtonBody = styled.div`
+  display: flex;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 50%;
+  transform: translate(-50%, 0);
+  background: ${customColor.darkSky};
+  border-radius: 16px;
+  transition: top 0.1s ease;
+`;
+
+const ButtonShdow = styled.span<ButtonStyle>`
+  position: absolute;
+  top: 4px;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 16px;
+  background: hsl(0deg 0% 0% / 0.18);
+  will-change: transform;
+  transform: translateY(2px);
+  transition: top 0.1s ease;
+  ${(props) => props.isHover && 'top:5px;'}
+  ${(props) => props.isActive && 'top:2px;'}
 `;
