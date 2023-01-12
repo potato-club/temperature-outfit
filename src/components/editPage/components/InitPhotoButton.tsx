@@ -16,6 +16,7 @@ export const InitPhotoButton = (props: ButtonProps) => {
     <ButtonWrapper>
       <ButtonInner
         onClick={props.onClick}
+        type='button'
         onMouseEnter={() => {
           setIsHover(true);
         }}
