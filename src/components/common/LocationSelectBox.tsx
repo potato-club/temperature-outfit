@@ -3,6 +3,7 @@ import Select, { SelectChangeEvent } from '@mui/material/Select';
 import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 import { locationType } from 'types/common';
+import { TypoGraphy } from './TypoGraphy';
 
 type Props = {
   allLocations: locationType[];
@@ -30,7 +31,7 @@ export const LocationSelectBox: React.FC<Props> = ({
         label="지역">
         {allLocations.map(({ id, name }) => (
           <MenuItem value={id} key={id}>
-            {name}
+            <TypoGraphy type='body2' fontWeight='bold'>{name}</TypoGraphy>
           </MenuItem>
         ))}
       </Select>

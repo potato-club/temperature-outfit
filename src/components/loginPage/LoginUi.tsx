@@ -2,9 +2,9 @@ import React from 'react';
 import styled from '@emotion/styled';
 import { GoogleLogin } from './GoogleLogin';
 import Image from 'next/image';
-import border from 'assets/img/border.png';
 import { SpinIMG, TypoGraphy } from 'components/common';
 import TypeIt from 'typeit-react';
+import stamp from 'assets/img/decoration/stamp.png';
 
 export const LoginUi: React.FC = () => {
   const loginComment: string = '날씨에 따라 당신의 코디를 기록하세요';
@@ -12,13 +12,13 @@ export const LoginUi: React.FC = () => {
     <Wrap>
       <SpinIMG />
       <OutWrap>
-        <TopBorder>
-          <Image src={border} alt="border" width="280px" height="280px" />
-        </TopBorder>
         <InWrap>
+          <Deco>
+            <Image src={stamp} width={500} height={500} alt={'lace'} />
+          </Deco>
           <Title>&quot;Would you like to join us?&quot;</Title>
           <SubTitle>
-            <TypoGraphy type="h2">
+            <TypoGraphy type="h4" fontWeight='bold' color='#996430'>
               <TypeIt
                 options={{
                   strings: [loginComment],
@@ -26,7 +26,8 @@ export const LoginUi: React.FC = () => {
                   waitUntilVisible: true,
                   loop: true,
                   loopDelay: 5000,
-                }}></TypeIt>
+                }}
+              />
             </TypoGraphy>
           </SubTitle>
         </InWrap>
@@ -61,26 +62,22 @@ const InWrap = styled.section`
   margin-top: 10px;
 `;
 
-const TopBorder = styled.div`
-  position: absolute;
-  top: 0;
-  transform: translate(0, calc(-50% - 40px));
-`;
-
 const Title = styled.article`
   display: flex;
+  z-index: 5;
   text-align: center;
   font-size: 28px;
   font-style: italic;
-  font-weight: 100;
+  font-weight: 500;
   color: #222;
   align-items: flex-end;
-  letter-spacing: -1.2px;
+  letter-spacing: -1.5px;
   font-family: sans-serif;
 `;
 
 const SubTitle = styled.article`
   margin-top: 20px;
+  z-index: 5;
 `;
 
 const Footer = styled.article`
@@ -90,4 +87,12 @@ const Footer = styled.article`
   font-weight: 500;
   color: gray;
   bottom: 24px;
+`;
+const Deco = styled.div`
+  display: flex;
+  position: absolute;
+  align-items: center;
+  justify-content: center;
+  width: 500px;
+  height: 500px;
 `;

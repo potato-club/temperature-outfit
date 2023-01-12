@@ -10,14 +10,16 @@ import {
   FieldValues,
   UseFormRegister,
   UseFormSetValue,
+  UseFormWatch,
 } from 'react-hook-form';
 type Props = {
   register: UseFormRegister<FieldValues>;
   errors: Partial<FieldErrorsImpl>;
   setValue: UseFormSetValue<FieldValues>;
   control: Control<FieldValues>;
+  watch: UseFormWatch<FieldValues>;
 };
-export const Contents = ({ register, errors, setValue, control }: Props) => {
+export const Contents = ({ register, errors, setValue, control, watch }: Props) => {
   return (
     <Container>
       <CodyBox>
@@ -41,6 +43,7 @@ export const Contents = ({ register, errors, setValue, control }: Props) => {
         errors={errors}
         setValue={setValue}
         control={control}
+        watch={watch}
       />
       <ChooseModal />
     </Container>

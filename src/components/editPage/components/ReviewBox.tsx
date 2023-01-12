@@ -10,6 +10,7 @@ import {
   FieldValues,
   UseFormRegister,
   UseFormSetValue,
+  UseFormWatch,
 } from 'react-hook-form';
 import { VscTriangleDown, VscTriangleUp } from 'react-icons/vsc';
 import { CgChevronDoubleDown } from 'react-icons/cg';
@@ -24,6 +25,7 @@ interface ReviewBoxProps {
   errors: Partial<FieldErrorsImpl>;
   setValue: UseFormSetValue<FieldValues>;
   control: Control<FieldValues>;
+  watch: UseFormWatch<FieldValues>;
 }
 interface ToggleProps {
   isToggle?: boolean;
@@ -33,6 +35,7 @@ export function ReviewBox({
   errors,
   setValue,
   control,
+  watch
 }: ReviewBoxProps) {
   const setCodyThumbnail = useSetRecoilState(codyThumbnail);
   const { resetRecoilState } = useEditResetRecoil();
@@ -78,7 +81,7 @@ export function ReviewBox({
             type="button"
             onClick={handleCancel}
           />
-          <PushButton name="등록" buttonType="submit" type="submit" />
+          <PushButton name="등록" buttonType="submit" type="submit" onClick={()=>watch('rating')===undefined&&setIsToggle(true)} />
         </ButtonContainer>
       </SubmitDiv>
     </Container>
@@ -179,5 +182,4 @@ const ArrowIcon = styled.div<ToggleProps>`
   color: #222;
   animation: ${movingArrow} 1s ease infinite;
   cursor: pointer;
-  transition: transform 0.4s ease;
 `;
