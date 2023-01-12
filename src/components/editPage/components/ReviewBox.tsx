@@ -35,7 +35,7 @@ export function ReviewBox({
   errors,
   setValue,
   control,
-  watch
+  watch,
 }: ReviewBoxProps) {
   const setCodyThumbnail = useSetRecoilState(codyThumbnail);
   const { resetRecoilState } = useEditResetRecoil();
@@ -55,7 +55,7 @@ export function ReviewBox({
     <Container>
       <MoveDiv>
         <ContainerInner isToggle={isToggle}>
-          <ImageDiv>
+          <ImageDiv isToggle={isToggle}>
             <ImageInput register={register} setValue={setValue} />
             <ArrowIcon
               onClick={() => {
@@ -81,7 +81,12 @@ export function ReviewBox({
             type="button"
             onClick={handleCancel}
           />
-          <PushButton name="등록" buttonType="submit" type="submit" onClick={()=>watch('rating')===undefined&&setIsToggle(true)} />
+          <PushButton
+            name="등록"
+            buttonType="submit"
+            type="submit"
+            onClick={() => watch('rating') === undefined && setIsToggle(true)}
+          />
         </ButtonContainer>
       </SubmitDiv>
     </Container>
@@ -96,8 +101,8 @@ const movingArrow = keyframes`
   }
 `;
 const Container = styled.section`
-  width: 40%;
-  max-width: 350px;
+  width: 28%;
+  min-width: 328px;
   display: flex;
   flex-direction: column;
   position: relative;
@@ -115,9 +120,9 @@ const ContainerInner = styled.section<ToggleProps>`
   display: flex;
   flex-direction: column;
   width: 100%;
-  height: 160%;
+  height: max-content;
   transform: ${(props) =>
-    props.isToggle ? 'translate(0, -50%)' : 'translate(0, 0%)'};
+    props.isToggle ? 'translate(0, calc(-100% + 440px))' : 'translate(0, 0%)'};
   transition: all 0.8s ease;
 `;
 const ButtonContainer = styled.section`
@@ -137,8 +142,8 @@ const ReviewDiv = styled.section<ToggleProps>`
   height: 50%;
   flex-direction: column;
   padding: 20px 4px 4px;
-  opacity: ${(props) => (props.isToggle ? '1' : '0.5')};
-  cursor: ${(props) => !props.isToggle && 'pointer'};
+  opacity: ${(props) => (props.isToggle ? '1' : '0.6')};
+  pointer-events: ${(props) => !props.isToggle && 'none'};
   transition: opacity 0.4s ease;
 `;
 const SubmitDiv = styled.section`
@@ -152,14 +157,15 @@ const SubmitDiv = styled.section`
   right: 0;
   padding-top: 4px;
 `;
-const ImageDiv = styled.section`
+const ImageDiv = styled.section<ToggleProps>`
   display: flex;
   position: relative;
   width: 100%;
-  height: 50%;
+  max-width: 328px;
   flex-direction: column;
   padding-right: 4px;
   padding-bottom: 4px;
+  padding: 0 4px 4px;
 `;
 const ReviewInner = styled.section`
   display: flex;
