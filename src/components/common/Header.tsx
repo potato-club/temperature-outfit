@@ -79,11 +79,12 @@ const Div = styled.article`
   width: 1178px;
   height: 44px;
   align-items: center;
+  padding: 4px 12px 0;
 `;
 
 const ButtonBox = styled.section`
   display: flex;
-  gap: 16px;
+  gap: 24px;
   position: relative;
   align-items: center;
 `;
