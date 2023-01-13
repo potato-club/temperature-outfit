@@ -3,11 +3,13 @@ import { keyframes } from '@emotion/react';
 import styled from '@emotion/styled';
 import SwiperCore, { Autoplay, EffectCoverflow } from 'swiper';
 import { Swiper, SwiperSlide, useSwiperSlide } from 'swiper/react';
+import { CustomButton } from 'components/common';
 import 'swiper/css';
 import 'swiper/css/effect-coverflow';
 import Image from 'next/image';
 import { Suggestions } from 'types/mainPage';
 import { useRouter } from 'next/router';
+import { Rating } from 'react-simple-star-rating';
 
 interface Props {
   suggestions: Suggestions[];
@@ -31,12 +33,13 @@ export function TempSlide({ suggestions }: Props) {
     <Container>
       <StyledSwiper
         slidesPerView={3}
+        slideToClickedSlide
         loop
         loopedSlides={5}
         initialSlide={3}
         centeredSlides
         spaceBetween={0}
-        autoplay={{ delay: 3000, disableOnInteraction: false }}
+        // autoplay={{ delay: 3000, disableOnInteraction: false }}
         coverflowEffect={{
           rotate: 0,
           stretch: 0,
@@ -62,8 +65,25 @@ export function TempSlide({ suggestions }: Props) {
                   />
                 </ImageBoxInner>
                 <InfoBox isCurrent={idx === isCurrent}>
-                  {rating}
-                  {temperature}
+                  <BottomBox>
+                    <RatingBox>
+                      <Rating
+                        ratingValue={rating}
+                        size={24}
+                        allowHalfIcon
+                        fillColor="#ffe714"
+                        emptyColor="#999"
+                      />
+                    </RatingBox>
+                    <MoveBtnBox>
+                      <CustomButton
+                        customType="white"
+                        text="이동"
+                        type="button"
+                        onClick={() => moveToOutfitView(id)}
+                      />
+                    </MoveBtnBox>
+                  </BottomBox>
                 </InfoBox>
               </ImageBox>
             </StyledSwiperSlide>
@@ -120,7 +140,7 @@ const InfoBox = styled.div<ButtonStyle>`
   z-index: 4;
   width: 100%;
   height: 100%;
-  top: -28px;
+  top: -24px;
   left: 50%;
   box-shadow: 0px 0px 6px #aaa;
   transform: ${(props) =>
@@ -131,4 +151,19 @@ const InfoBox = styled.div<ButtonStyle>`
   transition: transform 0.5s ease;
   align-items: flex-end;
   padding: 12px 16px;
+`;
+
+// 별표 : 왼쪽 하단
+const RatingBox = styled.div`
+  pointer-events: none;
+`;
+
+// 버튼 : 우측 하단
+const MoveBtnBox = styled.div``;
+
+const BottomBox = styled.div`
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
 `;
