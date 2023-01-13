@@ -63,5 +63,6 @@ const Container = styled.section`
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding: 0 12px;
   gap: 10px;
 `;
