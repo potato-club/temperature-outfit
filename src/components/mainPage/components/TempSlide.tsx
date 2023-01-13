@@ -30,12 +30,13 @@ export function TempSlide({ suggestions }: Props) {
   return (
     <Container>
       <StyledSwiper
-        slidesPerView={3}
-        loop
-        loopedSlides={5}
-        initialSlide={3}
+        slidesPerView={suggestions.length <= 2 ? 1 : 3}
+        loop={suggestions.length <= 2 ? false : true}
+        loopedSlides={suggestions.length <= 2 ? 0 : 5}
+        initialSlide={suggestions.length <= 2 ? 1 : 3}
         centeredSlides
         spaceBetween={0}
+        slideToClickedSlide
         autoplay={{ delay: 3000, disableOnInteraction: false }}
         coverflowEffect={{
           rotate: 0,
