@@ -7,9 +7,10 @@ type Props = {
   deleteFn: (id: string) => void;
   showRemove: boolean;
 };
+
 const RemoveButton = ({ id, deleteFn, showRemove }: Props) => {
   return (
-    <Wrapper onClick={() => deleteFn(id)} showRemove={showRemove}>
+    <Wrapper onClick={() => deleteFn(id)} showRemove={showRemove} type="button">
       <MemoGiCancel fontSize={'18px'} color={'#ff4949'} />
     </Wrapper>
   );
@@ -36,7 +37,6 @@ const Wrapper = styled.button<StyledProps>`
   cursor: pointer;
   outline: none;
   opacity: ${({ showRemove }) => (showRemove ? 0.8 : 0)};
-  z-index: 0;
   &:hover,
   &:active {
     opacity: 1;

@@ -2,8 +2,8 @@ import styled from '@emotion/styled';
 import { customColor } from 'constants/index';
 import React, { useState } from 'react';
 import { MemoClothesImg } from './ClothesImg';
-import { MemoRemoveButton } from './components/RemoveButton';
 import { MemoTypoGraphy } from 'components/common/TypoGraphy';
+import { MemoRemoveButton } from '../dressBox/components/RemoveButton';
 
 type Props = {
   url: string;
@@ -12,24 +12,36 @@ type Props = {
   deleteFn?: (id: string) => void;
 };
 
+
 export function ClothesBox({ url, name, id, deleteFn }: Props) {
   const [showName, setShowName] = useState<boolean>(false);
+  const [showRemove, setShowRemove] = useState<boolean>(false);
 
   return (
     <Container>
-      <ClothesName showName={showName}>
-        <MemoTypoGraphy type="sm1" color={customColor.white}>
-          {name}
-        </MemoTypoGraphy>
-      </ClothesName>
       <ImgWrapper
-        onMouseOver={() => setShowName(true)}
-        onMouseOut={() => setShowName(false)}>
+        onMouseOver={() => {
+          setShowName(true);
+          setShowRemove(true);
+        }}
+        onMouseOut={() => {
+          setShowName(false);
+          setShowRemove(false);
+        }}>
         <MemoClothesImg url={url} />
+        <ClothesName showName={showName}>
+          <MemoTypoGraphy type="sm1" color={customColor.white}>
+            {name}
+          </MemoTypoGraphy>
+        </ClothesName>
+        {deleteFn && id !== undefined && showRemove && (
+          <MemoRemoveButton
+            id={id}
+            deleteFn={deleteFn}
+            showRemove={showRemove}
+          />
+        )}
       </ImgWrapper>
-      {deleteFn && id !== undefined && (
-        <MemoRemoveButton id={id} deleteFn={deleteFn} />
-      )}
     </Container>
   );
 }
