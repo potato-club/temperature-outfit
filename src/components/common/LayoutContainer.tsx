@@ -6,9 +6,6 @@ export const LayoutContainer: React.FC = ({ children }) => {
 };
 
 const Container = styled.section`
-  /* background-image: url('/winter/w3.jpg');
-  background-repeat: no-repeat;
-  background-size: 100% 100%; */
   background: linear-gradient(
       180deg,
       rgba(153, 182, 255, 0.5) 0%,
@@ -19,7 +16,7 @@ const Container = styled.section`
       rgba(97, 0, 255, 0.13) 64.06%
     ),
     #ffffff;
-  min-height: calc(100vh - 44px);
+  min-height: 100vh;
   background: #b5e3fd;
   background: linear-gradient(#a2ddff, 75%, #fff);
   display: flex;
