@@ -50,7 +50,7 @@ export function TempMainPage() {
 
       <TempSlide suggestions={suggestions} />
       {/* 코디 등록 버튼 */}
-      {/* <RegisterBtn /> */}
+      <RegisterBtn />
     </Container>
   );
 }
@@ -58,11 +58,12 @@ export function TempMainPage() {
 const Container = styled.section`
   width: 100%;
   max-width: 1178px;
-  height: 100vh;
+  height: calc(100vh - 44px);
   overflow-y: hidden;
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 0 12px;
   gap: 10px;
+  margin-top: 44px;
 `;
