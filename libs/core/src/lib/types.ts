@@ -1,4 +1,3 @@
-import type { WeatherStatus } from '@prisma/client';
 import type { File } from 'formidable';
 import type { NextApiRequest } from 'next';
 import type { Session } from 'next-auth';
@@ -109,6 +108,8 @@ export type WeatherGetRequest = {
   date?: string;
   locationId?: string;
 };
+
+export type WeatherStatus = 'cloud' | 'rain' | 'snow' | 'sun';
 
 export type WeatherResponse =
   | Response

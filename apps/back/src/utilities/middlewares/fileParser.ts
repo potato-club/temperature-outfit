@@ -1,9 +1,8 @@
-import cuid from 'cuid';
+import { ApiRequest } from '@temperature-outfit/core';
 import { Fields, File, Files, Formidable } from 'formidable';
 import type { NextApiResponse } from 'next';
 import { Middleware } from 'next-connect';
 import { PassThrough } from 'stream';
-import { ApiRequest } from '../../../types';
 import { storageClient } from '../storage';
 
 const uploadStream = (file: { newFilename: string }) => {
@@ -27,7 +26,7 @@ export const filesParser: Middleware<ApiRequest, NextApiResponse> = async (
     files: Files;
   }>((resolve, reject) => {
     const formidable = new Formidable({
-      filename: () => cuid(),
+      // filename: () => cuid(),
       fileWriteStreamHandler: uploadStream as any,
     });
 

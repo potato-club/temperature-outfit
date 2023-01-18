@@ -3,7 +3,7 @@ import {
   OutfitResponse,
   ProductDetailResponse,
   WeatherResponse,
-} from '../../types';
+} from '@temperature-outfit/core';
 
 export const convertProductToResponse = (
   product: Product,
