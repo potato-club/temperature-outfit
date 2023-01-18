@@ -43,7 +43,7 @@ export function TempSlide({ suggestions }: Props) {
         centeredSlides
         spaceBetween={0}
         slideToClickedSlide
-        autoplay={{ delay: 3000, disableOnInteraction: false }}
+        autoplay={{ delay: 4000, disableOnInteraction: false }}
         coverflowEffect={{
           rotate: 0,
           stretch: 0,

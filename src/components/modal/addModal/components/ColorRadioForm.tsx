@@ -60,9 +60,9 @@ const Wrapper = styled.section`
   background-color: ${customColor.brandColor6};
   flex-wrap: wrap;
   border-radius: 10px;
-  padding: 0 8px;
+  padding: 0 16px;
 `;
 
 const CustomRadio = styled(Radio)`
-  width: 2vw;
+  width: 6%;
 `;
