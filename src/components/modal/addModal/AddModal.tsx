@@ -117,7 +117,7 @@ const Container = styled(Modal)`
   padding: 40px;
   border-radius: 20px;
   box-shadow: 1px 1px 5px -1px ${customColor.grayDark};
-  height: 750px;
+  height: 700px;
   &:focus {
     border: none;
     outline: none;
@@ -146,6 +146,6 @@ const ContentBox = styled.section`
   display: flex;
   flex-direction: column;
   margin-top: 10px;
-  height: 45%;
+  height: 40%;
   gap: 10px 0;
 `;

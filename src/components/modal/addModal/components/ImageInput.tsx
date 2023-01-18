@@ -100,7 +100,7 @@ const InitialImage = styled(IoMdImage)`
 const ImageWrapper = styled.section`
   margin-top: 12px;
   width: 100%;
-  height: 55%;
+  height: 48%;
   display: flex;
   align-items: center;
   justify-content: center;

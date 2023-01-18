@@ -42,5 +42,4 @@ const ItemContainer = styled.section`
   gap: 8px;
   min-height: 200px;
   margin: 12px 0px;
-  justify-content: center;
 `;
