@@ -111,22 +111,25 @@ const Container = styled(Modal)`
   position: absolute;
   top: 50%;
   left: 50%;
-  max-width: 680px;
+  min-width: 680px;
   transform: translate(-50%, -50%);
   background-color: ${customColor.white};
   padding: 40px;
   border-radius: 20px;
   box-shadow: 1px 1px 5px -1px #bbb;
-  width: 30vw;
-  height: 82vh;
-  max-height: 700px;
+  height: 750px;
   &:focus {
     border: none;
     outline: none;
   }
 `;
 
-const Wrapper = styled.section``;
+const Wrapper = styled.section`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+`;
 
 const CategoryWrapper = styled.section`
   display: flex;
@@ -136,12 +139,13 @@ const CategoryWrapper = styled.section`
 const ButtonWrapper = styled.section`
   display: flex;
   justify-content: flex-end;
-  margin-top: 12px;
+  margin-top: 4px;
 `;
 
 const ContentBox = styled.section`
   display: flex;
   flex-direction: column;
-  gap: 1.5vh;
   margin-top: 10px;
+  height: 45%;
+  gap: 10px 0;
 `;

@@ -74,9 +74,7 @@ export const ImageInput = ({ register, errors }: Props) => {
         name="image"
         errors={errors}
         render={({ message }) => (
-          <section className="errorWrapper">
-            {message}
-          </section>
+          <section className="errorWrapper">{message}</section>
         )}
       />
     </>
@@ -85,6 +83,7 @@ export const ImageInput = ({ register, errors }: Props) => {
 
 const InputButton = styled.input`
   display: none;
+  font-family: 'LeferiPoint-WhiteObliqueA';
 `;
 
 const RelativeImg = styled.div`
@@ -96,17 +95,16 @@ const RelativeImg = styled.div`
 const InitialImage = styled(IoMdImage)`
   width: 100%;
   background-color: ${customColor.gray};
-  height: 40vh;
+  height: 100%;
 `;
 
 const ImageWrapper = styled.section`
   margin-top: 12px;
   width: 100%;
-  height: 100%;
+  height: 55%;
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
   border-radius: 12px;
-  height: 40vh;
 `;

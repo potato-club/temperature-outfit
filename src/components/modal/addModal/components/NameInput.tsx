@@ -37,13 +37,13 @@ const Container = styled.section`
 `;
 
 const Input = styled.input`
-  /* font-family: 'LeferiPoint-WhiteObliqueA'; */
   font-size: 16px;
   height: 36px;
   border-radius: 12px;
   border: 2px solid ${customColor.gray};
-  padding-left: 10px;
+  padding: 4px 12px 0px;
   margin-top: 4px;
+  font-family: 'LeferiPoint-WhiteObliqueA';
   &:focus {
     outline: none;
     border: 2px solid #1976d2;
