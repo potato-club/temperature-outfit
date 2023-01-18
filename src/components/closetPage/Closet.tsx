@@ -67,9 +67,9 @@ const Wrapper = styled.section`
   min-height: 720px;
   margin-top: 20px;
   padding: 48px 62px 24px;
-  background-color: white;
+  background-color: ${customColor.white};
   border-radius: 10px;
-  box-shadow: 2px 2px 5px -1px #aaa;
+  box-shadow: 2px 2px 5px -1px ${customColor.grayDark};
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -101,7 +101,7 @@ const FilterWrapper = styled.article`
 `;
 
 const Line = styled.hr`
-  border: 1px solid ${customColor.gray};
+  border: 1px solid ${customColor.grayLight};
   border-bottom: 0px;
   margin: 16px 0 24px 0;
 `;

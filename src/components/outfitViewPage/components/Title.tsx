@@ -85,11 +85,11 @@ const Temperatures = styled.section`
 `;
 
 const Blue = styled.span`
-  color: #57bceb;
+  color: ${customColor.pushCheckBorder};
 `;
 const Red = styled.span`
-  color: #ee8a49;
+  color: ${customColor.hot};
 `;
 const Gray = styled.span`
-  color: #777;
+  color: ${customColor.grayDark};
 `;

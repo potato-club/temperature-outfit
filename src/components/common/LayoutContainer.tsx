@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from '@emotion/styled';
+import { customColor } from 'constants/index';
 
 export const LayoutContainer: React.FC = ({ children }) => {
   return <Container>{children}</Container>;
@@ -17,7 +18,7 @@ const Container = styled.section`
     ),
     #ffffff;
   min-height: 100vh;
-  background: #b5e3fd;
+  background: ${customColor.backgroundBlue};
   background: linear-gradient(#a2ddff, 75%, #fff);
   display: flex;
   flex-direction: column;

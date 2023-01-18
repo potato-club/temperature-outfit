@@ -172,10 +172,10 @@ const ReviewInner = styled.section`
   width: 100%;
   flex-direction: column;
   gap: 36px;
-  background-color: #fff6;
+  background-color: ${customColor.white + '6'};
   padding: 24px;
   border-radius: 12px;
-  box-shadow: 1px 1px 5px -1px #aaa;
+  box-shadow: 1px 1px 5px -1px ${customColor.grayDark};
 `;
 const ArrowIcon = styled.div<ToggleProps>`
   position: absolute;
@@ -185,7 +185,7 @@ const ArrowIcon = styled.div<ToggleProps>`
   transform: translate(-50%, 0) rotateX(50deg)
     ${(props) => (props.isToggle ? 'rotate(-180deg)' : '')};
   font-size: 60px;
-  color: #222;
+  color: ${customColor.black};
   animation: ${movingArrow} 1s ease infinite;
   cursor: pointer;
 `;

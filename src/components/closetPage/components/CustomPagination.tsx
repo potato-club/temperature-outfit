@@ -72,7 +72,7 @@ const PaginationWrapper = styled.section`
 
   ul.pagination li a {
     text-decoration: none;
-    color: ${customColor.gray};
+    color: ${customColor.grayLight};
   }
 
   ul.pagination li:nth-of-type(-n + 2) a {
@@ -88,9 +88,9 @@ const PaginationWrapper = styled.section`
   }
 `;
 const PaginationIcon = styled.div`
-  color: #888;
+  color: ${customColor.grayDark};
   font-size: 20px;
   &:hover {
-    color: #000;
+    color: ${customColor.black};
   }
 `;

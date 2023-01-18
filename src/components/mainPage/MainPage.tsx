@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled from '@emotion/styled';
-import { MainCody, RegisterBtn, TodayInfo } from './components';
+import { RegisterBtn, TodayInfo } from './components';
 import { suggestionApi, weatherApi } from 'api';
 import { useRecoilValue } from 'recoil';
 import { userState } from 'recoil/atom';
@@ -43,7 +43,6 @@ export function MainPage() {
   return (
     <Container>
       <TodayInfo weatherStatus={weatherStatus} temperature={temperature} />
-      <MainCody suggestions={suggestions} />
       <RegisterBtn />
     </Container>
   );

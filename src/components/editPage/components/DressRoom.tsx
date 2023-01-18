@@ -58,13 +58,13 @@ const Container = styled.section`
   gap: 0 12px;
   box-sizing: content-box;
   margin-bottom: 12px;
-  box-shadow: 1px 1px 5px -1px #aaa;
+  box-shadow: 1px 1px 5px -1px ${customColor.grayDark};
   ::-webkit-scrollbar {
     opacity: 0;
     height: 20px;
   }
   ::-webkit-scrollbar-thumb {
-    background-color: rgb(179, 226, 255, 0.8);
+    background-color: ${customColor.grayDark};
     border-radius: 24px;
     background-clip: padding-box;
     border: 6px solid transparent;
@@ -80,17 +80,16 @@ const AddButton = styled.label`
   border-radius: 12px;
   min-width: 126px;
   height: 200px;
-  box-shadow: 1px 1px 6px -1px #aaa;
+  box-shadow: 1px 1px 6px -1px ${customColor.grayDark};
   cursor: pointer;
   &:hover {
-    background-color: #f3f3f3;
+    background-color: ${customColor.white};
   }
   &:active {
     transform: translate(2px, 2px);
     box-shadow: none;
-    background-color: #f3f3f3;
+    background-color: ${customColor.white};
   }
 `;
-
 
 const MemoPlusIcon = React.memo(AiOutlinePlus);

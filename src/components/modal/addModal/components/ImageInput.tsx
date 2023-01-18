@@ -1,6 +1,5 @@
 import React, { useState, ChangeEvent, useRef } from 'react';
 import styled from '@emotion/styled';
-import { TypoGraphy } from 'components/common';
 import Image from 'next/image';
 import { IoMdImage } from 'react-icons/io';
 import { customColor } from 'constants/index';
@@ -94,7 +93,7 @@ const RelativeImg = styled.div`
 
 const InitialImage = styled(IoMdImage)`
   width: 100%;
-  background-color: ${customColor.gray};
+  background-color: ${customColor.grayLight};
   height: 100%;
 `;
 

@@ -5,6 +5,7 @@ type TypoGraphyProps = {
   type?:
     | 'Head'
     | 'Title'
+    | 'Title2'
     | 'h1'
     | 'h2'
     | 'h3'
@@ -25,6 +26,7 @@ type StyledTypoGraphyProps = {
   type:
     | '48'
     | '32'
+    | '28'
     | '24'
     | '22'
     | '20'
@@ -56,6 +58,8 @@ export const TypoGraphy: React.FC<TypoGraphyProps> = ({
         return '48';
       case 'Title':
         return '32';
+      case 'Title2':
+        return '28';
       case 'h1':
         return '24';
       case 'h2':

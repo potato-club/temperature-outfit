@@ -75,7 +75,7 @@ export const AddModal = () => {
       ariaHideApp={false}
       style={{
         overlay: {
-          background: 'rgba(0,0,0,0.4)',
+          background: customColor.black + '60',
           zIndex: 100,
         },
       }}
@@ -116,7 +116,7 @@ const Container = styled(Modal)`
   background-color: ${customColor.white};
   padding: 40px;
   border-radius: 20px;
-  box-shadow: 1px 1px 5px -1px #bbb;
+  box-shadow: 1px 1px 5px -1px ${customColor.grayDark};
   height: 750px;
   &:focus {
     border: none;

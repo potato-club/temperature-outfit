@@ -24,13 +24,17 @@ export const ChooseModal = () => {
       ariaHideApp={false}
       style={{
         overlay: {
-          background: 'rgba(0,0,0,0.4)',
+          background: customColor.black + '66',
           zIndex: 100,
         },
       }}
       contentLabel="Add Modal">
       <Wrapper>
-        <P>{category}</P>
+        <TextWrapper>
+          <TypoGraphy type="h1" fontWeight="bold">
+            {category}
+          </TypoGraphy>
+        </TextWrapper>
         <ContentBox>
           <CategoryBox />
           <ModalClothesContainer />
@@ -41,9 +45,7 @@ export const ChooseModal = () => {
     </Container>
   );
 };
-const P = styled.div`
-  font-size: 24px;
-  font-weight: bold;
+const TextWrapper = styled.div`
   margin-bottom: 2px;
 `;
 
@@ -59,7 +61,7 @@ const Container = styled(Modal)`
   background-color: ${customColor.white};
   padding: 24px 28px 10px;
   border-radius: 8px;
-  box-shadow: 1px 1px 5px -1px #bbb;
+  box-shadow: 1px 1px 5px -1px ${customColor.grayDark};
   &:focus {
     border: none;
     outline: none;
@@ -79,14 +81,14 @@ const Wrapper = styled.section`
     width: 12px;
   }
   ::-webkit-scrollbar-thumb {
-    background-color: rgb(150, 137, 235, 0.6);
+    background-color: ${customColor.grayDark};
     border-radius: 24px;
   }
 `;
 
 const ContentBox = styled.section`
   width: 100%;
-  border: 1px solid ${customColor.gray};
+  border: 1px solid ${customColor.grayLight};
   border-radius: 8px;
   padding: 8px;
 `;

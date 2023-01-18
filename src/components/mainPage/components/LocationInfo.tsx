@@ -57,46 +57,10 @@ const Location = styled.section`
   margin-bottom: 4px;
 `;
 
-const Temperatures = styled.section`
-  display: flex;
-  align-items: center;
-`;
-
-const TodayClothes = styled.section`
-  display: flex;
-  flex-direction: column;
-  width: 50%;
-  gap: 24px 0;
-`;
-
-const TodayBestBox = styled.section`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  background-color: ${customColor.white};
-  border: 3px solid ${customColor.brandColor5};
-  box-shadow: 0px 4px 4px #aaaaaa;
-  border-radius: 10px;
-  height: 80px;
-  max-width: 320px;
-  gap: 8px 0;
-`;
-const RankingWrapper = styled.section`
-  display: flex;
-  gap: 0px 8px;
-`;
-const TextWrapper = styled.section`
-  div {
-    padding-right: 10%;
-  }
-`;
-const SmallSpan = styled.span`
-  font-size: 20px;
-`;
 const Span = styled.span`
   margin-top: 4px;
 `;
+
 const Bold = styled.span`
   font-size: 22px;
 `;

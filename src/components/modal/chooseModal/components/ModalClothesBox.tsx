@@ -1,6 +1,5 @@
 import styled from '@emotion/styled';
 import { customColor } from 'constants/index';
-import Image from 'next/image';
 import React, { useState } from 'react';
 import { RecoilState, useSetRecoilState } from 'recoil';
 import { chooseModal } from 'recoil/atom';
@@ -45,7 +44,7 @@ const Container = styled.section`
   display: flex;
   position: relative;
   margin: 0;
-  border: 1px solid ${customColor.gray};
+  border: 1px solid ${customColor.grayLight};
   border-radius: 12px;
   overflow: hidden;
   width: 126px;
@@ -57,7 +56,7 @@ type NameProps = {
 };
 const ClothesName = styled.section<NameProps>`
   position: absolute;
-  background-color: #00000080;
+  background-color: ${customColor.black + '80'};
   border-radius: 4px;
   padding: 4px;
   top: 4px;

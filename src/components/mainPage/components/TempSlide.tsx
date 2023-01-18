@@ -9,6 +9,7 @@ import Image from 'next/image';
 import { Suggestions } from 'types/mainPage';
 import { useRouter } from 'next/router';
 import { Rating } from 'react-simple-star-rating';
+import { customColor } from 'constants/index';
 
 interface Props {
   suggestions: Suggestions[];
@@ -74,8 +75,8 @@ export function TempSlide({ suggestions }: Props) {
                         ratingValue={rating}
                         size={24}
                         allowHalfIcon
-                        fillColor="#ffe714"
-                        emptyColor="#999"
+                        fillColor={customColor.yellow}
+                        emptyColor={customColor.grayDark}
                       />
                     </RatingBox>
                     <MoveBtnBox>
@@ -106,6 +107,7 @@ const Container = styled.section<ButtonStyle>`
   padding: 10% calc(23% - 4px);
   padding: ${(props) => props.slideNum && props.slideNum <= 3 && '0'};
   overflow: hidden;
+  overflow: ${(props) => props.slideNum && props.slideNum <= 2 && 'visible'};
 `;
 
 const StyledSwiper = styled(Swiper)`
@@ -132,8 +134,8 @@ const ImageBoxInner = styled.div<ButtonStyle>`
   width: 100%;
   height: 100%;
   z-index: 5;
-  background: #fff;
-  box-shadow: 0px 0px 6px #aaa;
+  background: ${customColor.white};
+  box-shadow: 0px 0px 6px ${customColor.grayDark};
   transform: ${(props) =>
     props.isCurrent ? 'translate(0,-72px) scale(1.1);' : 'translate(0,0px);'};
   ${(props) => !props.isCurrent && 'filter:contrast(50%);'};
@@ -142,13 +144,13 @@ const ImageBoxInner = styled.div<ButtonStyle>`
 const InfoBox = styled.div<ButtonStyle>`
   display: flex;
   position: absolute;
-  background: #fff;
+  background: ${customColor.white};
   z-index: 4;
   width: 100%;
   height: 100%;
   top: -24px;
   left: 50%;
-  box-shadow: 0px 0px 6px #aaa;
+  box-shadow: 0px 0px 6px ${customColor.grayDark};
   transform: ${(props) =>
     props.isCurrent
       ? 'translate(-50%, 0) scaleX(1.22) scaleY(1.15)'
