@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
-import { keyframes } from '@emotion/react';
 import styled from '@emotion/styled';
 import SwiperCore, { Autoplay, EffectCoverflow } from 'swiper';
-import { Swiper, SwiperSlide, useSwiperSlide } from 'swiper/react';
+import { Swiper, SwiperSlide } from 'swiper/react';
 import { CustomButton } from 'components/common';
 import 'swiper/css';
 import 'swiper/css/effect-coverflow';
@@ -11,16 +10,54 @@ import { Suggestions } from 'types/mainPage';
 import { useRouter } from 'next/router';
 import { Rating } from 'react-simple-star-rating';
 
+import left1 from 'assets/img/loginSpin/left1.png';
+import left2 from 'assets/img/loginSpin/left2.jpg';
+import left3 from 'assets/img/loginSpin/left3.png';
+import left4 from 'assets/img/loginSpin/left4.png';
+import left5 from 'assets/img/loginSpin/left5.jpg';
+
 interface Props {
   suggestions: Suggestions[];
 }
 interface ButtonStyle {
-  isCurrent: boolean;
+  isCurrent?: boolean;
+  slideNum?: number;
 }
-
 const nullImage = '/codyDummy/Person_icon.png';
 
 export function TempSlide({ suggestions }: Props) {
+  const obj = [
+    {
+      id: 'q',
+      imageUrl: left1,
+      rating: 80,
+      temperature: '10.1',
+    },
+    {
+      id: 'q',
+      imageUrl: left2,
+      rating: 80,
+      temperature: '10.1',
+    },
+    // {
+    //   id: 'q',
+    //   imageUrl: left3,
+    //   rating: 80,
+    //   temperature: '10.1',
+    // },
+    // {
+    //   id: 'q',
+    //   imageUrl: left4,
+    //   rating: 80,
+    //   temperature: '10.1',
+    // },
+    // {
+    //   id: 'q',
+    //   imageUrl: left5,
+    //   rating: 80,
+    //   temperature: '10.1',
+    // },
+  ];
   const [isCurrent, setIsCurrent] = useState(3);
 
   const router = useRouter();
@@ -30,12 +67,12 @@ export function TempSlide({ suggestions }: Props) {
 
   SwiperCore.use([EffectCoverflow, Autoplay]);
   return (
-    <Container>
+    <Container slideNum={obj.length}>
       <StyledSwiper
-        slidesPerView={suggestions.length <= 2 ? 1 : 3}
-        loop={suggestions.length <= 2 ? false : true}
-        loopedSlides={suggestions.length <= 2 ? 0 : 5}
-        initialSlide={suggestions.length <= 2 ? 1 : 3}
+        slidesPerView={obj.length <= 3 ? obj.length : 0.5 * (obj.length - 1)}
+        loop={obj.length <= 3 ? false : true}
+        loopedSlides={obj.length <= 3 ? 0 : 5}
+        initialSlide={obj.length <= 3 ? 1 : 3}
         centeredSlides
         spaceBetween={0}
         slideToClickedSlide
@@ -52,14 +89,14 @@ export function TempSlide({ suggestions }: Props) {
         }}
         effect={'coverflow'}
         modules={[EffectCoverflow]}>
-        {suggestions.map(({ id, imageUrl, rating, temperature }, idx) => {
+        {obj.map(({ id, imageUrl, rating, temperature }, idx) => {
           return (
             <StyledSwiperSlide key={id}>
               <ImageBox isCurrent={idx === isCurrent}>
                 <ImageBoxInner isCurrent={idx === isCurrent}>
                   <Image
                     src={imageUrl ?? nullImage}
-                    alt="임시야"
+                    alt={String(id)}
                     layout="fill"
                     style={{ borderRadius: 'inherit' }}
                   />
@@ -94,13 +131,16 @@ export function TempSlide({ suggestions }: Props) {
   );
 }
 
-const Container = styled.section`
+const Container = styled.section<ButtonStyle>`
   position: relative;
   max-height: 800px;
   width: 100%;
+  max-width: calc(30% + 14% * ${(props) => props.slideNum});
   height: 100%;
-  padding: 10% calc(10% - 8px);
+  padding: 10% calc(23% - 4px);
+  padding: ${(props) => props.slideNum <= 3 && '0'};
   overflow: hidden;
+  overflow: ${(props) => props.slideNum <= 2 && 'visible'};
 `;
 
 const StyledSwiper = styled(Swiper)`
@@ -118,6 +158,7 @@ const ImageBox = styled.div<ButtonStyle>`
   display: flex;
   position: relative;
   width: 100%;
+  max-width: 308px;
   aspect-ratio: 9/16;
 `;
 const ImageBoxInner = styled.div<ButtonStyle>`
@@ -150,7 +191,7 @@ const InfoBox = styled.div<ButtonStyle>`
   border-radius: 2px;
   transition: transform 0.5s ease;
   align-items: flex-end;
-  padding: 12px 16px;
+  padding: 10px 18px;
 `;
 
 // 별표 : 왼쪽 하단
