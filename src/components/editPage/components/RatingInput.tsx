@@ -38,7 +38,7 @@ export const RatingInput = ({ control, errors }: Props) => {
               size={36}
               allowHalfIcon
               transition
-              fillColor="#ffe714"
+              fillColor={customColor.yellow}
               emptyColor="gray"
             />
           )}
@@ -67,11 +67,13 @@ const RatingWrapper = styled.section`
   padding: 0px 20px;
   position: relative;
 `;
+
 const RatingTitle = styled.section`
   display: flex;
   flex-direction: row;
   align-items: center;
 `;
+
 const Icon = styled.div`
   margin-right: 6px;
 `;
@@ -79,7 +81,7 @@ const Icon = styled.div`
 const CustomErrorMessage = styled.div`
   font-size: 0.8rem;
   font-family: 'LeferiPoint-WhiteObliqueA';
-  color: red;
+  color: ${customColor.red};
   font-weight: bold;
   position: absolute;
   bottom: -14px;

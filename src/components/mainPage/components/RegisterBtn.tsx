@@ -73,7 +73,12 @@ export function RegisterBtn() {
         <ButtonShdow isHover={isHover} isActive={isActive} />
         <ButtonBody />
         <ButtonContent isHover={isHover} isActive={isActive}>
-          오늘의 코디등록
+          <TypoGraphy
+            type="body2"
+            fontWeight="bold"
+            color={customColor.darkSky}>
+            오늘의 코디등록
+          </TypoGraphy>
           <Hanger isHover={isHover} isActive={isActive}>
             <Image src={hanger} alt="hanger" width="44px" height="44px" />
           </Hanger>
@@ -111,9 +116,8 @@ const ButtonContent = styled.p<ButtonStyle>`
   position: absolute;
   z-index: 5;
   white-space: nowrap;
-  background: #fff;
+  background: ${customColor.white};
   border: 2px solid ${customColor.darkSky};
-  color: ${customColor.darkSky};
   border-radius: 16px;
   width: 100%;
   height: 100%;

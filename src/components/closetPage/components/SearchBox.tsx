@@ -35,7 +35,7 @@ const Wrapper = styled.section`
 const SearchInput = styled.input`
   width: 128px;
   height: 44px;
-  border: 1px solid ${customColor.gray};
+  border: 1px solid ${customColor.grayLight};
   border-radius: 12px;
   padding: 4px 10px 0 38px;
   align-items: center;
@@ -44,6 +44,6 @@ const SearchInput = styled.input`
   font-weight: 700;
   :focus {
     outline: none;
-    background-color: rgba(0, 0, 0, 0.05);
+    background-color: ${customColor.black + '05'};
   }
 `;

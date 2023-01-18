@@ -67,21 +67,17 @@ const Container = styled.section`
   align-items: center;
   justify-content: center;
   margin-top: 20px;
-  background: rgba(255, 255, 255, 0.3);
-  background: #ffffff37;
+  background: ${customColor.white + '4'};
   border-radius: 12px;
-  box-shadow: 2px 2px 5px -1px #aaaaaa2f;
+  box-shadow: 2px 2px 5px -1px ${customColor.grayDark + '3'};
   width: 620px;
   height: 200px;
 `;
-const WeatherContent = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-`;
+
 const WhiteSpan = styled.span`
   color: ${customColor.white};
 `;
+
 const SmallSpan = styled.span`
   font-size: 18px;
 `;
@@ -89,5 +85,5 @@ const Vr = styled.div`
   width: 3px;
   height: 60%;
   margin: 54px;
-  background-color: #a9e0ff;
+  background-color: ${customColor.backgroundBlue_opacity};
 `;

@@ -53,6 +53,7 @@ export function DressBox({ url, name, id, deleteFn }: Props) {
 const Container = styled.section`
   position: relative;
 `;
+
 const Wrapper = styled.section`
   display: flex;
   align-items: center;
@@ -62,11 +63,12 @@ const Wrapper = styled.section`
   overflow: hidden;
   width: 126px;
   height: 200px;
-  box-shadow: 1px 1px 6px -1px #aaa;
+  box-shadow: 1px 1px 6px -1px ${customColor.grayDark};
 `;
+
 const ClothesName = styled.section<NameProps>`
   position: absolute;
-  background-color: #00000080;
+  background-color: ${customColor.black};
   border-radius: 4px;
   padding: 4px;
   top: 4px;

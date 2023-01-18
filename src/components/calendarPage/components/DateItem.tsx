@@ -62,7 +62,7 @@ const Date = styled.section`
   cursor: pointer;
   border-radius: 2px;
   height: 80px;
-  box-shadow: 1px 1px 5px -1px #bbb;
+  box-shadow: 1px 1px 5px -1px ${customColor.grayLight};
 `;
 const ClipTag = styled.div`
   display: flex;
@@ -79,11 +79,11 @@ const WeatherIcon = styled.article`
   font-size: 32px;
   padding-right: 4px;
   align-content: center;
-  @media screen and (max-width:1024px){
+  @media screen and (max-width: 1024px) {
     position: absolute;
-    bottom:6px;
-    right:2px;
-    font-size:20px;
+    bottom: 6px;
+    right: 2px;
+    font-size: 20px;
   }
 `;
 const DateInfo = styled.article`
@@ -93,7 +93,7 @@ const DateInfo = styled.article`
   margin-right: 4px;
   font-size: 14px;
   justify-content: center;
-  margin-top:4px;
+  margin-top: 4px;
 `;
 const Temperature = styled.span`
   margin-bottom: 6px;

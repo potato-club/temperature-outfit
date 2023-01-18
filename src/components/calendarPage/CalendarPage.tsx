@@ -6,7 +6,8 @@ import '@fullcalendar/timegrid/main.css';
 import dynamic from 'next/dynamic';
 
 export const CalendarPage = () => {
-  const Calendars = dynamic(() => import('./components/Calendar'), {
+  // TODO : 재민쿤 오네가시마스⭐
+  const Calendars: any = dynamic(() => import('./components/Calendar'), {
     ssr: false,
   });
 

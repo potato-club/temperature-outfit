@@ -41,7 +41,7 @@ const Input = styled.input`
   font-size: 16px;
   height: 36px;
   border-radius: 12px;
-  border: 2px solid ${customColor.gray};
+  border: 2px solid ${customColor.grayLight};
   padding-left: 10px;
   margin-top: 4px;
   &:focus {

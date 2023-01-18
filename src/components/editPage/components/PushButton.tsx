@@ -42,9 +42,15 @@ const Button = styled.button<ButtonStyle>`
   height: 100%;
   border-radius: 20px;
   border: none;
-  background: ${(props) => (props.buttonType === 'cancel' ? '#f77' : '#7cf')};
+  background: ${(props) =>
+    props.buttonType === 'cancel'
+      ? `${customColor.pushCancel}`
+      : `${customColor.pushCheck}`};
   border: 2px solid
-    ${(props) => (props.buttonType === 'cancel' ? '#d66' : '#5ad')};
+    ${(props) =>
+      props.buttonType === 'cancel'
+        ? `${customColor.pushCancelBorder}`
+        : `${customColor.pushCheckBorder}`};
   justify-content: center;
   align-items: center;
   cursor: pointer;
@@ -79,7 +85,10 @@ const ButtonBody = styled.div<ButtonStyle>`
   bottom: -5px;
   left: 50%;
   transform: translate(-50%, 0);
-  background: ${(props) => (props.buttonType === 'cancel' ? '#d66' : '#5ad')};
+  background: ${(props) =>
+    props.buttonType === 'cancel'
+      ? `${customColor.pushCancelBorder}`
+      : `${`${customColor.pushCheckBorder}`}`};
   border-radius: 16px;
 `;
 

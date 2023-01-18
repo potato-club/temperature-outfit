@@ -3,6 +3,8 @@ import styled from '@emotion/styled';
 import { TypoGraphy } from 'components/common';
 import { FieldErrorsImpl, FieldValues, UseFormRegister } from 'react-hook-form';
 import { FaComments } from 'react-icons/fa';
+import { customColor } from 'constants/index';
+
 type Props = {
   register: UseFormRegister<FieldValues>;
   errors: Partial<FieldErrorsImpl>;
@@ -41,7 +43,7 @@ const TextArea = styled.textarea`
   height: 180px;
   border-radius: 12px;
   border: none;
-  box-shadow: 1px 1px 5px -1px #bbb;
+  box-shadow: 1px 1px 5px -1px ${customColor.grayDark};
   resize: none;
   padding: 12px;
   box-sizing: border-box;
@@ -53,7 +55,7 @@ const TextArea = styled.textarea`
     width: 20px;
   }
   ::-webkit-scrollbar-thumb {
-    background-color: rgb(179, 226, 255, 0.8);
+    background-color: ${customColor.grayDark};
     border-radius: 24px;
     background-clip: padding-box;
     border: 6px solid transparent;

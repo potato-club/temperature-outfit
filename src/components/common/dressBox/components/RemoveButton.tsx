@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import { customColor } from 'constants/index';
-import React, { useState } from 'react';
+import React from 'react';
 import { GiCancel } from 'react-icons/gi';
 type Props = {
   id: string;
@@ -11,7 +11,7 @@ type Props = {
 const RemoveButton = ({ id, deleteFn, showRemove }: Props) => {
   return (
     <Wrapper onClick={() => deleteFn(id)} showRemove={showRemove} type="button">
-      <MemoGiCancel fontSize={'18px'} color={'#ff4949'} />
+      <MemoGiCancel fontSize={'18px'} color={customColor.red} />
     </Wrapper>
   );
 };

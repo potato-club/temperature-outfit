@@ -12,7 +12,6 @@ type Props = {
   deleteFn?: (id: string) => void;
 };
 
-
 export function ClothesBox({ url, name, id, deleteFn }: Props) {
   const [showName, setShowName] = useState<boolean>(false);
   const [showRemove, setShowRemove] = useState<boolean>(false);
@@ -53,7 +52,7 @@ const Container = styled.section`
 const ImgWrapper = styled.section`
   display: flex;
   margin: 0;
-  border: 1px solid ${customColor.gray};
+  border: 1px solid ${customColor.grayLight};
   border-radius: 16px;
   overflow: hidden;
   width: 126px;
@@ -71,7 +70,7 @@ type NameProps = {
 const ClothesName = styled.section<NameProps>`
   user-select: none;
   position: absolute;
-  background-color: #00000080;
+  background-color: ${customColor.black};
   border-radius: 4px;
   padding: 4px;
   top: 0px;

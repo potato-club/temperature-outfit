@@ -74,9 +74,7 @@ export const ImageInput = ({ register, errors }: Props) => {
         name="image"
         errors={errors}
         render={({ message }) => (
-          <section className="errorWrapper">
-            {message}
-          </section>
+          <section className="errorWrapper">{message}</section>
         )}
       />
     </>
@@ -95,7 +93,7 @@ const RelativeImg = styled.div`
 
 const InitialImage = styled(IoMdImage)`
   width: 100%;
-  background-color: ${customColor.gray};
+  background-color: ${customColor.grayLight};
   height: 40vh;
 `;
 

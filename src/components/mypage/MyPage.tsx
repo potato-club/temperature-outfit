@@ -1,7 +1,6 @@
 import React, { useCallback } from 'react';
 import styled from '@emotion/styled';
 import { customColor } from 'constants/index';
-import { GrLocation } from 'react-icons/gr';
 import { signOut } from 'next-auth/react';
 import { useRecoilValue, useRecoilState } from 'recoil';
 import { locations, userState } from 'recoil/atom';
@@ -73,7 +72,6 @@ export const MyPage: React.FC<Props> = ({ myPageToggle }) => {
           </TypoGraphy>
         </NameInfo>
         <LocationWrapper>
-          {/* <GrLocation size={28} /> */}
           <LocationSelectBox
             myLocation={locationId.toString()}
             changeUserLocations={changeUserLocations}
@@ -118,7 +116,7 @@ const Container = styled.section<Props>`
   align-items: center;
   gap: 12px 0;
   padding: 16px 16px 12px;
-  box-shadow: 0px 2px 5px -2px #bbb;
+  box-shadow: 0px 2px 5px -2px ${customColor.grayDark};
   animation: ${(props) =>
     props.myPageToggle ? 'rollDown 0.5s ease' : 'rollUp 0.5 ease'};
 `;
@@ -137,6 +135,7 @@ const NameInfo = styled.section`
   margin: 4px;
   margin-bottom: 16px;
 `;
+
 const LocationWrapper = styled.section`
   display: flex;
   width: 100%;

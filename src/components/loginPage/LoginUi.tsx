@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { SpinIMG, TypoGraphy } from 'components/common';
 import TypeIt from 'typeit-react';
 import stamp from 'assets/img/decoration/stamp.png';
+import { customColor } from 'constants/index';
 
 export const LoginUi: React.FC = () => {
   const loginComment: string = '날씨에 따라 당신의 코디를 기록하세요';
@@ -16,9 +17,11 @@ export const LoginUi: React.FC = () => {
           <Deco>
             <Image src={stamp} width={500} height={500} alt={'lace'} />
           </Deco>
+
           <Title>&quot;Would you like to join us?&quot;</Title>
+
           <SubTitle>
-            <TypoGraphy type="h4" fontWeight='bold' color='#996430'>
+            <TypoGraphy type="h4" fontWeight="bold" color={customColor.login}>
               <TypeIt
                 options={{
                   strings: [loginComment],
@@ -69,7 +72,7 @@ const Title = styled.article`
   font-size: 28px;
   font-style: italic;
   font-weight: 500;
-  color: #222;
+  color: black;
   align-items: flex-end;
   letter-spacing: -1.5px;
   font-family: sans-serif;

@@ -80,10 +80,10 @@ const InputButton = styled.input`
 const ImageWrapper = styled.section`
   display: flex;
   position: relative;
-  width:100%;
+  width: 100%;
   aspect-ratio: 9/16;
   border-radius: 10px;
-  background-color: #c4c4c450;
-  box-shadow: 1px 1px 5px -1px #bbb;
+  background-color: ${customColor.black + '50'};
+  box-shadow: 1px 1px 5px -1px ${customColor.grayLight};
   border-radius: 4px;
 `;

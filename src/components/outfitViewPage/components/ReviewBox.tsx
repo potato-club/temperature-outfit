@@ -16,6 +16,7 @@ import { PushButton } from 'components/editPage/components/PushButton';
 import { CgChevronDoubleDown } from 'react-icons/cg';
 import { FaComments } from 'react-icons/fa';
 import { MdThumbUp } from 'react-icons/md';
+import { customColor } from 'constants/index';
 
 interface ReviewBoxProps {
   comment: string;
@@ -99,8 +100,8 @@ export function ReviewBox({ comment, rating, outFitImageUrl }: ReviewBoxProps) {
                     ratingValue={rating}
                     size={36}
                     transition
-                    fillColor="#ffe714"
-                    emptyColor="gray"
+                    fillColor={customColor.yellow}
+                    emptyColor={customColor.grayDark}
                   />
                 </RatingWrapper>
               </RatingContainer>
@@ -144,8 +145,8 @@ const ImageWrapper = styled.section`
   position: relative;
   height: 100%;
   border-radius: 10px;
-  background-color: #c4c4c450;
-  box-shadow: 1px 1px 5px -1px #bbb;
+  background-color: ${customColor.black + '50'};
+  box-shadow: 1px 1px 5px -1px ${customColor.grayLight};
   border-radius: 4px;
 `;
 
@@ -154,7 +155,8 @@ const TextArea = styled.textarea`
   height: 180px;
   border-radius: 12px;
   border: none;
-  box-shadow: 1px 1px 5px -1px #bbb;
+  box-shadow: 1px 1px 5px -1px ${customColor.grayDark};
+
   resize: none;
   padding: 12px;
   box-sizing: border-box;
@@ -166,7 +168,7 @@ const TextArea = styled.textarea`
     width: 20px;
   }
   ::-webkit-scrollbar-thumb {
-    background-color: rgb(179, 226, 255, 0.8);
+    background-color: ${customColor.grayDark};
     border-radius: 24px;
     background-clip: padding-box;
     border: 6px solid transparent;
@@ -256,9 +258,10 @@ const ReviewInner = styled.section`
   flex-direction: column;
   gap: 36px;
   background-color: #fff6;
+  background-color: ${customColor.white + '6'};
   padding: 24px;
   border-radius: 12px;
-  box-shadow: 1px 1px 5px -1px #aaa;
+  box-shadow: 1px 1px 5px -1px ${customColor.grayDark};
 `;
 
 const movingArrow = keyframes`
@@ -278,7 +281,7 @@ const ArrowIcon = styled.div<ToggleProps>`
   transform: translate(-50%, 0) rotateX(50deg)
     ${(props) => (props.isToggle ? 'rotate(-180deg)' : '')};
   font-size: 60px;
-  color: #222;
+  color: ${customColor.black};
   animation: ${movingArrow} 1s ease infinite;
   cursor: pointer;
   transition: transform 0.4s ease;

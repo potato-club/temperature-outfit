@@ -13,7 +13,7 @@ export const confirmModal = (
     icon: 'question',
     showCancelButton: true,
     confirmButtonColor: `${customColor.brandColor2}`,
-    cancelButtonColor: `${customColor.gray}`,
+    cancelButtonColor: `${customColor.grayLight}`,
     confirmButtonText: yesText,
     cancelButtonText: noText,
     text,
