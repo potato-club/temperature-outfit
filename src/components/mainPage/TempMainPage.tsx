@@ -9,6 +9,7 @@ import { WeatherStatusType } from 'types/mainPage';
 import { useQueries } from 'react-query';
 import { Suggestions } from 'types/mainPage';
 import { errorModal } from 'utils/interactionModal';
+import { Guide } from './components/Guide';
 
 export function TempMainPage() {
   const { locationId } = useRecoilValue(userState);
@@ -47,8 +48,11 @@ export function TempMainPage() {
 
       {/* // TODO : 제안된 코디에 슬라이드 적용 */}
       {/* <MainCody suggestions={suggestions} /> */}
-
-      <TempSlide suggestions={suggestions} />
+      {suggestions.length > 0 ? (
+        <TempSlide suggestions={suggestions} />
+      ) : (
+        <Guide />
+      )}
       {/* 코디 등록 버튼 */}
       <RegisterBtn />
     </Container>
