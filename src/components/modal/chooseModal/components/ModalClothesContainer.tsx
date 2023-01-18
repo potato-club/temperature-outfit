@@ -4,7 +4,7 @@ import useFilter from 'hooks/useFilter';
 import { useRecoilValue } from 'recoil';
 import { categoryLabel } from 'recoil/atom/chooseModal';
 import { ModalClothesBox } from './ModalClothesBox';
-import {  useMemo } from 'react';
+import { useMemo } from 'react';
 import useGetItem from 'hooks/useGetItem';
 
 export const ModalClothesContainer = () => {
@@ -39,7 +39,8 @@ const ItemContainer = styled.section`
   width: 100%;
   display: flex;
   flex-wrap: wrap;
-  gap: 12px;
+  gap: 8px;
   min-height: 200px;
-  margin: 12px 8px 8px;
+  margin: 12px 0px;
+  justify-content: center;
 `;
