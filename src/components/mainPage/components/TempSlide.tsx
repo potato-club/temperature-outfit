@@ -56,7 +56,7 @@ export function TempSlide({ suggestions }: Props) {
         }}
         effect={'coverflow'}
         modules={[EffectCoverflow]}>
-        {suggestions.map(({ id, imageUrl, rating, temperature }, idx) => {
+        {suggestions.map(({ id, imageUrl, rating }, idx) => {
           return (
             <StyledSwiperSlide key={id}>
               <ImageBox isCurrent={idx === isCurrent}>
@@ -127,6 +127,9 @@ const ImageBox = styled.div<ButtonStyle>`
   width: 100%;
   max-width: 308px;
   aspect-ratio: 9/16;
+  @media screen and (max-width: 1600px) {
+    height: 300px;
+  }
 `;
 const ImageBoxInner = styled.div<ButtonStyle>`
   display: flex;

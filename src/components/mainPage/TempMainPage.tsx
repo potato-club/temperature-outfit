@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled from '@emotion/styled';
-import { MainCody, RegisterBtn, TempSlide, TodayInfo } from './components';
+import { RegisterBtn, TempSlide, TodayInfo } from './components';
 import { suggestionApi, weatherApi } from 'api';
 import { useRecoilValue } from 'recoil';
 import { userState } from 'recoil/atom';
@@ -43,17 +43,13 @@ export function TempMainPage() {
 
   return (
     <Container>
-      {/* 날씨랑 온도 */}
       <TodayInfo weatherStatus={weatherStatus} temperature={temperature} />
 
-      {/* // TODO : 제안된 코디에 슬라이드 적용 */}
-      {/* <MainCody suggestions={suggestions} /> */}
       {suggestions.length > 0 ? (
         <TempSlide suggestions={suggestions} />
       ) : (
         <Guide />
       )}
-      {/* 코디 등록 버튼 */}
       <RegisterBtn />
     </Container>
   );
