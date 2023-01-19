@@ -69,7 +69,7 @@ const Container = styled.section`
   display: flex;
   position: relative;
   flex-direction: column;
-  height: 100%;
+  height: 50vh;
   gap: 12px 0;
 `;
 
@@ -81,7 +81,7 @@ const ImageWrapper = styled.section`
   display: flex;
   position: relative;
   width: 100%;
-  aspect-ratio: 9/16;
+  height: 100%;
   border-radius: 10px;
   background-color: ${customColor.black + '50'};
   box-shadow: 1px 1px 5px -1px ${customColor.grayLight};
