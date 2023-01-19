@@ -167,6 +167,10 @@ const InfoBox = styled.div<ButtonStyle>`
 // 별표 : 왼쪽 하단
 const RatingBox = styled.div`
   pointer-events: none;
+  @media screen and (max-width: 782px) {
+    background: red;
+    display: none;
+  }
 `;
 
 // 버튼 : 우측 하단
@@ -177,4 +181,7 @@ const BottomBox = styled.div`
   width: 100%;
   justify-content: space-between;
   align-items: center;
+  @media screen and (max-width: 782px) {
+    justify-content: flex-end;
+  }
 `;
