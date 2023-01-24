@@ -51,13 +51,13 @@ const Container = styled.section`
 
 const ImgWrapper = styled.section`
   display: flex;
+  position: relative;
   margin: 0;
   border: 1px solid ${customColor.grayLight};
-  border-radius: 16px;
+  border-radius: 8px;
   overflow: hidden;
-  width: 126px;
-  height: 200px;
-
+  width: 136px;
+  height: 136px;
   &:hover {
     border: 1px solid ${customColor.brandColor1};
   }
@@ -70,9 +70,9 @@ type NameProps = {
 const ClothesName = styled.section<NameProps>`
   user-select: none;
   position: absolute;
-  background-color: ${customColor.black};
-  border-radius: 4px;
-  padding: 4px;
+  background-color: ${customColor.black + '99'};
+  border-radius: 6px;
+  padding: 2px 6px;
   top: 0px;
   left: 0px;
   opacity: ${({ showName }) => (showName ? 1 : 0)};

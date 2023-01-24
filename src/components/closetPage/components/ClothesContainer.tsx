@@ -49,6 +49,7 @@ export const ClothesContainer = () => {
 // TODO : 반응형 어케할지 고민
 const Wrapper = styled.section`
   display: flex;
-  gap: 28px;
+  gap: 16px;
   flex-wrap: wrap;
+  min-height: 288px;
 `;

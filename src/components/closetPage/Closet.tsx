@@ -31,9 +31,7 @@ export const Closet: React.FC = () => {
             </FilterWrapSection>
             <SearchBox />
           </FilterWrapper>
-
           <Line />
-
           <ClothesContainer />
         </Body>
         <Footer>
@@ -64,7 +62,7 @@ const Container = styled.section`
 const Wrapper = styled.section`
   width: 80vw;
   max-width: 1178px;
-  min-height: 720px;
+  height: 100%;
   margin-top: 20px;
   padding: 48px 62px 24px;
   background-color: ${customColor.white};
@@ -103,11 +101,11 @@ const FilterWrapper = styled.article`
 const Line = styled.hr`
   border: 1px solid ${customColor.grayLight};
   border-bottom: 0px;
-  margin: 16px 0 24px 0;
+  margin: 14px 0 18px;
 `;
 
 const Footer = styled.section`
-  margin-top: 12px;
+  margin-top: 24px;
   display: flex;
   flex-direction: column;
   position: relative;
