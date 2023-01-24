@@ -20,7 +20,7 @@ interface ButtonStyle {
 }
 const nullImage = '/codyDummy/Person_icon.png';
 
-export function TempSlide({ suggestions }: Props) {
+export function Slide({ suggestions }: Props) {
   const [isCurrent, setIsCurrent] = useState(3);
 
   const router = useRouter();

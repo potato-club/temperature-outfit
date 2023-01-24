@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled from '@emotion/styled';
-import { RegisterBtn, TodayInfo } from './components';
+import { RegisterBtn, Slide, TodayInfo } from './components';
 import { suggestionApi, weatherApi } from 'api';
 import { useRecoilValue } from 'recoil';
 import { userState } from 'recoil/atom';
@@ -9,6 +9,7 @@ import { WeatherStatusType } from 'types/mainPage';
 import { useQueries } from 'react-query';
 import { Suggestions } from 'types/mainPage';
 import { errorModal } from 'utils/interactionModal';
+import { Guide } from './components/Guide';
 
 export function MainPage() {
   const { locationId } = useRecoilValue(userState);
@@ -43,6 +44,12 @@ export function MainPage() {
   return (
     <Container>
       <TodayInfo weatherStatus={weatherStatus} temperature={temperature} />
+
+      {suggestions.length > 0 ? (
+        <Slide suggestions={suggestions} />
+      ) : (
+        <Guide />
+      )}
       <RegisterBtn />
     </Container>
   );
@@ -50,10 +57,13 @@ export function MainPage() {
 
 const Container = styled.section`
   width: 100%;
-  height: 100vh;
+  max-width: 1178px;
+  height: calc(100vh - 44px);
   overflow-y: hidden;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-evenly;
+  padding: 0 12px;
+  gap: 5% 0;
+  margin-top: 44px;
 `;
