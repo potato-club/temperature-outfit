@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import { VscCircleFilled } from 'react-icons/vsc';
 import { FaRegCalendarAlt } from 'react-icons/fa';
-import { IoFileTrayStackedSharp } from 'react-icons/io5';
+import { IoFileTrayStackedSharp, IoPersonCircleOutline } from 'react-icons/io5';
 import { TypoGraphy } from 'components/common';
 import Image from 'next/image';
 import codyBtn from 'assets/img/decoration/codyBtn.png';
@@ -12,9 +12,19 @@ export const Guide = () => {
     <Wrapper>
       <WrapperInner>
         <Container>
-          <TypoGraphy type="h3" fontWeight="bold">
-            [옷 등록]
-          </TypoGraphy>
+          <Title>
+            <TitleInner>
+              <TitleDeco />
+              <TitleText>
+                <TypoGraphy
+                  type="h3"
+                  fontWeight="bold"
+                  color={customColor.darkSky}>
+                  옷 등록
+                </TypoGraphy>
+              </TitleText>
+            </TitleInner>
+          </Title>
           <Content>
             <How>
               <BulletBtn fontSize={16} />
@@ -25,9 +35,19 @@ export const Guide = () => {
           </Content>
         </Container>
         <Container>
-          <TypoGraphy type="h3" fontWeight="bold">
-            [코디 등록]
-          </TypoGraphy>
+          <Title>
+            <TitleInner>
+              <TitleDeco />
+              <TitleText>
+                <TypoGraphy
+                  type="h3"
+                  fontWeight="bold"
+                  color={customColor.darkSky}>
+                  코디 등록
+                </TypoGraphy>
+              </TitleText>
+            </TitleInner>
+          </Title>
           <Content>
             <How>
               <BulletBtn fontSize={16} />
@@ -36,8 +56,8 @@ export const Guide = () => {
                 <Image
                   src={codyBtn}
                   alt={'codyBtn'}
-                  width="70px"
-                  height="40px"
+                  width="80px"
+                  height="48px"
                 />
               </Cody>
               <TypoGraphy type="h4">
@@ -57,6 +77,29 @@ export const Guide = () => {
             </How_>
           </Content>
         </Container>
+        <Container>
+          <Title>
+            <TitleInner>
+              <TitleDeco />
+              <TitleText>
+                <TypoGraphy
+                  type="h3"
+                  fontWeight="bold"
+                  color={customColor.darkSky}>
+                  지역 설정
+                </TypoGraphy>
+              </TitleText>
+            </TitleInner>
+          </Title>
+          <Content>
+            <How>
+              <BulletBtn fontSize={16} />
+              <TypoGraphy type="h4">&nbsp;상단메뉴의&nbsp;</TypoGraphy>
+              <Person fontSize={24} />
+              <TypoGraphy type="h4">을 누른 후, 지역을 선택하세요</TypoGraphy>
+            </How>
+          </Content>
+        </Container>
       </WrapperInner>
     </Wrapper>
   );
@@ -64,18 +107,64 @@ export const Guide = () => {
 
 const Wrapper = styled.section`
   display: flex;
-  padding: 15% 12px;
+  width: max-content;
+  justify-content: center;
+  overflow-y: auto;
+  margin-bottom: 5%;
+  ::-webkit-scrollbar {
+    opacity: 0;
+    width: 20px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background-color: ${customColor.grayDark};
+    border-radius: 24px;
+    background-clip: padding-box;
+    border: 6px solid transparent;
+  }
+  ::-webkit-scrollbar-track {
+    border-radius: 10px;
+  }
 `;
 const WrapperInner = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 80px 0;
+  position: relative;
+  gap: 52px 0;
+  padding: 24px 0;
 `;
 const Container = styled.div`
   display: flex;
+  flex-direction: row;
   position: relative;
-  flex-direction: column;
-  gap: 24px;
+  gap: 24px 60px;
+`;
+const Title = styled.div`
+  display: flex;
+  min-width: 120px;
+  align-items: flex-start;
+  justify-content: flex-end;
+`;
+const TitleInner = styled.div`
+  display: flex;
+  position: relative;
+  width: max-content;
+  margin-top: 4px;
+`;
+const TitleText = styled.div`
+  display: flex;
+  z-index: 5;
+`;
+const TitleDeco = styled.div`
+  display: flex;
+  position: absolute;
+  width: 110%;
+  height: 26px;
+  top: -6px;
+  left: 50%;
+  transform: skew(5deg) translate(-50%, 0);
+  box-shadow: 1px 1px 4px -1px ${customColor.grayLight};
+  border-radius: 6px;
+  background: ${customColor.white + '6'};
 `;
 const Content = styled.div`
   display: flex;
@@ -106,5 +195,8 @@ const Closet = styled(IoFileTrayStackedSharp)`
   margin: 0px 2px 6px;
 `;
 const BulletBtn = styled(VscCircleFilled)`
+  margin-bottom: 6px;
+`;
+const Person = styled(IoPersonCircleOutline)`
   margin-bottom: 6px;
 `;

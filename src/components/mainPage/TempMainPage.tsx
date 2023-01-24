@@ -64,6 +64,6 @@ const Container = styled.section`
   flex-direction: column;
   align-items: center;
   padding: 0 12px;
-  gap: 10px;
+  gap: 5% 0;
   margin-top: 44px;
 `;

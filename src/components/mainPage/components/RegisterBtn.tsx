@@ -91,8 +91,8 @@ export function RegisterBtn() {
 const ButtonWrapper = styled.section`
   display: flex;
   position: absolute;
-  right: 16px;
-  bottom: 32px;
+  right: 72px;
+  bottom: 80px;
   width: 124px;
   height: 58px;
   padding-top: 5px;
@@ -145,6 +145,7 @@ const Hanger = styled.div<ButtonStyle>`
   ${(props) => props.isHover && 'transform:translate(0, -4px);'}
   top: 0px;
   transition: transform 0.5s ease;
+  pointer-events: none;
 `;
 
 const ButtonBody = styled.div`
