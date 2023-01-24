@@ -95,8 +95,8 @@ export function RegisterBtn() {
 const ButtonWrapper = styled.div`
   display: flex;
   position: absolute;
-  right: 72px;
-  bottom: 80px;
+  right: 40px;
+  bottom: 32px;
   width: 124px;
   height: 58px;
   padding-top: 5px;
