@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled from '@emotion/styled';
-import { RegisterBtn, Slide, TodayInfo } from './components';
+import { Guide, RegisterBtn, Slide, TodayInfo } from './components';
 import { suggestionApi, weatherApi } from 'api';
 import { useRecoilValue } from 'recoil';
 import { userState } from 'recoil/atom';
@@ -9,7 +9,6 @@ import { WeatherStatusType } from 'types/mainPage';
 import { useQueries } from 'react-query';
 import { Suggestions } from 'types/mainPage';
 import { errorModal } from 'utils/interactionModal';
-import { Guide } from './components/Guide';
 
 export function MainPage() {
   const { locationId } = useRecoilValue(userState);

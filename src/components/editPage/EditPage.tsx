@@ -31,6 +31,12 @@ export default function EditPage() {
   const [submitTimer, setSubmitTimer] = useState<NodeJS.Timer>();
   const [day, setDay] = useState('');
 
+  useEffect(() => {
+    if(router.isReady) {
+      setDay(router.query.day as string);
+    }
+  }, [router])
+
   const { mutate } = useMutation(
     ({ frm, outfitId }: mutateParamType) =>
       outfitId
@@ -67,6 +73,7 @@ export default function EditPage() {
         } else {
           await getWeather();
           frm.append('locationId', user.locationId.toString());
+
           mutate({ frm });
         }
       },
@@ -92,14 +99,14 @@ export default function EditPage() {
   }, [day, user.locationId]);
 
   const getAllEditProductsId = useCallback(() => {
-    let productsIdString = '';
-    topImages.forEach((data) => (productsIdString += data.id + ','));
-    outerImages.forEach((data) => (productsIdString += data.id + ','));
-    bottomImages.forEach((data) => (productsIdString += data.id + ','));
-    shoesImages.forEach((data) => (productsIdString += data.id + ','));
-    etcImages.forEach((data) => (productsIdString += data.id + ','));
-    productsIdString = productsIdString.slice(0, -1); // 반점 제거
-    return productsIdString;
+    return [
+      ...topImages,
+      ...outerImages,
+      ...bottomImages,
+      ...shoesImages,
+      ...etcImages,
+    ].map(({ id }) => id)
+      .join();
   }, [topImages, outerImages, bottomImages, shoesImages, etcImages]);
 
   const filterProduct = useCallback(
@@ -191,6 +198,7 @@ export default function EditPage() {
       },
     },
   );
+
   return (
     <>
       {router.isReady && (
@@ -218,5 +226,5 @@ const Container = styled.section`
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  padding:12px;
+  padding: 12px;
 `;
