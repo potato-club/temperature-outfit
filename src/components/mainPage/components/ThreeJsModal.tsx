@@ -28,7 +28,8 @@ export const ThreeJsModal = ({
       }}
       style={{
         overlay: {
-          background: 'rgba(0,0,0,0.4)',
+          background: customColor.black + '66',
+          zIndex: 100,
         },
       }}
       ariaHideApp={false}
