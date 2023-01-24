@@ -13,23 +13,23 @@ interface Right {
 
 export const SpinIMG: React.FC = () => {
   const leftIMG = [
-    '/loginSpin/left1.jpg',
+    '/loginSpin/left1.png',
     '/loginSpin/left2.jpg',
-    '/loginSpin/left3.jpg',
-    '/loginSpin/left4.jpg',
+    '/loginSpin/left3.png',
+    '/loginSpin/left4.png',
     '/loginSpin/left5.jpg',
     '/loginSpin/left6.jpg',
     '/loginSpin/left7.jpg',
     '/loginSpin/left8.jpg',
   ];
   const rightIMG = [
-    '/loginSpin/right1.jpg',
+    '/loginSpin/right1.png',
     '/loginSpin/right2.jpg',
-    '/loginSpin/right3.jpg',
+    '/loginSpin/right3.png',
     '/loginSpin/right4.jpg',
-    '/loginSpin/right5.jpg',
-    '/loginSpin/right6.jpg',
-    '/loginSpin/right7.jpg',
+    '/loginSpin/right5.png',
+    '/loginSpin/right6.png',
+    '/loginSpin/right7.png',
     '/loginSpin/right8.jpg',
   ];
   return (
