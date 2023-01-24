@@ -52,9 +52,10 @@ const OutWrap = styled.section`
   height: 30vh;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   position: relative;
+  gap: 200px 0;
 `;
 
 const InWrap = styled.section`
