@@ -18,7 +18,7 @@ interface ButtonStyle {
   isCurrent?: boolean;
   slideNum?: number;
 }
-const nullImage = '/codyDummy/Person_icon.png';
+const nullImage = '/Person_icon.png';
 
 export function Slide({ suggestions }: Props) {
   const [isCurrent, setIsCurrent] = useState(3);
