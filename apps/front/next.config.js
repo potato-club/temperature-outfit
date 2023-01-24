@@ -9,8 +9,6 @@ const withTM = require('next-transpile-modules')([
   '@fullcalendar/react',
 ]);
 
-const withPlugins = require('next-compose-plugins');
-
 /**
  * @type {import('@nrwl/next/plugins/with-nx').WithNxOptions}
  **/
