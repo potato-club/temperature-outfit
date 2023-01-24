@@ -92,7 +92,7 @@ export function RegisterBtn() {
   );
 }
 
-const ButtonWrapper = styled.section`
+const ButtonWrapper = styled.div`
   display: flex;
   position: absolute;
   right: 72px;
@@ -115,7 +115,7 @@ const ButtonInner = styled.button`
   font-family: 'LeferiPoint-WhiteObliqueA';
   cursor: pointer;
 `;
-const ButtonContent = styled.p<ButtonStyle>`
+const ButtonContent = styled.div<ButtonStyle>`
   display: flex;
   position: absolute;
   z-index: 5;
