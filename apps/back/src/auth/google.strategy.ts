@@ -13,14 +13,14 @@ export class GoogleStrategy extends PassportStrategy(Strategy) {
     super({
       clientID: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-      callbackURL: 'http://www.example.com/auth/google/callback',
+      callbackURL: 'http://localhost:3333/auth/google/callback',
+      scope: ['email', 'profile'],
     });
   }
 
   async validate(
     accessToken: string,
     refreshToken: string,
-    params: GoogleCallbackParameters,
     profile: Profile,
   ): Promise<any> {
     // update도 해줘야 함
@@ -32,10 +32,6 @@ export class GoogleStrategy extends PassportStrategy(Strategy) {
         providerAccountId: profile.id,
         refreshToken,
         accessToken,
-        expiresAt: params.expires_in,
-        tokenType: params.token_type,
-        scope: params.scope,
-        idToken: params.id_token,
       },
       {
         name: profile.displayName,

@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "license": "MIT",
   "scripts": {
-    "start": "nx serve",
+    "dev": "nx run-many --parallel --target=serve",
     "build": "nx build",
     "test": "nx test"
   },
@@ -25,6 +25,7 @@
     "@nestjs/jwt": "^10.0.1",
     "@nestjs/passport": "^9.0.0",
     "@nestjs/platform-express": "^9.0.0",
+    "@nestjs/swagger": "^6.1.4",
     "@nestjs/typeorm": "^9.0.1",
     "@prisma/client": "^4.8.0",
     "@supabase/storage-js": "^1.7.0",

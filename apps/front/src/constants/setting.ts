@@ -1,3 +1,3 @@
 export const setting = {
-  baseUrl: '/api/',
+  baseUrl: 'http://localhost:3333/',
 };

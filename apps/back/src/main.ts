@@ -5,7 +5,7 @@
 
 import { Logger } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
-
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { AppModule } from './app.module';
 import { PrismaService } from './prisma.service';
 
@@ -16,6 +16,12 @@ async function bootstrap() {
   });
   const prismaService = app.get(PrismaService);
   await prismaService.enableShutdownHooks(app);
+
+  const config = new DocumentBuilder().setTitle('날씨별 API').build();
+
+  const document = SwaggerModule.createDocument(app, config);
+  SwaggerModule.setup('doc', app, document);
+
   const globalPrefix = 'api';
   // app.setGlobalPrefix(globalPrefix);
   const port = process.env.PORT || 3333;
