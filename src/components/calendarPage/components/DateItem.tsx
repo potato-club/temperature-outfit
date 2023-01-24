@@ -5,7 +5,6 @@ import { TypoGraphy } from 'components/common';
 import { IoUmbrella } from 'react-icons/io5';
 import { BsFillCloudFill, BsSnow2, BsSunFill } from 'react-icons/bs';
 import Image from 'next/image';
-import clip from 'assets/img/clip.png';
 
 interface DateItemProps {
   weatherStatus: string;
@@ -34,7 +33,12 @@ export const DateItem = ({
   return (
     <Date>
       <ClipTag>
-        <Image src={clip} alt="clip" width="100%" height="100%" />
+        <Image
+          src={'/decoration/clip.png'}
+          alt="clip"
+          width="100%"
+          height="100%"
+        />
       </ClipTag>
       <WeatherIcon>{iconSelect(weatherStatus)}</WeatherIcon>
       <DateInfo>

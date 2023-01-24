@@ -8,7 +8,6 @@ import { useQuery } from 'react-query';
 import { todayCodyApi } from 'api';
 import { confirmModal } from 'utils/interactionModal';
 import Image from 'next/image';
-import hanger from 'assets/img/decoration/hanger.png';
 
 interface ButtonStyle {
   isHover: boolean;
@@ -80,7 +79,12 @@ export function RegisterBtn() {
             오늘의 코디등록
           </TypoGraphy>
           <Hanger isHover={isHover} isActive={isActive}>
-            <Image src={hanger} alt="hanger" width="44px" height="44px" />
+            <Image
+              src={'/decoration/hanger.png'}
+              alt="hanger"
+              width="44px"
+              height="44px"
+            />
           </Hanger>
         </ButtonContent>
       </ButtonInner>

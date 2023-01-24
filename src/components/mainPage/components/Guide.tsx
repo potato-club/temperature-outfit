@@ -4,7 +4,6 @@ import { FaRegCalendarAlt } from 'react-icons/fa';
 import { IoFileTrayStackedSharp, IoPersonCircleOutline } from 'react-icons/io5';
 import { TypoGraphy } from 'components/common';
 import Image from 'next/image';
-import codyBtn from 'assets/img/decoration/codyBtn.png';
 import { customColor } from 'constants/index';
 
 export const Guide = () => {
@@ -54,7 +53,7 @@ export const Guide = () => {
               &nbsp;
               <Cody>
                 <Image
-                  src={codyBtn}
+                  src={'/decoration/codyBtn.png'}
                   alt={'codyBtn'}
                   width="80px"
                   height="48px"

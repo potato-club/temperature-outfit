@@ -1,22 +1,6 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import Image from 'next/image';
-import left1 from 'assets/img/loginSpin/left1.png';
-import left2 from 'assets/img/loginSpin/left2.jpg';
-import left3 from 'assets/img/loginSpin/left3.png';
-import left4 from 'assets/img/loginSpin/left4.png';
-import left5 from 'assets/img/loginSpin/left5.jpg';
-import left6 from 'assets/img/loginSpin/left6.jpg';
-import left7 from 'assets/img/loginSpin/left7.jpg';
-import left8 from 'assets/img/loginSpin/left8.jpg';
-import right1 from 'assets/img/loginSpin/right1.png';
-import right2 from 'assets/img/loginSpin/right2.jpg';
-import right3 from 'assets/img/loginSpin/right3.png';
-import right4 from 'assets/img/loginSpin/right4.jpg';
-import right5 from 'assets/img/loginSpin/right5.png';
-import right6 from 'assets/img/loginSpin/right6.png';
-import right7 from 'assets/img/loginSpin/right7.png';
-import right8 from 'assets/img/loginSpin/right8.jpg';
 import { keyframes } from '@emotion/react';
 
 interface InnerProps {
@@ -28,16 +12,25 @@ interface Right {
 }
 
 export const SpinIMG: React.FC = () => {
-  const leftIMG = [left1, left2, left3, left4, left5, left6, left7, left8];
+  const leftIMG = [
+    '/loginSpin/left1.jpg',
+    '/loginSpin/left2.jpg',
+    '/loginSpin/left3.jpg',
+    '/loginSpin/left4.jpg',
+    '/loginSpin/left5.jpg',
+    '/loginSpin/left6.jpg',
+    '/loginSpin/left7.jpg',
+    '/loginSpin/left8.jpg',
+  ];
   const rightIMG = [
-    right1,
-    right2,
-    right3,
-    right4,
-    right5,
-    right6,
-    right7,
-    right8,
+    '/loginSpin/right1.jpg',
+    '/loginSpin/right2.jpg',
+    '/loginSpin/right3.jpg',
+    '/loginSpin/right4.jpg',
+    '/loginSpin/right5.jpg',
+    '/loginSpin/right6.jpg',
+    '/loginSpin/right7.jpg',
+    '/loginSpin/right8.jpg',
   ];
   return (
     <Wrapper>
