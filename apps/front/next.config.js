@@ -27,4 +27,10 @@ const nextConfig = {
   },
 };
 
-module.exports = withPlugins([withNx, withTM], nextConfig);
+module.exports = (_phase, { defaultConfig }) => {
+  const plugins = [withNx, withTM];
+  return plugins.reduce((acc, plugin) => plugin(acc), {
+    ...defaultConfig,
+    ...nextConfig,
+  });
+};
