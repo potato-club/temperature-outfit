@@ -15,7 +15,7 @@ export const ModalClothesContainer = () => {
     return categories[index].recoil;
   }, [category]);
 
-  const { filter } = useFilter(5);
+  const { filter } = useFilter(8);
   const { filterItem } = useGetItem(filter);
 
   return (
