@@ -82,7 +82,6 @@ const Wrapper = styled.section`
 const WrapperInner = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   width: 100%;
   height: 100%;
   overflow: hidden;
@@ -96,8 +95,7 @@ const FilterWrapSection = styled.section`
 const Head = styled.section``;
 const Body = styled.section`
   width: 100%;
-  max-height: 312px;
-  min-height: 184px;
+  min-height: 312px;
   overflow-y: auto;
   ::-webkit-scrollbar {
     opacity: 0;
