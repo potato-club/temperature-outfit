@@ -37,6 +37,7 @@ export const ImageInput = ({ register, errors }: Props) => {
         id="clothesImage"
         type="file"
         accept="image/*"
+        style={{ objectFit: 'cover' }}
         onChange={(e) => {
           addImage(e);
           onChange(e);
@@ -52,7 +53,7 @@ export const ImageInput = ({ register, errors }: Props) => {
           <RelativeImg>
             <Image
               src={thumbnail}
-              layout={'fill'}
+              layout="fill"
               alt="clothes"
               onClick={() =>
                 clothesInputRef.current && clothesInputRef.current.click()
@@ -61,7 +62,7 @@ export const ImageInput = ({ register, errors }: Props) => {
           </RelativeImg>
         ) : (
           <InitialImage
-            size={240}
+            size={120}
             opacity={0.5}
             onClick={() =>
               clothesInputRef.current && clothesInputRef.current.click()
@@ -92,6 +93,7 @@ const RelativeImg = styled.div`
 `;
 
 const InitialImage = styled(IoMdImage)`
+  display: flex;
   width: 100%;
   background-color: ${customColor.grayLight};
   height: 100%;
@@ -100,8 +102,9 @@ const InitialImage = styled(IoMdImage)`
 const ImageWrapper = styled.section`
   margin-top: 12px;
   width: 100%;
-  height: 48%;
+  aspect-ratio: 16/9;
   display: flex;
+  position: relative;
   align-items: center;
   justify-content: center;
   overflow: hidden;
