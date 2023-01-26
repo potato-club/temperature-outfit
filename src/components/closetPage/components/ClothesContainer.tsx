@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 import { productApi } from 'api';
 import { ClothesBox } from 'components/common';
+import { customColor } from 'constants/index';
 import useFilter from 'hooks/useFilter';
 import useGetItem from 'hooks/useGetItem';
 import { useMutation, useQueryClient } from 'react-query';
@@ -51,5 +52,15 @@ const Wrapper = styled.section`
   display: flex;
   gap: 16px;
   flex-wrap: wrap;
-  min-height: 288px;
+  height: 100%;
+  width: 100%;
+  overflow-y: auto;
+  ::-webkit-scrollbar {
+    opacity: 0;
+    width: 8px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background-color: ${customColor.backgroundBlue};
+    border-radius: 24px;
+  }
 `;

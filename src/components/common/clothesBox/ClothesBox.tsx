@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { MemoClothesImg } from './ClothesImg';
 import { MemoTypoGraphy } from 'components/common/TypoGraphy';
 import { MemoRemoveButton } from '../dressBox/components/RemoveButton';
+import imageLayout from 'constants/imageLayout';
 
 type Props = {
   url: string;
@@ -56,8 +57,8 @@ const ImgWrapper = styled.section`
   border: 1px solid ${customColor.grayLight};
   border-radius: 8px;
   overflow: hidden;
-  width: 136px;
-  height: 136px;
+  width: ${imageLayout.square}px;
+  height: ${imageLayout.square}px;
   &:hover {
     border: 1px solid ${customColor.brandColor1};
   }

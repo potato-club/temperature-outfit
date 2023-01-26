@@ -1,5 +1,7 @@
+import imageLayout from 'constants/imageLayout';
 import Image from 'next/image';
 import React from 'react';
+import { BiBorderRadius } from 'react-icons/bi';
 type Props = {
   url: string;
 };
@@ -8,9 +10,9 @@ const ClothesImg = ({ url }: Props) => {
     <Image
       src={url}
       alt="clothes"
-      width={136}
-      height={136}
-      style={{ objectFit: 'cover' }}
+      width={imageLayout.square}
+      height={imageLayout.square}
+      style={{ objectFit: 'cover', borderRadius: 'inherit' }}
     />
   );
 };

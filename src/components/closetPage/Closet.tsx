@@ -15,39 +15,43 @@ export const Closet: React.FC = () => {
   return (
     <Container>
       <Wrapper>
-        <Body>
-          <ClosetTitle>
-            <Icon>
-              <BiCloset fontSize="24px" />
-            </Icon>
-            <TypoGraphy type="h1" fontWeight="bold">
-              옷장
-            </TypoGraphy>
-          </ClosetTitle>
-          <FilterWrapper>
-            <FilterWrapSection>
-              <MainSubSelectBox />
-              <ColorRadio />
-            </FilterWrapSection>
-            <SearchBox />
-          </FilterWrapper>
-          <Line />
-          <ClothesContainer />
-        </Body>
-        <Footer>
-          <CustomPagination />
-          <ButtonWrapper>
-            <CustomButton
-              type="button"
-              customType="colorful"
-              text="추가"
-              sidePadding="20"
-              height={40}
-              onClick={() => setAddModalState((cur) => !cur)}
-            />
-            <AddModal />
-          </ButtonWrapper>
-        </Footer>
+        <WrapperInner>
+          <Head>
+            <ClosetTitle>
+              <Icon>
+                <BiCloset fontSize="24px" />
+              </Icon>
+              <TypoGraphy type="h1" fontWeight="bold">
+                옷장
+              </TypoGraphy>
+            </ClosetTitle>
+            <FilterWrapper>
+              <FilterWrapSection>
+                <MainSubSelectBox />
+                <ColorRadio />
+              </FilterWrapSection>
+              <SearchBox />
+            </FilterWrapper>
+            <Line />
+          </Head>
+          <Body>
+            <ClothesContainer />
+          </Body>
+          <Footer>
+            <CustomPagination />
+            <ButtonWrapper>
+              <CustomButton
+                type="button"
+                customType="colorful"
+                text="추가"
+                sidePadding="20"
+                height={40}
+                onClick={() => setAddModalState((cur) => !cur)}
+              />
+              <AddModal />
+            </ButtonWrapper>
+          </Footer>
+        </WrapperInner>
       </Wrapper>
     </Container>
   );
@@ -56,30 +60,29 @@ export const Closet: React.FC = () => {
 const Container = styled.section`
   display: flex;
   justify-content: center;
-  margin: 40px 0px;
+  align-self: center;
+  width: 100%;
+  height: calc(100vh - 44px);
+  margin-top: 44px;
+  padding: 12px;
 `;
 
 const Wrapper = styled.section`
-  width: 80vw;
+  width: 80%;
   max-width: 1178px;
   height: 100%;
-  margin-top: 20px;
   padding: 48px 62px 24px;
   background-color: ${customColor.white};
   border-radius: 10px;
   box-shadow: 2px 2px 5px -1px ${customColor.grayDark};
   display: flex;
+`;
+const WrapperInner = styled.div`
+  display: flex;
   flex-direction: column;
   justify-content: space-between;
-  overflow-y: auto;
-  ::-webkit-scrollbar {
-    opacity: 0;
-    width: 12px;
-  }
-  ::-webkit-scrollbar-thumb {
-    background-color: rgb(150, 137, 235, 0.6);
-    border-radius: 24px;
-  }
+  width: 100%;
+  height: 100%;
 `;
 const FilterWrapSection = styled.section`
   display: flex;
@@ -87,7 +90,11 @@ const FilterWrapSection = styled.section`
   gap: 8px;
 `;
 
-const Body = styled.section``;
+const Head = styled.section``;
+const Body = styled.section`
+  height: calc(100% - 248px);
+  min-height: 184px;
+`;
 
 const FilterWrapper = styled.article`
   display: flex;
@@ -105,7 +112,7 @@ const Line = styled.hr`
 `;
 
 const Footer = styled.section`
-  margin-top: 24px;
+  margin-top: 18px;
   display: flex;
   flex-direction: column;
   position: relative;
