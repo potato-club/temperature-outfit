@@ -7,6 +7,7 @@ import useAddClothesEdit from 'hooks/useAddClothesEdit';
 import { MemoTypoGraphy } from 'components/common/TypoGraphy';
 import { MemoClothesImg } from 'components/common/clothesBox/ClothesImg';
 import { productType } from 'types/editPage/product.type';
+import imageLayout from 'constants/imageLayout';
 
 type Props = {
   url: string;
@@ -45,10 +46,10 @@ const Container = styled.section`
   position: relative;
   margin: 0;
   border: 1px solid ${customColor.grayLight};
-  border-radius: 12px;
+  border-radius: 6px;
   overflow: hidden;
-  width: 126px;
-  height: 200px;
+  width: ${imageLayout.square};
+  height: ${imageLayout.square};
   cursor: pointer;
 `;
 type NameProps = {
@@ -59,7 +60,7 @@ const ClothesName = styled.section<NameProps>`
   background-color: ${customColor.black + '80'};
   border-radius: 4px;
   padding: 4px;
-  top: 4px;
-  left: 4px;
+  top: 0px;
+  left: 0px;
   opacity: ${({ showName }) => (showName ? 1 : 0)};
 `;

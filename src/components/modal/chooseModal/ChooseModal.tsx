@@ -39,8 +39,9 @@ export const ChooseModal = () => {
           <CategoryBox />
           <ModalClothesContainer />
         </ContentBox>
-
-        <CustomPagination />
+        <Footer>
+          <CustomPagination />
+        </Footer>
       </Wrapper>
     </Container>
   );
@@ -56,10 +57,10 @@ const Container = styled(Modal)`
   width: 100%;
   max-width: 684px;
   box-sizing: content-box;
-  min-height: 400px;
+  min-height: 300px;
   transform: translate(-50%, -50%);
   background-color: ${customColor.white};
-  padding: 24px 28px 10px;
+  padding: 24px 28px 24px;
   border-radius: 8px;
   box-shadow: 1px 1px 5px -1px ${customColor.grayDark};
   &:focus {
@@ -75,20 +76,21 @@ const Wrapper = styled.section`
   padding: 4px 0;
   gap: 8px;
   height: 100%;
-  overflow-y: auto;
-  ::-webkit-scrollbar {
-    opacity: 0;
-    width: 12px;
-  }
-  ::-webkit-scrollbar-thumb {
-    background-color: ${customColor.grayDark};
-    border-radius: 24px;
-  }
 `;
 
 const ContentBox = styled.section`
+  display: flex;
+  flex-direction: column;
   width: 100%;
   border: 1px solid ${customColor.grayLight};
   border-radius: 8px;
-  padding: 8px;
+  padding: 12px;
+  gap: 12px 0;
+`;
+const Footer = styled.section`
+  margin-top: 18px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  justify-content: center;
 `;

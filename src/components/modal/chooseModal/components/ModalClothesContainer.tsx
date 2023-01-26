@@ -39,7 +39,6 @@ const ItemContainer = styled.section`
   width: 100%;
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
-  min-height: 200px;
-  margin: 12px 0px;
+  gap: 12px;
+  min-height: 148px;
 `;

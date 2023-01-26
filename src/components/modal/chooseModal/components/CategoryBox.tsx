@@ -54,6 +54,5 @@ export const CategoryBox = () => {
 const Container = styled.section`
   display: flex;
   gap: 6px;
-  margin-bottom: 8px;
   flex-wrap: nowrap;
 `;
