@@ -8,6 +8,7 @@ import { chooseModal } from 'recoil/atom';
 import { categoryLabel } from 'recoil/atom/chooseModal';
 import { categoryFilter } from 'recoil/atom/filtering';
 import { productType } from 'types/editPage/product.type';
+import imageLayout from 'constants/imageLayout';
 type Props = {
   category: string;
   id: string;
@@ -50,27 +51,34 @@ export function DressRoom({ category, id, recoil }: Props) {
 
 const Container = styled.section`
   display: flex;
+  flex-direction: row;
   background-color: ${customColor.white};
   padding: 12px;
   width: calc(100% - 9px);
   border-radius: 16px;
-  overflow-x: auto;
   gap: 0 12px;
   box-sizing: content-box;
   margin-bottom: 12px;
   box-shadow: 1px 1px 5px -1px ${customColor.grayDark};
+  overflow-x: auto;
   ::-webkit-scrollbar {
     opacity: 0;
-    height: 20px;
+    height: 16px;
   }
   ::-webkit-scrollbar-thumb {
     background-color: ${customColor.grayDark};
     border-radius: 24px;
     background-clip: padding-box;
-    border: 6px solid transparent;
+    border: 4px solid transparent;
   }
   ::-webkit-scrollbar-track {
     border-radius: 10px;
+  }
+  ::-webkit-scrollbar-button:start:decrement,
+  ::-webkit-scrollbar-button:end:increment {
+    display: block;
+    width: 8px;
+    background-color: transparent;
   }
 `;
 const AddButton = styled.label`
@@ -78,8 +86,8 @@ const AddButton = styled.label`
   align-items: center;
   justify-content: center;
   border-radius: 12px;
-  min-width: 126px;
-  height: 200px;
+  min-width: ${imageLayout.middleSquare}px;
+  min-height: ${imageLayout.middleSquare}px;
   box-shadow: 1px 1px 6px -1px ${customColor.grayDark};
   cursor: pointer;
   &:hover {

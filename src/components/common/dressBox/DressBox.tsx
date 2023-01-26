@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { MemoDressImg } from './DressImg';
 import { MemoRemoveButton } from './components/RemoveButton';
 import { MemoTypoGraphy } from 'components/common/TypoGraphy';
+import imageLayout from 'constants/imageLayout';
 
 type Props = {
   url: string;
@@ -52,6 +53,8 @@ export function DressBox({ url, name, id, deleteFn }: Props) {
 
 const Container = styled.section`
   position: relative;
+  width: ${imageLayout.middleSquare}px;
+  height: ${imageLayout.middleSquare}px;
 `;
 
 const Wrapper = styled.section`
@@ -61,8 +64,8 @@ const Wrapper = styled.section`
   margin: 0;
   border-radius: 12px;
   overflow: hidden;
-  width: 126px;
-  height: 200px;
+  width: ${imageLayout.middleSquare}px;
+  height: ${imageLayout.middleSquare}px;
   box-shadow: 1px 1px 6px -1px ${customColor.grayDark};
 `;
 
