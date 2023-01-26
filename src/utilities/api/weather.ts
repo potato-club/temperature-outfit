@@ -58,7 +58,7 @@ export const getWeather = async (
   location: Location,
 ) => {
   // 미래일 경우는 컨크롤러에서 처리
-  if (today.toISOString().split('T')[0] === date.toISOString().split('T')[0]) {
+  if (today.toLocaleDateString('ko') === date.toLocaleDateString('ko')) {
     return await getCurrentWeather(location.latitude, location.longitude);
   } else {
     return await getPastWeather(date, location.code);
