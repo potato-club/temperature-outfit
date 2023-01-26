@@ -117,7 +117,7 @@ const Container = styled(Modal)`
   padding: 40px;
   border-radius: 20px;
   box-shadow: 1px 1px 5px -1px ${customColor.grayDark};
-  height: 700px;
+  height: auto;
   &:focus {
     border: none;
     outline: none;
