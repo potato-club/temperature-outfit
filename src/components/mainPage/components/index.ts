@@ -4,4 +4,5 @@ export { LightController } from './LightController';
 export { Model } from './Model';
 export { ThreeModel } from './ThreeModel';
 export { LocationInfo } from './LocationInfo';
-export { TempSlide } from './TempSlide';
+export { Slide } from './Slide';
+export { Guide } from './Guide';

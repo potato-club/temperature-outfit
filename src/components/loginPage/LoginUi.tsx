@@ -1,10 +1,9 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import { GoogleLogin } from './GoogleLogin';
+import { GoogleLogin } from './index';
 import Image from 'next/image';
 import { SpinIMG, TypoGraphy } from 'components/common';
 import TypeIt from 'typeit-react';
-import stamp from 'assets/img/decoration/stamp.png';
 import { customColor } from 'constants/index';
 
 export const LoginUi: React.FC = () => {
@@ -15,7 +14,12 @@ export const LoginUi: React.FC = () => {
       <OutWrap>
         <InWrap>
           <Deco>
-            <Image src={stamp} width={500} height={500} alt={'lace'} />
+            <Image
+              src={'/decoration/stamp.png'}
+              width={500}
+              height={500}
+              alt={'lace'}
+            />
           </Deco>
 
           <Title>&quot;Would you like to join us?&quot;</Title>
