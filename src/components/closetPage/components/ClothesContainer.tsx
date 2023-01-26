@@ -54,13 +54,4 @@ const Wrapper = styled.section`
   flex-wrap: wrap;
   height: 100%;
   width: 100%;
-  overflow-y: auto;
-  ::-webkit-scrollbar {
-    opacity: 0;
-    width: 8px;
-  }
-  ::-webkit-scrollbar-thumb {
-    background-color: ${customColor.backgroundBlue};
-    border-radius: 24px;
-  }
 `;

@@ -62,7 +62,8 @@ const Container = styled.section`
   justify-content: center;
   align-self: center;
   width: 100%;
-  height: calc(100vh - 44px);
+  height: max-content;
+  max-height: calc(100vh - 44px);
   margin-top: 44px;
   padding: 12px;
 `;
@@ -83,6 +84,7 @@ const WrapperInner = styled.div`
   justify-content: space-between;
   width: 100%;
   height: 100%;
+  overflow: hidden;
 `;
 const FilterWrapSection = styled.section`
   display: flex;
@@ -92,8 +94,18 @@ const FilterWrapSection = styled.section`
 
 const Head = styled.section``;
 const Body = styled.section`
-  height: calc(100% - 248px);
+  width: 100%;
+  max-height: 312px;
   min-height: 184px;
+  overflow-y: auto;
+  ::-webkit-scrollbar {
+    opacity: 0;
+    width: 8px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background-color: ${customColor.backgroundBlue};
+    border-radius: 24px;
+  }
 `;
 
 const FilterWrapper = styled.article`

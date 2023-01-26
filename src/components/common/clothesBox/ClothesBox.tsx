@@ -48,6 +48,8 @@ export function ClothesBox({ url, name, id, deleteFn }: Props) {
 
 const Container = styled.section`
   position: relative;
+  width: ${imageLayout.square}px;
+  height: ${imageLayout.square}px;
 `;
 
 const ImgWrapper = styled.section`
