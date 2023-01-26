@@ -1,20 +1,11 @@
-// AddModal 에 유사한코드 있음
-// Todo : 재사용할수있는 로직이다 싶으면 재사용할것.
-
 import React, { ChangeEvent, useRef } from 'react';
 import styled from '@emotion/styled';
-import { CustomButton, TypoGraphy } from 'components/common';
+import { customColor } from 'constants/index';
 import Image from 'next/image';
-import {
-  FieldErrorsImpl,
-  FieldValues,
-  UseFormRegister,
-  UseFormSetValue,
-} from 'react-hook-form';
-import { ErrorMessage } from '@hookform/error-message';
-import { infoModal } from 'utils/interactionModal';
+import { FieldValues, UseFormRegister, UseFormSetValue } from 'react-hook-form';
 import { useRecoilState } from 'recoil';
 import { codyThumbnail } from 'recoil/atom/editState';
+import { InitPhotoButton } from './InitPhotoButton';
 type Props = {
   register: UseFormRegister<FieldValues>;
   setValue: UseFormSetValue<FieldValues>;
@@ -35,7 +26,6 @@ export const ImageInput = ({ register, setValue }: Props) => {
       fileReader.onload = () => {
         setThumbnail(String(fileReader.result!));
       };
-      infoModal('옷 사진 등록완료!', 'success');
     }
   };
 
@@ -64,35 +54,22 @@ export const ImageInput = ({ register, setValue }: Props) => {
             clothesInputRef.current && clothesInputRef.current.click()
           }
         />
-      </ImageWrapper>
-      {/* <ErrorMessage
-        name="image"
-        errors={errors}
-        render={({ message }) => (
-          <section className="errorWrapper">
-            <TypoGraphy color="red">{message}</TypoGraphy>
-          </section>
-        )}
-      /> */}
-      <ButtonWrapper>
-        <CustomButton
-          customType="colorful"
-          text="기본 이미지로 설정"
-          sidePadding="20"
-          type="button"
+        <InitPhotoButton
           onClick={() => {
             setThumbnail('');
             setValue('image', null);
           }}
         />
-      </ButtonWrapper>
+      </ImageWrapper>
     </Container>
   );
 };
 
 const Container = styled.section`
   display: flex;
+  position: relative;
   flex-direction: column;
+  height: 50vh;
   gap: 12px 0;
 `;
 
@@ -101,13 +78,12 @@ const InputButton = styled.input`
 `;
 
 const ImageWrapper = styled.section`
+  display: flex;
   position: relative;
   width: 100%;
-  height: 240px;
+  height: 100%;
   border-radius: 10px;
-  overflow: hidden;
-`;
-
-const ButtonWrapper = styled.section`
-  align-self: flex-end;
+  background-color: ${customColor.black + '50'};
+  box-shadow: 1px 1px 5px -1px ${customColor.grayLight};
+  border-radius: 4px;
 `;

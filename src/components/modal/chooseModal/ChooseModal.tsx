@@ -22,62 +22,75 @@ export const ChooseModal = () => {
       isOpen={chooseModalState}
       onRequestClose={handleClose}
       ariaHideApp={false}
+      style={{
+        overlay: {
+          background: customColor.black + '66',
+          zIndex: 100,
+        },
+      }}
       contentLabel="Add Modal">
       <Wrapper>
-        <TypoGraphy type="Title" fontWeight="bold">
-          {category}
-        </TypoGraphy>
+        <TextWrapper>
+          <TypoGraphy type="h1" fontWeight="bold">
+            {category}
+          </TypoGraphy>
+        </TextWrapper>
         <ContentBox>
           <CategoryBox />
           <ModalClothesContainer />
         </ContentBox>
-        <CustomPagination />
+        <Footer>
+          <CustomPagination />
+        </Footer>
       </Wrapper>
     </Container>
   );
 };
+const TextWrapper = styled.div`
+  margin-bottom: 2px;
+`;
 
 const Container = styled(Modal)`
   position: absolute;
   top: 50%;
   left: 50%;
   width: 100%;
-  max-width: 800px;
+  max-width: 684px;
   box-sizing: content-box;
-  min-height: 412px;
+  min-height: 300px;
   transform: translate(-50%, -50%);
   background-color: ${customColor.white};
-  padding: 40px;
-  border-radius: 20px;
-  box-shadow: 4px 4px 5px 4px rgba(0, 0, 0, 0.43);
+  padding: 24px 28px 24px;
+  border-radius: 8px;
+  box-shadow: 1px 1px 5px -1px ${customColor.grayDark};
+  &:focus {
+    border: none;
+    outline: none;
+  }
 `;
 
 const Wrapper = styled.section`
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  margin-top: 12px;
+  padding: 4px 0;
+  gap: 8px;
   height: 100%;
-  overflow-y: auto;
-  ::-webkit-scrollbar {
-    opacity: 0;
-    width: 12px;
-  }
-  ::-webkit-scrollbar-thumb {
-    background-color: rgb(150, 137, 235, 0.6);
-    border-radius: 24px;
-  }
 `;
 
 const ContentBox = styled.section`
-  width: 100%;
-  border: 1px solid ${customColor.gray};
-  border-radius: 20px;
-  padding: 12px;
-`;
-
-const ButtonBox = styled.section`
   display: flex;
-  gap: 10px;
-  margin-bottom: 10px;
-  flex-wrap: wrap;
+  flex-direction: column;
+  width: 100%;
+  border: 1px solid ${customColor.grayLight};
+  border-radius: 8px;
+  padding: 12px;
+  gap: 12px 0;
+`;
+const Footer = styled.section`
+  margin-top: 18px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  justify-content: center;
 `;

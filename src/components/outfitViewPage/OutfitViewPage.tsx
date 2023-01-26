@@ -9,6 +9,7 @@ import { clothesSubCategory } from 'constants/clothesSubCategory';
 import { useQuery } from 'react-query';
 import { outfitDataType } from 'types/outfitViewPage/outfitData.type';
 import { errorModal } from 'utils/interactionModal';
+import { customColor } from 'constants/index';
 
 type totalTemperatureType = {
   highestTemperature: string;
@@ -18,9 +19,7 @@ type totalTemperatureType = {
 
 export default function OutfitView() {
   const router = useRouter();
-
   const [outfitData, setOutfitData] = useState<outfitDataType>();
-
   const [weather, setWeather] = useState<totalTemperatureType>();
 
   useQuery(
@@ -78,15 +77,16 @@ export default function OutfitView() {
             <CodyBox>
               {categories.map(({ name, id }) => (
                 <Category key={id}>
-                  <TypoGraphy type="Title" fontWeight="bold">
-                    {name}
-                  </TypoGraphy>
+                  <Label>
+                    <TypoGraphy type="h3" fontWeight="bold">
+                      {name}
+                    </TypoGraphy>
+                  </Label>
                   <DressRoom products={categoryFilter(id)} />
                 </Category>
               ))}
             </CodyBox>
             <ReviewBox
-              outfitData={outfitData}
               comment={outfitData.comment}
               rating={outfitData.rating}
               outFitImageUrl={outfitData.imageUrl}
@@ -105,6 +105,10 @@ const Container = styled.section`
   justify-content: center;
   align-items: center;
   flex-direction: column;
+`;
+
+const Label = styled.div`
+  margin-bottom: 4px;
 `;
 
 const Contents = styled.section`
@@ -126,16 +130,19 @@ const CodyBox = styled.section`
   max-width: 800px;
   display: flex;
   flex-direction: column;
-  padding: 12px;
-  border-radius: 10px;
-  background-color: #c4c4c450;
+  padding: 24px 24px 0px;
+  border-radius: 12px;
+  background-color: ${customColor.grayDark + '5'};
+  box-shadow: 1px 1px 5px -1px ${customColor.white};
   overflow-y: auto;
   ::-webkit-scrollbar {
     opacity: 0;
-    width: 12px;
+    width: 26px;
   }
   ::-webkit-scrollbar-thumb {
-    background-color: rgb(150, 137, 235, 0.6);
+    background-color: ${customColor.grayDark};
     border-radius: 24px;
+    background-clip: padding-box;
+    border: 8px solid transparent;
   }
 `;

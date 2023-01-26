@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import { customColor } from 'constants/index';
 import { AiOutlineSearch } from 'react-icons/ai';
-import { useRecoilState } from "recoil";
+import { useRecoilState } from 'recoil';
 import { nameFilter } from 'recoil/atom/filtering';
 
 export const SearchBox = () => {
@@ -15,7 +15,7 @@ export const SearchBox = () => {
         value={name}
         onChange={(e) => setName(e.target.value)}
       />
-      <AiOutlineSearch className="ImgSearch" />
+      <AiOutlineSearch className="ImgSearch" fontSize={20} />
     </Wrapper>
   );
 };
@@ -28,21 +28,22 @@ const Wrapper = styled.section`
 
   .ImgSearch {
     position: absolute;
-    top: 15px;
-    left: 4px;
+    left: 12px;
   }
 `;
 
 const SearchInput = styled.input`
-  width: 80px;
-  border: 1px solid ${customColor.gray};
-  border-radius: 8px;
-  height: 36px;
-  padding: 0 16px 0 20px;
-
-  text-align: center;
+  width: 128px;
+  height: 44px;
+  border: 1px solid ${customColor.grayLight};
+  border-radius: 12px;
+  padding: 4px 10px 0 38px;
+  align-items: center;
+  font-family: 'LeferiPoint-WhiteObliqueA';
+  font-size: 13px;
+  font-weight: 700;
   :focus {
     outline: none;
-    background-color: rgba(0, 0, 0, 0.05);
+    background-color: ${customColor.black + '05'};
   }
 `;

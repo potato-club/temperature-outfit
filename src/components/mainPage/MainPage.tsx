@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled from '@emotion/styled';
-import { MainCody, RegisterBtn, TodayInfo } from './components';
+import { Guide, RegisterBtn, Slide, TodayInfo } from './components';
 import { suggestionApi, weatherApi } from 'api';
 import { useRecoilValue } from 'recoil';
 import { userState } from 'recoil/atom';
@@ -43,7 +43,12 @@ export function MainPage() {
   return (
     <Container>
       <TodayInfo weatherStatus={weatherStatus} temperature={temperature} />
-      <MainCody suggestions={suggestions} />
+
+      {suggestions.length > 0 ? (
+        <Slide suggestions={suggestions} />
+      ) : (
+        <Guide />
+      )}
       <RegisterBtn />
     </Container>
   );
@@ -51,10 +56,13 @@ export function MainPage() {
 
 const Container = styled.section`
   width: 100%;
-  height: 100vh;
+  max-width: 1178px;
+  height: calc(100vh - 44px);
   overflow-y: hidden;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-evenly;
+  padding: 0 12px;
+  gap: 5% 0;
+  margin-top: 44px;
 `;

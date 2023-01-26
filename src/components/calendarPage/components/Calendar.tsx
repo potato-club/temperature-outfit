@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import FullCalendar, {
   DateSelectArg,
   EventClickArg,
@@ -11,7 +11,7 @@ import { EventInput } from '@fullcalendar/react';
 import { todayCodyApi } from 'api';
 import { useRouter } from 'next/router';
 import { DateItem } from './DateItem';
-import { today } from 'constants/index';
+import { customColor, today } from 'constants/index';
 import { useQuery } from 'react-query';
 import { errorModal } from 'utils/interactionModal';
 
@@ -106,7 +106,7 @@ const Calendar = () => {
         dayMaxEvents={true}
         weekends={true}
         eventStartEditable={false}
-        contentHeight={800}
+        contentHeight={720}
         eventContent={renderEventContent}
       />
     </Wrapper>
@@ -116,10 +116,12 @@ const Calendar = () => {
 const Wrapper = styled.section`
   width: 1178px;
   max-width: 1178px;
-  padding: 20px;
-  background-color: white;
+  padding: 24px;
+  background-color: ${customColor.white};
   margin-top: 58px;
   margin-bottom: 12px;
+  border-radius: 16px;
+  box-shadow: 2px 2px 5px -1px ${customColor.grayDark};
 `;
 
 export default Calendar;

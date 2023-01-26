@@ -1,13 +1,14 @@
 import styled from '@emotion/styled';
 import { productApi } from 'api';
 import { ClothesBox } from 'components/common';
+import { customColor } from 'constants/index';
 import useFilter from 'hooks/useFilter';
 import useGetItem from 'hooks/useGetItem';
 import { useMutation, useQueryClient } from 'react-query';
 import { confirmModal, errorModal, infoModal } from 'utils/interactionModal';
 
 export const ClothesContainer = () => {
-  const { filter } = useFilter(20);
+  const { filter } = useFilter(12);
   const { filterItem } = useGetItem(filter);
   const queryClient = useQueryClient();
 
@@ -22,13 +23,14 @@ export const ClothesContainer = () => {
   });
 
   const removeCheck = (id: string) => {
-    confirmModal('삭제 하시겠습니까?', () => mutate(id), '예', '아니오', '주의! 등록되어있는 코디에서 옷이 사라집니다');
+    confirmModal(
+      '삭제 하시겠습니까?',
+      () => mutate(id),
+      '예',
+      '아니오',
+      '⚠️주의 등록된 코디에서도 옷이 사라집니다',
+    );
   };
-
-  // useEffect(() => {
-  //   getItem(filter);
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [filter]);
 
   return (
     <Wrapper>
@@ -37,7 +39,6 @@ export const ClothesContainer = () => {
           name={data.name}
           url={data.imageUrl}
           key={data.id}
-          type="closet"
           id={data.id}
           deleteFn={removeCheck}
         />
@@ -46,10 +47,11 @@ export const ClothesContainer = () => {
   );
 };
 
+// TODO : 반응형 어케할지 고민
 const Wrapper = styled.section`
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  height: 100%;
   width: 100%;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(140px, 2fr));
-  grid-auto-rows: 140px;
-  justify-items: center;
 `;

@@ -35,7 +35,7 @@ export const CategoryBox = () => {
   return (
     <Container>
       {clothesSubCategory[mainCategory] &&
-        clothesSubCategory[mainCategory].map((item, index) => (
+        clothesSubCategory[mainCategory].map((item) => (
           <CustomButton
             type="button"
             onClick={() => {
@@ -43,7 +43,8 @@ export const CategoryBox = () => {
             }}
             customType="white"
             text={item.name}
-            key={index}
+            sidePadding={'10'}
+            key={item.id}
           />
         ))}
     </Container>
@@ -52,7 +53,6 @@ export const CategoryBox = () => {
 
 const Container = styled.section`
   display: flex;
-  gap: 10px;
-  margin-bottom: 10px;
-  flex-wrap: wrap;
+  gap: 6px;
+  flex-wrap: nowrap;
 `;

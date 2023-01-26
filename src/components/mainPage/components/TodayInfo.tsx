@@ -16,13 +16,15 @@ export function TodayInfo({ weatherStatus, temperature }: Props) {
       case 'sun':
         return (
           <>
-            <WhiteSpan>맑아요</WhiteSpan> <br /> 즐거운 하루 보내세요
+            <WhiteSpan>맑아요</WhiteSpan> <br />{' '}
+            <SmallSpan>즐거운 하루 보내세요 :)</SmallSpan>
           </>
         );
       case 'cloud':
         return (
           <>
-            <WhiteSpan>흐려요</WhiteSpan> <br /> 즐거운 하루 보내세요
+            <WhiteSpan>흐려요</WhiteSpan> <br />
+            <SmallSpan>즐거운 하루 보내세요 :)</SmallSpan>
           </>
         );
       case 'rain':
@@ -30,7 +32,7 @@ export function TodayInfo({ weatherStatus, temperature }: Props) {
           <>
             <WhiteSpan>비가 와요</WhiteSpan>
             <br />
-            우산을 챙기세요
+            <SmallSpan>우산을 챙기세요 :)</SmallSpan>
           </>
         );
       case 'snow':
@@ -38,7 +40,7 @@ export function TodayInfo({ weatherStatus, temperature }: Props) {
           <>
             <WhiteSpan>눈이 와요</WhiteSpan>
             <br />
-            눈사람 만드시는 거 어때요?
+            <SmallSpan>눈사람 만드시는 거 어때요? :)</SmallSpan>
           </>
         );
     }
@@ -47,7 +49,6 @@ export function TodayInfo({ weatherStatus, temperature }: Props) {
   return (
     <Container>
       <ThreeModel weatherStatus={weatherStatus} />
-      <LocationInfo temperature={temperature} />
       <TypoGraphy
         type="h1"
         color={customColor.brandColor4}
@@ -55,6 +56,8 @@ export function TodayInfo({ weatherStatus, temperature }: Props) {
         fontHeight="32px">
         오늘은 {weatherTypeText(weatherStatus)}
       </TypoGraphy>
+      <Vr />
+      <LocationInfo temperature={temperature} />
     </Container>
   );
 }
@@ -62,13 +65,25 @@ export function TodayInfo({ weatherStatus, temperature }: Props) {
 const Container = styled.section`
   display: flex;
   align-items: center;
+  justify-content: center;
   margin-top: 20px;
-  background: rgba(255, 255, 255, 0.3);
-  border-radius: 10px;
-  width: 100%;
-  max-width: 820px;
-  height: 240px;
+  background: ${customColor.white + '4'};
+  border-radius: 12px;
+  box-shadow: 2px 2px 5px -1px ${customColor.grayDark + '3'};
+  width: 620px;
+  height: 200px;
 `;
+
 const WhiteSpan = styled.span`
   color: ${customColor.white};
+`;
+
+const SmallSpan = styled.span`
+  font-size: 18px;
+`;
+const Vr = styled.div`
+  width: 3px;
+  height: 60%;
+  margin: 54px;
+  background-color: ${customColor.backgroundBlue_opacity};
 `;

@@ -36,7 +36,7 @@ export const AddModal = () => {
     {
       onSuccess: (data) => {
         console.log(data);
-        infoModal('서버에 옷 등록 완료!', 'success');
+        infoModal('옷 등록 완료', 'success');
         setAddModalState((cur) => !cur);
         queryClient.invalidateQueries('getItem');
       },
@@ -73,6 +73,12 @@ export const AddModal = () => {
         setAddModalState((cur) => !cur);
       }}
       ariaHideApp={false}
+      style={{
+        overlay: {
+          background: customColor.black + '60',
+          zIndex: 100,
+        },
+      }}
       contentLabel="Add Modal">
       <Wrapper>
         <TypoGraphy type="h1" fontWeight="bold">
@@ -105,20 +111,24 @@ const Container = styled(Modal)`
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 100%;
-  max-width: 680px;
+  min-width: 680px;
   transform: translate(-50%, -50%);
   background-color: ${customColor.white};
   padding: 40px;
   border-radius: 20px;
-  box-shadow: 4px 4px 5px 4px rgba(0, 0, 0, 0.43);
+  box-shadow: 1px 1px 5px -1px ${customColor.grayDark};
+  height: auto;
+  &:focus {
+    border: none;
+    outline: none;
+  }
 `;
 
 const Wrapper = styled.section`
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  padding: 20px;
+  width: 100%;
+  height: 100%;
 `;
 
 const CategoryWrapper = styled.section`
@@ -129,12 +139,13 @@ const CategoryWrapper = styled.section`
 const ButtonWrapper = styled.section`
   display: flex;
   justify-content: flex-end;
-  margin-top: 12px;
+  margin-top: 4px;
 `;
 
 const ContentBox = styled.section`
   display: flex;
   flex-direction: column;
-  gap: 20px;
   margin-top: 10px;
+  height: 40%;
+  gap: 10px 0;
 `;

@@ -36,11 +36,9 @@ export default function useAddClothesEdit(
           clothesData.findIndex((clothes: any) => clothes.id === data.id) !== -1
         ) {
           infoModal('이미 등록된 옷입니다.', 'error');
-          // errorModal('이미 등록된 옷입니다.');
           return;
         }
         setClothesData(clothesData.concat(data));
-        infoModal('등록 성공!', 'success');
       },
       onError: (err: unknown) => {
         errorModal('알 수 없는 오류', '서버의 상태가 이상합니다.');

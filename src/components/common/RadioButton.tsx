@@ -1,16 +1,7 @@
 import * as React from 'react';
 import Radio from '@mui/material/Radio';
-import {
-  red,
-  orange,
-  yellow,
-  green,
-  cyan,
-  blue,
-  purple,
-  grey,
-} from '@mui/material/colors';
 import styled from '@emotion/styled';
+import { customColor } from 'constants/index';
 
 export const RadioButton: React.FC = () => {
   const [selectedValue, setSelectedValue] = React.useState('a');
@@ -31,9 +22,9 @@ export const RadioButton: React.FC = () => {
       <Radio
         {...controlProps('a')}
         sx={{
-          color: red[800],
+          color: customColor.red,
           '&.Mui-checked': {
-            color: red[800],
+            color: customColor.red,
           },
           '& .MuiSvgIcon-root': {
             fontSize: 28,

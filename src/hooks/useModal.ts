@@ -21,5 +21,3 @@ export function useModal() {
     handleModal,
   };
 }
-
-export default useModal;
