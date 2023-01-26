@@ -62,6 +62,7 @@ const Container = styled.section`
   justify-content: center;
   align-self: center;
   width: 100%;
+  max-width: 1400px;
   height: max-content;
   max-height: calc(100vh - 44px);
   margin-top: 44px;

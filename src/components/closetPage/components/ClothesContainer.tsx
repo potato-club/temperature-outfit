@@ -8,7 +8,7 @@ import { useMutation, useQueryClient } from 'react-query';
 import { confirmModal, errorModal, infoModal } from 'utils/interactionModal';
 
 export const ClothesContainer = () => {
-  const { filter } = useFilter(14);
+  const { filter } = useFilter(12);
   const { filterItem } = useGetItem(filter);
   const queryClient = useQueryClient();
 
