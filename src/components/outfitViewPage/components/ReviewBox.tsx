@@ -205,13 +205,13 @@ const BoxWrapper = styled.section`
 interface ToggleProps {
   isToggle?: boolean;
 }
-const MoveDiv = styled.section`
+const MoveDiv = styled.div`
   display: flex;
   height: calc(100% - 52px);
   width: 100%;
   overflow-y: hidden;
 `;
-const ContainerInner = styled.section<ToggleProps>`
+const ContainerInner = styled.div<ToggleProps>`
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -232,7 +232,7 @@ const ReviewDiv = styled.section<ToggleProps>`
   cursor: ${(props) => !props.isToggle && 'pointer'};
   transition: opacity 0.4s ease;
 `;
-const SubmitDiv = styled.section`
+const SubmitDiv = styled.div`
   display: flex;
   width: 100%;
   height: 52px;
@@ -257,7 +257,6 @@ const ReviewInner = styled.section`
   width: 100%;
   flex-direction: column;
   gap: 36px;
-  background-color: #fff6;
   background-color: ${customColor.white + '6'};
   padding: 24px;
   border-radius: 12px;
@@ -286,12 +285,12 @@ const ArrowIcon = styled.div<ToggleProps>`
   cursor: pointer;
   transition: transform 0.4s ease;
 `;
-const CommentContainer = styled.section`
+const CommentContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 12px 0;
 `;
-const CommentTitle = styled.section`
+const CommentTitle = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -300,13 +299,13 @@ const Icon = styled.div`
   margin-right: 6px;
 `;
 
-const RatingContainer = styled.section`
+const RatingContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 12px 0;
 `;
 
-const RatingTitle = styled.section`
+const RatingTitle = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
