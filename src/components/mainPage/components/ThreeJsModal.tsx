@@ -74,7 +74,7 @@ const Container = styled(Modal)`
   }
 `;
 
-const BottomBar = styled.section`
+const BottomBar = styled.footer`
   display: flex;
   justify-content: flex-end;
   align-items: center;

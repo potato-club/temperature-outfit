@@ -62,7 +62,7 @@ export function TodayInfo({ weatherStatus, temperature }: Props) {
   );
 }
 
-const Container = styled.section`
+const Container = styled.article`
   display: flex;
   align-items: center;
   justify-content: center;

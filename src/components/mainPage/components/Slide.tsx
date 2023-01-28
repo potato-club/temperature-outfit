@@ -121,7 +121,7 @@ const StyledSwiperSlide = styled(SwiperSlide)`
   align-items: center;
   justify-content: center;
 `;
-const ImageBox = styled.div<ButtonStyle>`
+const ImageBox = styled.article<ButtonStyle>`
   display: flex;
   position: relative;
   width: 100%;

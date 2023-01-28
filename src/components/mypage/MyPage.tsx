@@ -81,7 +81,7 @@ export const MyPage: React.FC<Props> = ({ myPageToggle }) => {
         <TypoGraphy type="sm1" textAlign="center">
           사는 지역을 선택해주세요
         </TypoGraphy>
-        <Footer>
+        <ButtonWrapper>
           <LogOut onClick={handleLogout}>
             <TypoGraphy
               type="body2"
@@ -98,7 +98,7 @@ export const MyPage: React.FC<Props> = ({ myPageToggle }) => {
               회원탈퇴
             </TypoGraphy>
           </AccountDeletion>
-        </Footer>
+        </ButtonWrapper>
       </InnerContainer>
     </Container>
   );
@@ -145,7 +145,7 @@ const LocationWrapper = styled.section`
   margin: 8px 0;
 `;
 
-const Footer = styled.section`
+const ButtonWrapper = styled.section`
   opacity: inherit;
   display: flex;
   gap: 8px;
