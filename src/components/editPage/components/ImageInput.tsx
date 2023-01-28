@@ -77,7 +77,7 @@ const InputButton = styled.input`
   display: none;
 `;
 
-const ImageWrapper = styled.section`
+const ImageWrapper = styled.div`
   display: flex;
   position: relative;
   width: 100%;

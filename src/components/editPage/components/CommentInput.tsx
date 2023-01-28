@@ -30,7 +30,7 @@ const Container = styled.section`
   flex-direction: column;
   gap: 12px 0;
 `;
-const ReviewTitle = styled.section`
+const ReviewTitle = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;

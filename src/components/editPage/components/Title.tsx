@@ -37,14 +37,14 @@ const Container = styled.section`
   margin-bottom: 12px;
   width: max-content;
 `;
-const SubTitle = styled.section`
+const SubTitle = styled.div`
   display: flex;
   justify-content: flex-start;
   gap: 0 28px;
   width: max-content;
 `;
 
-const ClothesTitle = styled.section`
+const ClothesTitle = styled.div`
   display: flex;
   position: relative;
   flex-direction: row;

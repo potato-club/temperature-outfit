@@ -40,7 +40,7 @@ export const InitPhotoButton = (props: ButtonProps) => {
   );
 };
 
-const ButtonWrapper = styled.section`
+const ButtonWrapper = styled.div`
   display: flex;
   position: absolute;
   right: 4px;

@@ -64,7 +64,7 @@ const Container = styled.section`
   gap: 0 24px;
 `;
 
-const Category = styled.section`
+const Category = styled.div`
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -73,7 +73,7 @@ const Category = styled.section`
 const Label = styled.div`
   margin-bottom: 4px;
 `;
-const CodyBox = styled.section`
+const CodyBox = styled.div`
   width: 80%;
   max-width: 800px;
   display: flex;

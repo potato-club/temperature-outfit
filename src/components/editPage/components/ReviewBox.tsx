@@ -110,13 +110,13 @@ const Container = styled.section`
   justify-content: space-between;
   height: 100%;
 `;
-const MoveDiv = styled.section`
+const MoveDiv = styled.div`
   display: flex;
   height: calc(100% - 52px);
   width: 100%;
   overflow-y: hidden;
 `;
-const ContainerInner = styled.section<ToggleProps>`
+const ContainerInner = styled.div<ToggleProps>`
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -125,7 +125,7 @@ const ContainerInner = styled.section<ToggleProps>`
     props.isToggle ? 'translate(0, calc(-100% + 440px))' : 'translate(0, 0%)'};
   transition: all 0.8s ease;
 `;
-const ButtonContainer = styled.section`
+const ButtonContainer = styled.div`
   display: flex;
   width: 100%;
   height: 72px;
@@ -135,7 +135,7 @@ const ButtonContainer = styled.section`
   gap: 0 12px;
   padding: 0px 10%;
 `;
-const ReviewDiv = styled.section<ToggleProps>`
+const ReviewDiv = styled.div<ToggleProps>`
   display: flex;
   position: relative;
   width: 100%;
@@ -146,7 +146,7 @@ const ReviewDiv = styled.section<ToggleProps>`
   pointer-events: ${(props) => !props.isToggle && 'none'};
   transition: opacity 0.4s ease;
 `;
-const SubmitDiv = styled.section`
+const SubmitDiv = styled.div`
   display: flex;
   width: 100%;
   height: 52px;
@@ -157,7 +157,7 @@ const SubmitDiv = styled.section`
   right: 0;
   padding-top: 4px;
 `;
-const ImageDiv = styled.section<ToggleProps>`
+const ImageDiv = styled.div<ToggleProps>`
   display: flex;
   position: relative;
   width: 100%;
@@ -167,7 +167,7 @@ const ImageDiv = styled.section<ToggleProps>`
   padding-bottom: 4px;
   padding: 0 4px 4px;
 `;
-const ReviewInner = styled.section`
+const ReviewInner = styled.div`
   display: flex;
   width: 100%;
   flex-direction: column;

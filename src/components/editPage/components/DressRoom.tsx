@@ -49,7 +49,7 @@ export function DressRoom({ category, id, recoil }: Props) {
   );
 }
 
-const Container = styled.section`
+const Container = styled.article`
   display: flex;
   flex-direction: row;
   background-color: ${customColor.white};

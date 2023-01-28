@@ -55,20 +55,20 @@ export const RatingInput = ({ control, errors }: Props) => {
   );
 };
 
-const Container = styled.section`
+const Container = styled.div`
   display: flex;
   flex-direction: column;
   gap: 12px 0;
 `;
 
-const RatingWrapper = styled.section`
+const RatingWrapper = styled.div`
   display: flex;
   justify-content: flex-start;
   padding: 0px 20px;
   position: relative;
 `;
 
-const RatingTitle = styled.section`
+const RatingTitle = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
