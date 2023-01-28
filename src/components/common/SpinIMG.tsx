@@ -73,17 +73,7 @@ const spin = keyframes`
     transform:translate(-50%, -50%) rotate(360deg);
   }
 `;
-const spin2 = keyframes`
-  0% {
-    transform:translate(-63%, 63%) rotate(0deg);
-  }
-  50% {
-    transform:translate(-63%, 63%) rotate(180deg);
-  }
-  100% {
-    transform:translate(-63%, 63%) rotate(360deg);
-  }
-`;
+
 const Wrapper = styled.div`
   display: flex;
   width: 100%;
@@ -91,6 +81,7 @@ const Wrapper = styled.div`
   position: absolute;
   overflow: hidden;
 `;
+
 const WrapperInner = styled.div`
   display: flex;
   width: 100%;
@@ -106,7 +97,7 @@ const RelativeBox = styled.div`
   height: 100%;
 `;
 
-const Section = styled.section<Right>`
+const Section = styled.article<Right>`
   display: flex;
   position: absolute;
   left: ${(props) => (props.right ? 'calc(100% + 160px)' : '-160px')};
@@ -121,7 +112,7 @@ const Section = styled.section<Right>`
   }
 `;
 
-const Inner = styled.article<InnerProps>`
+const Inner = styled.div<InnerProps>`
   top: 50%;
   left: 50%;
   width: 100%;
