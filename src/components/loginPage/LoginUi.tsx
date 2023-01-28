@@ -52,7 +52,7 @@ const Wrap = styled.section`
   height: 100%;
 `;
 
-const OutWrap = styled.section`
+const OutWrap = styled.div`
   height: 30vh;
   display: flex;
   flex-direction: column;
@@ -62,7 +62,7 @@ const OutWrap = styled.section`
   gap: 200px 0;
 `;
 
-const InWrap = styled.section`
+const InWrap = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -70,7 +70,7 @@ const InWrap = styled.section`
   margin-top: 10px;
 `;
 
-const Title = styled.article`
+const Title = styled.div`
   display: flex;
   z-index: 5;
   text-align: center;
@@ -83,7 +83,7 @@ const Title = styled.article`
   font-family: sans-serif;
 `;
 
-const SubTitle = styled.article`
+const SubTitle = styled.div`
   margin-top: 20px;
   z-index: 5;
 `;

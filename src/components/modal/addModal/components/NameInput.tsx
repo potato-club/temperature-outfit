@@ -30,7 +30,7 @@ export const NameInput = ({ register, errors }: Props) => {
 
 const Wrapper = styled.section``;
 
-const Container = styled.section`
+const Container = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;

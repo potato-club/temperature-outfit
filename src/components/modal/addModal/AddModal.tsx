@@ -131,18 +131,18 @@ const Wrapper = styled.section`
   height: 100%;
 `;
 
-const CategoryWrapper = styled.section`
+const CategoryWrapper = styled.div`
   display: flex;
   gap: 10px;
 `;
 
-const ButtonWrapper = styled.section`
+const ButtonWrapper = styled.div`
   display: flex;
   justify-content: flex-end;
   margin-top: 4px;
 `;
 
-const ContentBox = styled.section`
+const ContentBox = styled.div`
   display: flex;
   flex-direction: column;
   margin-top: 10px;

@@ -99,7 +99,7 @@ const InitialImage = styled(IoMdImage)`
   height: 100%;
 `;
 
-const ImageWrapper = styled.section`
+const ImageWrapper = styled.div`
   margin-top: 12px;
   width: 100%;
   aspect-ratio: 16/9;
