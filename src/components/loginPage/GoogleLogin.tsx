@@ -41,22 +41,16 @@ export const GoogleLogin: React.FC = () => {
   });
 
   return (
-    <Button>
-      <Img onClick={() => signIn('google')}>
-        <Image
-          src={'/googleNormal.png'}
-          width="228"
-          height="60"
-          alt="구글 로고"
-        />
-      </Img>
+    <Button onClick={() => signIn('google')}>
+      <Image
+        src={'/googleNormal.png'}
+        width="228"
+        height="60"
+        alt="구글 로고"
+      />
     </Button>
   );
 };
-
-const Img = styled.section`
-  cursor: pointer;
-`;
 
 const Button = styled.button`
   cursor: pointer;

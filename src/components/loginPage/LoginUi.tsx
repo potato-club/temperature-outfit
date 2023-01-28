@@ -88,7 +88,7 @@ const SubTitle = styled.article`
   z-index: 5;
 `;
 
-const Footer = styled.article`
+const Footer = styled.footer`
   display: flex;
   position: absolute;
   font-size: 17px;
