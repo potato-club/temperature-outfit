@@ -10,32 +10,30 @@ export const ColorRadio = () => {
   const [color, setColor] = useRecoilState(colorFilter);
   return (
     <Wrapper>
-      <>
-        {Object.keys(radioBtnColor).map((colorKey) => (
-          <Radio
-            onChange={(e) => setColor(e.target.value)}
-            value={colorKey}
-            key={colorKey}
-            checked={colorKey === color}
-            sx={{
+      {Object.keys(radioBtnColor).map((colorKey) => (
+        <Radio
+          onChange={(e) => setColor(e.target.value)}
+          value={colorKey}
+          key={colorKey}
+          checked={colorKey === color}
+          sx={{
+            color: radioBtnColor[colorKey],
+            '&.Mui-checked': {
               color: radioBtnColor[colorKey],
-              '&.Mui-checked': {
-                color: radioBtnColor[colorKey],
-              },
-              '& .MuiSvgIcon-root': {
-                fontSize: '20px',
-              },
-              margin: '-2px',
-            }}
-          />
-        ))}
-        <IconWrapper
-          onClick={() => {
-            setColor('');
-          }}>
-          <HiOutlineX size={20} />
-        </IconWrapper>
-      </>
+            },
+            '& .MuiSvgIcon-root': {
+              fontSize: '20px',
+            },
+            margin: '-2px',
+          }}
+        />
+      ))}
+      <IconWrapper
+        onClick={() => {
+          setColor('');
+        }}>
+        <HiOutlineX size={20} />
+      </IconWrapper>
     </Wrapper>
   );
 };

@@ -46,13 +46,13 @@ export function ClothesBox({ url, name, id, deleteFn }: Props) {
   );
 }
 
-const Container = styled.section`
+const Container = styled.article`
   position: relative;
   width: ${imageLayout.square}px;
   height: ${imageLayout.square}px;
 `;
 
-const ImgWrapper = styled.section`
+const ImgWrapper = styled.div`
   display: flex;
   position: relative;
   margin: 0;
@@ -70,7 +70,7 @@ type NameProps = {
   showName: boolean;
 };
 
-const ClothesName = styled.section<NameProps>`
+const ClothesName = styled.div<NameProps>`
   user-select: none;
   position: absolute;
   background-color: ${customColor.black + '99'};

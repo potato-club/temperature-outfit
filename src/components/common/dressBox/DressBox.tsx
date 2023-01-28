@@ -57,7 +57,7 @@ const Container = styled.section`
   height: ${imageLayout.middleSquare}px;
 `;
 
-const Wrapper = styled.section`
+const Wrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -69,7 +69,7 @@ const Wrapper = styled.section`
   box-shadow: 1px 1px 6px -1px ${customColor.grayDark};
 `;
 
-const ClothesName = styled.section<NameProps>`
+const ClothesName = styled.div<NameProps>`
   position: absolute;
   background-color: ${customColor.black};
   border-radius: 4px;

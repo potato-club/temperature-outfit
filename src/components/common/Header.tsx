@@ -48,7 +48,6 @@ export const Header: React.FC = () => {
               )}
             </Logo>
             <MyPageDiv>
-              {' '}
               {myPageToggle ? <MyPage myPageToggle={myPageToggle} /> : null}
             </MyPageDiv>
           </ButtonBox>
@@ -88,9 +87,11 @@ const ButtonBox = styled.section`
   position: relative;
   align-items: center;
 `;
-const Logo = styled.section`
+const Logo = styled.button`
   cursor: pointer;
   color: ${customColor.brandColor3};
+  border: none;
+  background-color: transparent;
 `;
 
 const MyPageDiv = styled.section`

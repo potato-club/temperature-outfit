@@ -1,7 +1,6 @@
 import styled from '@emotion/styled';
 import { productApi } from 'api';
 import { ClothesBox } from 'components/common';
-import { customColor } from 'constants/index';
 import useFilter from 'hooks/useFilter';
 import useGetItem from 'hooks/useGetItem';
 import { useMutation, useQueryClient } from 'react-query';
@@ -47,7 +46,6 @@ export const ClothesContainer = () => {
   );
 };
 
-// TODO : 반응형 어케할지 고민
 const Wrapper = styled.section`
   display: flex;
   gap: 16px;

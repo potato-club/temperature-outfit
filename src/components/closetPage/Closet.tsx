@@ -107,7 +107,7 @@ const Body = styled.section`
   }
 `;
 
-const FilterWrapper = styled.article`
+const FilterWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
