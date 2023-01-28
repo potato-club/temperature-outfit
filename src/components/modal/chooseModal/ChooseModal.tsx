@@ -78,7 +78,7 @@ const Wrapper = styled.section`
   height: 100%;
 `;
 
-const ContentBox = styled.section`
+const ContentBox = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -87,7 +87,7 @@ const ContentBox = styled.section`
   padding: 12px;
   gap: 12px 0;
 `;
-const Footer = styled.section`
+const Footer = styled.div`
   margin-top: 18px;
   display: flex;
   flex-direction: column;

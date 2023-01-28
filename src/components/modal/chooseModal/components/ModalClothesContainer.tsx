@@ -34,7 +34,7 @@ export const ModalClothesContainer = () => {
   );
 };
 
-const ItemContainer = styled.section`
+const ItemContainer = styled.div`
   position: relative;
   width: 100%;
   display: flex;

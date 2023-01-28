@@ -55,7 +55,7 @@ const Container = styled.section`
 type NameProps = {
   showName: boolean;
 };
-const ClothesName = styled.section<NameProps>`
+const ClothesName = styled.div<NameProps>`
   position: absolute;
   background-color: ${customColor.black + '80'};
   border-radius: 4px;
