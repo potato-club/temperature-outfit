@@ -54,7 +54,7 @@ export const DateItem = ({
     </Date>
   );
 };
-const Date = styled.section`
+const Date = styled.article`
   background-color: ${customColor.darkSky};
   padding: 12px;
   margin: 0px 4px;
@@ -77,7 +77,7 @@ const ClipTag = styled.div`
   left: 8px;
   transform: rotate(60deg);
 `;
-const WeatherIcon = styled.article`
+const WeatherIcon = styled.div`
   display: flex;
   flex: 1;
   font-size: 32px;
@@ -90,7 +90,7 @@ const WeatherIcon = styled.article`
     font-size: 20px;
   }
 `;
-const DateInfo = styled.article`
+const DateInfo = styled.div`
   display: flex;
   flex-direction: column;
   flex: 1;
