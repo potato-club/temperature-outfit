@@ -4,27 +4,39 @@ import { TypoGraphy } from 'components/common';
 import { DressRoom, ReviewBox } from './index';
 import { categories } from 'constants/categories';
 import { ChooseModal } from 'components/modal';
-import { Control, FieldErrorsImpl, FieldValues, UseFormRegister, UseFormSetValue } from 'react-hook-form';
+import { customColor } from 'constants/index';
+import {
+  Control,
+  FieldErrorsImpl,
+  FieldValues,
+  UseFormRegister,
+  UseFormSetValue,
+  UseFormWatch,
+} from 'react-hook-form';
 type Props = {
   register: UseFormRegister<FieldValues>;
   errors: Partial<FieldErrorsImpl>;
   setValue: UseFormSetValue<FieldValues>;
   control: Control<FieldValues>;
+  watch: UseFormWatch<FieldValues>;
 };
 export const Contents = ({
   register,
   errors,
   setValue,
   control,
+  watch,
 }: Props) => {
   return (
     <Container>
       <CodyBox>
         {categories.map((data, index) => (
           <Category key={index}>
-            <TypoGraphy type="Title" fontWeight="bold">
-              {data.label}
-            </TypoGraphy>
+            <Label>
+              <TypoGraphy type="h3" fontWeight="bold">
+                {data.label}
+              </TypoGraphy>
+            </Label>
             <DressRoom
               category={data.label}
               id={data.id}
@@ -38,6 +50,7 @@ export const Contents = ({
         errors={errors}
         setValue={setValue}
         control={control}
+        watch={watch}
       />
       <ChooseModal />
     </Container>
@@ -48,33 +61,36 @@ const Container = styled.section`
   width: 100%;
   height: 70vh;
   display: flex;
-  gap: 0 28px;
+  gap: 0 24px;
 `;
 
-const Category = styled.section`
+const Category = styled.div`
   height: 100%;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  margin-bottom: 12px;
 `;
-
-const CodyBox = styled.section`
-  width: 60%;
+const Label = styled.div`
+  margin-bottom: 4px;
+`;
+const CodyBox = styled.div`
+  width: 80%;
   max-width: 800px;
   display: flex;
   flex-direction: column;
-  padding: 12px;
-  border-radius: 10px;
-  background-color: #c4c4c450;
+  padding: 24px 24px 0px;
+  border-radius: 12px;
+  background-color: ${customColor.grayDark + '5'};
+  box-shadow: 1px 1px 5px -1px ${customColor.white};
   overflow-y: auto;
   ::-webkit-scrollbar {
     opacity: 0;
-    width: 12px;
+    width: 26px;
   }
   ::-webkit-scrollbar-thumb {
-    background-color: rgb(150, 137, 235, 0.6);
+    background-color: ${customColor.grayDark};
     border-radius: 24px;
+    background-clip: padding-box;
+    border: 8px solid transparent;
   }
 `;
-
-export const MemoContents = React.memo(Contents);

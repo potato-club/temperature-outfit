@@ -15,7 +15,7 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "incremental": true,
-    "types": ["jest", "node"],
+    "types": ["node"],
     "paths": {
       "*": ["apps/front/src/*"],
       "@temperature-outfit/core": ["libs/core/src/index.ts"]
@@ -28,5 +28,5 @@
     "**/*.jsx",
     "next-env.d.ts"
   ],
-  "exclude": ["node_modules", "jest.config.ts"]
+  "exclude": ["node_modules"]
 }

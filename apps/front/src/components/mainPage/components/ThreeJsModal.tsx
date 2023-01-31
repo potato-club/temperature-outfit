@@ -1,35 +1,36 @@
 import styled from '@emotion/styled';
 import { customColor } from 'constants/index';
-import useModal from 'hooks/useModal';
-import React, { useEffect } from 'react';
+import React from 'react';
 import Modal from 'react-modal';
 import { LightController } from './LightController';
 import { Canvas } from '@react-three/fiber';
 import { Model } from './Model';
 import { WeatherStatusType } from 'types/mainPage';
-import { OrbitControls, Stats } from '@react-three/drei';
+import { OrbitControls } from '@react-three/drei';
 import { TypoGraphy } from 'components/common';
 import { copyClipBoard } from 'utils/copyClipBoard';
 
 type Props = {
   isOpen: boolean;
-  handleClosetModal: () => void;
+  handleCloseModal: () => void;
   weatherStatus: WeatherStatusType;
 };
 export const ThreeJsModal = ({
   isOpen,
-  handleClosetModal,
+  handleCloseModal,
   weatherStatus,
 }: Props) => {
-  useEffect(() => {
-    console.log(isOpen);
-  }, [isOpen]);
-
   return (
     <Container
       isOpen={isOpen}
       onRequestClose={() => {
-        handleClosetModal();
+        handleCloseModal();
+      }}
+      style={{
+        overlay: {
+          background: customColor.black + '66',
+          zIndex: 100,
+        },
       }}
       ariaHideApp={false}
       contentLabel="ThreeJsModal">
@@ -60,22 +61,23 @@ const Container = styled(Modal)`
   top: 50%;
   left: 50%;
   width: 100%;
-  max-width: 680px;
+  max-width: 600px;
   height: 50vh;
   transform: translate(-50%, -50%);
   background-color: ${customColor.white};
   padding: 40px;
   outline: none;
-  border-radius: 20px;
-  box-shadow: 4px 4px 5px 4px rgba(0, 0, 0, 0.43);
+  border-radius: 8px;
+  &:focus {
+    border: none;
+    outline: none;
+  }
 `;
 
-const BottomBar = styled.section`
+const BottomBar = styled.footer`
   display: flex;
   justify-content: flex-end;
   align-items: center;
-
-  // 드래그방지
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;

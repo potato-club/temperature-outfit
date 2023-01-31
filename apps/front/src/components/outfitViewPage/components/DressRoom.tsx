@@ -12,14 +12,12 @@ export function DressRoom({ products }: Props) {
     <Container>
       {products &&
         products.map((product: any) => (
-          <ClothesWrapper key={product.id}>
-            <ClothesBox
-              url={product.imageUrl!}
-              id={product.id}
-              type="edit"
-              name={product.name}
-            />
-          </ClothesWrapper>
+          <ClothesBox
+            key={product.id}
+            url={product.imageUrl!}
+            id={product.id}
+            name={product.name}
+          />
         ))}
     </Container>
   );
@@ -29,40 +27,25 @@ const Container = styled.section`
   display: flex;
   background-color: ${customColor.white};
   padding: 12px;
-  width: 50%;
-  border-radius: 24px;
+  width: calc(100% - 9px);
+  border-radius: 16px;
   overflow-x: auto;
   gap: 0 12px;
-  min-height: 80px;
+  min-height: 0px;
   box-sizing: content-box;
   margin-bottom: 12px;
-  box-shadow: 4px 4px 4px #00000025;
+  box-shadow: 1px 1px 5px -1px ${customColor.grayDark};
   ::-webkit-scrollbar {
     opacity: 0;
-    height: 12px;
+    height: 20px;
   }
   ::-webkit-scrollbar-thumb {
-    background-color: rgb(179, 226, 255, 0.8);
+    background-color: ${customColor.grayDark};
     border-radius: 24px;
     background-clip: padding-box;
-    border-left: 20px solid transparent;
-    border-right: 20px solid transparent;
+    border: 6px solid transparent;
   }
   ::-webkit-scrollbar-track {
     border-radius: 10px;
   }
-`;
-const AddButton = styled.label`
-  border: 1px solid ${customColor.gray};
-  border-radius: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100px;
-  height: 80px;
-  border-radius: 24px;
-`;
-
-const ClothesWrapper = styled.section`
-  position: relative;
 `;

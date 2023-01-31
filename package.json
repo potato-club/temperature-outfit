@@ -58,7 +58,9 @@
     "rxjs": "^7.0.0",
     "swagger-ui-react": "^4.12.0",
     "sweetalert2": "^11.4.8",
-    "tslib": "^2.3.0"
+    "tslib": "^2.3.0",
+    "swiper": "^8.4.5",
+    "typeit-react": "^2.6.4"
   },
   "devDependencies": {
     "@babel/preset-react": "^7.14.5",

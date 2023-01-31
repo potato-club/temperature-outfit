@@ -6,7 +6,7 @@ import '@fullcalendar/timegrid/main.css';
 import dynamic from 'next/dynamic';
 
 export const CalendarPage = () => {
-  const Calendars = dynamic(() => import('./components/Calendar'), {
+  const Calendars: any = dynamic(() => import('./components/Calendar'), {
     ssr: false,
   });
 

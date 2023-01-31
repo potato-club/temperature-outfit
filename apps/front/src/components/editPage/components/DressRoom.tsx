@@ -3,11 +3,12 @@ import styled from '@emotion/styled';
 import { customColor } from 'constants/index';
 import { AiOutlinePlus } from 'react-icons/ai';
 import { RecoilState, useRecoilState, useSetRecoilState } from 'recoil';
-import { ClothesBox } from 'components/common';
+import { DressBox } from 'components/common';
 import { chooseModal } from 'recoil/atom';
 import { categoryLabel } from 'recoil/atom/chooseModal';
 import { categoryFilter } from 'recoil/atom/filtering';
 import { productType } from 'types/editPage/product.type';
+import imageLayout from 'constants/imageLayout';
 type Props = {
   category: string;
   id: string;
@@ -33,62 +34,68 @@ export function DressRoom({ category, id, recoil }: Props) {
     <Container>
       {images &&
         images.map((data) => (
-            <ClothesBox
-              url={data.imageUrl!}
-              id={data.id}
-              key={data.id}
-              type="edit"
-              name={data.name}
-              deleteFn={deleteImage}
-            />
+          <DressBox
+            url={data.imageUrl!}
+            id={data.id}
+            key={data.id}
+            name={data.name}
+            deleteFn={deleteImage}
+          />
         ))}
       <AddButton onClick={() => handleModal()}>
-        <MemoPlusIcon size={40} />
+        <AiOutlinePlus size={30} />
       </AddButton>
     </Container>
   );
 }
 
-const Container = styled.section`
+const Container = styled.article`
   display: flex;
+  flex-direction: row;
   background-color: ${customColor.white};
   padding: 12px;
-  width: 50%;
-  border-radius: 24px;
-  overflow-x: auto;
+  width: calc(100% - 9px);
+  border-radius: 16px;
   gap: 0 12px;
-  min-height: 80px;
   box-sizing: content-box;
   margin-bottom: 12px;
-  box-shadow: 4px 4px 4px #00000025;
+  box-shadow: 1px 1px 5px -1px ${customColor.grayDark};
+  overflow-x: auto;
   ::-webkit-scrollbar {
     opacity: 0;
-    height: 12px;
+    height: 16px;
   }
   ::-webkit-scrollbar-thumb {
-    background-color: rgb(179, 226, 255, 0.8);
+    background-color: ${customColor.grayDark};
     border-radius: 24px;
     background-clip: padding-box;
-    border-left: 20px solid transparent;
-    border-right: 20px solid transparent;
+    border: 4px solid transparent;
   }
   ::-webkit-scrollbar-track {
     border-radius: 10px;
   }
+  ::-webkit-scrollbar-button:start:decrement,
+  ::-webkit-scrollbar-button:end:increment {
+    display: block;
+    width: 8px;
+    background-color: transparent;
+  }
 `;
 const AddButton = styled.label`
-  border: 1px solid ${customColor.gray};
-  border-radius: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
-  min-width: 100px;
-  height: 80px;
-  border-radius: 24px;
+  border-radius: 12px;
+  min-width: ${imageLayout.middleSquare}px;
+  min-height: ${imageLayout.middleSquare}px;
+  box-shadow: 1px 1px 6px -1px ${customColor.grayDark};
+  cursor: pointer;
+  &:hover {
+    background-color: ${customColor.white};
+  }
+  &:active {
+    transform: translate(2px, 2px);
+    box-shadow: none;
+    background-color: ${customColor.white};
+  }
 `;
-
-const ClothesWrapper = styled.section`
-  position: relative;
-`;
-
-const MemoPlusIcon = React.memo(AiOutlinePlus);

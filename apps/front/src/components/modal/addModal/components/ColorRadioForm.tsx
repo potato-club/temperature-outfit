@@ -7,16 +7,17 @@ import {
   FieldErrorsImpl,
   FieldValues,
 } from 'react-hook-form';
-import { radioBtnColor } from 'constants/customColor';
+import { customColor, radioBtnColor } from 'constants/customColor';
 import { ErrorMessage } from '@hookform/error-message';
-import { TypoGraphy } from 'components/common';
+
 type Props = {
   control: Control<FieldValues>;
   errors: Partial<FieldErrorsImpl>;
 };
+
 export const ColorRadioForm = ({ control, errors }: Props) => {
   return (
-    <section>
+    <Container>
       <Wrapper>
         <Controller
           name="color"
@@ -25,7 +26,7 @@ export const ColorRadioForm = ({ control, errors }: Props) => {
           render={({ field: { onChange, value } }) => (
             <>
               {Object.keys(radioBtnColor).map((colorKey) => (
-                <Radio
+                <CustomRadio
                   onChange={onChange}
                   value={colorKey}
                   key={colorKey}
@@ -46,19 +47,22 @@ export const ColorRadioForm = ({ control, errors }: Props) => {
         errors={errors}
         name="color"
         render={({ message }) => (
-          <section className="errorWrapper">
-            <TypoGraphy color="red">{message}</TypoGraphy>
-          </section>
+          <section className="errorWrapper">{message}</section>
         )}
       />
-    </section>
+    </Container>
   );
 };
+const Container = styled.section``;
 
 const Wrapper = styled.section`
   display: flex;
-  background-color: #3b7bc43d;
+  background-color: ${customColor.brandColor6};
   flex-wrap: wrap;
   border-radius: 10px;
-  padding: 0 8px;
+  padding: 0 16px;
+`;
+
+const CustomRadio = styled(Radio)`
+  width: 6%;
 `;

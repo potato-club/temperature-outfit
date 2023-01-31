@@ -1,9 +1,3 @@
-import { LoginUi } from '../src/components/loginPage';
-// import { MainPage } from 'components/mainPage/MainPage';
-import type { NextPage } from 'next';
+import { LoginUi } from 'components/loginPage';
 
-const Home: NextPage = () => {
-  return <LoginUi />;
-};
-
-export default Home;
+export default LoginUi;
