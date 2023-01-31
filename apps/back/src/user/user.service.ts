@@ -2,6 +2,7 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { Prisma, User } from '@prisma/client';
 import {
   LocationResponse,
+  ProfileResponse,
   UserLocationPostRequest,
 } from '@temperature-outfit/core';
 import { PrismaService } from '../prisma.service';
@@ -10,7 +11,7 @@ import { PrismaService } from '../prisma.service';
 export class UserService {
   constructor(private prisma: PrismaService) {}
 
-  async findLocation(email: string): Promise<LocationResponse> {
+  async findProfile(email: string): Promise<ProfileResponse> {
     const user = await this.prisma.user.findUnique({
       where: { email: email },
       include: { location: { select: { id: true, name: true } } },
@@ -20,7 +21,12 @@ export class UserService {
       throw new HttpException('인증 오류', HttpStatus.FORBIDDEN);
     }
 
-    return user.location;
+    return {
+      name: user.name,
+      email: user.email,
+      imageUrl: user.image,
+      location: user.location,
+    };
   }
 
   async updateLocation(

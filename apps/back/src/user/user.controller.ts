@@ -6,9 +6,9 @@ import { UserService } from './user.service';
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
-  @Get('location')
-  async findLocation(@Req() req: Request) {
-    return await this.userService.findLocation(req.user.email);
+  @Get('profile')
+  async findProfile(@Req() req: Request) {
+    return await this.userService.findProfile(req.user.email);
   }
 
   @Post('location')

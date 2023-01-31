@@ -12,7 +12,14 @@ export type UserLocationPostRequest = {
   locationId?: number;
 };
 
-export type LocationResponse = Response | { id: number; name: string };
+export type LocationResponse = { id: number; name: string };
+
+export type ProfileResponse = {
+  name: string;
+  email: string;
+  imageUrl: string;
+  location: { id: number; name: string };
+};
 
 export type CategoryResponse =
   | Response
