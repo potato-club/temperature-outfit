@@ -1,10 +1,10 @@
 import styled from '@emotion/styled';
 import { customColor } from 'constants/index';
 import React, { useState } from 'react';
-import { MemoClothesImg } from './ClothesImg';
-import { MemoTypoGraphy } from 'components/common/TypoGraphy';
-import { MemoRemoveButton } from '../dressBox/components/RemoveButton';
+import { RemoveButton } from '../dressBox/components/RemoveButton';
 import imageLayout from 'constants/imageLayout';
+import { TypoGraphy } from "components/common";
+import { ClothesImg } from './ClothesImg';
 
 type Props = {
   url: string;
@@ -28,14 +28,14 @@ export function ClothesBox({ url, name, id, deleteFn }: Props) {
           setShowName(false);
           setShowRemove(false);
         }}>
-        <MemoClothesImg url={url} />
+        <ClothesImg url={url} />
         <ClothesName showName={showName}>
-          <MemoTypoGraphy type="sm1" color={customColor.white}>
+          <TypoGraphy type="sm1" color={customColor.white}>
             {name}
-          </MemoTypoGraphy>
+          </TypoGraphy>
         </ClothesName>
         {deleteFn && id !== undefined && showRemove && (
-          <MemoRemoveButton
+          <RemoveButton
             id={id}
             deleteFn={deleteFn}
             showRemove={showRemove}

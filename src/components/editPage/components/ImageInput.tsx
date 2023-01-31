@@ -50,6 +50,7 @@ export const ImageInput = ({ register, setValue }: Props) => {
           src={thumbnail || '/cody.jpg'}
           alt="clothes"
           layout="fill"
+          objectFit={thumbnail ? 'contain' : 'cover'}
           onClick={() =>
             clothesInputRef.current && clothesInputRef.current.click()
           }

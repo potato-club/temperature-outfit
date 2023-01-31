@@ -69,5 +69,3 @@ const HighLight = styled.div`
   transform: translate(0, calc(-50% - 3px)) skewX(-5deg);
   z-index: 0;
 `;
-
-export const MemoTitle = React.memo(Title);

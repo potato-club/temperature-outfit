@@ -4,10 +4,10 @@ import React, { useState } from 'react';
 import { RecoilState, useSetRecoilState } from 'recoil';
 import { chooseModal } from 'recoil/atom';
 import useAddClothesEdit from 'hooks/useAddClothesEdit';
-import { MemoTypoGraphy } from 'components/common/TypoGraphy';
-import { MemoClothesImg } from 'components/common/clothesBox/ClothesImg';
+import { ClothesImg } from 'components/common/clothesBox/ClothesImg';
 import { productType } from 'types/editPage/product.type';
 import imageLayout from 'constants/imageLayout';
+import { TypoGraphy } from 'components/common';
 
 type Props = {
   url: string;
@@ -31,11 +31,11 @@ export function ModalClothesBox({ url, name, id, recoil }: Props) {
       onClick={() => addImage()}
       onMouseOver={() => setShowName(true)}
       onMouseOut={() => setShowName(false)}>
-      <MemoClothesImg url={url} />
+      <ClothesImg url={url} />
       <ClothesName showName={showName}>
-        <MemoTypoGraphy type="sm1" color={customColor.white}>
+        <TypoGraphy type="sm1" color={customColor.white}>
           {name}
-        </MemoTypoGraphy>
+        </TypoGraphy>
       </ClothesName>
     </Container>
   );

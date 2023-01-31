@@ -106,5 +106,3 @@ const TypoGraphyText = styled.span<StyledTypoGraphyProps>`
   ${(props) =>
     props.fontHidden ? 'overflow: hidden;text-overflow: ellipsis;' : ''}
 `;
-
-export const MemoTypoGraphy = React.memo(TypoGraphy);

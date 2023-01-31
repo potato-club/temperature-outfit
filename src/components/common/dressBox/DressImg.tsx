@@ -4,7 +4,7 @@ import React from 'react';
 type Props = {
   url: string;
 };
-const DressImg = ({ url }: Props) => {
+export const DressImg = ({ url }: Props) => {
   return (
     <Image
       width={imageLayout.middleSquare}
@@ -18,5 +18,3 @@ const DressImg = ({ url }: Props) => {
     />
   );
 };
-
-export const MemoDressImg = React.memo(DressImg);

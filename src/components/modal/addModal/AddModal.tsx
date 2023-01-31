@@ -35,7 +35,6 @@ export const AddModal = () => {
     (frm: FormData) => productApi.addProduct(frm),
     {
       onSuccess: (data) => {
-        console.log(data);
         infoModal('옷 등록 완료', 'success');
         setAddModalState((cur) => !cur);
         queryClient.invalidateQueries('getItem');
@@ -56,7 +55,6 @@ export const AddModal = () => {
         frm.append('name', data.name);
         frm.append('categoryId', data.categoryId);
         frm.append('color', data.color);
-        console.log(frm);
         mutate(frm);
       },
     });

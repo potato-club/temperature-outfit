@@ -8,10 +8,10 @@ type Props = {
   showRemove: boolean;
 };
 
-const RemoveButton = ({ id, deleteFn, showRemove }: Props) => {
+export const RemoveButton = ({ id, deleteFn, showRemove }: Props) => {
   return (
     <Wrapper onClick={() => deleteFn(id)} showRemove={showRemove} type="button">
-      <MemoGiCancel fontSize={'18px'} color={customColor.red} />
+      <GiCancel fontSize={'18px'} color={customColor.red} />
     </Wrapper>
   );
 };
@@ -42,7 +42,3 @@ const Wrapper = styled.button<StyledProps>`
     opacity: 1;
   }
 `;
-
-const MemoGiCancel = React.memo(GiCancel);
-
-export const MemoRemoveButton = React.memo(RemoveButton);

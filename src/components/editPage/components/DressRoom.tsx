@@ -43,7 +43,7 @@ export function DressRoom({ category, id, recoil }: Props) {
           />
         ))}
       <AddButton onClick={() => handleModal()}>
-        <MemoPlusIcon size={30} />
+        <AiOutlinePlus size={30} />
       </AddButton>
     </Container>
   );
@@ -99,5 +99,3 @@ const AddButton = styled.label`
     background-color: ${customColor.white};
   }
 `;
-
-const MemoPlusIcon = React.memo(AiOutlinePlus);

@@ -6,7 +6,7 @@ type Props = {
   url: string;
 };
 
-const ClothesImg = ({ url }: Props) => {
+export const ClothesImg = ({ url }: Props) => {
   return (
     <Image
       src={url}
@@ -17,5 +17,3 @@ const ClothesImg = ({ url }: Props) => {
     />
   );
 };
-
-export const MemoClothesImg = React.memo(ClothesImg);

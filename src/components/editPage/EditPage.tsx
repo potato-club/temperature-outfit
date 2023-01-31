@@ -14,8 +14,7 @@ import { clothesSubCategory } from 'constants/index';
 import { FieldValues, useForm } from 'react-hook-form';
 import { codyThumbnail } from 'recoil/atom/editState';
 import { todayCodyApi, weatherApi } from 'api';
-import { MemoTitle } from './components/Title';
-import { MemoContents } from './components/Contents';
+import { Title } from './components/Title';
 import {
   completeCheckModal,
   errorModal,
@@ -25,6 +24,7 @@ import useEditResetRecoil from 'hooks/useEditResetRecoil';
 import { useMutation, useQuery } from 'react-query';
 import { mutateParamType } from 'types/editPage/mutateParam.type';
 import { debounceFunction } from 'utils/debounceFunction';
+import { Contents } from './components/Contents';
 
 export default function EditPage() {
   const router = useRouter();
@@ -203,9 +203,9 @@ export default function EditPage() {
     <>
       {router.isReady && (
         <Container>
-          <MemoTitle day={day} />
+          <Title day={day} />
           <form style={{ width: '100%' }} onSubmit={handleSubmit(submit)}>
-            <MemoContents
+            <Contents
               register={register}
               errors={errors}
               setValue={setValue}

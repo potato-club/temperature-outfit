@@ -94,5 +94,3 @@ const CodyBox = styled.div`
     border: 8px solid transparent;
   }
 `;
-
-export const MemoContents = React.memo(Contents);

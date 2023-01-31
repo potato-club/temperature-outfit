@@ -21,7 +21,7 @@ interface ButtonStyle {
 const nullImage = '/Person_icon.png';
 
 export function Slide({ suggestions }: Props) {
-  const [isCurrent, setIsCurrent] = useState(3);
+  const [isCurrent, setIsCurrent] = useState(0);
 
   const router = useRouter();
   const moveToOutfitView = (id: string) => {
@@ -65,6 +65,7 @@ export function Slide({ suggestions }: Props) {
                     src={imageUrl ?? nullImage}
                     alt={String(id)}
                     layout="fill"
+                    objectFit='contain'
                     style={{ borderRadius: 'inherit' }}
                   />
                 </ImageBoxInner>
@@ -137,7 +138,7 @@ const ImageBoxInner = styled.div<ButtonStyle>`
   width: 100%;
   height: 100%;
   z-index: 5;
-  background: ${customColor.white};
+  background-color: ${customColor.white};
   box-shadow: 0px 0px 6px ${customColor.grayDark};
   transform: ${(props) =>
     props.isCurrent ? 'translate(0,-72px) scale(1.1);' : 'translate(0,0px);'};

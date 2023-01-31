@@ -21,11 +21,6 @@ export const SubSelectBox = ({ mainCategory }: Props) => {
     setCategory(mainId[0]);
   }, [setCategory, mainId]);
 
-  // 확인용 코드
-  useEffect(() => {
-    console.log(category);
-  }, [category]);
-
   return (
     <CustomSelect
       value={mainId.includes(category) ? category : ''}
