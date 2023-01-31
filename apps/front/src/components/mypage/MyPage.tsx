@@ -37,7 +37,7 @@ export const MyPage: React.FC<Props> = ({ myPageToggle }) => {
   );
 
   const handleLogout = useCallback(() => {
-    signOut({ callbackUrl: '/' });
+    // signOut({ callbackUrl: '/' });
   }, []);
 
   const { mutate: handleDelete } = useMutation(() => userApi.deleteAuth(), {
