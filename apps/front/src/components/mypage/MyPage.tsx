@@ -11,6 +11,7 @@ import {
   confirmModal,
   errorModal,
 } from 'utils/interactionModal';
+import { useRouter } from 'next/router';
 
 interface Props {
   myPageToggle: boolean;
@@ -19,7 +20,7 @@ interface Props {
 export const MyPage: React.FC<Props> = ({ myPageToggle }) => {
   const [{ name, locationId }, setUser] = useRecoilState(userState);
   const allLocations = useRecoilValue(locations);
-
+  const router = useRouter();
   const changeUserLocations = (data: number): void => {
     handleChangeLocation(data);
   };
@@ -37,7 +38,8 @@ export const MyPage: React.FC<Props> = ({ myPageToggle }) => {
   );
 
   const handleLogout = useCallback(() => {
-    // signOut({ callbackUrl: '/' });
+    userApi.logout();
+    router.push('/');
   }, []);
 
   const { mutate: handleDelete } = useMutation(() => userApi.deleteAuth(), {
