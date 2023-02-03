@@ -1,44 +1,71 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 import Image from 'next/image';
 import { userState, locations } from 'recoil/atom';
 import { useSetRecoilState } from 'recoil';
 import { userApi } from 'api';
 import { useRouter } from 'next/router';
-import { useQuery } from 'react-query';
+import { useQueries, useQuery } from 'react-query';
 import { errorModal } from 'utils/interactionModal';
+import { tokenHelper } from 'utils/tokenHelper';
+// import { ProfileResponse } from 'libs/core/src/lib/types';
+// import { ProfileResponse } from 'libs/core/src/index';
+import { ProfileResponse } from '../../../../../libs/core/src/lib/types';
+import { AxiosResponse } from 'axios';
 
 export const GoogleLogin: React.FC = () => {
   const router = useRouter();
   const setUserInfo = useSetRecoilState(userState);
   const setAllLocations = useSetRecoilState(locations);
+  const [toggle, setToggle] = useState(false);
 
-  // useQuery('getAllLocations', userApi.getAllLocations, {
-  //   enabled: !!session,
-  //   onSuccess: ({ data }) => {
-  //     setAllLocations(data);
-  //   },
-  //   onError: (err: unknown) => {
-  //     errorModal('알 수 없는 오류', '서버의 상태가 이상합니다.');
-  //   },
-  // });
+  useEffect(() => {
+    router.query.token && tokenHelper.setTokenId(router.query.token);
 
-  // useQuery('getUserInfo', userApi.getUserLocation, {
-  //   enabled: !!session,
-  //   onSuccess: ({ data }) => {
-  //     setUserInfo({
-  //       name: session!.user!.name ?? '사용자 이름',
-  //       locationId: data.id,
-  //     });
-  //     router.push('/main');
-  //   },
-  //   onError: (err: unknown) => {
-  //     errorModal('알 수 없는 오류', '서버의 상태가 이상합니다.');
-  //   },
-  // });
+    if (!!tokenHelper.getTokenId()) {
+      setToggle(true);
+      router.push('/main');
+    }
+  }, [router.query.token, !!tokenHelper.getTokenId()]);
 
+  useQueries([
+    {
+      enabled: toggle,
+      queryKey: 'getUserProfile',
+      queryFn: () => userApi.getUserProfile(),
+      onSuccess: ({
+        data: {
+          name,
+          location: { id },
+        },
+      }: AxiosResponse<ProfileResponse>) => {
+        setUserInfo({
+          name: name ?? '사용자 이름',
+          locationId: id,
+        });
+      },
+      onError: (err: unknown) => {
+        errorModal('알 수 없는 오류', '서버의 상태가 이상합니다.');
+      },
+    },
+    {
+      enabled: toggle,
+      queryKey: 'getAllLocations',
+      queryFn: () => userApi.getAllLocations(),
+      // Todo : 전체지역 관련 type은 response는 없는 것 같음
+      onSuccess: ({ data }: any) => {
+        setAllLocations(data);
+      },
+      onError: (err: unknown) => {
+        errorModal('알 수 없는 오류', '서버의 상태가 이상합니다.');
+      },
+    },
+  ]);
   return (
-    <Button onClick={() => {}}>
+    <Button
+      onClick={() => {
+        userApi.login();
+      }}>
       <Image
         src={'/googleNormal.png'}
         width="228"
