@@ -1,4 +1,11 @@
-import { Controller, UseGuards, Delete, Req, Get } from '@nestjs/common';
+import {
+  Controller,
+  UseGuards,
+  Delete,
+  Req,
+  Get,
+  Redirect,
+} from '@nestjs/common';
 import { GoogleAuthGuard } from './google-auth.guard';
 import { AuthService } from './auth.service';
 import { Public } from './jwt.auth.guard';
@@ -16,8 +23,13 @@ export class AuthController {
   @Public()
   @UseGuards(GoogleAuthGuard)
   @Get('google/callback')
+  @Redirect()
   async callback(@Req() req: Request) {
-    return await this.authService.login(req.user);
+    return {
+      url: `http://localhost:3000/?token=${
+        (await this.authService.login(req.user)).access_token
+      }`,
+    };
   }
 
   @Delete('delete')
