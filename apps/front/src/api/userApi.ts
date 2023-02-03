@@ -1,16 +1,23 @@
+import { tokenHelper } from 'utils/tokenHelper';
 import api from './common';
 
 export const userApi = {
+  login: () => {
+    return api.get('auth/google/login');
+  },
+  logout: () => {
+    tokenHelper.setTokenId('');
+  },
+  getUserProfile: () => {
+    return api.authGet('user/profile');
+  },
   getAllLocations: () => {
     return api.get('location');
   },
-  getUserLocation: () => {
-    return api.get('user/location');
-  },
   changeUserLocation: (data: any) => {
-    return api.post('user/location', data);
+    return api.authPost('user/location', data);
   },
   deleteAuth: () => {
-    return api.delete('auth/delete');
+    return api.authDelete('auth/delete');
   },
 };

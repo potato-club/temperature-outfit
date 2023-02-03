@@ -1,14 +1,14 @@
 import api from './common';
 
 export const todayCodyApi = {
-  getManyOutfit:  (startDay: string, endDay: string) =>
-    api.get(`outfit?startDate=${startDay}&endDate=${endDay}`),
+  getManyOutfit: (startDay: string, endDay: string) =>
+    api.authGet(`outfit?startDate=${startDay}&endDate=${endDay}`),
 
-  addProduct:  (data: any) => api.post(`outfit`, data),
+  addProduct: (data: any) => api.authPost(`outfit`, data),
 
-  getOutfit:  (id: string) => api.get(`outfit/${id}`),
+  getOutfit: (id: string) => api.authGet(`outfit/${id}`),
 
-  deleteOutfit:  (id: string) => api.delete(`outfit/${id}`),
+  deleteOutfit: (id: string) => api.authDelete(`outfit/${id}`),
 
-  putOutfit:  (id: string, data: any) => api.put(`outfit/${id}`, data),
+  putOutfit: (id: string, data: any) => api.authPut(`outfit/${id}`, data),
 };
