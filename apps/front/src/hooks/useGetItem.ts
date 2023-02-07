@@ -35,7 +35,7 @@ export default function useGetItem(filter: filterType) {
 
   useQuery(
     ['getItem', filter],
-    () => productApi.getFilter({ params: filter }),
+    () => productApi.getFilter(filter),
     {
       onSuccess: ({ data }) => {
         setFilterItem(data.products);
