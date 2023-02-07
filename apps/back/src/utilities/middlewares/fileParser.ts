@@ -1,64 +1,66 @@
-// import { ApiRequest } from '@temperature-outfit/core';
-// import { Fields, File, Files, Formidable } from 'formidable';
-// import type { NextApiResponse } from 'next';
-// import { PassThrough } from 'stream';
-// import { storageClient } from '../storage';
+import { RawBodyRequest } from '@nestjs/common';
+import { NextFunction, Request, Response } from 'express';
+import { Fields, File, Files, Formidable } from 'formidable';
+import { PassThrough } from 'stream';
+import { storageClient } from '../storage';
 
-// const uploadStream = (file: { newFilename: string }) => {
-//   const pass = new PassThrough();
+const uploadStream = (file: { newFilename: string }) => {
+  const pass = new PassThrough();
 
-//   storageClient.from('image').upload(file.newFilename, pass, {
-//     cacheControl: '3600',
-//     upsert: false,
-//   });
+  storageClient.from('image').upload(file.newFilename, pass, {
+    cacheControl: '3600',
+    upsert: false,
+  });
 
-//   return pass;
-// };
+  return pass;
+};
 
-// export const filesParser: Middleware<ApiRequest, NextApiResponse> = async (
-//   req,
-//   res,
-//   next,
-// ) => {
-//   const data = await new Promise<{
-//     fields: Fields;
-//     files: Files;
-//   }>((resolve, reject) => {
-//     const formidable = new Formidable({
-//       // filename: () => cuid(),
-//       fileWriteStreamHandler: uploadStream as any,
-//     });
+export const filesParser = async (
+  req: RawBodyRequest<Request>,
+  res: Response,
+  next: NextFunction,
+) => {
+  const data = await new Promise<{
+    fields: Fields;
+    files: Files;
+  }>((resolve, reject) => {
+    const formidable = new Formidable({
+      // filename: () => cuid(),
+      fileWriteStreamHandler: uploadStream as any,
+    });
 
-//     formidable.parse(req, (err, fields, files) => {
-//       if (err) {
-//         return reject(err);
-//       }
+    req.body = req.rawBody;
 
-//       resolve({ fields, files });
-//     });
-//   });
+    formidable.parse(req, (err, fields, files) => {
+      if (err) {
+        return reject(err);
+      }
 
-//   if (data.files.image) {
-//     const image = data.files.image as File;
+      resolve({ fields, files });
+    });
+  });
 
-//     const imageUrl = storageClient
-//       .from('image')
-//       .getPublicUrl(image.newFilename);
+  if (data.files.image) {
+    const image = data.files.image as File;
 
-//     req.filePath = imageUrl.data?.publicURL ?? '';
-//   } else {
-//     switch (data.fields.image) {
-//       case 'null':
-//         req.filePath = null;
-//         break;
-//       case 'undefined':
-//       default:
-//         req.filePath = undefined;
-//         break;
-//     }
-//   }
+    const imageUrl = storageClient
+      .from('image')
+      .getPublicUrl(image.newFilename);
 
-//   req.body = data.fields;
+    req.filePath = imageUrl.data?.publicURL ?? '';
+  } else {
+    switch (data.fields.image) {
+      case 'null':
+        req.filePath = null;
+        break;
+      case 'undefined':
+      default:
+        req.filePath = undefined;
+        break;
+    }
+  }
 
-//   next();
-// };
+  req.body = data.fields;
+
+  next();
+};

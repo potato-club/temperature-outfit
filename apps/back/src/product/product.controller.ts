@@ -13,7 +13,11 @@ export class ProductController {
 
   @Post()
   async create(@Req() req: Request) {
-    return await this.productService.create(req.body, req.user.email);
+    return await this.productService.create(
+      req.body,
+      req.user.email,
+      req.filePath,
+    );
   }
 
   @Get(':id')
@@ -23,7 +27,12 @@ export class ProductController {
 
   @Put(':id')
   async updateOne(@Req() req: Request, @Param('id') id: string) {
-    return await this.productService.updateOne(id, req.body, req.user.email);
+    return await this.productService.updateOne(
+      id,
+      req.body,
+      req.user.email,
+      req.filePath,
+    );
   }
 
   @Delete(':id')

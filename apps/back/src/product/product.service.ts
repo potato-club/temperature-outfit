@@ -95,13 +95,16 @@ export class ProductService {
   async create(
     body: ProductPostRequest,
     email: string,
+    filePath?: string,
   ): Promise<ProductResponse> {
+    console.log(body);
+
     const product = await this.prisma.product.create({
       data: {
         name: body.name,
         category: { connect: { id: body.categoryId } },
         color: body.color,
-        // imageUrl: req.filePath,
+        imageUrl: filePath,
         owner: { connect: { email } },
       },
     });
@@ -128,7 +131,12 @@ export class ProductService {
     return convertProductToResponse(product);
   }
 
-  async updateOne(id: string, body: ProductPutRequest, email: string) {
+  async updateOne(
+    id: string,
+    body: ProductPutRequest,
+    email: string,
+    filePath?: string,
+  ) {
     if (Array.isArray(id)) {
       throw new HttpException('요청 오류', HttpStatus.BAD_REQUEST);
     }
@@ -150,7 +158,7 @@ export class ProductService {
         name: body.name,
         category: { connect: { id: body.categoryId } },
         color: body.color,
-        // imageUrl: req.filePath,
+        imageUrl: filePath,
       },
     });
 
