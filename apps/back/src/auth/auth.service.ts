@@ -31,13 +31,13 @@ export class AuthService {
       imageUrl: string;
     },
   ): Promise<User> {
-    const u = await this.userService.findOne({ email: user.email });
+    const dbUser = await this.userService.findOne({ email: user.email });
 
-    if (!user) {
+    if (!dbUser) {
       return await this.userService.create(account, user);
     }
 
-    return u;
+    return dbUser;
   }
 
   async login(user: any) {
