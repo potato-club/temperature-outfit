@@ -50,7 +50,7 @@
     "react-js-pagination": "^3.0.2",
     "react-modal": "^3.15.1",
     "react-query": "^3.39.2",
-    "react-simple-star-rating": "^4.0.5",
+    "react-simple-star-rating": "4.0.5",
     "recoil": "^0.7.4",
     "recoil-persist": "^4.2.0",
     "reflect-metadata": "^0.1.13",
@@ -58,8 +58,8 @@
     "rxjs": "^7.0.0",
     "swagger-ui-react": "^4.12.0",
     "sweetalert2": "^11.4.8",
-    "tslib": "^2.3.0",
     "swiper": "^8.4.5",
+    "tslib": "^2.3.0",
     "typeit-react": "^2.6.4"
   },
   "devDependencies": {
