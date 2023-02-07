@@ -1,10 +1,11 @@
 export const today: Date = new Date();
 
-export const koreaToday: string = today
+export const koreaToday = today
   .toLocaleDateString('ko')
-  .split('. ')
+  .split('.')
   .map((data) => {
-    return data.padStart(2, '0');
+    return data.trim();
   })
-  .join('-')
-  .slice(0, -1);
+  .slice(0, -1)
+  .map((data) => data.padStart(2, '0'))
+  .join('-');
