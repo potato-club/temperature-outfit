@@ -1,5 +1,6 @@
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { PrismaService } from '../prisma.service';
+import { filesParser } from '../utilities/middlewares/fileParser';
 import { ProductController } from './product.controller';
 import { ProductService } from './product.service';
 
@@ -7,4 +8,8 @@ import { ProductService } from './product.service';
   controllers: [ProductController],
   providers: [ProductService, PrismaService],
 })
-export class ProductModule {}
+export class ProductModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer.apply(filesParser).forRoutes(ProductController);
+  }
+}

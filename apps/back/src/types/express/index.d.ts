@@ -14,6 +14,7 @@ declare global {
 
     export interface Request {
       user?: User;
+      filePath?: string;
     }
   }
 }

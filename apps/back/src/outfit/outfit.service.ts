@@ -35,7 +35,7 @@ export class OutfitService {
     );
   }
 
-  async create(body: OutfitPostRequest, email: string) {
+  async create(body: OutfitPostRequest, email: string, filePath?: string) {
     if (!body.date || !body.locationId) {
       throw new HttpException('요청 오류', HttpStatus.BAD_REQUEST);
     }
@@ -51,7 +51,7 @@ export class OutfitService {
             },
           },
         },
-        // imageUrl: req.filePath,
+        imageUrl: filePath,
         products: {
           connect: body.productsId?.split(',').map((id) => ({ id })),
         },
@@ -85,7 +85,12 @@ export class OutfitService {
     return convertOutfitToResponse(outfit);
   }
 
-  async updateOne(id: string, body: OutfitPutRequest, email: string) {
+  async updateOne(
+    id: string,
+    body: OutfitPutRequest,
+    email: string,
+    filePath?: string,
+  ) {
     if (Array.isArray(id)) {
       throw new HttpException('요청 오류', HttpStatus.BAD_REQUEST);
     }
@@ -105,7 +110,7 @@ export class OutfitService {
       where: { id: id },
       data: {
         date: body.date ? new Date(body.date) : undefined,
-        // imageUrl: req.filePath,
+        imageUrl: filePath,
         products: body.productsId
           ? {
               set: [],
