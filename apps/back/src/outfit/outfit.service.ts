@@ -1,8 +1,8 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import {
-  OutfitGetRequest,
-  OutfitPostRequest,
-  OutfitPutRequest,
+  FindAllOutfitQuery,
+  CreateOutfitBody,
+  UpdateOneOutfitBody,
   OutfitResponse,
 } from '@temperature-outfit/core';
 import { PrismaService } from '../prisma.service';
@@ -13,7 +13,7 @@ export class OutfitService {
   constructor(private prisma: PrismaService) {}
 
   async findAll(
-    query: OutfitGetRequest,
+    query: FindAllOutfitQuery,
     email: string,
   ): Promise<OutfitResponse[]> {
     const outfits = await this.prisma.outfit.findMany({
@@ -35,7 +35,7 @@ export class OutfitService {
     );
   }
 
-  async create(body: OutfitPostRequest, email: string, filePath?: string) {
+  async create(body: CreateOutfitBody, email: string, filePath?: string) {
     if (!body.date || !body.locationId) {
       throw new HttpException('요청 오류', HttpStatus.BAD_REQUEST);
     }
@@ -56,7 +56,7 @@ export class OutfitService {
           connect: body.productsId?.split(',').map((id) => ({ id })),
         },
         comment: body.comment,
-        rating: +(body.rating ?? '0'),
+        rating: body.rating,
       },
       include: { products: true, weather: true },
     });
@@ -87,7 +87,7 @@ export class OutfitService {
 
   async updateOne(
     id: string,
-    body: OutfitPutRequest,
+    body: UpdateOneOutfitBody,
     email: string,
     filePath?: string,
   ) {

@@ -3,7 +3,7 @@ import { Prisma, User } from '@prisma/client';
 import {
   LocationResponse,
   ProfileResponse,
-  UserLocationPostRequest,
+  UpdateLocationUserBody,
 } from '@temperature-outfit/core';
 import { PrismaService } from '../prisma.service';
 
@@ -30,7 +30,7 @@ export class UserService {
   }
 
   async updateLocation(
-    body: UserLocationPostRequest,
+    body: UpdateLocationUserBody,
     email: string,
   ): Promise<LocationResponse> {
     if (!body.locationId) {

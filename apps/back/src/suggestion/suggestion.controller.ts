@@ -1,4 +1,5 @@
-import { Controller, Get, Req } from '@nestjs/common';
+import { Controller, Get, Query, Req } from '@nestjs/common';
+import { FindSuggestionQuery } from '@temperature-outfit/core';
 import { Request } from 'express';
 import { SuggestionService } from './suggestion.service';
 
@@ -7,7 +8,7 @@ export class SuggestionController {
   constructor(private readonly suggestionService: SuggestionService) {}
 
   @Get()
-  async find(@Req() req: Request) {
-    return await this.suggestionService.find(req.query, req.user.email);
+  async find(@Req() req: Request, @Query() query: FindSuggestionQuery) {
+    return await this.suggestionService.find(query, req.user.email);
   }
 }

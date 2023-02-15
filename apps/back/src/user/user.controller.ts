@@ -1,4 +1,5 @@
-import { Controller, Get, Post, Req } from '@nestjs/common';
+import { Body, Controller, Get, Post, Req } from '@nestjs/common';
+import { UpdateLocationUserBody } from '@temperature-outfit/core';
 import { Request } from 'express';
 import { UserService } from './user.service';
 
@@ -12,7 +13,10 @@ export class UserController {
   }
 
   @Post('location')
-  async updateLocation(@Req() req: Request) {
-    return await this.userService.updateLocation(req.body, req.user.email);
+  async updateLocation(
+    @Req() req: Request,
+    @Body() body: UpdateLocationUserBody,
+  ) {
+    return await this.userService.updateLocation(body, req.user.email);
   }
 }

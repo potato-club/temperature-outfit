@@ -1,10 +1,10 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import {
-  ProductDetailResponse,
-  ProductGetRequest,
-  ProductPostRequest,
-  ProductPutRequest,
-  ProductResponse,
+  ProductOneResponse,
+  FindAllProductQuery,
+  CreateProductBody,
+  UpdateOneProductBody,
+  ProductAllResponse,
 } from '@temperature-outfit/core';
 import { PrismaService } from '../prisma.service';
 import { convertProductToResponse } from '../utilities/converter';
@@ -44,9 +44,9 @@ export class ProductService {
   };
 
   async findAll(
-    query: ProductGetRequest,
+    query: FindAllProductQuery,
     email: string,
-  ): Promise<ProductResponse> {
+  ): Promise<ProductAllResponse> {
     // TODO: 임시 구현
     await this.createDefaultProduct(email);
 
@@ -86,17 +86,17 @@ export class ProductService {
       page: page,
       lastPage: Math.ceil(count / limit),
       limit: limit,
-      products: products.map<ProductDetailResponse>((product) =>
+      products: products.map<ProductOneResponse>((product) =>
         convertProductToResponse(product),
       ),
     };
   }
 
   async create(
-    body: ProductPostRequest,
+    body: CreateProductBody,
     email: string,
     filePath?: string,
-  ): Promise<ProductResponse> {
+  ): Promise<ProductAllResponse> {
     console.log(body);
 
     const product = await this.prisma.product.create({
@@ -114,7 +114,7 @@ export class ProductService {
     };
   }
 
-  async findOne(id: string, email: string): Promise<ProductDetailResponse> {
+  async findOne(id: string, email: string): Promise<ProductOneResponse> {
     if (Array.isArray(id)) {
       throw new HttpException('요청 오류', HttpStatus.BAD_REQUEST);
     }
@@ -133,7 +133,7 @@ export class ProductService {
 
   async updateOne(
     id: string,
-    body: ProductPutRequest,
+    body: UpdateOneProductBody,
     email: string,
     filePath?: string,
   ) {

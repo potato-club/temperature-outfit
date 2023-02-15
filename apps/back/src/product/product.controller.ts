@@ -1,4 +1,19 @@
-import { Controller, Delete, Get, Param, Post, Put, Req } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Put,
+  Query,
+  Req,
+} from '@nestjs/common';
+import {
+  CreateProductBody,
+  FindAllProductQuery,
+  UpdateOneProductBody,
+} from '@temperature-outfit/core';
 import { Request } from 'express';
 import { ProductService } from './product.service';
 
@@ -7,17 +22,13 @@ export class ProductController {
   constructor(private readonly productService: ProductService) {}
 
   @Get()
-  async findAll(@Req() req: Request) {
-    return await this.productService.findAll(req.query, req.user.email);
+  async findAll(@Req() req: Request, @Query() query: FindAllProductQuery) {
+    return await this.productService.findAll(query, req.user.email);
   }
 
   @Post()
-  async create(@Req() req: Request) {
-    return await this.productService.create(
-      req.body,
-      req.user.email,
-      req.filePath,
-    );
+  async create(@Req() req: Request, @Body() body: CreateProductBody) {
+    return await this.productService.create(body, req.user.email, req.filePath);
   }
 
   @Get(':id')
@@ -26,10 +37,14 @@ export class ProductController {
   }
 
   @Put(':id')
-  async updateOne(@Req() req: Request, @Param('id') id: string) {
+  async updateOne(
+    @Req() req: Request,
+    @Param('id') id: string,
+    @Body() body: UpdateOneProductBody,
+  ) {
     return await this.productService.updateOne(
       id,
-      req.body,
+      body,
       req.user.email,
       req.filePath,
     );

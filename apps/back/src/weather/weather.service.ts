@@ -1,6 +1,6 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { Location, Weather, WeatherStatus } from '@prisma/client';
-import { WeatherGetRequest, WeatherResponse } from '@temperature-outfit/core';
+import { FindOneWeatherQuery, WeatherResponse } from '@temperature-outfit/core';
 import axios from 'axios';
 import { PrismaService } from '../prisma.service';
 import { convertWeatherResponse } from '../utilities/converter';
@@ -18,15 +18,10 @@ type RawWeather = {
 export class WeatherService {
   constructor(private prisma: PrismaService) {}
 
-  async findOne(query: WeatherGetRequest): Promise<WeatherResponse> {
-    if (!query.date || !query.locationId) {
-      // 필수 쿼리
-      throw new HttpException('요청 오류', HttpStatus.BAD_REQUEST);
-    }
-
+  async findOne(query: FindOneWeatherQuery): Promise<WeatherResponse> {
     const date = new Date(query.date);
     const location = await this.prisma.location.findUnique({
-      where: { id: +query.locationId },
+      where: { id: query.locationId },
     });
 
     const today = new Date();
