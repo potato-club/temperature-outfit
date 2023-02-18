@@ -1,23 +1,34 @@
-import { Controller, Delete, Get, Param, Post, Put, Req } from '@nestjs/common';
+import {
+  CreateOutfitBody,
+  UpdateOneOutfitBody,
+} from './../../../../libs/core/src/types';
+import {
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Put,
+  Req,
+  Query,
+  Body,
+} from '@nestjs/common';
 import { OutfitService } from './outfit.service';
 import { Request } from 'express';
+import { FindAllOutfitQuery } from '@temperature-outfit/core';
 
 @Controller('outfit')
 export class OutfitController {
   constructor(private readonly outfitService: OutfitService) {}
 
   @Get()
-  async findAll(@Req() req: Request) {
-    return await this.outfitService.findAll(req.query, req.user.email);
+  async findAll(@Req() req: Request, @Query() query: FindAllOutfitQuery) {
+    return await this.outfitService.findAll(query, req.user.email);
   }
 
   @Post()
-  async create(@Req() req: Request) {
-    return await this.outfitService.create(
-      req.body,
-      req.user.email,
-      req.filePath,
-    );
+  async create(@Req() req: Request, @Body() body: CreateOutfitBody) {
+    return await this.outfitService.create(body, req.user.email, req.filePath);
   }
 
   @Get(':id')
@@ -26,10 +37,14 @@ export class OutfitController {
   }
 
   @Put(':id')
-  async updateOne(@Req() req: Request, @Param('id') id: string) {
+  async updateOne(
+    @Req() req: Request,
+    @Param('id') id: string,
+    @Body() body: UpdateOneOutfitBody,
+  ) {
     return await this.outfitService.updateOne(
       id,
-      req.body,
+      body,
       req.user.email,
       req.filePath,
     );
