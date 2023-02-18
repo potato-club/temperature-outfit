@@ -8,7 +8,7 @@ import {
   FieldValues,
   UseFormSetValue,
 } from 'react-hook-form';
-import { CategoryDetail } from 'types/common/categoryDetail.type';
+import { CategoryResponse } from '@temperature-outfit/core';
 type Props = {
   setValue: UseFormSetValue<FieldValues>;
   control: Control<FieldValues>;
@@ -39,7 +39,7 @@ export const SubSelectBoxForm = ({
             onChange={onChange}>
             {clothesSubCategory[mainCategory]
               .slice(1)
-              .map((data: CategoryDetail) => (
+              .map((data: CategoryResponse) => (
                 <CustomMenuItem value={data.id} key={data.id}>
                   {data.name}
                 </CustomMenuItem>

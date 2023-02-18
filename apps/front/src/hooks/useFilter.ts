@@ -1,5 +1,5 @@
+import { FindAllProductQuery } from '@temperature-outfit/core';
 import { useState, useEffect } from 'react';
-import { filterType } from 'types/editPage/filter.type';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import {
   categoryFilter,
@@ -9,7 +9,7 @@ import {
 } from 'recoil/atom/filtering';
 
 export default function useFilter(num: number) {
-  const [filter, setFilter] = useState<filterType>({
+  const [filter, setFilter] = useState<FindAllProductQuery>({
     query: '',
     categoryId: '',
     limit: num,

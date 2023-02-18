@@ -1,6 +1,6 @@
-import { CategoryDetail } from 'types/common/categoryDetail.type';
+import { CategoryResponse } from '@temperature-outfit/core';
 
-export const clothesMainCategory: CategoryDetail[] = [
+export const clothesMainCategory: CategoryResponse[] = [
   {
     name: '전체',
     id: 'all',

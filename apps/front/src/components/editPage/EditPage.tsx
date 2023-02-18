@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 import { useRouter } from 'next/router';
 import {
@@ -22,9 +22,9 @@ import {
 } from 'utils/interactionModal';
 import useEditResetRecoil from 'hooks/useEditResetRecoil';
 import { useMutation, useQuery } from 'react-query';
-import { mutateParamType } from 'types/editPage/mutateParam.type';
 import { debounceFunction } from 'utils/debounceFunction';
 import { Contents } from './components/Contents';
+import { CategoryResponse, ProductOneResponse } from '@temperature-outfit/core';
 
 export default function EditPage() {
   const router = useRouter();
@@ -32,13 +32,13 @@ export default function EditPage() {
   const [day, setDay] = useState('');
 
   useEffect(() => {
-    if(router.isReady) {
+    if (router.isReady) {
       setDay(router.query.day as string);
     }
-  }, [router])
+  }, [router]);
 
   const { mutate } = useMutation(
-    ({ frm, outfitId }: mutateParamType) =>
+    ({ frm, outfitId }: { frm: FormData; outfitId?: string }) =>
       outfitId
         ? todayCodyApi.putOutfit(outfitId, frm)
         : todayCodyApi.addProduct(frm),
@@ -105,12 +105,13 @@ export default function EditPage() {
       ...bottomImages,
       ...shoesImages,
       ...etcImages,
-    ].map(({ id }) => id)
+    ]
+      .map(({ id }) => id)
       .join();
   }, [topImages, outerImages, bottomImages, shoesImages, etcImages]);
 
   const filterProduct = useCallback(
-    (product: any): void => {
+    (product: ProductOneResponse) => {
       if (filterSubCategory('top', product.categoryId)) {
         setTopImages((prev) => [...prev, product]);
       }
@@ -138,7 +139,7 @@ export default function EditPage() {
 
   const filterSubCategory = (category: string, categoryId: string): boolean => {
     return clothesSubCategory[category]
-      .map((item: any) => item.id)
+      .map((item: CategoryResponse) => item.id)
       .includes(categoryId);
   };
 
@@ -187,7 +188,7 @@ export default function EditPage() {
         setCodyThumbnail(imageUrl);
         setValue('rating', rating);
         setValue('comment', comment);
-        products.forEach((product: any) => {
+        products.forEach((product: ProductOneResponse) => {
           filterProduct(product);
         });
 

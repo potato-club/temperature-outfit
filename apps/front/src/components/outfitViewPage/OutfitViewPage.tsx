@@ -7,9 +7,9 @@ import { todayCodyApi } from 'api';
 import { clothesMainCategory } from 'constants/index';
 import { clothesSubCategory } from 'constants/clothesSubCategory';
 import { useQuery } from 'react-query';
-import { outfitDataType } from 'types/outfitViewPage/outfitData.type';
 import { errorModal } from 'utils/interactionModal';
 import { customColor } from 'constants/index';
+import { OutfitResponse } from '@temperature-outfit/core';
 
 type totalTemperatureType = {
   highestTemperature: string;
@@ -19,7 +19,7 @@ type totalTemperatureType = {
 
 export default function OutfitView() {
   const router = useRouter();
-  const [outfitData, setOutfitData] = useState<outfitDataType>();
+  const [outfitData, setOutfitData] = useState<OutfitResponse>();
   const [weather, setWeather] = useState<totalTemperatureType>();
 
   useQuery(
@@ -29,23 +29,13 @@ export default function OutfitView() {
       enabled: router.isReady,
       onSuccess: ({ data }) => {
         const {
-          date,
-          imageUrl,
-          rating,
-          products,
-          comment,
           weather: { temperature, lowestTemperature, highestTemperature },
+          ...outfit
         } = data;
 
         setWeather({ temperature, lowestTemperature, highestTemperature });
 
-        setOutfitData({
-          date,
-          imageUrl,
-          rating,
-          products,
-          comment,
-        });
+        setOutfitData(outfit);
       },
       onError: (err: unknown) => {
         errorModal('알 수 없는 오류', '서버의 상태가 이상합니다.');

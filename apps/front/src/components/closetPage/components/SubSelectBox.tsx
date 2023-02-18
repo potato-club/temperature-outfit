@@ -4,7 +4,7 @@ import { clothesSubCategory } from 'constants/index';
 import React, { useEffect, useMemo } from 'react';
 import { useRecoilState } from 'recoil';
 import { categoryFilter } from 'recoil/atom/filtering';
-import { CategoryDetail } from 'types/common/categoryDetail.type';
+import { CategoryResponse } from '@temperature-outfit/core';
 
 type Props = {
   mainCategory: string;
@@ -25,7 +25,7 @@ export const SubSelectBox = ({ mainCategory }: Props) => {
     <CustomSelect
       value={mainId.includes(category) ? category : ''}
       onChange={(e) => setCategory(e.target.value as string)}>
-      {clothesSubCategory[mainCategory].map((data: CategoryDetail) => (
+      {clothesSubCategory[mainCategory].map((data: CategoryResponse) => (
         <CustomMenuItem value={data.id} key={data.id}>
           {data.name}
         </CustomMenuItem>

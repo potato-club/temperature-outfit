@@ -1,39 +1,27 @@
 import { atom } from 'recoil';
-// import { ProductDetailResponse } from 'types';
+import { ProductOneResponse } from '@temperature-outfit/core';
 
-// Todo : 백엔드에서 타입 만들어주면 ProductType 삭제하고 그거 import 해서 사용
-
-export type ProductType = {
-  id: string;
-  name: string;
-  categoryId: string;
-  color: string;
-  imageUrl: string;
-  createdAt: string;
-  updatedAt: string;
-};
-
-export const topState = atom<ProductType[]>({
+export const topState = atom<ProductOneResponse[]>({
   key: 'topImages',
   default: [],
 });
 
-export const outerState = atom<ProductType[]>({
+export const outerState = atom<ProductOneResponse[]>({
   key: 'outerImages',
   default: [],
 });
 
-export const bottomState = atom<ProductType[]>({
+export const bottomState = atom<ProductOneResponse[]>({
   key: 'bottomImages',
   default: [],
 });
 
-export const shoesState = atom<ProductType[]>({
+export const shoesState = atom<ProductOneResponse[]>({
   key: 'shoesImages',
   default: [],
 });
 
-export const etcState = atom<ProductType[]>({
+export const etcState = atom<ProductOneResponse[]>({
   key: 'etcImages',
   default: [],
 });

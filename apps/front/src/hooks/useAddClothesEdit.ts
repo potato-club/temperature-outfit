@@ -1,11 +1,11 @@
 import { productApi } from '../api/productApi';
 import { RecoilState, useRecoilState } from 'recoil';
 import { errorModal, infoModal } from 'utils/interactionModal';
-import { productType } from 'types/editPage/product.type';
 import { useQuery } from 'react-query';
+import { ProductOneResponse } from '@temperature-outfit/core';
 
 export default function useAddClothesEdit(
-  recoil: RecoilState<productType[]>,
+  recoil: RecoilState<ProductOneResponse[]>,
   id: string,
 ) {
   const [clothesData, setClothesData] = useRecoilState(recoil);

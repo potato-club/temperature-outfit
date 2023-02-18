@@ -1,6 +1,6 @@
-import { CategoryDetail } from 'types/common/categoryDetail.type';
+import { CategoryResponse } from '@temperature-outfit/core';
 interface Clothes {
-  [key: string]: CategoryDetail[];
+  [key: string]: CategoryResponse[];
 }
 
 export const clothesSubCategory: Clothes = {

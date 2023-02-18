@@ -7,12 +7,12 @@ import { DressBox } from 'components/common';
 import { chooseModal } from 'recoil/atom';
 import { categoryLabel } from 'recoil/atom/chooseModal';
 import { categoryFilter } from 'recoil/atom/filtering';
-import { productType } from 'types/editPage/product.type';
 import imageLayout from 'constants/imageLayout';
+import { ProductOneResponse } from '@temperature-outfit/core';
 type Props = {
   category: string;
   id: string;
-  recoil: RecoilState<productType[]>;
+  recoil: RecoilState<ProductOneResponse[]>;
 };
 
 export function DressRoom({ category, id, recoil }: Props) {

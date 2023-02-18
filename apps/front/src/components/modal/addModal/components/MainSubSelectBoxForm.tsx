@@ -5,7 +5,7 @@ import { useState } from 'react';
 import { clothesMainCategory } from 'constants/index';
 import { MenuItem, Select } from '@mui/material';
 import { SubSelectBoxForm } from './SubSelectBoxForm';
-import { CategoryDetail } from 'types/common/categoryDetail.type';
+import { CategoryResponse } from '@temperature-outfit/core';
 
 type Props = {
   setValue: UseFormSetValue<FieldValues>;
@@ -20,7 +20,7 @@ export const MainSubSelectBoxForm = ({ setValue, control }: Props) => {
         <CustomSelect
           onChange={(e) => setMainCategory(e.target.value as string)}
           value={mainCategory}>
-          {clothesMainCategory.slice(1).map((data: CategoryDetail) => (
+          {clothesMainCategory.slice(1).map((data: CategoryResponse) => (
             <CustomMenuItem value={data.id} key={data.id}>
               {data.name}
             </CustomMenuItem>

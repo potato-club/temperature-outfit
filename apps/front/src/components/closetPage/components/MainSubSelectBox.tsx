@@ -5,7 +5,7 @@ import { clothesMainCategory } from 'constants/index';
 import FormControl from '@mui/material/FormControl';
 import { MenuItem, Select } from '@mui/material';
 import { SubSelectBox } from './SubSelectBox';
-import { CategoryDetail } from 'types/common/categoryDetail.type';
+import { CategoryResponse } from '@temperature-outfit/core';
 
 export const MainSubSelectBox = () => {
   const [mainCategory, setMainCategory] = useState('all');
@@ -17,7 +17,7 @@ export const MainSubSelectBox = () => {
           <CustomSelect
             onChange={(e) => setMainCategory(e.target.value as string)}
             value={mainCategory}>
-            {clothesMainCategory.map((data: CategoryDetail) => (
+            {clothesMainCategory.map((data: CategoryResponse) => (
               <CustomMenuItem value={data.id} key={data.id}>
                 {data.name}
               </CustomMenuItem>

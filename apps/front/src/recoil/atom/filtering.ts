@@ -32,7 +32,7 @@ export const lastPage = atom<number>({
 // });
 
 // * 이렇게 한번에 필터하게되면 셀렉트박스 필터할때 color 쪽도 리렌더링이 같이됨 -> React Dev tools 로 확인했음.
-// export const filtering = atom<filterType>({
+// export const filtering = atom<FindAllProductQuery>({
 //   key: 'filter',
 //   default: {
 //     query: '',

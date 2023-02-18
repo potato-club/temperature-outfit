@@ -19,9 +19,9 @@ import { MdThumbUp } from 'react-icons/md';
 import { customColor } from 'constants/index';
 
 interface ReviewBoxProps {
-  comment: string;
+  comment?: string;
   rating: number;
-  outFitImageUrl: string;
+  outFitImageUrl?: string;
 }
 export function ReviewBox({ comment, rating, outFitImageUrl }: ReviewBoxProps) {
   const router = useRouter();

@@ -5,15 +5,15 @@ import { RecoilState, useSetRecoilState } from 'recoil';
 import { chooseModal } from 'recoil/atom';
 import useAddClothesEdit from 'hooks/useAddClothesEdit';
 import { ClothesImg } from 'components/common/clothesBox/ClothesImg';
-import { productType } from 'types/editPage/product.type';
 import imageLayout from 'constants/imageLayout';
 import { TypoGraphy } from 'components/common';
+import { ProductOneResponse } from '@temperature-outfit/core';
 
 type Props = {
   url: string;
   name: string;
   id: string;
-  recoil: RecoilState<productType[]>;
+  recoil: RecoilState<ProductOneResponse[]>;
 };
 
 export function ModalClothesBox({ url, name, id, recoil }: Props) {

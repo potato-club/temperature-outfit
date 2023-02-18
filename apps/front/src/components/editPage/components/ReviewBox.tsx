@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import styled from '@emotion/styled';
 import { keyframes } from '@emotion/react';
-import { CustomButton } from 'components/common';
 import { useSetRecoilState } from 'recoil';
 import { useRouter } from 'next/router';
 import {
@@ -12,7 +11,6 @@ import {
   UseFormSetValue,
   UseFormWatch,
 } from 'react-hook-form';
-import { VscTriangleDown, VscTriangleUp } from 'react-icons/vsc';
 import { CgChevronDoubleDown } from 'react-icons/cg';
 import { ImageInput, RatingInput, CommentInput } from './index';
 import { codyThumbnail } from 'recoil/atom/editState';
