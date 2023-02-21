@@ -7,7 +7,7 @@ import { TypoGraphy } from "components/common";
 import { ClothesImg } from './ClothesImg';
 
 type Props = {
-  url: string;
+  url?: string;
   name: string;
   id?: string;
   deleteFn?: (id: string) => void;
