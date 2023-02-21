@@ -2,16 +2,17 @@ import React from 'react';
 import styled from '@emotion/styled';
 import { customColor } from 'constants/index';
 import { ClothesBox } from 'components/common';
+import { ProductOneResponse } from '@temperature-outfit/core';
 
 type Props = {
-  products: any;
+  products?: ProductOneResponse[];
 };
 
 export function DressRoom({ products }: Props) {
   return (
     <Container>
       {products &&
-        products.map((product: any) => (
+        products.map((product:ProductOneResponse) => (
           <ClothesBox
             key={product.id}
             url={product.imageUrl!}

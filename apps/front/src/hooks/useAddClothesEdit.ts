@@ -33,7 +33,7 @@ export default function useAddClothesEdit(
       enabled: false,
       onSuccess: ({ data }) => {
         if (
-          clothesData.findIndex((clothes: any) => clothes.id === data.id) !== -1
+          clothesData.findIndex((clothes: ProductOneResponse) => clothes.id === data.id) !== -1
         ) {
           infoModal('이미 등록된 옷입니다.', 'error');
           return;
