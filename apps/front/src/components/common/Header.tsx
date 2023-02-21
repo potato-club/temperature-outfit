@@ -25,7 +25,7 @@ export const Header: React.FC = () => {
           <Link href="/main" passHref>
             <Logo>
               <TypoGraphy color={customColor.brandColor3} fontWeight={'bold'}>
-                Write down today&apos;s outfit.
+                Cody Diary
               </TypoGraphy>
             </Logo>
           </Link>
