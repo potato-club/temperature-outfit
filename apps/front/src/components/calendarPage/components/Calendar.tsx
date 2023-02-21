@@ -24,6 +24,7 @@ const Calendar = () => {
     ['getMtOutfits', startDay, endDay],
     () => todayCodyApi.getManyOutfit(startDay, endDay),
     {
+      enabled: !!startDay && !!endDay,
       onSuccess: ({ data }) => {
         const realData: EventInput[] = data.map(
           (item: EventInput): EventInput => {
