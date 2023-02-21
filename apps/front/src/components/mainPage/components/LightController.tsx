@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 export const LightController = () => (
   <>
@@ -7,7 +7,6 @@ export const LightController = () => (
     <spotLight position={[20, 20, 10]} intensity={4} />
   </>
 );
-
 
 // directionalLight : 태양광 이라고 생각하면 됨.
 

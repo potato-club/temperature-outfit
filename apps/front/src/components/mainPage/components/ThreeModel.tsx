@@ -1,15 +1,13 @@
 import styled from '@emotion/styled';
-import { Canvas } from '@react-three/fiber';
-import React, { useCallback, useState } from 'react';
-import { LightController, Model } from './index';
-import { WeatherStatusType } from 'types/mainPage';
+import React, { useCallback } from 'react';
+import { WeatherStatus } from '@temperature-outfit/core';
 import Image from 'next/image';
 import { confirmModal } from 'utils/interactionModal';
 import { ThreeJsModal } from './ThreeJsModal';
 import { useModal } from 'hooks/useModal';
 
 interface Prop {
-  weatherStatus: WeatherStatusType;
+  weatherStatus: WeatherStatus;
 }
 
 export const ThreeModel = ({ weatherStatus }: Prop) => {

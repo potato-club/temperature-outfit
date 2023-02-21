@@ -5,7 +5,7 @@ import Modal from 'react-modal';
 import { LightController } from './LightController';
 import { Canvas } from '@react-three/fiber';
 import { Model } from './Model';
-import { WeatherStatusType } from 'types/mainPage';
+import { WeatherStatus } from '@temperature-outfit/core';
 import { OrbitControls } from '@react-three/drei';
 import { TypoGraphy } from 'components/common';
 import { copyClipBoard } from 'utils/copyClipBoard';
@@ -13,7 +13,7 @@ import { copyClipBoard } from 'utils/copyClipBoard';
 type Props = {
   isOpen: boolean;
   handleCloseModal: () => void;
-  weatherStatus: WeatherStatusType;
+  weatherStatus: WeatherStatus;
 };
 export const ThreeJsModal = ({
   isOpen,

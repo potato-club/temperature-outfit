@@ -5,22 +5,29 @@ import { suggestionApi, weatherApi } from 'api';
 import { useRecoilValue } from 'recoil';
 import { userState } from 'recoil/atom';
 import { koreaToday } from 'constants/index';
-import { WeatherStatusType } from 'types/mainPage';
 import { useQueries } from 'react-query';
-import { Suggestions } from 'types/mainPage';
+import {
+  SuggestionOutfit,
+  WeatherStatus,
+  WeatherResponse,
+  SuggestionResponse,
+} from '@temperature-outfit/core';
 import { errorModal } from 'utils/interactionModal';
+import { AxiosResponse } from 'axios';
 
 export function MainPage() {
   const { locationId } = useRecoilValue(userState);
-  const [weatherStatus, setWeatherStatus] = useState<WeatherStatusType>('sun');
-  const [suggestions, setSuggestions] = useState<Suggestions[]>([]);
+  const [weatherStatus, setWeatherStatus] = useState<WeatherStatus>('sun');
+  const [suggestions, setSuggestions] = useState<SuggestionOutfit[]>([]);
   const [temperature, setTemperature] = useState('');
 
   useQueries([
     {
       queryKey: ['getWeather', locationId],
       queryFn: () => weatherApi.getWeather(koreaToday, locationId),
-      onSuccess: ({ data: { status, temperature } }: any) => {
+      onSuccess: ({
+        data: { status, temperature },
+      }: AxiosResponse<WeatherResponse>) => {
         setWeatherStatus(status);
         setTemperature(temperature);
       },
@@ -31,7 +38,7 @@ export function MainPage() {
     {
       queryKey: ['getSuggestion'],
       queryFn: () => suggestionApi.suggestion(temperature),
-      onSuccess: ({ data: { outfits } }: any) => {
+      onSuccess: ({ data: { outfits } }: AxiosResponse<SuggestionResponse>) => {
         setSuggestions(outfits);
       },
       onError: (err: unknown) => {
@@ -43,12 +50,7 @@ export function MainPage() {
   return (
     <Container>
       <TodayInfo weatherStatus={weatherStatus} temperature={temperature} />
-
-      {suggestions.length > 0 ? (
-        <Slide suggestions={suggestions} />
-      ) : (
-        <Guide />
-      )}
+      {suggestions.length > 0 ? <Slide suggestions={suggestions} /> : <Guide />}
       <RegisterBtn />
     </Container>
   );

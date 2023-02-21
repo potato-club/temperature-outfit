@@ -6,13 +6,13 @@ import { CustomButton } from 'components/common';
 import 'swiper/css';
 import 'swiper/css/effect-coverflow';
 import Image from 'next/image';
-import { Suggestions } from 'types/mainPage';
+import { SuggestionOutfit } from '@temperature-outfit/core';
 import { useRouter } from 'next/router';
 import { Rating } from 'react-simple-star-rating';
 import { customColor } from 'constants/index';
 
 interface Props {
-  suggestions: Suggestions[];
+  suggestions: SuggestionOutfit[];
 }
 interface ButtonStyle {
   isCurrent?: boolean;
@@ -65,7 +65,7 @@ export function Slide({ suggestions }: Props) {
                     src={imageUrl ?? nullImage}
                     alt={String(id)}
                     layout="fill"
-                    objectFit='contain'
+                    objectFit="contain"
                     style={{ borderRadius: 'inherit' }}
                   />
                 </ImageBoxInner>

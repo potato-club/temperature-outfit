@@ -1,10 +1,10 @@
 import { useRef, useState } from 'react';
 import { GLTF, GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import { ObjectMap, useFrame, useLoader } from '@react-three/fiber';
-import { WeatherStatusType } from 'types/mainPage';
+import { WeatherStatus } from '@temperature-outfit/core';
 
 type Props = {
-  weatherStatus: WeatherStatusType;
+  weatherStatus: WeatherStatus;
 };
 
 export const Model = ({ weatherStatus }: Props) => {
@@ -39,8 +39,8 @@ export const Model = ({ weatherStatus }: Props) => {
   });
 
   return (
-      <mesh ref={modelRef} onDoubleClick={() => setAnimate((cur) => !cur)}>
-        <primitive object={gltf!.scene} scale={1} />
-      </mesh>
+    <mesh ref={modelRef} onDoubleClick={() => setAnimate((cur) => !cur)}>
+      <primitive object={gltf!.scene} scale={1} />
+    </mesh>
   );
 };

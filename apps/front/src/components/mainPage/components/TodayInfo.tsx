@@ -1,17 +1,17 @@
 import styled from '@emotion/styled';
 import React from 'react';
 import { ThreeModel, LocationInfo } from './index';
-import { WeatherStatusType } from 'types/mainPage';
+import { WeatherStatus } from '@temperature-outfit/core';
 import { TypoGraphy } from 'components/common';
 import { customColor } from 'constants/index';
 
 interface Props {
-  weatherStatus: WeatherStatusType;
+  weatherStatus: WeatherStatus;
   temperature: string;
 }
 
 export function TodayInfo({ weatherStatus, temperature }: Props) {
-  const weatherTypeText = (type: WeatherStatusType) => {
+  const weatherTypeText = (type: WeatherStatus) => {
     switch (type) {
       case 'sun':
         return (

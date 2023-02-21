@@ -1,5 +1,4 @@
 import styled from '@emotion/styled';
-import { keyframes } from '@emotion/react';
 import { TypoGraphy } from 'components/common';
 import { customColor, koreaToday } from 'constants/index';
 import { useRouter } from 'next/router';
@@ -8,6 +7,8 @@ import { useQuery } from 'react-query';
 import { todayCodyApi } from 'api';
 import { confirmModal } from 'utils/interactionModal';
 import Image from 'next/image';
+import { AxiosResponse } from 'axios';
+import { OutfitResponse } from '@temperature-outfit/core';
 
 interface ButtonStyle {
   isHover: boolean;
@@ -21,7 +22,7 @@ export function RegisterBtn() {
     () => todayCodyApi.getManyOutfit(koreaToday, koreaToday),
     {
       enabled: false,
-      onSuccess: ({ data }) => {
+      onSuccess: ({ data }: AxiosResponse<OutfitResponse[]>) => {
         if (data.length === 0) {
           router.push({
             pathname: `/edit`,
