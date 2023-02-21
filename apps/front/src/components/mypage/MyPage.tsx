@@ -12,6 +12,8 @@ import {
   errorModal,
 } from 'utils/interactionModal';
 import { useRouter } from 'next/router';
+import { AxiosResponse } from 'axios';
+import { LocationResponse } from '@temperature-outfit/core';
 
 interface Props {
   myPageToggle: boolean;
@@ -22,13 +24,13 @@ export const MyPage: React.FC<Props> = ({ myPageToggle }) => {
   const allLocations = useRecoilValue(locations);
   const router = useRouter();
   const changeUserLocations = (data: number): void => {
-    handleChangeLocation(data);
+    mutate(data);
   };
 
-  const { mutate: handleChangeLocation } = useMutation(
+  const { mutate } = useMutation(
     (data: number) => userApi.changeUserLocation({ locationId: data }),
     {
-      onSuccess: ({ data: { id } }) => {
+      onSuccess: ({ data: { id } }: AxiosResponse<LocationResponse>) => {
         setUser({ name: name, locationId: id });
       },
       onError: (err: unknown) => {
