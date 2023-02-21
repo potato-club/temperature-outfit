@@ -10,7 +10,7 @@ import { TypoGraphy } from 'components/common';
 import { ProductOneResponse } from '@temperature-outfit/core';
 
 type Props = {
-  url: string;
+  url?: string;
   name: string;
   id: string;
   recoil: RecoilState<ProductOneResponse[]>;

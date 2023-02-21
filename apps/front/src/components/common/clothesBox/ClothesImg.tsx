@@ -3,13 +3,13 @@ import Image from 'next/image';
 import React from 'react';
 
 type Props = {
-  url: string;
+  url?: string;
 };
 
 export const ClothesImg = ({ url }: Props) => {
   return (
     <Image
-      src={url}
+      src={url || ''}
       alt="clothes"
       width={imageLayout.square}
       height={imageLayout.square}
