@@ -3,6 +3,7 @@ import FullCalendar, {
   DateSelectArg,
   EventClickArg,
   EventContentArg,
+  DatesSetArg,
 } from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
@@ -79,7 +80,7 @@ const Calendar = () => {
     });
   };
 
-  const dateSet = (arg: any) => {
+  const dateSet = (arg: DatesSetArg) => {
     setStartDay(arg.startStr.replace(/T.*$/, ''));
     setEndDay(arg.endStr.replace(/T.*$/, ''));
   };

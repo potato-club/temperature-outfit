@@ -5,9 +5,10 @@ import { TypoGraphy } from 'components/common';
 import { IoUmbrella } from 'react-icons/io5';
 import { BsFillCloudFill, BsSnow2, BsSunFill } from 'react-icons/bs';
 import Image from 'next/image';
+import { WeatherStatus } from '@temperature-outfit/core';
 
 interface DateItemProps {
-  weatherStatus: string;
+  weatherStatus: WeatherStatus;
   temperature: string;
   rating: string;
 }
@@ -16,7 +17,7 @@ export const DateItem = ({
   temperature,
   rating,
 }: DateItemProps) => {
-  const iconSelect = (weather: string) => {
+  const iconSelect = (weather: WeatherStatus) => {
     switch (weather) {
       case 'sun':
         return <BsSunFill />;
