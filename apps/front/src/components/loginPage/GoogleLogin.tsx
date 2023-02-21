@@ -5,12 +5,10 @@ import { userState, locations } from 'recoil/atom';
 import { useSetRecoilState } from 'recoil';
 import { userApi } from 'api';
 import { useRouter } from 'next/router';
-import { useQueries, useQuery } from 'react-query';
+import { useQueries } from 'react-query';
 import { errorModal } from 'utils/interactionModal';
 import { tokenHelper } from 'utils/tokenHelper';
-// import { ProfileResponse } from 'libs/core/src/lib/types';
-// import { ProfileResponse } from 'libs/core/src/index';
-import { ProfileResponse } from '../../../../../libs/core/src/lib/types';
+import { ProfileResponse, LocationResponse } from '@temperature-outfit/core';
 import { AxiosResponse } from 'axios';
 
 export const GoogleLogin: React.FC = () => {
@@ -52,8 +50,7 @@ export const GoogleLogin: React.FC = () => {
       enabled: toggle,
       queryKey: 'getAllLocations',
       queryFn: () => userApi.getAllLocations(),
-      // Todo : 전체지역 관련 type은 response는 없는 것 같음
-      onSuccess: ({ data }: any) => {
+      onSuccess: ({ data }: AxiosResponse<LocationResponse[]>) => {
         setAllLocations(data);
       },
       onError: (err: unknown) => {
