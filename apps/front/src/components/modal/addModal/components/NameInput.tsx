@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import { ErrorMessage } from '@hookform/error-message';
-import { TypoGraphy } from 'components/common';
 import { customColor } from 'constants/index';
 import { FieldErrorsImpl, FieldValues, UseFormRegister } from 'react-hook-form';
 type Props = {

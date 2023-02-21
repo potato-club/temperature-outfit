@@ -1,6 +1,7 @@
 import { setting } from 'constants/index';
 import { tokenHelper } from 'utils/tokenHelper';
 import api from './common';
+import { UpdateLocationUserBody } from '@temperature-outfit/core';
 
 export const userApi = {
   login: () => {
@@ -15,7 +16,7 @@ export const userApi = {
   getAllLocations: () => {
     return api.get('location');
   },
-  changeUserLocation: (data: any) => {
+  changeUserLocation: (data: UpdateLocationUserBody) => {
     return api.authPost('user/location', data);
   },
   deleteAuth: () => {
