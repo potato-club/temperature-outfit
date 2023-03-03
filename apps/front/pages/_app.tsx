@@ -8,7 +8,14 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 
 // @ts-ignore
 function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
-  const queryClient = new QueryClient();
+  const queryClient = new QueryClient({
+    defaultOptions: {
+      queries: {
+        staleTime: 500,
+      },
+    },
+  });
+  
   const AnyComponent = Component as any;
   return (
     <QueryClientProvider client={queryClient}>

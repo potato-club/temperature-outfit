@@ -15,7 +15,7 @@ import {
 } from './components';
 import { CustomButton, TypoGraphy } from 'components/common';
 import { useMutation, useQueryClient } from 'react-query';
-import { debounceFunction } from 'utils/debounceFunction';
+import { debounceFunction } from 'utils';
 
 export const AddModal = () => {
   const [addModalState, setAddModalState] = useRecoilState(addModal);

@@ -2,7 +2,7 @@ import { atom } from 'recoil';
 import { recoilPersist } from 'recoil-persist';
 
 const { persistAtom } = recoilPersist();
-interface userStateTypes {
+export interface userStateTypes {
   name: string;
   locationId: number;
 }

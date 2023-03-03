@@ -4,7 +4,7 @@ import { WeatherStatus } from '@temperature-outfit/core';
 import Image from 'next/image';
 import { confirmModal } from 'utils/interactionModal';
 import { ThreeJsModal } from './ThreeJsModal';
-import { useModal } from 'hooks/useModal';
+import { useModal } from 'hooks';
 
 interface Prop {
   weatherStatus: WeatherStatus;

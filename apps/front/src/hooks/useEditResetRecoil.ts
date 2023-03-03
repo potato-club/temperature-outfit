@@ -4,7 +4,7 @@ import { useResetRecoilState } from 'recoil';
 import { topState, outerState, bottomState, shoesState, etcState } from 'recoil/atom';
 import { codyThumbnail } from 'recoil/atom/editState';
 
-export default function useEditResetRecoil() {
+export function useEditResetRecoil() {
   const resetTopRecoil = useResetRecoilState(topState);
   const resetOuterRecoil = useResetRecoilState(outerState);
   const resetBottomRecoil = useResetRecoilState(bottomState);

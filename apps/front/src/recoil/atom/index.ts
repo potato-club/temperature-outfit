@@ -7,3 +7,4 @@ export { shoesState } from './editState';
 export { etcState } from './editState';
 export { userState } from './user';
 export { locations } from './locations';
+export { codyThumbnail } from './editState';

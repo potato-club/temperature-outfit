@@ -14,7 +14,7 @@ import {
 import { CgChevronDoubleDown } from 'react-icons/cg';
 import { ImageInput, RatingInput, CommentInput } from './index';
 import { codyThumbnail } from 'recoil/atom/editState';
-import useEditResetRecoil from 'hooks/useEditResetRecoil';
+import { useEditResetRecoil } from 'hooks';
 import { customColor } from 'constants/index';
 import { PushButton } from './PushButton';
 

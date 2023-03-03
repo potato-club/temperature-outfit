@@ -8,7 +8,7 @@ import {
   pageFilter,
 } from 'recoil/atom/filtering';
 
-export default function useFilter(num: number) {
+export function useFilter(num: number) {
   const [filter, setFilter] = useState<FindAllProductQuery>({
     query: '',
     categoryId: '',
