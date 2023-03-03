@@ -67,6 +67,7 @@ export const useGetOutfit = ({ setValue, setDay }: any) => {
     () => todayCodyApi.getOutfit(router.query.outfitId as string),
     {
       enabled: !!router.query.outfitId,
+      refetchOnWindowFocus: false,
       onSuccess: ({ data }) => {
         const { date, imageUrl, rating, products, comment } = data;
         setCodyThumbnail(imageUrl);
