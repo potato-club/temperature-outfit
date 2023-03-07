@@ -15,7 +15,7 @@ export type FilePath = string | null;
 export class UpdateLocationUserBody {
   @IsNotEmpty()
   @IsInt()
-  locationId: number;
+  locationId!: number;
 }
 
 export type LocationResponse = { id: number; name: string };
@@ -61,15 +61,15 @@ export class FindAllProductQuery {
 export class CreateProductBody {
   @IsNotEmpty()
   @IsString()
-  name: string;
+  name!: string;
 
   @IsNotEmpty()
   @IsString()
-  categoryId: string;
+  categoryId!: string;
 
   @IsNotEmpty()
   @IsString()
-  color: string;
+  color!: string;
 }
 
 export class UpdateOneProductBody {
@@ -119,7 +119,7 @@ export class CreateOutfitBody {
   @IsNotEmpty()
   @MaxLength(10)
   @IsDateString()
-  date: string;
+  date!: string;
 
   @IsNotEmpty()
   @IsInt()
@@ -177,11 +177,11 @@ export class FindOneWeatherQuery {
   @IsNotEmpty()
   @MaxLength(10)
   @IsDateString()
-  date: string;
+  date!: string;
 
   @IsNotEmpty()
   @IsNumber()
-  locationId: number;
+  locationId!: number;
 }
 
 export type WeatherStatus = 'cloud' | 'rain' | 'snow' | 'sun';
@@ -201,7 +201,7 @@ export type WeatherResponse = {
 export class FindSuggestionQuery {
   @IsNotEmpty()
   @IsNumber()
-  temperature: number;
+  temperature!: number;
 }
 
 export type SuggestionOutfit = {
