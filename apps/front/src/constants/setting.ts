@@ -1,3 +1,3 @@
 export const setting = {
-  baseUrl: 'http://localhost:3333/',
+  baseUrl: 'https://cody.gamza.club/',
 };
