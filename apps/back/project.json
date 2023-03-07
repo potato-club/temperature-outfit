@@ -13,7 +13,15 @@
         "outputPath": "dist/apps/back",
         "main": "apps/back/src/main.ts",
         "tsConfig": "apps/back/tsconfig.app.json",
-        "assets": ["apps/back/src/assets"]
+        "assets": [
+          "apps/back/src/assets",
+          {
+            "glob": "schema.prisma",
+            "input": "apps/back/prisma",
+            "output": "prisma"
+          }
+        ],
+        "generatePackageJson": true
       },
       "configurations": {
         "production": {

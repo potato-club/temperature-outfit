@@ -26,7 +26,7 @@ export class AuthController {
   @Redirect()
   async callback(@Req() req: Request) {
     return {
-      url: `http://localhost:3000/?token=${
+      url: `${process.env.FRONT_URL}/?token=${
         (await this.authService.login(req.user)).access_token
       }`,
     };
