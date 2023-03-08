@@ -1,8 +1,10 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import { customColor } from 'constants/index';
-
-export const LayoutContainer: React.FC = ({ children }) => {
+type Props = {
+  children: React.ReactNode;
+}
+export const LayoutContainer = ({ children }: Props) => {
   return <Container>{children}</Container>;
 };
 
