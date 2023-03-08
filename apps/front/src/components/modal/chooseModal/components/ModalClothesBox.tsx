@@ -3,7 +3,7 @@ import { customColor } from 'constants/index';
 import React, { useState } from 'react';
 import { RecoilState, useSetRecoilState } from 'recoil';
 import { chooseModal } from 'recoil/atom';
-import useAddClothesEdit from 'hooks/useAddClothesEdit';
+import { useAddClothesEdit } from 'hooks/index';
 import { ClothesImg } from 'components/common/clothesBox/ClothesImg';
 import imageLayout from 'constants/imageLayout';
 import { TypoGraphy } from 'components/common';

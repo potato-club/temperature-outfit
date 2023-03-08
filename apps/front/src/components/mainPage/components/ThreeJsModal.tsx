@@ -8,7 +8,7 @@ import { Model } from './Model';
 import { WeatherStatus } from '@temperature-outfit/core';
 import { OrbitControls } from '@react-three/drei';
 import { TypoGraphy } from 'components/common';
-import { copyClipBoard } from 'utils/copyClipBoard';
+import { copyClipBoard } from 'utils';
 
 type Props = {
   isOpen: boolean;

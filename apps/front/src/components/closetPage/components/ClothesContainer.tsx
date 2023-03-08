@@ -1,8 +1,7 @@
 import styled from '@emotion/styled';
 import { productApi } from 'api';
 import { ClothesBox } from 'components/common';
-import useFilter from 'hooks/useFilter';
-import useGetItem from 'hooks/useGetItem';
+import { useFilter, useGetItem } from 'hooks';
 import { useMutation, useQueryClient } from 'react-query';
 import { confirmModal, errorModal, infoModal } from 'utils/interactionModal';
 

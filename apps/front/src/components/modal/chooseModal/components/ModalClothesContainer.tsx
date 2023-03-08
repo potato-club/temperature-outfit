@@ -1,11 +1,10 @@
 import styled from '@emotion/styled';
 import { categories } from 'constants/categories';
-import useFilter from 'hooks/useFilter';
+import { useFilter, useGetItem } from 'hooks';
 import { useRecoilValue } from 'recoil';
 import { categoryLabel } from 'recoil/atom/chooseModal';
 import { ModalClothesBox } from './ModalClothesBox';
 import { useMemo } from 'react';
-import useGetItem from 'hooks/useGetItem';
 
 export const ModalClothesContainer = () => {
   const category = useRecoilValue(categoryLabel);

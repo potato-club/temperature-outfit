@@ -6,7 +6,7 @@ import { useQuery } from 'react-query';
 import { errorModal } from 'utils/interactionModal';
 import { FindAllProductQuery, ProductOneResponse } from '@temperature-outfit/core';
 
-export default function useGetItem(filter: FindAllProductQuery) {
+export function useGetItem(filter: FindAllProductQuery) {
   const [filterItem, setFilterItem] = useState<Array<ProductOneResponse>>([]);
   const setLastPage = useSetRecoilState(lastPage);
 

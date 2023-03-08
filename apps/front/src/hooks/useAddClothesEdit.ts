@@ -4,7 +4,7 @@ import { errorModal, infoModal } from 'utils/interactionModal';
 import { useQuery } from 'react-query';
 import { ProductOneResponse } from '@temperature-outfit/core';
 
-export default function useAddClothesEdit(
+export function useAddClothesEdit(
   recoil: RecoilState<ProductOneResponse[]>,
   id: string,
 ) {
