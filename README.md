@@ -58,8 +58,8 @@
 |--|--|--|
 
 ### Deploy
-|AWS S3| CloudFront | Route53|
-|--|--|--|
+|AWS S3| CloudFront | Route53| Docker |
+|--|--|--|--|
 
 
 
