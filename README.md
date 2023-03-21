@@ -64,7 +64,7 @@
 
 
 ## 배포 주소
-https://
+https://cody-diary.site/
 
 ### [디자인 링크](https://www.figma.com/file/vHHDUX67632FUGP1KHXone/%EB%82%A0%EC%94%A8%EB%B3%84-%EC%98%B7%EC%B0%A8%EB%A6%BC?node-id=2:4&t=BQDGcnMIj2J0r7TV-1)
 
