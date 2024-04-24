@@ -47,7 +47,7 @@ export default function EditPage() {
         completeCheckModal(() => router.push('/calendar'));
       },
       onError: (err: unknown) => {
-        errorModal('알 수 없는 오류', '서버의 상태가 이상합니다.');
+        // errorModal('알 수 없는 오류', '서버의 상태가 이상합니다.');
       },
     },
   );
@@ -194,7 +194,7 @@ export default function EditPage() {
         setDay(new Date(date).toISOString().replace(/T.*$/, ''));
       },
       onError: (err: unknown) => {
-        errorModal('알 수 없는 오류', '서버의 상태가 이상합니다.');
+        // errorModal('알 수 없는 오류', '서버의 상태가 이상합니다.');
       },
     },
   );

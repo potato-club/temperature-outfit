@@ -36,7 +36,7 @@ export const LocationInfo = ({ temperature }: LocationInfoProps) => {
         </Span>
       </Location>
       <TypoGraphy type="h4" color={customColor.brandColor4} fontWeight="bold">
-        현재 <Bold>{temperature}°C</Bold>
+        현재 <Bold>1.5°C</Bold>
       </TypoGraphy>
     </Container>
   );

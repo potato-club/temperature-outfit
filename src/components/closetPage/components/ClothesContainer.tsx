@@ -17,7 +17,7 @@ export const ClothesContainer = () => {
       queryClient.invalidateQueries('getItem');
     },
     onError: (err: unknown) => {
-      errorModal('알 수 없는 오류', '서버의 상태가 이상합니다.');
+      // errorModal('알 수 없는 오류', '서버의 상태가 이상합니다.');
     },
   });
 

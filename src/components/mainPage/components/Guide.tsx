@@ -160,7 +160,7 @@ const TitleDeco = styled.div`
   height: 26px;
   top: -6px;
   left: 50%;
-  transform: skew(5deg) translate(-50%, 0);
+  transform: skew(0deg) translate(-50%, 0);
   box-shadow: 1px 1px 4px -1px ${customColor.grayLight};
   border-radius: 6px;
   background: ${customColor.white + '6'};

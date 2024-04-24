@@ -9,10 +9,11 @@ import { WeatherStatusType } from 'types/mainPage';
 import { useQueries } from 'react-query';
 import { Suggestions } from 'types/mainPage';
 import { errorModal } from 'utils/interactionModal';
+import { dummy } from './dummy';
 
 export function MainPage() {
   const { locationId } = useRecoilValue(userState);
-  const [weatherStatus, setWeatherStatus] = useState<WeatherStatusType>('sun');
+  const [weatherStatus, setWeatherStatus] = useState<WeatherStatusType>('rain');
   const [suggestions, setSuggestions] = useState<Suggestions[]>([]);
   const [temperature, setTemperature] = useState('');
 
@@ -25,7 +26,7 @@ export function MainPage() {
         setTemperature(temperature);
       },
       onError: (err: unknown) => {
-        errorModal('알 수 없는 오류', '서버의 상태가 이상합니다.');
+        // errorModal('알 수 없는 오류', '서버의 상태가 이상합니다.');
       },
     },
     {
@@ -35,7 +36,7 @@ export function MainPage() {
         setSuggestions(outfits);
       },
       onError: (err: unknown) => {
-        errorModal('알 수 없는 오류', '서버의 상태가 이상합니다.');
+        // errorModal('알 수 없는 오류', '서버의 상태가 이상합니다.');
       },
     },
   ]);
@@ -44,8 +45,8 @@ export function MainPage() {
     <Container>
       <TodayInfo weatherStatus={weatherStatus} temperature={temperature} />
 
-      {suggestions.length > 0 ? (
-        <Slide suggestions={suggestions} />
+      {true ? (
+        <Slide suggestions={dummy} />
       ) : (
         <Guide />
       )}
