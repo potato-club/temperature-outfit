@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import FullCalendar, {
   DateSelectArg,
   EventClickArg,
@@ -11,10 +11,11 @@ import { EventInput } from '@fullcalendar/react';
 import { todayCodyApi } from 'api';
 import { useRouter } from 'next/router';
 import { DateItem } from './DateItem';
-import { today } from 'constants/index';
+import { customColor, today } from 'constants/index';
 import { useQuery } from 'react-query';
+import { errorModal } from 'utils/interactionModal';
 
-export const Calendar = () => {
+const Calendar = () => {
   const [myOutfit, setMyOutfit] = useState<EventInput[]>([]);
   const [startDay, setStartDay] = useState('');
   const [endDay, setEndDay] = useState('');
@@ -37,8 +38,8 @@ export const Calendar = () => {
         );
         setMyOutfit(realData);
       },
-      onError: (error) => {
-        console.log(error);
+      onError: (err: unknown) => {
+        errorModal('알 수 없는 오류', '서버의 상태가 이상합니다.');
       },
     },
   );
@@ -56,6 +57,7 @@ export const Calendar = () => {
   const handleDateSelect = (selectInfo: DateSelectArg) => {
     const selectedItem = selectInfo.startStr;
     const selectDate = new Date(selectedItem);
+    selectDate.setHours(selectDate.getHours() - 9);
     if (myOutfit.map((item) => item.start).includes(selectedItem)) {
       return null;
     } else if (selectDate > today) {
@@ -104,7 +106,7 @@ export const Calendar = () => {
         dayMaxEvents={true}
         weekends={true}
         eventStartEditable={false}
-        contentHeight={800}
+        contentHeight={720}
         eventContent={renderEventContent}
       />
     </Wrapper>
@@ -114,8 +116,12 @@ export const Calendar = () => {
 const Wrapper = styled.section`
   width: 1178px;
   max-width: 1178px;
-  padding: 20px;
-  background-color: white;
+  padding: 24px;
+  background-color: ${customColor.white};
   margin-top: 58px;
   margin-bottom: 12px;
+  border-radius: 16px;
+  box-shadow: 2px 2px 5px -1px ${customColor.grayDark};
 `;
+
+export default Calendar;

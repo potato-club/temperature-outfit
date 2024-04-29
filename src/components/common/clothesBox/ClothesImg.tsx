@@ -1,18 +1,19 @@
+import imageLayout from 'constants/imageLayout';
 import Image from 'next/image';
 import React from 'react';
+
 type Props = {
   url: string;
-  type: 'edit' | 'closet';
 };
-const ClothesImg = ({ url, type }: Props) => {
+
+export const ClothesImg = ({ url }: Props) => {
   return (
     <Image
-      width={120}
-      height={type === 'edit' ? 80 : 120}
-      alt="clothes"
       src={url}
+      alt="clothes"
+      width={imageLayout.square}
+      height={imageLayout.square}
+      style={{ objectFit: 'cover', borderRadius: 'inherit' }}
     />
   );
 };
-
-export const MemoClothesImg = React.memo(ClothesImg);

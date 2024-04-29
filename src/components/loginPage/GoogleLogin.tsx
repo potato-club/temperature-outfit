@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import Image from 'next/image';
-import googleLogo from 'assets/img/googleNormal.png';
 import { signIn } from 'next-auth/react';
 import { useSession } from 'next-auth/react';
 import { userState, locations } from 'recoil/atom';
@@ -9,6 +8,7 @@ import { useSetRecoilState } from 'recoil';
 import { userApi } from 'api';
 import { useRouter } from 'next/router';
 import { useQuery } from 'react-query';
+import { errorModal } from 'utils/interactionModal';
 
 export const GoogleLogin: React.FC = () => {
   const router = useRouter();
@@ -17,8 +17,12 @@ export const GoogleLogin: React.FC = () => {
   const setAllLocations = useSetRecoilState(locations);
 
   useQuery('getAllLocations', userApi.getAllLocations, {
+    enabled: !!session,
     onSuccess: ({ data }) => {
       setAllLocations(data);
+    },
+    onError: (err: unknown) => {
+      errorModal('알 수 없는 오류', '서버의 상태가 이상합니다.');
     },
   });
 
@@ -31,24 +35,27 @@ export const GoogleLogin: React.FC = () => {
       });
       router.push('/main');
     },
+    onError: (err: unknown) => {
+      errorModal('알 수 없는 오류', '서버의 상태가 이상합니다.');
+    },
   });
 
   return (
-    <Button>
-      <Img onClick={() => signIn('google')}>
-        <Image src={googleLogo} alt="구글 로고" />
-      </Img>
+    <Button onClick={() => signIn('google')}>
+      <Image
+        src={'/googleNormal.png'}
+        width="228"
+        height="60"
+        alt="구글 로고"
+      />
     </Button>
   );
 };
-
-const Img = styled.section`
-  cursor: pointer;
-`;
 
 const Button = styled.button`
   cursor: pointer;
   border: none;
   outline: none;
   background-color: transparent;
+  width: 240px;
 `;

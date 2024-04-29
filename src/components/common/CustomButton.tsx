@@ -25,7 +25,7 @@ export const CustomButton: React.FC<ButtonProps> = ({
   onClick,
   sidePadding,
   height,
-  type
+  type,
 }) => {
   return (
     <Button
@@ -36,6 +36,7 @@ export const CustomButton: React.FC<ButtonProps> = ({
       height={height}>
       <TypoGraphy
         color={customType === 'white' ? customColor.black : customColor.white}
+        type={'body2'}
         fontWeight={'bold'}>
         {text}
       </TypoGraphy>
@@ -44,14 +45,17 @@ export const CustomButton: React.FC<ButtonProps> = ({
 };
 
 const Button = styled.button<ButtonStyledProps>`
-  padding: ${(props) => `0px ${props.sidePadding}px` || '0px 16px'};
-  height: ${(props) => props.height || '40'}px;
+  padding: ${(props) => `4px ${props.sidePadding}px 0px` || '4px 16px 0px'};
+  height: ${(props) => props.height || '36'}px;
+  min-width: 60px;
   background-color: ${(props) =>
     props.customType === 'white' ? customColor.white : customColor.brandColor3};
   cursor: pointer;
   border-radius: 100px;
   border: ${(props) =>
-    props.customType === 'white' ? `1px solid ${customColor.gray}` : 'none'};
+    props.customType === 'white'
+      ? `1px solid ${customColor.grayLight}`
+      : 'none'};
   display: flex;
   align-items: center;
   justify-content: center;
@@ -59,11 +63,8 @@ const Button = styled.button<ButtonStyledProps>`
   opacity: 0.9;
   white-space: nowrap;
 
-  &:hover {
-    opacity: 1;
-  }
-
   &:active {
-    opacity: 0.9;
+    opacity: 1;
+    box-shadow: 2px 3px 2px 0px #1118 inset;
   }
 `;

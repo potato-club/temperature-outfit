@@ -1,7 +1,10 @@
 export const today: Date = new Date();
-export const totalToday: string = today.toISOString().replace(/T.*$/, '');
 
-const offset = today.getTimezoneOffset() * 60000;
-export const koreaToday = new Date(today.getTime() - offset)
-  .toISOString()
-  .replace(/T.*$/, '');
+export const koreaToday: string = today
+  .toLocaleDateString('ko')
+  .split('. ')
+  .map((data) => {
+    return data.padStart(2, '0');
+  })
+  .join('-')
+  .slice(0, -1);

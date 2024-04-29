@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "next build && next export",
     "start": "next start",
     "lint": "next lint"
   },
@@ -39,8 +39,11 @@
     "react-query": "^3.39.2",
     "react-simple-star-rating": "^4.0.5",
     "recoil": "^0.7.4",
+    "recoil-persist": "^4.2.0",
     "swagger-ui-react": "^4.12.0",
-    "sweetalert2": "^11.4.26"
+    "sweetalert2": "^11.4.26",
+    "swiper": "^8.4.5",
+    "typeit-react": "^2.6.4"
   },
   "devDependencies": {
     "@react-three/drei": "^9.14.3",

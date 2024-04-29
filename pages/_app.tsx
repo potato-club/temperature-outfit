@@ -9,6 +9,7 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
   const queryClient = new QueryClient();
+  const AnyComponent = Component as any;
   return (
     <SessionProvider session={session}>
       <QueryClientProvider client={queryClient}>
@@ -21,7 +22,7 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
         <RecoilRoot>
           <LayoutContainer>
             <Header />
-            <Component {...pageProps} />
+            <AnyComponent {...pageProps} />
           </LayoutContainer>
         </RecoilRoot>
       </QueryClientProvider>

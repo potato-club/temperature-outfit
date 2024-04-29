@@ -2,7 +2,10 @@ import type { NextApiResponse } from 'next';
 import nextConnect from 'next-connect';
 import { prisma } from 'db';
 import { OutfitPutRequest, OutfitResponse } from '../../../src/types';
-import { authenticateHandler, NextApiRequestWithSession } from 'utilities/api/middlewares/auth';
+import {
+  authenticateHandler,
+  NextApiRequestWithSession,
+} from 'utilities/api/middlewares/auth';
 import { convertOutfitToResponse } from 'utilities/api/converter';
 import { filesParser } from 'utilities/api/middlewares/fileParser';
 
@@ -31,10 +34,14 @@ handler.get(async (req, res) => {
 
   const outfit = await prisma.outfit.findUnique({
     where: { id },
-    include: { products: true, weather: true },
+    include: {
+      products: true,
+      weather: true,
+      owner: { select: { email: true } },
+    },
   });
 
-  if (!outfit) {
+  if (!outfit || req.session?.user?.email !== outfit.owner.email) {
     return res.status(404).json({
       code: 404,
       message: '데이터 없음',

@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import styled from '@emotion/styled';
 import { useRouter } from 'next/router';
 import {
@@ -14,20 +14,28 @@ import { clothesSubCategory } from 'constants/index';
 import { FieldValues, useForm } from 'react-hook-form';
 import { codyThumbnail } from 'recoil/atom/editState';
 import { todayCodyApi, weatherApi } from 'api';
-import { MemoTitle } from './components/Title';
-import { MemoContents } from './components/Contents';
-import { infoModal } from 'utils/interactionModal';
-import Swal from 'sweetalert2';
+import { Title } from './components/Title';
+import {
+  completeCheckModal,
+  errorModal,
+  infoModal,
+} from 'utils/interactionModal';
 import useEditResetRecoil from 'hooks/useEditResetRecoil';
-import { useMutation } from 'react-query';
+import { useMutation, useQuery } from 'react-query';
 import { mutateParamType } from 'types/editPage/mutateParam.type';
+import { debounceFunction } from 'utils/debounceFunction';
+import { Contents } from './components/Contents';
 
 export default function EditPage() {
   const router = useRouter();
+  const [submitTimer, setSubmitTimer] = useState<NodeJS.Timer>();
+  const [day, setDay] = useState('');
 
-  const dayQuery = useMemo(() => {
-    return router.query.day as string;
-  }, [router.query.day]);
+  useEffect(() => {
+    if(router.isReady) {
+      setDay(router.query.day as string);
+    }
+  }, [router])
 
   const { mutate } = useMutation(
     ({ frm, outfitId }: mutateParamType) =>
@@ -35,41 +43,42 @@ export default function EditPage() {
         ? todayCodyApi.putOutfit(outfitId, frm)
         : todayCodyApi.addProduct(frm),
     {
-      onSuccess: (data) => {
-        console.log(data);
-        Swal.fire({ title: '완료 되었습니다.', icon: 'success' }).then(() =>
-          window.location.assign('/calendar'),
-        );
+      onSuccess: () => {
+        completeCheckModal(() => router.push('/calendar'));
       },
-      onError: (error) => {
-        console.log(error);
+      onError: (err: unknown) => {
+        errorModal('알 수 없는 오류', '서버의 상태가 이상합니다.');
       },
     },
   );
 
   const submit = async (data: FieldValues) => {
-    const productsId = getAllEditProductsId();
-    // 등록된옷이 하나도 없을때
-    if (!productsId) {
-      infoModal('확인 해주세요!', 'error', '옷을 하나 이상 등록 해주세요!');
-      return;
-    }
-    const frm = formDataAppend(data, productsId);
-    // 수정일때
-    if (router.query.outfitId as string) {
-      const outfitId = router.query.outfitId as string;
-      mutate({ frm, outfitId });
-      // 등록일때
-    } else {
-      await getWeather();
-      frm.append('locationId', user.locationId.toString());
-      mutate({ frm });
-    }
-  };
+    debounceFunction({
+      timer: submitTimer,
+      setTimer: setSubmitTimer,
+      fn: async () => {
+        const productsId = getAllEditProductsId();
+        // 등록된옷이 하나도 없을때
+        if (!productsId) {
+          infoModal('옷을 하나 이상 등록 해주세요', 'error');
+          // errorModal('확인해주세요!', '옷을 하나 이상 등록 해주세요!')
+          return;
+        }
+        const frm = formDataAppend(data, productsId);
+        // 수정일때
+        if (router.query.outfitId as string) {
+          const outfitId = router.query.outfitId as string;
+          mutate({ frm, outfitId });
+          // 등록일때
+        } else {
+          await getWeather();
+          frm.append('locationId', user.locationId.toString());
 
-  const day = dayQuery
-    ? new Date(dayQuery).toISOString().replace(/T.*$/, '')
-    : '';
+          mutate({ frm });
+        }
+      },
+    });
+  };
 
   const [topImages, setTopImages] = useRecoilState(topState);
   const [outerImages, setOuterImages] = useRecoilState(outerState);
@@ -77,9 +86,7 @@ export default function EditPage() {
   const [shoesImages, setShoesImages] = useRecoilState(shoesState);
   const [etcImages, setEtcImages] = useRecoilState(etcState);
   const { resetRecoilState } = useEditResetRecoil();
-
   const setCodyThumbnail = useSetRecoilState(codyThumbnail);
-
   const user = useRecoilValue(userState);
 
   const getWeather = useCallback(async () => {
@@ -92,14 +99,14 @@ export default function EditPage() {
   }, [day, user.locationId]);
 
   const getAllEditProductsId = useCallback(() => {
-    let productsIdString = '';
-    topImages.forEach((data) => (productsIdString += data.id + ','));
-    outerImages.forEach((data) => (productsIdString += data.id + ','));
-    bottomImages.forEach((data) => (productsIdString += data.id + ','));
-    shoesImages.forEach((data) => (productsIdString += data.id + ','));
-    etcImages.forEach((data) => (productsIdString += data.id + ','));
-    productsIdString = productsIdString.slice(0, -1); // 반점 제거
-    return productsIdString;
+    return [
+      ...topImages,
+      ...outerImages,
+      ...bottomImages,
+      ...shoesImages,
+      ...etcImages,
+    ].map(({ id }) => id)
+      .join();
   }, [topImages, outerImages, bottomImages, shoesImages, etcImages]);
 
   const filterProduct = useCallback(
@@ -165,36 +172,45 @@ export default function EditPage() {
     handleSubmit,
     setValue,
     control,
+    watch,
     formState: { errors },
   } = useForm();
 
-  useEffect(() => {
-    router.query.outfitData &&
-      (() => {
-        const { imageUrl, rating, products, comment } = JSON.parse(
-          router.query.outfitData as string,
-        );
+  useQuery(
+    'getOutfit',
+    () => todayCodyApi.getOutfit(router.query.outfitId as string),
+    {
+      enabled: !!router.query.outfitId,
+      onSuccess: ({ data }) => {
+        const { date, imageUrl, rating, products, comment } = data;
+
         setCodyThumbnail(imageUrl);
         setValue('rating', rating);
         setValue('comment', comment);
-
         products.forEach((product: any) => {
           filterProduct(product);
         });
-      })();
-  }, [filterProduct, router.query.outfitData, setCodyThumbnail, setValue]);
+
+        setDay(new Date(date).toISOString().replace(/T.*$/, ''));
+      },
+      onError: (err: unknown) => {
+        errorModal('알 수 없는 오류', '서버의 상태가 이상합니다.');
+      },
+    },
+  );
 
   return (
     <>
       {router.isReady && (
         <Container>
-          <MemoTitle day={day} />
+          <Title day={day} />
           <form style={{ width: '100%' }} onSubmit={handleSubmit(submit)}>
-            <MemoContents
+            <Contents
               register={register}
               errors={errors}
               setValue={setValue}
               control={control}
+              watch={watch}
             />
           </form>
         </Container>
@@ -210,4 +226,5 @@ const Container = styled.section`
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  padding: 12px;
 `;

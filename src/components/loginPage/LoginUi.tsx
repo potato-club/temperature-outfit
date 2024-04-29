@@ -1,78 +1,106 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import { GoogleLogin } from './GoogleLogin';
+import { GoogleLogin } from './index';
 import Image from 'next/image';
-import fountainPen from 'assets/img/fountainPen.png';
+import { SpinIMG, TypoGraphy } from 'components/common';
+import TypeIt from 'typeit-react';
+import { customColor } from 'constants/index';
 
 export const LoginUi: React.FC = () => {
+  const loginComment: string = '날씨에 따라 당신의 코디를 기록하세요';
   return (
     <Wrap>
+      <SpinIMG />
       <OutWrap>
         <InWrap>
-          <Title>
-            &quot;Would you like to join us?&quot;
-            <MainIcon>
-              <Image src={fountainPen} alt="Google Logo" />
-            </MainIcon>
-          </Title>
-          <SubTitle>날씨에 따라 당신의 코디를 기록하세요</SubTitle>
-          <GoogleLogin />
-          <Footer>From.ChocoStick</Footer>
+          <Deco>
+            <Image
+              src={'/decoration/stamp.png'}
+              width={500}
+              height={500}
+              alt={'lace'}
+            />
+          </Deco>
+
+          <Title>&quot;Would you like to join us?&quot;</Title>
+
+          <SubTitle>
+            <TypoGraphy type="h4" fontWeight="bold" color={customColor.login}>
+              <TypeIt
+                options={{
+                  strings: [loginComment],
+                  speed: 120,
+                  waitUntilVisible: true,
+                  loop: true,
+                  loopDelay: 5000,
+                }}
+              />
+            </TypoGraphy>
+          </SubTitle>
         </InWrap>
+        <GoogleLogin />
       </OutWrap>
+      <Footer>From. ChocoStick</Footer>
     </Wrap>
   );
 };
 const Wrap = styled.section`
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 100%;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  height: 100%;
 `;
 
-const OutWrap = styled.section`
-  border: 4px solid black;
-  width: 1892px;
-  height: 1052px;
-  padding: 28px;
-  margin: 20px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-
-const InWrap = styled.section`
-  width: 1836px;
-  height: 996px;
-  border: 2px solid;
+const OutWrap = styled.div`
+  height: 30vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   position: relative;
+  gap: 200px 0;
 `;
 
-const Title = styled.section`
-  font-size: 64px;
-  font-family: serif;
+const InWrap = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
 `;
 
-const MainIcon = styled.section`
-  width: 224px;
+const Title = styled.div`
+  display: flex;
+  z-index: 5;
+  text-align: center;
+  font-size: 28px;
+  font-style: italic;
+  font-weight: 500;
+  color: black;
+  align-items: flex-end;
+  letter-spacing: -1.5px;
+  font-family: sans-serif;
 `;
 
-const SubTitle = styled.section`
-  font-size: 40px;
-  color: gray;
-  margin: 72px;
+const SubTitle = styled.div`
+  margin-top: 20px;
+  z-index: 5;
 `;
 
-const Footer = styled.section`
-  font-size: 20px;
-  font-family: serif;
-  align-self: flex-end;
+const Footer = styled.footer`
+  display: flex;
   position: absolute;
-  bottom: 28px;
-  right: 28px;
+  font-size: 17px;
+  font-weight: 500;
+  color: gray;
+  bottom: 24px;
+`;
+const Deco = styled.div`
+  display: flex;
+  position: absolute;
+  align-items: center;
+  justify-content: center;
+  width: 500px;
+  height: 500px;
 `;

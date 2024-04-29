@@ -8,6 +8,10 @@
   "host": "localhost:3000",
   "tags": [
     {
+      "name": "auth",
+      "description": "계정"
+    },
+    {
       "name": "location",
       "description": "지역"
     },
@@ -33,6 +37,21 @@
     }
   ],
   "paths": {
+    "/api/auth/delete": {
+      "delete": {
+        "tags": ["auth"],
+        "produces": ["application/json"],
+        "description": "계정 삭제",
+        "responses": {
+          "200": {
+            "description": "삭제 성공"
+          },
+          "404": {
+            "description": "계정 없음"
+          }
+        }
+      }
+    },
     "/api/location": {
       "get": {
         "tags": ["location"],

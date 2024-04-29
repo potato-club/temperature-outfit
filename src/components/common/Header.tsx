@@ -4,9 +4,10 @@ import { customColor } from 'constants/index';
 import { TypoGraphy } from './index';
 import { FaRegCalendarAlt } from 'react-icons/fa';
 import { IoFileTrayStackedSharp } from 'react-icons/io5';
-import { CgProfile } from 'react-icons/cg';
+import { IoPersonCircleOutline, IoPersonCircle } from 'react-icons/io5';
 import Link from 'next/link';
 import { MyPage } from 'components/mypage/MyPage';
+import { useRouter } from 'next/router';
 
 export const Header: React.FC = () => {
   const [myPageToggle, setMyPageToggle] = useState(false);
@@ -14,33 +15,44 @@ export const Header: React.FC = () => {
   const onClick = () => {
     setMyPageToggle((current) => !current);
   };
+
+  const router = useRouter();
+
   return (
     <Wrapper>
-      <Div>
-        <Link href="/" passHref>
-          <Logo>
-            <TypoGraphy color={customColor.white}>
-              Write down today&apos;s outfit.
-            </TypoGraphy>
-          </Logo>
-        </Link>
-        <ButtonBox>
-          <Link href="/calendar" passHref>
+      {router.pathname !== '/' && (
+        <Div>
+          <Link href="/main" passHref>
             <Logo>
-              <FaRegCalendarAlt size="20px" />
+              <TypoGraphy color={customColor.brandColor3} fontWeight={'bold'}>
+                Write down today&apos;s outfit.
+              </TypoGraphy>
             </Logo>
           </Link>
-          <Link href="/closet" passHref>
-            <Logo>
-              <IoFileTrayStackedSharp size="20px" />
+          <ButtonBox>
+            <Link href="/calendar" passHref>
+              <Logo>
+                <FaRegCalendarAlt size="20px" />
+              </Logo>
+            </Link>
+            <Link href="/closet" passHref>
+              <Logo>
+                <IoFileTrayStackedSharp size="20px" />
+              </Logo>
+            </Link>
+            <Logo className="benchMark">
+              {myPageToggle ? (
+                <IoPersonCircle size="24px" onClick={onClick} />
+              ) : (
+                <IoPersonCircleOutline size="24px" onClick={onClick} />
+              )}
             </Logo>
-          </Link>
-          <Logo className="benchMark">
-            <CgProfile size="20px" onClick={onClick} />
-          </Logo>
-          <MyPageDiv> {myPageToggle ? <MyPage /> : null}</MyPageDiv>
-        </ButtonBox>
-      </Div>
+            <MyPageDiv>
+              {myPageToggle ? <MyPage myPageToggle={myPageToggle} /> : null}
+            </MyPageDiv>
+          </ButtonBox>
+        </Div>
+      )}
     </Wrapper>
   );
 };
@@ -49,11 +61,13 @@ export default Header;
 
 const Wrapper = styled.nav`
   width: 100%;
-  background-color: ${customColor.brandColor5};
+  background-color: ${customColor.white};
   display: flex;
   justify-content: center;
-  position: absolute;
+  position: fixed;
   top: 0;
+  box-shadow: 0px 1px 10px -4px #bbb;
+  z-index: 10;
 `;
 
 const Div = styled.article`
@@ -62,21 +76,27 @@ const Div = styled.article`
   flex-direction: row;
   align-items: center;
   width: 1178px;
-  height: 46px;
+  height: 44px;
+  align-items: center;
+  padding: 4px 12px 0;
 `;
 
 const ButtonBox = styled.section`
   display: flex;
-  gap: 16px;
+  gap: 24px;
   position: relative;
+  align-items: center;
 `;
-const Logo = styled.section`
+const Logo = styled.button`
   cursor: pointer;
-  color: ${customColor.white};
+  color: ${customColor.brandColor3};
+  border: none;
+  background-color: transparent;
 `;
 
 const MyPageDiv = styled.section`
   position: absolute;
-  left: 75%;
+  right: 0%;
   top: 34px;
+  transform: translate(0, 0);
 `;
